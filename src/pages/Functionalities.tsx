@@ -1,112 +1,143 @@
 import { motion } from "framer-motion";
-import { Cpu, Database, Shield, Zap, Cloud, Smartphone } from "lucide-react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { SchematicCanvas } from "@/components/SchematicCanvas";
+import { FunctionalitiesNav } from "@/components/FunctionalitiesNav";
+import { HubSpotBlogTeaser } from "@/components/HubSpotBlogTeaser";
 
-const features = [
-  {
-    icon: Cpu,
-    title: "AI-Powered Analytics",
-    description: "Advanced machine learning algorithms that provide deep insights into your business data and predict future trends with unprecedented accuracy."
-  },
-  {
-    icon: Database,
-    title: "Real-time Processing",
-    description: "Lightning-fast data processing capabilities that handle millions of transactions per second with zero latency."
-  },
-  {
-    icon: Shield,
-    title: "Enterprise Security",
-    description: "Military-grade encryption and security protocols that protect your sensitive data with multi-layered defense systems."
-  },
-  {
-    icon: Zap,
-    title: "Instant Deployment",
-    description: "One-click deployment system that gets your applications live in seconds, not hours or days."
-  },
-  {
-    icon: Cloud,
-    title: "Cloud-Native Architecture",
-    description: "Built from the ground up for cloud environments with automatic scaling and global distribution capabilities."
-  },
-  {
-    icon: Smartphone,
-    title: "Mobile-First Design",
-    description: "Responsive interfaces that work flawlessly across all devices, ensuring optimal user experience everywhere."
-  }
-];
+const Functionalities = () => {
+  const capabilities = [
+    {
+      id: "data-collection",
+      title: "Data Collection",
+      description: "Intelligent data gathering from multiple sources with automated processing and real-time synchronization. Our advanced algorithms ensure comprehensive coverage while maintaining data integrity and compliance standards.",
+      schematicTitle: "Data Flow Architecture",
+      schematicDesc: "Multi-source data ingestion pipeline"
+    },
+    {
+      id: "ai-processing",
+      title: "AI Processing",
+      description: "State-of-the-art machine learning models that analyze, classify, and extract insights from your data. Our AI engine continuously learns and adapts to provide increasingly accurate and relevant results.",
+      schematicTitle: "Neural Network Pipeline",
+      schematicDesc: "Advanced ML processing workflow"
+    },
+    {
+      id: "analytics-insights",
+      title: "Analytics & Insights",
+      description: "Transform raw data into actionable insights with our comprehensive analytics suite. Generate detailed reports, identify trends, and make data-driven decisions with confidence.",
+      schematicTitle: "Analytics Dashboard",
+      schematicDesc: "Real-time insights visualization"
+    },
+    {
+      id: "automation",
+      title: "Automation",
+      description: "Streamline your workflows with intelligent automation that reduces manual effort and eliminates repetitive tasks. Set up custom triggers and actions to optimize your business processes.",
+      schematicTitle: "Workflow Engine",
+      schematicDesc: "Automated process orchestration"
+    },
+    {
+      id: "integration",
+      title: "Integration",
+      description: "Seamlessly connect with your existing tools and systems through our robust API and pre-built integrations. Ensure smooth data flow across your entire technology stack.",
+      schematicTitle: "Integration Hub",
+      schematicDesc: "System connectivity matrix"
+    },
+    {
+      id: "security",
+      title: "Security",
+      description: "Enterprise-grade security features protect your data at every level. With end-to-end encryption, access controls, and compliance certifications, your information stays secure.",
+      schematicTitle: "Security Framework",
+      schematicDesc: "Multi-layer protection system"
+    }
+  ];
 
-export default function Functionalities() {
   return (
-    <div className="py-20">
-      <div className="container mx-auto px-4 lg:px-8">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <h1 className="text-5xl font-bold mb-6">
-            Powerful{" "}
-            <span className="bg-gradient-primary bg-clip-text text-transparent">
-              Functionalities
-            </span>
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Discover the cutting-edge features that make our platform the most advanced solution in the market. 
-            Built for the future, available today.
-          </p>
-        </motion.div>
-
-        {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
-            <motion.div
-              key={feature.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1, duration: 0.6 }}
-            >
-              <Card className="h-full bg-card/50 border-border/40 hover:border-primary/30 transition-all hover:shadow-card group">
-                <CardHeader>
-                  <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-4 group-hover:glow-primary transition-all">
-                    <feature.icon className="w-6 h-6 text-white" />
-                  </div>
-                  <CardTitle className="text-xl">{feature.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-muted-foreground leading-relaxed">
-                    {feature.description}
-                  </CardDescription>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* CTA Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 0.8 }}
-          className="text-center mt-20"
-        >
-          <div className="bg-gradient-dark p-12 rounded-2xl border border-primary/20">
-            <h2 className="text-3xl font-bold mb-4">Ready to Experience the Future?</h2>
-            <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Join thousands of forward-thinking companies that have already transformed their operations with our technology.
+    <div className="min-h-screen bg-background">
+      {/* Hero Section */}
+      <section className="relative py-20 lg:py-24">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-16"
+          >
+            <h1 className="text-4xl lg:text-6xl font-bold mb-6 text-foreground">
+              Product <span className="text-noreja-main">Functionalities</span>
+            </h1>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Discover the comprehensive capabilities that power your data-driven success. 
+              From intelligent collection to actionable insights, explore how our platform transforms your workflow.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="px-8 py-4 bg-gradient-primary rounded-lg font-semibold glow-primary hover:scale-105 transition-transform">
-                Start Free Trial
-              </button>
-              <button className="px-8 py-4 border border-primary/30 rounded-lg font-semibold hover:bg-primary/10 transition-colors">
-                Schedule Demo
-              </button>
-            </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Main Content with Navigation */}
+      <div className="relative w-full max-w-7xl mx-auto px-4 lg:px-8 pb-20">
+        <div className="flex gap-8">
+          {/* Navigation Sidebar */}
+          <aside className="hidden lg:block w-64 flex-shrink-0">
+            <FunctionalitiesNav />
+          </aside>
+
+          {/* Main Content */}
+          <main className="flex-1 space-y-20">
+            {capabilities.map((capability, index) => (
+              <motion.section
+                key={capability.id}
+                id={capability.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="scroll-mt-24"
+              >
+                <div className="grid lg:grid-cols-2 gap-12 items-center">
+                  <div className={index % 2 === 0 ? "lg:order-1" : "lg:order-2"}>
+                    <h2 className="text-3xl lg:text-4xl font-bold mb-6 text-foreground">
+                      {capability.title}
+                    </h2>
+                    <p className="text-lg text-muted-foreground leading-relaxed">
+                      {capability.description}
+                    </p>
+                  </div>
+                  
+                  <div className={index % 2 === 0 ? "lg:order-2" : "lg:order-1"}>
+                    <SchematicCanvas 
+                      title={capability.schematicTitle}
+                      description={capability.schematicDesc}
+                      className="w-full"
+                    />
+                  </div>
+                </div>
+              </motion.section>
+            ))}
+          </main>
+        </div>
       </div>
+
+      {/* Blog Teasers Section */}
+      <section className="py-20 bg-muted/30">
+        <div className="w-full max-w-7xl mx-auto px-4 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl lg:text-4xl font-bold mb-4 text-foreground">
+              Learn More
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Discover insights and best practices from our experts
+            </p>
+          </motion.div>
+          
+          <HubSpotBlogTeaser />
+        </div>
+      </section>
     </div>
   );
-}
+};
+
+export default Functionalities;
