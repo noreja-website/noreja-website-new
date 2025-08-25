@@ -1,242 +1,204 @@
 import { motion } from "framer-motion";
-import { Building, Mail, Phone, MapPin } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ScrollText, Shield } from "lucide-react";
+import { MarkdownBlock } from "@/components/MarkdownBlock";
+
+const impressumContent = `# Impressum
+
+**Noreja Technologies GmbH**
+
+Angaben gemäß § 5 TMG
+
+## Anschrift
+Europaplatz 1
+10557 Berlin
+Deutschland
+
+## Kontakt
+**Telefon:** +49 (0) 30 12345678
+**E-Mail:** info@noreja.com
+**Website:** www.noreja.com
+
+## Geschäftsführung
+Dr. Alex Chen (CEO)
+Sarah Rodriguez (CTO)
+
+## Registereintrag
+**Eintragung im Handelsregister:** Amtsgericht Berlin
+**Registernummer:** HRB 123456 B
+
+## Umsatzsteuer-Identifikationsnummer
+Gemäß §27 a Umsatzsteuergesetz:
+**USt-IdNr.:** DE123456789
+
+## Berufsaufsichtsbehörde
+Zuständige Aufsichtsbehörde:
+Senatsverwaltung für Wirtschaft, Energie und Betriebe Berlin
+Martin-Luther-Straße 105
+10825 Berlin
+
+## Haftungsausschluss
+
+### Haftung für Inhalte
+Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht unter der Verpflichtung, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.
+
+### Haftung für Links
+Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.
+
+### Urheberrecht
+Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.`;
+
+const datenschutzContent = `# Datenschutzerklärung
+
+**Stand:** 15. Januar 2024
+
+## 1. Datenschutz auf einen Blick
+
+### Allgemeine Hinweise
+Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können.
+
+### Datenerfassung auf dieser Website
+**Wer ist verantwortlich für die Datenerfassung auf dieser Website?**
+
+Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber. Dessen Kontaktdaten können Sie dem Abschnitt „Hinweis zur Verantwortlichen Stelle" in dieser Datenschutzerklärung entnehmen.
+
+**Wie erfassen wir Ihre Daten?**
+
+Ihre Daten werden zum einen dadurch erhoben, dass Sie uns diese mitteilen. Hierbei kann es sich z. B. um Daten handeln, die Sie in ein Kontaktformular eingeben.
+
+## 2. Hosting
+
+Wir hosten die Inhalte unserer Website bei folgendem Anbieter:
+
+### Externe Hosting
+Diese Website wird extern gehostet. Die personenbezogenen Daten, die auf dieser Website erfasst werden, werden auf den Servern des Hosters / der Hoster gespeichert.
+
+## 3. Allgemeine Hinweise und Pflichtinformationen
+
+### Datenschutz
+Die Betreiber dieser Seiten nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend den gesetzlichen Datenschutzvorschriften sowie dieser Datenschutzerklärung.
+
+### Hinweis zur verantwortlichen Stelle
+Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:
+
+**Noreja Technologies GmbH**
+Europaplatz 1
+10557 Berlin
+Deutschland
+
+**Telefon:** +49 (0) 30 12345678
+**E-Mail:** info@noreja.com
+
+## 4. Datenerfassung auf dieser Website
+
+### Server-Log-Dateien
+Der Provider der Seiten erhebt und speichert automatisch Informationen in so genannten Server-Log-Dateien, die Ihr Browser automatisch an uns übermittelt.
+
+### Kontaktformular
+Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert.
+
+## 5. Newsletter
+
+### Newsletter­daten
+Wenn Sie den auf der Website angebotenen Newsletter beziehen möchten, benötigen wir von Ihnen eine E-Mail-Adresse sowie Informationen, welche uns die Überprüfung gestatten, dass Sie der Inhaber der angegebenen E-Mail-Adresse sind.
+
+## 6. Cookies
+
+### Cookies
+Unsere Internetseiten verwenden teilweise so genannte Cookies. Cookies richten auf Ihrem Rechner keinen Schaden an und enthalten keine Viren. Cookies dienen dazu, unser Angebot nutzerfreundlicher, effektiver und sicherer zu machen.
+
+## 7. Kontakt
+
+Bei Fragen zum Datenschutz wenden Sie sich bitte an:
+
+**Datenschutzbeauftragter:**
+Dr. Emily Foster
+**E-Mail:** datenschutz@noreja.com
+**Telefon:** +49 (0) 30 12345678`;
 
 export default function Imprint() {
   return (
-    <div className="py-20">
-      <div className="container mx-auto px-4 lg:px-8 max-w-4xl">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <h1 className="text-5xl font-bold mb-6">
-            Legal{" "}
-            <span className="bg-gradient-primary bg-clip-text text-transparent">
-              Information
-            </span>
-          </h1>
-          <p className="text-xl text-muted-foreground">
-            Official company information and legal disclosures as required by law.
-          </p>
-        </motion.div>
+    <div className="min-h-screen bg-background">
+      {/* Hero Section */}
+      <section className="relative py-20 lg:py-24">
+        <div className="relative z-10 w-full max-w-4xl mx-auto px-4 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-16"
+          >
+            <h1 className="text-4xl lg:text-6xl font-bold mb-6 text-foreground">
+              Legal <span className="text-noreja-main">Information</span>
+            </h1>
+            <p className="text-xl text-muted-foreground">
+              Impressum und Datenschutzerklärung gemäß deutschem Recht
+            </p>
+          </motion.div>
+        </div>
+      </section>
 
-        {/* Company Information */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.8 }}
-          className="mb-12"
-        >
-          <Card className="bg-card/50 border-border/40">
-            <CardHeader>
-              <CardTitle className="flex items-center">
-                <Building className="w-6 h-6 mr-3 text-noreja-tertiary" />
-                Company Information
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div>
-                <h3 className="font-semibold mb-2">Legal Entity</h3>
-                <p className="text-muted-foreground">
-                  Noreja Technologies Inc.<br />
-                  Delaware Corporation<br />
-                  Registration Number: DE-123456789
-                </p>
-              </div>
+      {/* Navigation */}
+      <section className="pb-8">
+        <div className="w-full max-w-4xl mx-auto px-4 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center"
+          >
+            <a
+              href="#impressum"
+              className="inline-flex items-center px-6 py-3 bg-noreja-main/10 border border-noreja-main/30 rounded-lg font-semibold text-noreja-main hover:bg-noreja-main/20 transition-all"
+            >
+              <ScrollText className="w-5 h-5 mr-2" />
+              Impressum
+            </a>
+            <a
+              href="#datenschutz"
+              className="inline-flex items-center px-6 py-3 bg-noreja-main/10 border border-noreja-main/30 rounded-lg font-semibold text-noreja-main hover:bg-noreja-main/20 transition-all"
+            >
+              <Shield className="w-5 h-5 mr-2" />
+              Datenschutz
+            </a>
+          </motion.div>
+        </div>
+      </section>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <h3 className="font-semibold mb-2 flex items-center">
-                    <MapPin className="w-4 h-4 mr-2 text-noreja-tertiary" />
-                    Headquarters
-                  </h3>
-                  <p className="text-muted-foreground">
-                    123 Innovation Drive<br />
-                    San Francisco, CA 94105<br />
-                    United States
-                  </p>
-                </div>
+      {/* Impressum Section */}
+      <section id="impressum" className="pb-20">
+        <div className="w-full max-w-4xl mx-auto px-4 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="bg-card/50 border border-border/40 rounded-lg p-8"
+          >
+            <MarkdownBlock 
+              content={impressumContent}
+              className="text-foreground"
+            />
+          </motion.div>
+        </div>
+      </section>
 
-                <div>
-                  <h3 className="font-semibold mb-2 flex items-center">
-                    <Building className="w-4 h-4 mr-2 text-noreja-tertiary" />
-                    European Office
-                  </h3>
-                  <p className="text-muted-foreground">
-                    Europaplatz 1<br />
-                    10557 Berlin<br />
-                    Germany
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        {/* Contact Information */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.8 }}
-          className="mb-12"
-        >
-          <Card className="bg-card/50 border-border/40">
-            <CardHeader>
-              <CardTitle className="flex items-center">
-                <Mail className="w-6 h-6 mr-3 text-noreja-tertiary" />
-                Contact Information
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <h3 className="font-semibold mb-2 flex items-center">
-                    <Mail className="w-4 h-4 mr-2 text-noreja-tertiary" />
-                    Email Addresses
-                  </h3>
-                  <div className="space-y-1 text-muted-foreground">
-                    <p>General Inquiries: info@noreja.com</p>
-                    <p>Support: support@noreja.com</p>
-                    <p>Legal: legal@noreja.com</p>
-                    <p>Press: press@noreja.com</p>
-                  </div>
-                </div>
-
-                <div>
-                  <h3 className="font-semibold mb-2 flex items-center">
-                    <Phone className="w-4 h-4 mr-2 text-noreja-tertiary" />
-                    Phone Numbers
-                  </h3>
-                  <div className="space-y-1 text-muted-foreground">
-                    <p>US: +1 (555) 123-4567</p>
-                    <p>EU: +49 30 12345678</p>
-                    <p>Support: +1 (555) 987-6543</p>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        {/* Legal Representatives */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.8 }}
-          className="mb-12"
-        >
-          <Card className="bg-card/50 border-border/40">
-            <CardHeader>
-              <CardTitle>Legal Representatives</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <h3 className="font-semibold mb-2">Chief Executive Officer</h3>
-                <p className="text-muted-foreground">Dr. Alex Chen</p>
-              </div>
-              
-              <div>
-                <h3 className="font-semibold mb-2">Chief Technology Officer</h3>
-                <p className="text-muted-foreground">Sarah Rodriguez</p>
-              </div>
-
-              <div>
-                <h3 className="font-semibold mb-2">Data Protection Officer</h3>
-                <p className="text-muted-foreground">
-                  Dr. Emily Foster<br />
-                  Email: dpo@noreja.com
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        {/* Regulatory Information */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 0.8 }}
-          className="mb-12"
-        >
-          <Card className="bg-card/50 border-border/40">
-            <CardHeader>
-              <CardTitle>Regulatory & Tax Information</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <h3 className="font-semibold mb-2">Tax Identification</h3>
-                <p className="text-muted-foreground">
-                  US Federal Tax ID: 12-3456789<br />
-                  EU VAT Number: DE123456789<br />
-                  Sales Tax Permit: CA-ST-123456
-                </p>
-              </div>
-
-              <div>
-                <h3 className="font-semibold mb-2">Professional Liability Insurance</h3>
-                <p className="text-muted-foreground">
-                  Provider: TechInsure Professional<br />
-                  Policy Number: TI-2024-789456<br />
-                  Coverage: $10,000,000 USD
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        {/* Disclaimers */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1, duration: 0.8 }}
-        >
-          <Card className="bg-card/50 border-border/40">
-            <CardHeader>
-              <CardTitle>Legal Disclaimers</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4 text-sm text-muted-foreground">
-              <div>
-                <h3 className="font-semibold mb-2 text-foreground">Website Content</h3>
-                <p>
-                  The information provided on this website is for general informational purposes only. 
-                  While we strive to keep the information up-to-date and accurate, we make no representations 
-                  or warranties of any kind about the completeness, accuracy, reliability, or availability 
-                  of the website or its content.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="font-semibold mb-2 text-foreground">External Links</h3>
-                <p>
-                  Our website may contain links to external websites that are not provided or maintained 
-                  by Noreja Technologies Inc. We do not guarantee the accuracy, relevance, timeliness, 
-                  or completeness of any information on these external websites.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="font-semibold mb-2 text-foreground">Intellectual Property</h3>
-                <p>
-                  All content on this website, including text, graphics, logos, images, and software, 
-                  is the property of Noreja Technologies Inc. or its content suppliers and is protected 
-                  by international copyright laws.
-                </p>
-              </div>
-
-              <div className="pt-4 border-t border-border/40">
-                <p className="text-xs">
-                  Last updated: January 15, 2024<br />
-                  For questions regarding this imprint, please contact: legal@noreja.com
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-      </div>
+      {/* Datenschutz Section */}
+      <section id="datenschutz" className="pb-20">
+        <div className="w-full max-w-4xl mx-auto px-4 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="bg-card/50 border border-border/40 rounded-lg p-8"
+          >
+            <MarkdownBlock 
+              content={datenschutzContent}
+              className="text-foreground"
+            />
+          </motion.div>
+        </div>
+      </section>
     </div>
   );
 }
