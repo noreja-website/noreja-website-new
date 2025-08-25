@@ -38,6 +38,13 @@ const SuccessStories = () => {
   const handleMouseEnter = () => setIsAutoPlaying(false);
   const handleMouseLeave = () => setIsAutoPlaying(true);
 
+  const handleDotClick = (index: number) => {
+    api?.scrollTo(index);
+    setIsAutoPlaying(false);
+    // Resume autoplay after 5 seconds
+    setTimeout(() => setIsAutoPlaying(true), 5000);
+  };
+
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
@@ -71,63 +78,63 @@ const SuccessStories = () => {
             <Carousel
               setApi={setApi}
               opts={{
-                align: "start",
+                align: "center",
                 loop: true,
               }}
-              className="w-full"
+              className="w-full max-w-4xl mx-auto"
             >
-              <CarouselContent className="-ml-2 md:-ml-4">
+              <CarouselContent className="-ml-4">
                 {successStories.map((story, index) => (
-                  <CarouselItem key={story.id} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
+                  <CarouselItem key={story.id} className="pl-4 basis-full">
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.6, delay: index * 0.1 }}
                       className="h-full"
                     >
-                      <Card className="h-full group hover:shadow-lg transition-all duration-300 cursor-pointer border-border/40 hover:border-noreja-main/30">
-                        <CardHeader className="pb-4">
+                      <Card className="h-full group hover:shadow-lg transition-all duration-300 cursor-pointer border-border/40 hover:border-noreja-main/30 max-w-2xl mx-auto">
+                        <CardHeader className="pb-6">
                           {/* Company Logo */}
-                          <div className="w-full h-16 mb-4 overflow-hidden rounded-lg bg-muted flex items-center justify-center">
+                          <div className="w-full h-40 mb-6 overflow-hidden rounded-lg bg-muted flex items-center justify-center">
                             <img
                               src={story.logoUrl}
                               alt={`${story.companyName} logo`}
-                              className="w-full h-full object-cover transition-transform group-hover:scale-105"
+                              className="max-w-full max-h-full object-contain transition-transform group-hover:scale-105"
                               onClick={() => window.open(story.externalUrl, '_blank')}
                             />
                           </div>
                           
                           {/* Company Info */}
-                          <div className="space-y-2">
-                            <CardTitle className="text-lg font-semibold group-hover:text-noreja-main transition-colors">
+                          <div className="space-y-3">
+                            <CardTitle className="text-2xl font-bold group-hover:text-noreja-main transition-colors text-center">
                               {story.companyName}
                             </CardTitle>
-                            <div className="flex flex-wrap gap-1">
-                              <Badge variant="secondary" className="text-xs">
+                            <div className="flex flex-wrap gap-2 justify-center">
+                              <Badge variant="secondary" className="text-sm px-3 py-1">
                                 {story.industry}
                               </Badge>
-                              <Badge variant="outline" className="text-xs">
+                              <Badge variant="outline" className="text-sm px-3 py-1">
                                 {story.company_size}
                               </Badge>
                             </div>
                           </div>
                         </CardHeader>
                         
-                        <CardContent className="pt-0">
+                        <CardContent className="pt-0 px-8">
                           {/* Summary */}
-                          <CardDescription className="text-sm leading-relaxed mb-4">
+                          <CardDescription className="text-base leading-relaxed mb-6 text-center">
                             {story.summary}
                           </CardDescription>
                           
                           {/* Key Stat */}
                           {story.keyStat && (
-                            <div className="flex items-center gap-2 mb-4 p-3 bg-noreja-main/5 rounded-lg border border-noreja-main/10">
-                              <TrendingUp className="w-4 h-4 text-noreja-main" />
-                              <div>
-                                <div className="font-bold text-noreja-main text-lg">
+                            <div className="flex items-center justify-center gap-3 mb-6 p-4 bg-noreja-main/5 rounded-lg border border-noreja-main/10">
+                              <TrendingUp className="w-6 h-6 text-noreja-main" />
+                              <div className="text-center">
+                                <div className="font-bold text-noreja-main text-2xl">
                                   {story.keyStat.value}
                                 </div>
-                                <div className="text-xs text-muted-foreground">
+                                <div className="text-sm text-muted-foreground">
                                   {story.keyStat.metric}
                                 </div>
                               </div>
@@ -137,12 +144,12 @@ const SuccessStories = () => {
                           {/* Read More Button */}
                           <Button
                             variant="outline"
-                            size="sm"
+                            size="lg"
                             className="w-full group-hover:bg-noreja-main group-hover:text-white group-hover:border-noreja-main transition-all"
                             onClick={() => window.open(story.externalUrl, '_blank')}
                           >
                             Read Case Study
-                            <ExternalLink className="w-3 h-3 ml-2" />
+                            <ExternalLink className="w-4 h-4 ml-2" />
                           </Button>
                         </CardContent>
                       </Card>
@@ -155,16 +162,16 @@ const SuccessStories = () => {
             </Carousel>
             
             {/* Dot Navigation */}
-            <div className="flex justify-center mt-8 space-x-2">
+            <div className="flex justify-center mt-12 space-x-3">
               {Array.from({ length: count }, (_, index) => (
                 <button
                   key={index}
-                  className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                  className={`w-4 h-4 rounded-full transition-all duration-200 hover:scale-110 ${
                     index + 1 === current 
-                      ? 'bg-noreja-main' 
-                      : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
+                      ? 'bg-noreja-main shadow-lg shadow-noreja-main/30' 
+                      : 'bg-muted-foreground/30 hover:bg-muted-foreground/60'
                   }`}
-                  onClick={() => api?.scrollTo(index)}
+                  onClick={() => handleDotClick(index)}
                   aria-label={`Go to slide ${index + 1}`}
                 />
               ))}
