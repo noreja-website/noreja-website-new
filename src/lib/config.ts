@@ -38,3 +38,24 @@ export const hubspotConfig = {
     download: "YOUR_DOWNLOAD_FORM_ID"
   }
 };
+
+export const config = {
+  site: {
+    name: "Noreja",
+    description: "Advanced platform for digital transformation and enterprise solutions",
+    url: "https://noreja.com"
+  },
+  // HubSpot Configuration
+  // TODO: Replace with your actual HubSpot Portal ID and Form GUID
+  // You can find these in your HubSpot account under Forms > [Your Form] > Embed Code
+  hubspot: {
+    portalId: "YOUR_HUBSPOT_PORTAL_ID", // Replace with your HubSpot Portal ID
+    defaultFormGuid: "YOUR_DEFAULT_FORM_GUID", // Replace with your default form GUID for downloads
+    // Optional: Different forms for different purposes
+    forms: {
+      download: "YOUR_DOWNLOAD_FORM_GUID",
+      newsletter: "YOUR_NEWSLETTER_FORM_GUID",
+      contact: "YOUR_CONTACT_FORM_GUID"
+    }
+  }
+};

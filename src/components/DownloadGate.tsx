@@ -1,191 +1,426 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { Download, FileText, Lock, CheckCircle } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Download, X, FileText, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-
-interface DownloadItem {
-  id: string;
-  title: string;
-  description: string;
-  fileSize: string;
-  type: string;
-  requiresAuth: boolean;
-}
-
-const downloadItems: DownloadItem[] = [
-  {
-    id: "whitepaper",
-    title: "Technology Whitepaper",
-    description: "Comprehensive overview of our innovative solutions and methodologies",
-    fileSize: "2.4 MB",
-    type: "PDF",
-    requiresAuth: true
-  },
-  {
-    id: "case-study",
-    title: "Enterprise Case Studies",
-    description: "Real-world implementations and success stories from our enterprise clients",
-    fileSize: "5.1 MB", 
-    type: "PDF",
-    requiresAuth: true
-  },
-  {
-    id: "api-docs",
-    title: "API Documentation",
-    description: "Complete developer documentation and integration guides",
-    fileSize: "1.8 MB",
-    type: "PDF",
-    requiresAuth: false
-  },
-  {
-    id: "product-sheet",
-    title: "Product Data Sheet",
-    description: "Technical specifications and feature overview",
-    fileSize: "800 KB",
-    type: "PDF",
-    requiresAuth: false
-  }
-];
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { useToast } from "@/hooks/use-toast";
+import { config } from "@/lib/config";
 
 interface DownloadGateProps {
-  embedded?: boolean;
+  title: string;
+  description: string;
+  fileUrl: string;
+  fileSize?: string;
+  fileType?: string;
+  formPortalId?: string;
+  formGuid?: string;
+  onSuccess?: () => void;
+  className?: string;
+  variant?: "default" | "card";
 }
 
-export function DownloadGate({ embedded = false }: DownloadGateProps) {
-  const [email, setEmail] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [downloadingItems, setDownloadingItems] = useState<Set<string>>(new Set());
+interface DownloadGateInlineProps extends Omit<DownloadGateProps, "variant"> {
+  buttonText?: string;
+  buttonVariant?: "default" | "outline" | "secondary";
+}
 
-  const handleEmailSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // TODO: Integrate with HubSpot form submission
-    console.log("Email submitted:", email);
-    setIsSubmitted(true);
-  };
+// Session storage key for tracking form submissions
+const DOWNLOAD_SESSION_KEY = "noreja_download_validated";
 
-  const handleDownload = (item: DownloadItem) => {
-    if (item.requiresAuth && !isSubmitted) {
-      // Scroll to email form or show modal
+// Load HubSpot form script dynamically
+const loadHubSpotScript = (): Promise<void> => {
+  return new Promise((resolve, reject) => {
+    if (window.hbspt) {
+      resolve();
       return;
     }
 
-    setDownloadingItems(prev => new Set([...prev, item.id]));
-    
-    // Simulate download
-    setTimeout(() => {
-      setDownloadingItems(prev => {
-        const newSet = new Set(prev);
-        newSet.delete(item.id);
-        return newSet;
+    const script = document.createElement("script");
+    script.src = "//js.hsforms.net/forms/embed/v2.js";
+    script.charset = "utf-8";
+    script.type = "text/javascript";
+    script.onload = () => resolve();
+    script.onerror = () => reject(new Error("Failed to load HubSpot script"));
+    document.head.appendChild(script);
+  });
+};
+
+// Create HubSpot form
+const createHubSpotForm = (
+  portalId: string,
+  formGuid: string,
+  targetId: string,
+  onFormSubmit: () => void
+) => {
+  if (!window.hbspt) {
+    console.error("HubSpot script not loaded");
+    return;
+  }
+
+  window.hbspt.forms.create({
+    region: "na1", // TODO: Update with your HubSpot region if different
+    portalId,
+    formId: formGuid,
+    target: `#${targetId}`,
+    onFormSubmit: () => {
+      // Set session flag
+      sessionStorage.setItem(DOWNLOAD_SESSION_KEY, "true");
+      onFormSubmit();
+    },
+    onFormReady: () => {
+      console.log("HubSpot form loaded successfully");
+    }
+  });
+};
+
+// Check if user has already validated this session
+const isUserValidated = (): boolean => {
+  return sessionStorage.getItem(DOWNLOAD_SESSION_KEY) === "true";
+};
+
+// Trigger file download
+const triggerDownload = (fileUrl: string, fileName?: string) => {
+  const link = document.createElement("a");
+  link.href = fileUrl;
+  link.download = fileName || fileUrl.split("/").pop() || "download";
+  link.style.display = "none";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
+export const DownloadGate: React.FC<DownloadGateProps> = ({
+  title,
+  description,
+  fileUrl,
+  fileSize,
+  fileType,
+  formPortalId = config.hubspot.portalId,
+  formGuid = config.hubspot.defaultFormGuid,
+  onSuccess,
+  className = "",
+  variant = "default"
+}) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isFormLoading, setIsFormLoading] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
+  const { toast } = useToast();
+
+  const formTargetId = `hubspot-form-${Math.random().toString(36).substr(2, 9)}`;
+
+  const handleDownloadClick = async () => {
+    if (isUserValidated()) {
+      // User already validated, download directly
+      handleDirectDownload();
+      return;
+    }
+
+    // Show modal with form
+    setIsModalOpen(true);
+    setIsFormLoading(true);
+
+    try {
+      await loadHubSpotScript();
+      
+      // Small delay to ensure DOM is ready
+      setTimeout(() => {
+        createHubSpotForm(formPortalId, formGuid, formTargetId, handleFormSuccess);
+        setIsFormLoading(false);
+      }, 100);
+    } catch (error) {
+      console.error("Error loading HubSpot form:", error);
+      toast({
+        title: "Error",
+        description: "Failed to load download form. Please try again.",
+        variant: "destructive"
       });
-      // TODO: Trigger actual file download
-      console.log(`Downloading ${item.title}`);
+      setIsModalOpen(false);
+      setIsFormLoading(false);
+    }
+  };
+
+  const handleFormSuccess = () => {
+    // Close modal and start download
+    setIsModalOpen(false);
+    handleDirectDownload();
+    onSuccess?.();
+    
+    toast({
+      title: "Success!",
+      description: "Your download has started.",
+      variant: "default"
+    });
+  };
+
+  const handleDirectDownload = () => {
+    setIsDownloading(true);
+    triggerDownload(fileUrl, title);
+    
+    // Reset downloading state after a delay
+    setTimeout(() => {
+      setIsDownloading(false);
     }, 2000);
   };
 
-  return (
-    <div className={embedded ? "" : "container mx-auto px-4 lg:px-8 py-12"}>
-      {!embedded && (
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4">Downloads</h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Access our comprehensive resources, documentation, and case studies to accelerate your implementation.
-          </p>
-        </div>
-      )}
-
-      {/* Email Gate */}
-      {!isSubmitted && (
-        <Card className="mb-8 bg-card/50 border-primary/20">
+  if (variant === "card") {
+    return (
+      <>
+        <Card className={`group hover:shadow-lg transition-all duration-300 border-border/40 hover:border-noreja-main/30 ${className}`}>
           <CardHeader>
-            <CardTitle className="flex items-center">
-              <Lock className="w-5 h-5 mr-2 text-noreja-tertiary" />
-              Unlock Premium Downloads
-            </CardTitle>
-            <CardDescription>
-              Enter your email to access our exclusive whitepapers and case studies
-            </CardDescription>
+            <div className="flex items-start justify-between">
+              <div className="flex-1">
+                <CardTitle className="text-lg font-semibold mb-2 group-hover:text-noreja-main transition-colors">
+                  {title}
+                </CardTitle>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  {description}
+                </p>
+              </div>
+              <FileText className="w-8 h-8 text-noreja-main/60 flex-shrink-0 ml-4" />
+            </div>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleEmailSubmit} className="flex gap-4">
-              <Input
-                type="email"
-                placeholder="Enter your business email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="flex-1"
-                required
-              />
-              <Button type="submit" className="gradient-primary">
-                Get Access
+            <div className="flex items-center justify-between">
+              <div className="flex gap-2">
+                {fileType && (
+                  <Badge variant="secondary" className="text-xs">
+                    {fileType}
+                  </Badge>
+                )}
+                {fileSize && (
+                  <Badge variant="outline" className="text-xs">
+                    {fileSize}
+                  </Badge>
+                )}
+              </div>
+              <Button
+                onClick={handleDownloadClick}
+                disabled={isDownloading}
+                className="bg-noreja-main hover:bg-noreja-main/90 text-white"
+              >
+                {isDownloading ? (
+                  <CheckCircle className="w-4 h-4 mr-2" />
+                ) : (
+                  <Download className="w-4 h-4 mr-2" />
+                )}
+                {isDownloading ? "Downloaded" : "Download"}
               </Button>
-            </form>
-            {/* TODO: Replace with HubSpot form embed */}
-            {/* <div id="hubspot-form-container"></div> */}
+            </div>
           </CardContent>
         </Card>
-      )}
 
-      {/* Downloads Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {downloadItems.map((item, index) => (
-          <motion.div
-            key={item.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1, duration: 0.6 }}
-          >
-            <Card className="h-full bg-card/50 border-border/40 hover:border-primary/30 transition-all">
-              <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div className="flex items-center">
-                    <FileText className="w-8 h-8 text-noreja-secondary mr-3" />
-                    <div>
-                      <CardTitle className="text-lg">{item.title}</CardTitle>
-                      <div className="flex items-center space-x-2 text-sm text-muted-foreground mt-1">
-                        <span>{item.type}</span>
-                        <span>•</span>
-                        <span>{item.fileSize}</span>
-                      </div>
-                    </div>
-                  </div>
-                  {item.requiresAuth && !isSubmitted && (
-                    <Lock className="w-4 h-4 text-muted-foreground" />
-                  )}
-                  {isSubmitted && item.requiresAuth && (
-                    <CheckCircle className="w-4 h-4 text-noreja-tertiary" />
-                  )}
+        <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle className="flex items-center">
+                <Download className="w-5 h-5 mr-2 text-noreja-main" />
+                Download {title}
+              </DialogTitle>
+            </DialogHeader>
+            <div className="py-4">
+              <p className="text-muted-foreground mb-6">
+                Please fill out the form below to access your download.
+              </p>
+              
+              {isFormLoading ? (
+                <div className="flex items-center justify-center py-8">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-noreja-main"></div>
                 </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-4">{item.description}</p>
-                <Button
-                  onClick={() => handleDownload(item)}
-                  disabled={downloadingItems.has(item.id) || (item.requiresAuth && !isSubmitted)}
-                  className="w-full"
-                  variant={item.requiresAuth && !isSubmitted ? "outline" : "default"}
-                >
-                  {downloadingItems.has(item.id) ? (
-                    "Downloading..."
-                  ) : item.requiresAuth && !isSubmitted ? (
-                    <>
-                      <Lock className="w-4 h-4 mr-2" />
-                      Requires Access
-                    </>
-                  ) : (
-                    <>
-                      <Download className="w-4 h-4 mr-2" />
-                      Download
-                    </>
-                  )}
-                </Button>
-              </CardContent>
-            </Card>
-          </motion.div>
-        ))}
-      </div>
+              ) : (
+                <div id={formTargetId} className="hubspot-form-container"></div>
+              )}
+              
+              {/* TODO: HubSpot Form Integration
+                  1. Replace formPortalId and formGuid with your actual HubSpot values
+                  2. Update the region in createHubSpotForm if needed (default: "na1")
+                  3. Test the form submission and download flow
+                  4. Customize form styling in your HubSpot account if needed
+              */}
+            </div>
+          </DialogContent>
+        </Dialog>
+      </>
+    );
+  }
+
+  return (
+    <div className={className}>
+      <Button
+        onClick={handleDownloadClick}
+        disabled={isDownloading}
+        size="lg"
+        className="bg-noreja-main hover:bg-noreja-main/90 text-white"
+      >
+        {isDownloading ? (
+          <CheckCircle className="w-5 h-5 mr-2" />
+        ) : (
+          <Download className="w-5 h-5 mr-2" />
+        )}
+        {isDownloading ? "Downloaded" : "Download"}
+      </Button>
+
+      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center">
+              <Download className="w-5 h-5 mr-2 text-noreja-main" />
+              Download {title}
+            </DialogTitle>
+          </DialogHeader>
+          <div className="py-4">
+            <p className="text-muted-foreground mb-6">
+              Please fill out the form below to access your download.
+            </p>
+            
+            {isFormLoading ? (
+              <div className="flex items-center justify-center py-8">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-noreja-main"></div>
+              </div>
+            ) : (
+              <div id={formTargetId} className="hubspot-form-container"></div>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
+};
+
+export const DownloadGateInline: React.FC<DownloadGateInlineProps> = ({
+  title,
+  description,
+  fileUrl,
+  fileSize,
+  fileType,
+  formPortalId = config.hubspot.portalId,
+  formGuid = config.hubspot.defaultFormGuid,
+  onSuccess,
+  className = "",
+  buttonText = "Download",
+  buttonVariant = "outline"
+}) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isFormLoading, setIsFormLoading] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
+  const { toast } = useToast();
+
+  const formTargetId = `hubspot-form-inline-${Math.random().toString(36).substr(2, 9)}`;
+
+  const handleDownloadClick = async () => {
+    if (isUserValidated()) {
+      handleDirectDownload();
+      return;
+    }
+
+    setIsModalOpen(true);
+    setIsFormLoading(true);
+
+    try {
+      await loadHubSpotScript();
+      setTimeout(() => {
+        createHubSpotForm(formPortalId, formGuid, formTargetId, handleFormSuccess);
+        setIsFormLoading(false);
+      }, 100);
+    } catch (error) {
+      console.error("Error loading HubSpot form:", error);
+      toast({
+        title: "Error",
+        description: "Failed to load download form. Please try again.",
+        variant: "destructive"
+      });
+      setIsModalOpen(false);
+      setIsFormLoading(false);
+    }
+  };
+
+  const handleFormSuccess = () => {
+    setIsModalOpen(false);
+    handleDirectDownload();
+    onSuccess?.();
+    
+    toast({
+      title: "Success!",
+      description: "Your download has started.",
+      variant: "default"
+    });
+  };
+
+  const handleDirectDownload = () => {
+    setIsDownloading(true);
+    triggerDownload(fileUrl, title);
+    setTimeout(() => setIsDownloading(false), 2000);
+  };
+
+  return (
+    <>
+      <Button
+        onClick={handleDownloadClick}
+        disabled={isDownloading}
+        variant={buttonVariant}
+        className={`${className} ${buttonVariant === "outline" ? "border-noreja-main/30 hover:bg-noreja-main/10" : ""}`}
+      >
+        {isDownloading ? (
+          <CheckCircle className="w-4 h-4 mr-2" />
+        ) : (
+          <Download className="w-4 h-4 mr-2" />
+        )}
+        {isDownloading ? "Downloaded" : buttonText}
+      </Button>
+
+      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center">
+              <Download className="w-5 h-5 mr-2 text-noreja-main" />
+              Download {title}
+            </DialogTitle>
+          </DialogHeader>
+          <div className="py-4">
+            <div className="mb-4">
+              <h4 className="font-semibold mb-2">{title}</h4>
+              <p className="text-sm text-muted-foreground">{description}</p>
+              {(fileType || fileSize) && (
+                <div className="flex gap-2 mt-2">
+                  {fileType && <Badge variant="secondary" className="text-xs">{fileType}</Badge>}
+                  {fileSize && <Badge variant="outline" className="text-xs">{fileSize}</Badge>}
+                </div>
+              )}
+            </div>
+            
+            <p className="text-muted-foreground mb-6">
+              Please fill out the form below to access your download.
+            </p>
+            
+            {isFormLoading ? (
+              <div className="flex items-center justify-center py-8">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-noreja-main"></div>
+              </div>
+            ) : (
+              <div id={formTargetId} className="hubspot-form-container"></div>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+};
+
+// Add TypeScript declaration for HubSpot
+declare global {
+  interface Window {
+    hbspt: {
+      forms: {
+        create: (options: {
+          region: string;
+          portalId: string;
+          formId: string;
+          target: string;
+          onFormSubmit: () => void;
+          onFormReady?: () => void;
+        }) => void;
+      };
+    };
+  }
 }
