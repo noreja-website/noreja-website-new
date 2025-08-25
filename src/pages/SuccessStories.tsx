@@ -181,26 +181,7 @@ const SuccessStories = () => {
       </section>
 
       {/* Blog Teasers Section */}
-      <section className="py-20 bg-muted/30">
-        <div className="w-full max-w-7xl mx-auto px-4 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl lg:text-4xl font-bold mb-4 text-foreground">
-              Latest Insights
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              Learn from industry experts and best practices
-            </p>
-          </motion.div>
-          
-          <HubSpotBlogTeaser />
-        </div>
-      </section>
+      <HubSpotBlogTeaser />
     </div>
   );
 };
