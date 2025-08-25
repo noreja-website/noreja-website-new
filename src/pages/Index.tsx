@@ -1,4 +1,4 @@
-import { HeroSection } from "@/components/HeroSection";
+import { IntegratedHeroSection } from "@/components/IntegratedHeroSection";
 import { ProcessGraphSection } from "@/components/ProcessGraphSection";
 import { FunctionalitiesTeaser } from "@/components/FunctionalitiesTeaser";
 import { HubSpotBlogTeaser } from "@/components/HubSpotBlogTeaser";
@@ -8,7 +8,7 @@ import { FinalCTA } from "@/components/FinalCTA";
 const Index = () => {
   return (
     <>
-      <HeroSection />
+      <IntegratedHeroSection />
       <ProcessGraphSection />
       <FunctionalitiesTeaser />
       <HubSpotBlogTeaser />

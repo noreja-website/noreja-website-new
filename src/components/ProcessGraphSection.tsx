@@ -17,14 +17,6 @@ interface ProcessGraphSectionProps {
 
 const defaultSteps: ProcessStep[] = [
   {
-    id: "data",
-    title: "Data Collection",
-    description: "Intelligent data gathering from multiple sources",
-    icon: Database,
-    side: 'center',
-    size: 'large'
-  },
-  {
     id: "processing", 
     title: "AI Processing",
     description: "Advanced machine learning algorithms analyze patterns",
@@ -135,22 +127,46 @@ function ProcessNode({ step, index, isLast }: { step: ProcessStep; index: number
   const getConnectorPath = () => {
     if (isLast) return null;
     
-    const nextStep = defaultSteps[index + 1];
+    const allSteps = [
+      {
+        id: "data",
+        title: "Data Collection", 
+        description: "Intelligent data gathering from multiple sources",
+        icon: Database,
+        side: 'center' as const,
+        size: 'large' as const
+      },
+      ...defaultSteps
+    ];
+    
+    const nextStep = allSteps[index + 2]; // Skip the first (header) step
     if (!nextStep) return null;
 
-    // Different connector styles based on layout
-    if (step.side === 'center' && nextStep.side === 'left') {
-      return "M 50% 100% Q 25% 150% 25% 200%";
-    } else if (step.side === 'left' && nextStep.side === 'right') {
-      return "M 25% 100% Q 50% 150% 75% 200%";
-    } else if (step.side === 'right' && nextStep.side === 'left') {
-      return "M 75% 100% Q 50% 150% 25% 200%";
-    } else if (step.side === 'left' && nextStep.side === 'center') {
-      return "M 25% 100% Q 50% 150% 50% 200%";
-    } else if (step.side === 'right' && nextStep.side === 'center') {
-      return "M 75% 100% Q 50% 150% 50% 200%";
-    }
-    return "M 50% 100% L 50% 200%";
+    // Get current step position
+    const getCurrentX = () => {
+      switch (step.side) {
+        case 'left': return 25;
+        case 'right': return 75;
+        case 'center': return 50;
+        default: return 50;
+      }
+    };
+
+    // Get next step position  
+    const getNextX = () => {
+      switch (nextStep.side) {
+        case 'left': return 25;
+        case 'right': return 75;
+        case 'center': return 50;
+        default: return 50;
+      }
+    };
+
+    const currentX = getCurrentX();
+    const nextX = getNextX();
+    const midX = (currentX + nextX) / 2;
+
+    return `M ${currentX}% 0% Q ${midX}% 50% ${nextX}% 100%`;
   };
 
   return (
@@ -205,18 +221,36 @@ function ProcessNode({ step, index, isLast }: { step: ProcessStep; index: number
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 0.6 } : { opacity: 0 }}
           transition={{ delay: 1.2, duration: 1 }}
-          className="absolute inset-x-0 top-0 h-full pointer-events-none"
+          className="absolute inset-x-0 bottom-0 h-full pointer-events-none z-0"
         >
-          <svg className="w-full h-full" viewBox="0 0 100 200" preserveAspectRatio="none">
+          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <defs>
+              <marker
+                id={`arrowhead-${step.id}`}
+                markerWidth="10"
+                markerHeight="7"
+                refX="9"
+                refY="3.5"
+                orient="auto"
+              >
+                <polygon
+                  points="0 0, 10 3.5, 0 7"
+                  fill="hsl(var(--noreja-tertiary))"
+                  opacity="0.8"
+                />
+              </marker>
+            </defs>
             <motion.path
               d={getConnectorPath()}
               stroke="hsl(var(--noreja-tertiary))"
-              strokeWidth="2"
+              strokeWidth="3"
               fill="none"
-              strokeDasharray="5,5"
+              strokeDasharray="8,4"
+              markerEnd={`url(#arrowhead-${step.id})`}
+              opacity="0.8"
               initial={{ pathLength: 0 }}
               animate={isInView ? { pathLength: 1 } : { pathLength: 0 }}
-              transition={{ delay: 1.4, duration: 1.5, ease: "easeInOut" }}
+              transition={{ delay: 1.4, duration: 2, ease: "easeInOut" }}
             />
           </svg>
         </motion.div>
@@ -229,17 +263,9 @@ export function ProcessGraphSection({ steps = defaultSteps }: ProcessGraphSectio
   const containerRef = useRef(null);
 
   return (
-    <section ref={containerRef} className="relative min-h-screen">
-      {/* Background grid pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `linear-gradient(hsl(var(--noreja-tertiary)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--noreja-tertiary)) 1px, transparent 1px)`,
-          backgroundSize: '50px 50px'
-        }} />
-      </div>
-
+    <section ref={containerRef} className="relative py-20">
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 lg:px-8">
-        {/* Process graph nodes */}
+        {/* Process graph nodes - starting from second step since first is in header */}
         <div className="relative">
           {steps.map((step, index) => (
             <ProcessNode 
