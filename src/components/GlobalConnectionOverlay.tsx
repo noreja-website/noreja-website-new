@@ -6,6 +6,7 @@ interface NodePosition {
   x: number;
   y: number;
   element: HTMLElement;
+  isVisible: boolean;
 }
 
 interface Connection {
@@ -14,15 +15,24 @@ interface Connection {
   type: 'direct' | 'branch' | 'merge';
 }
 
-interface GlobalConnectionOverlayProps {
-  connections: Connection[];
-  isVisible: boolean;
+interface ConnectionState {
+  [connectionId: string]: {
+    isVisible: boolean;
+    sourceVisible: boolean;
+    targetVisible: boolean;
+  };
 }
 
-export function GlobalConnectionOverlay({ connections, isVisible }: GlobalConnectionOverlayProps) {
+interface GlobalConnectionOverlayProps {
+  connections: Connection[];
+}
+
+export function GlobalConnectionOverlay({ connections }: GlobalConnectionOverlayProps) {
   const svgRef = useRef<SVGSVGElement>(null);
   const [nodePositions, setNodePositions] = useState<Map<string, NodePosition>>(new Map());
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const [connectionStates, setConnectionStates] = useState<ConnectionState>({});
+  const observersRef = useRef<Map<string, IntersectionObserver>>(new Map());
 
   useEffect(() => {
     const updatePositions = () => {
@@ -36,13 +46,13 @@ export function GlobalConnectionOverlay({ connections, isVisible }: GlobalConnec
         if (nodeId) {
           const rect = element.getBoundingClientRect();
           const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-          const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
           
           positions.set(nodeId, {
             id: nodeId,
-            x: rect.left + rect.width / 2 + scrollLeft,
+            x: rect.left + rect.width / 2,
             y: rect.top + rect.height / 2 + scrollTop,
-            element: element as HTMLElement
+            element: element as HTMLElement,
+            isVisible: false // Will be updated by intersection observers
           });
         }
       });
@@ -65,7 +75,6 @@ export function GlobalConnectionOverlay({ connections, isVisible }: GlobalConnec
     };
 
     window.addEventListener('resize', handleUpdate);
-    window.addEventListener('scroll', handleUpdate);
 
     // Also update when nodes might have animated into view
     const observer = new MutationObserver(handleUpdate);
@@ -78,10 +87,71 @@ export function GlobalConnectionOverlay({ connections, isVisible }: GlobalConnec
 
     return () => {
       window.removeEventListener('resize', handleUpdate);
-      window.removeEventListener('scroll', handleUpdate);
       observer.disconnect();
     };
   }, []);
+
+  // Setup intersection observers for each node
+  useEffect(() => {
+    const nodeElements = document.querySelectorAll('[data-node-id]');
+    
+    // Clear existing observers
+    observersRef.current.forEach(observer => observer.disconnect());
+    observersRef.current.clear();
+
+    nodeElements.forEach((element) => {
+      const nodeId = element.getAttribute('data-node-id');
+      if (nodeId) {
+        const observer = new IntersectionObserver(
+          ([entry]) => {
+            setNodePositions(prev => {
+              const node = prev.get(nodeId);
+              if (node) {
+                const updated = new Map(prev);
+                updated.set(nodeId, { ...node, isVisible: entry.isIntersecting });
+                return updated;
+              }
+              return prev;
+            });
+
+            // Update connection states when nodes become visible
+            setConnectionStates(prev => {
+              const updated = { ...prev };
+              
+              connections.forEach(connection => {
+                const connectionId = `${connection.sourceId}-${connection.targetId}`;
+                const current = updated[connectionId] || { 
+                  isVisible: false, 
+                  sourceVisible: false, 
+                  targetVisible: false 
+                };
+                
+                if (connection.sourceId === nodeId) {
+                  current.sourceVisible = entry.isIntersecting;
+                } else if (connection.targetId === nodeId) {
+                  current.targetVisible = entry.isIntersecting;
+                }
+                
+                current.isVisible = current.sourceVisible;
+                updated[connectionId] = current;
+              });
+              
+              return updated;
+            });
+          },
+          { threshold: 0.3, rootMargin: '50px' }
+        );
+        
+        observer.observe(element);
+        observersRef.current.set(nodeId, observer);
+      }
+    });
+
+    return () => {
+      observersRef.current.forEach(observer => observer.disconnect());
+      observersRef.current.clear();
+    };
+  }, [connections]);
 
   const generatePath = (source: NodePosition, target: NodePosition, type: string) => {
     const startX = source.x;
@@ -106,12 +176,12 @@ export function GlobalConnectionOverlay({ connections, isVisible }: GlobalConnec
   };
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-[5]">
+    <div className="absolute inset-0 pointer-events-none z-[5]" style={{ height: dimensions.height }}>
       <svg
         ref={svgRef}
         width={dimensions.width}
         height={dimensions.height}
-        className="absolute inset-0"
+        className="absolute top-0 left-0"
         style={{ width: dimensions.width, height: dimensions.height }}
       >
         <defs>
@@ -140,11 +210,13 @@ export function GlobalConnectionOverlay({ connections, isVisible }: GlobalConnec
         {connections.map((connection, index) => {
           const sourcePos = nodePositions.get(connection.sourceId);
           const targetPos = nodePositions.get(connection.targetId);
+          const connectionId = `${connection.sourceId}-${connection.targetId}`;
+          const connectionState = connectionStates[connectionId];
           
-          if (!sourcePos || !targetPos) return null;
+          if (!sourcePos || !targetPos || !connectionState) return null;
           
           const path = generatePath(sourcePos, targetPos, connection.type);
-          const pathId = `global-path-${connection.sourceId}-${connection.targetId}`;
+          const pathId = `global-path-${connectionId}`;
           
           return (
             <g key={pathId}>
@@ -152,35 +224,33 @@ export function GlobalConnectionOverlay({ connections, isVisible }: GlobalConnec
               <motion.path
                 d={path}
                 stroke="url(#global-flow-gradient)"
-                strokeWidth="3"
+                strokeWidth="4"
                 fill="none"
-                strokeDasharray="8,4"
+                strokeDasharray="10,5"
                 markerEnd="url(#global-arrowhead)"
-                opacity="0.8"
                 initial={{ pathLength: 0, opacity: 0 }}
-                animate={isVisible ? { pathLength: 1, opacity: 0.8 } : { pathLength: 0, opacity: 0 }}
+                animate={connectionState.isVisible ? { pathLength: 1, opacity: 0.9 } : { pathLength: 0, opacity: 0 }}
                 transition={{ 
                   delay: getConnectionDelay(index), 
-                  duration: 2, 
+                  duration: 1.5, 
                   ease: "easeInOut" 
                 }}
               />
               
               {/* Animated flow particle */}
               <motion.circle
-                r="4"
+                r="5"
                 fill="hsl(var(--noreja-main))"
-                opacity="0.9"
                 initial={{ offsetDistance: "0%", opacity: 0 }}
-                animate={isVisible ? {
+                animate={connectionState.isVisible ? {
                   offsetDistance: "100%",
-                  opacity: [0, 1, 0]
+                  opacity: [0, 1, 0.7, 0]
                 } : { offsetDistance: "0%", opacity: 0 }}
                 transition={{
-                  delay: getConnectionDelay(index) + 2,
-                  duration: 3,
+                  delay: getConnectionDelay(index) + 1.5,
+                  duration: 2.5,
                   repeat: Infinity,
-                  repeatDelay: 2
+                  repeatDelay: 1.5
                 }}
                 style={{
                   offsetPath: `path('${path}')`,

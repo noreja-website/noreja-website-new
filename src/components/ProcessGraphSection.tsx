@@ -264,7 +264,6 @@ export function ProcessGraphSection({ steps = defaultSteps }: ProcessGraphSectio
     <>
       <GlobalConnectionOverlay 
         connections={globalConnections}
-        isVisible={isVisible}
       />
       <section ref={containerRef} className="relative py-20">
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 lg:px-8">
