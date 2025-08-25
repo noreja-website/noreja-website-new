@@ -1,201 +1,176 @@
 import { motion } from "framer-motion";
-import { ExternalLink, Calendar, User, ArrowRight } from "lucide-react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-
-// Mock data for blog preview - in real implementation, fetch from HubSpot
-const featuredPosts = [
-  {
-    title: "The Future of AI-Powered Business Intelligence",
-    excerpt: "Discover how artificial intelligence is revolutionizing the way companies analyze data and make strategic decisions...",
-    author: "Dr. Alex Chen",
-    date: "2024-01-15",
-    readTime: "8 min read",
-    category: "Technology",
-    slug: "future-ai-business-intelligence"
-  },
-  {
-    title: "Zero-Downtime Deployment Strategies for Enterprise Applications",
-    excerpt: "Learn the best practices and techniques for deploying enterprise applications without service interruption...",
-    author: "Sarah Rodriguez",
-    date: "2024-01-12",
-    readTime: "12 min read",
-    category: "DevOps",
-    slug: "zero-downtime-deployment-strategies"
-  },
-  {
-    title: "Building Scalable Real-Time Processing Systems",
-    excerpt: "A deep dive into the architecture patterns and technologies that enable processing millions of events per second...",
-    author: "Michael Wang",
-    date: "2024-01-10",
-    readTime: "15 min read",
-    category: "Architecture",
-    slug: "scalable-realtime-processing-systems"
-  }
-];
-
-const categories = [
-  "Technology",
-  "Innovation", 
-  "DevOps",
-  "Architecture",
-  "Security",
-  "AI & Machine Learning",
-  "Cloud Computing",
-  "Best Practices"
-];
+import { ExternalLink, Rss, BookOpen } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { HubSpotBlogTeaser } from "@/components/HubSpotBlogTeaser";
 
 export default function Blog() {
   return (
-    <div className="py-20">
-      <div className="container mx-auto px-4 lg:px-8">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <h1 className="text-5xl font-bold mb-6">
-            Technical{" "}
-            <span className="bg-gradient-primary bg-clip-text text-transparent">
-              Blog
-            </span>
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
-            Deep insights, best practices, and cutting-edge research from our engineering team. 
-            Stay ahead of the curve with the latest in technology innovation.
-          </p>
-          
-          {/* External Blog Link */}
-          <motion.a
-            href="https://blog.noreja.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center px-8 py-4 bg-gradient-primary rounded-lg font-semibold glow-primary hover:scale-105 transition-transform"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+    <div className="min-h-screen bg-background">
+      {/* Hero Section */}
+      <section className="relative py-20 lg:py-24">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-16"
           >
-            Visit Full Blog
-            <ExternalLink className="ml-2 w-5 h-5" />
-          </motion.a>
-        </motion.div>
-
-        {/* Categories */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.8 }}
-          className="mb-12"
-        >
-          <h2 className="text-2xl font-bold mb-6 text-center">Browse by Category</h2>
-          <div className="flex flex-wrap justify-center gap-3">
-            {categories.map((category, index) => (
-              <motion.div
-                key={category}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.1 * index, duration: 0.6 }}
+            <h1 className="text-4xl lg:text-6xl font-bold mb-6 text-foreground">
+              Our <span className="text-noreja-main">Blog</span>
+            </h1>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-12">
+              Dive deep into industry insights, technical innovations, and thought leadership 
+              from our team of experts on our dedicated blog platform.
+            </p>
+            
+            {/* Primary CTA */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="mb-8"
+            >
+              <Button
+                size="lg"
+                className="bg-noreja-main hover:bg-noreja-main/90 text-white px-12 py-6 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                onClick={() => window.open('https://blog.noreja.com', '_blank')}
               >
-                <a
-                  href={`https://blog.noreja.com/category/${category.toLowerCase().replace(/\s+/g, '-')}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block px-4 py-2 bg-card/50 border border-border/40 rounded-full text-sm font-medium hover:border-primary/30 hover:bg-primary/10 transition-all"
-                >
-                  {category}
-                </a>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+                <BookOpen className="w-6 h-6 mr-3" />
+                Open Blog
+                <ExternalLink className="w-5 h-5 ml-3" />
+              </Button>
+            </motion.div>
 
-        {/* Featured Posts Preview */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.8 }}
-          className="mb-20"
-        >
-          <h2 className="text-3xl font-bold mb-12 text-center">Featured Posts</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredPosts.map((post, index) => (
+            {/* Secondary Info */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="text-center"
+            >
+              <p className="text-muted-foreground">
+                Our blog is hosted on{" "}
+                <span className="font-semibold text-noreja-main">blog.noreja.com</span>{" "}
+                powered by HubSpot
+              </p>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Blog Features Section */}
+      <section className="pb-20">
+        <div className="w-full max-w-7xl mx-auto px-4 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl lg:text-4xl font-bold mb-4 text-foreground">
+              What You'll Find
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Regular updates on industry trends, technical deep-dives, and expert insights
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            {[
+              {
+                icon: "🚀",
+                title: "Innovation Insights",
+                description: "Latest trends and breakthrough technologies shaping the future of business."
+              },
+              {
+                icon: "🛠️",
+                title: "Technical Deep-Dives",
+                description: "In-depth technical articles and tutorials from our engineering team."
+              },
+              {
+                icon: "📊",
+                title: "Industry Analysis",
+                description: "Data-driven analysis and expert commentary on market developments."
+              }
+            ].map((feature, index) => (
               <motion.div
-                key={post.slug}
+                key={feature.title}
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 * index, duration: 0.6 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                viewport={{ once: true }}
               >
-                <Card className="h-full bg-card/50 border-border/40 hover:border-primary/30 transition-all hover:shadow-card group cursor-pointer">
-                  <a
-                    href={`https://blog.noreja.com/${post.slug}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block h-full"
-                  >
-                    <CardHeader>
-                      <div className="flex items-center justify-between mb-3">
-                        <span className="px-3 py-1 bg-gradient-primary text-white text-xs font-semibold rounded-full">
-                          {post.category}
-                        </span>
-                        <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
-                      </div>
-                      <CardTitle className="text-xl group-hover:text-primary transition-colors">
-                        {post.title}
-                      </CardTitle>
-                      <CardDescription>
-                        {post.excerpt}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="flex items-center text-sm text-muted-foreground mb-4">
-                        <User className="w-4 h-4 mr-1" />
-                        <span className="mr-4">{post.author}</span>
-                        <Calendar className="w-4 h-4 mr-1" />
-                        <span className="mr-4">{new Date(post.date).toLocaleDateString()}</span>
-                        <span>{post.readTime}</span>
-                      </div>
-                      <div className="flex items-center text-primary font-semibold group-hover:translate-x-1 transition-transform">
-                        Read More
-                        <ArrowRight className="w-4 h-4 ml-1" />
-                      </div>
-                    </CardContent>
-                  </a>
+                <Card className="h-full text-center border-border/40 hover:border-noreja-main/30 transition-all duration-300 hover:shadow-lg">
+                  <CardHeader>
+                    <div className="text-4xl mb-4">{feature.icon}</div>
+                    <CardTitle className="text-xl font-bold">
+                      {feature.title}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground leading-relaxed">
+                      {feature.description}
+                    </p>
+                  </CardContent>
                 </Card>
               </motion.div>
             ))}
           </div>
-        </motion.div>
 
-        {/* Newsletter Signup */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 0.8 }}
-          className="text-center"
-        >
-          <div className="bg-gradient-dark p-12 rounded-2xl border border-primary/20">
-            <h2 className="text-3xl font-bold mb-4">Stay Updated</h2>
-            <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Subscribe to our newsletter and never miss our latest technical insights, research findings, 
-              and industry analysis.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="px-4 py-3 rounded-lg bg-input border border-border text-foreground flex-1"
-              />
-              <button className="px-8 py-3 bg-gradient-primary rounded-lg font-semibold glow-primary hover:scale-105 transition-transform whitespace-nowrap">
-                Subscribe
-              </button>
+          {/* Additional CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center"
+          >
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Button
+                variant="outline"
+                size="lg"
+                className="border-noreja-main/30 hover:bg-noreja-main/10 px-8"
+                onClick={() => window.open('https://blog.noreja.com/rss', '_blank')}
+              >
+                <Rss className="w-5 h-5 mr-2" />
+                Subscribe to RSS
+              </Button>
+              <Button
+                variant="outline"
+                size="lg"
+                className="border-noreja-main/30 hover:bg-noreja-main/10 px-8"
+                onClick={() => window.open('https://blog.noreja.com/newsletter', '_blank')}
+              >
+                Subscribe to Newsletter
+              </Button>
             </div>
-            {/* TODO: Replace with HubSpot newsletter form */}
-            <p className="text-xs text-muted-foreground mt-4">
-              By subscribing, you agree to our Privacy Policy and Terms of Service.
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Blog Preview Section */}
+      <section className="bg-muted/30">
+        <div className="w-full max-w-7xl mx-auto px-4 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-8 pt-20"
+          >
+            <h2 className="text-3xl lg:text-4xl font-bold mb-4 text-foreground">
+              Latest Posts Preview
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Get a glimpse of our recent content
             </p>
-          </div>
-        </motion.div>
-      </div>
+          </motion.div>
+          
+          <HubSpotBlogTeaser />
+        </div>
+      </section>
     </div>
   );
 }
