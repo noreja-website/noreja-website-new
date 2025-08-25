@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Zap, Shield, Rocket } from "lucide-react";
+import { ArrowRight, Zap, Shield, Rocket, Database } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pb-32">
       {/* Background Effects */}
       <div className="absolute inset-0 bg-gradient-dark opacity-50" />
       <div className="absolute inset-0">
@@ -110,6 +110,24 @@ export function HeroSection() {
             className="w-1 h-3 bg-gradient-primary rounded-full mt-2"
           />
         </motion.div>
+      </motion.div>
+      
+      {/* First process node embedded in hero */}
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 2, duration: 0.8 }}
+        className="absolute bottom-[-100px] left-1/2 transform -translate-x-1/2"
+      >
+        <div className="flex flex-col items-center">
+          <div className="w-16 h-16 bg-background border-2 border-noreja-tertiary rounded-full flex items-center justify-center shadow-glow mb-4">
+            <Database className="w-8 h-8 text-noreja-tertiary" />
+          </div>
+          <div className="text-center">
+            <h3 className="text-lg font-bold mb-1">Data Collection</h3>
+            <p className="text-sm text-muted-foreground">Where it all begins</p>
+          </div>
+        </div>
       </motion.div>
     </section>
   );
