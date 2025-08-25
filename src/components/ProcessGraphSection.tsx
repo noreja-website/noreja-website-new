@@ -1,7 +1,7 @@
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Database, Shield, Zap, Users, Rocket, Target, ArrowDown, BarChart3, Brain, Lock } from "lucide-react";
-import { ProcessConnector } from "./ProcessConnector";
+import { GlobalConnectionOverlay } from "./GlobalConnectionOverlay";
 
 interface Connection {
   targetId: string;
@@ -192,7 +192,10 @@ function ProcessNode({ step, index, allSteps }: { step: ProcessStep; index: numb
           }}
           className="relative flex-shrink-0"
         >
-          <div className={`${getNodeSize()} bg-card border-2 border-noreja-tertiary rounded-full flex items-center justify-center shadow-glow-accent`}>
+          <div 
+            data-node-id={step.id}
+            className={`${getNodeSize()} bg-card border-2 border-noreja-tertiary rounded-full flex items-center justify-center shadow-glow-accent`}
+          >
             <Icon className={`${getIconSize()} text-noreja-tertiary`} />
           </div>
           
@@ -223,40 +226,61 @@ function ProcessNode({ step, index, allSteps }: { step: ProcessStep; index: numb
         </motion.div>
       </div>
 
-      {/* Multiple connecting paths */}
-      {step.connections && step.connections.length > 0 && (
-        <div className="absolute inset-x-0 bottom-0 h-full">
-          <ProcessConnector
-            sourceId={step.id}
-            sourcePosition={getStepPosition()}
-            connections={step.connections}
-            allSteps={allSteps}
-            isVisible={isInView}
-          />
-        </div>
-      )}
     </div>
   );
 }
 
 export function ProcessGraphSection({ steps = defaultSteps }: ProcessGraphSectionProps) {
   const containerRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  // Create global connections array from all steps
+  const globalConnections = allSteps.flatMap(step => 
+    step.connections?.map(conn => ({
+      sourceId: step.id,
+      targetId: conn.targetId,
+      type: conn.type
+    })) || []
+  );
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section ref={containerRef} className="relative py-20">
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 lg:px-8">
-        {/* Process graph nodes - starting from second step since first is in header */}
-        <div className="relative">
-          {steps.map((step, index) => (
-            <ProcessNode 
-              key={step.id}
-              step={step} 
-              index={index}
-              allSteps={allSteps}
-            />
-          ))}
+    <>
+      <GlobalConnectionOverlay 
+        connections={globalConnections}
+        isVisible={isVisible}
+      />
+      <section ref={containerRef} className="relative py-20">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 lg:px-8">
+          {/* Process graph nodes - starting from second step since first is in header */}
+          <div className="relative">
+            {steps.map((step, index) => (
+              <ProcessNode 
+                key={step.id}
+                step={step} 
+                index={index}
+                allSteps={allSteps}
+              />
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
