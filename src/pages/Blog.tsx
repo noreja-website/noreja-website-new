@@ -3,6 +3,7 @@ import { ExternalLink, Rss, BookOpen } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { HubSpotBlogTeaser } from "@/components/HubSpotBlogTeaser";
+import { BLOG_SUBDOMAIN_URL } from "@/lib/config";
 
 export default function Blog() {
   return (
@@ -34,7 +35,7 @@ export default function Blog() {
               <Button
                 size="lg"
                 className="bg-noreja-main hover:bg-noreja-main/90 text-white px-12 py-6 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-                onClick={() => window.open('https://blog.noreja.com', '_blank')}
+                onClick={() => window.open(BLOG_SUBDOMAIN_URL, '_blank')}
               >
                 <BookOpen className="w-6 h-6 mr-3" />
                 Open Blog

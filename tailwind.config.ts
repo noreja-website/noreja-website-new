@@ -54,9 +54,9 @@ export default {
 				},
 				// Noreja Brand Colors
 				noreja: {
-					main: 'hsl(var(--noreja-main))',
-					secondary: 'hsl(var(--noreja-secondary))',
-					tertiary: 'hsl(var(--noreja-tertiary))'
+					main: 'var(--noreja-main)',
+					secondary: 'var(--noreja-secondary)',
+					tertiary: 'var(--noreja-tertiary)'
 				}
 			},
 			backgroundImage: {
