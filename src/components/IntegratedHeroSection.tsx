@@ -133,25 +133,55 @@ export function IntegratedHeroSection() {
             <p className="text-base text-muted-foreground">Intelligent data gathering from multiple sources</p>
           </motion.div>
 
-          {/* Connector to next section */}
+          {/* Multiple connectors to next section (branching) */}
           <motion.div
-            initial={{ opacity: 0, pathLength: 0 }}
-            animate={{ opacity: 0.6, pathLength: 1 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.6 }}
             transition={{ delay: 2.5, duration: 1.5 }}
-            className="mt-8"
+            className="mt-8 relative"
           >
-            <svg width="2" height="100" className="text-noreja-tertiary">
-              <motion.line
-                x1="1"
-                y1="0"
-                x2="1"
-                y2="100"
+            <svg width="400" height="120" viewBox="0 0 400 120" className="text-noreja-tertiary">
+              <defs>
+                <marker
+                  id="arrowhead-hero"
+                  markerWidth="10"
+                  markerHeight="7"
+                  refX="9"
+                  refY="3.5"
+                  orient="auto"
+                >
+                  <polygon
+                    points="0 0, 10 3.5, 0 7"
+                    fill="hsl(var(--noreja-tertiary))"
+                    opacity="0.8"
+                  />
+                </marker>
+              </defs>
+              
+              {/* Left branch to AI Processing */}
+              <motion.path
+                d="M 200 0 Q 150 60 100 120"
                 stroke="currentColor"
                 strokeWidth="2"
                 strokeDasharray="5,5"
+                fill="none"
+                markerEnd="url(#arrowhead-hero)"
                 initial={{ pathLength: 0 }}
                 animate={{ pathLength: 1 }}
-                transition={{ delay: 2.5, duration: 1.5 }}
+                transition={{ delay: 2.8, duration: 2 }}
+              />
+              
+              {/* Right branch to Security Layer */}
+              <motion.path
+                d="M 200 0 Q 250 60 300 120"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeDasharray="5,5"
+                fill="none"
+                markerEnd="url(#arrowhead-hero)"
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ delay: 3.1, duration: 2 }}
               />
             </svg>
           </motion.div>
