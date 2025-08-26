@@ -132,10 +132,10 @@ const Pricing = () => {
         {/* Pricing Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {plans.map((plan) => (
-            <Card key={plan.name} className={`relative ${plan.popular ? 'border-primary' : ''}`}>
+            <Card key={plan.name} className={`relative ${plan.popular ? 'border-primary glow-primary' : ''}`}>
               {plan.popular && (
                 <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                  <Badge variant="default" className="bg-primary text-primary-foreground">
+                  <Badge variant="default" className="gradient-primary text-white">
                     Most Popular
                   </Badge>
                 </div>
@@ -166,10 +166,10 @@ const Pricing = () => {
                   ))}
                 </ul>
                 
-                <div className="space-y-3 pt-4">
+                 <div className="space-y-3 pt-4">
                   <Button 
-                    variant={plan.ctaVariant} 
-                    className="w-full"
+                    variant={plan.ctaVariant}
+                    className={`w-full ${plan.popular ? 'gradient-primary glow-primary hover:opacity-90 text-white' : 'border-border text-foreground hover:bg-secondary hover:text-foreground'}`}
                     size="lg"
                   >
                     {plan.cta}
