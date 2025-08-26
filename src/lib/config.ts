@@ -23,6 +23,7 @@ export const headerNavigation = [
   { name: "Functionalities", href: "/functionalities" },
   { name: "Success Stories", href: "/success-stories" },
   { name: "Partners", href: "/partners" },
+  { name: "Pricing", href: "/pricing" },
   { name: "Blog", href: "/blog" }
 ];
 
