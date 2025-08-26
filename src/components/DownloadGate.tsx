@@ -410,7 +410,7 @@ export const DownloadGateInline: React.FC<DownloadGateInlineProps> = ({
 // Add TypeScript declaration for HubSpot
 declare global {
   interface Window {
-    hbspt: {
+    hbspt?: {
       forms: {
         create: (options: {
           region: string;
