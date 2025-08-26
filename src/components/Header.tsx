@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { navigation } from "@/lib/config";
+import { headerNavigation } from "@/lib/config";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -29,7 +29,7 @@ export function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            {navigation.map((item) => (
+            {headerNavigation.map((item) => (
               <Link
                 key={item.href}
                 to={item.href}
@@ -81,7 +81,7 @@ export function Header() {
             className="md:hidden py-4 border-t border-border/40"
           >
             <nav className="flex flex-col space-y-4">
-              {navigation.map((item) => (
+              {headerNavigation.map((item) => (
                 <Link
                   key={item.href}
                   to={item.href}

@@ -18,15 +18,17 @@ export const siteConfig = {
   }
 };
 
-export const navigation = [
+export const headerNavigation = [
   { name: "Home", href: "/" },
   { name: "Functionalities", href: "/functionalities" },
   { name: "Success Stories", href: "/success-stories" },
-  { name: "Team", href: "/team" },
   { name: "Partners", href: "/partners" },
-  { name: "Blog", href: "/blog" },
-  { name: "Downloads", href: "/downloads" },
-  { name: "Imprint", href: "/imprint" }
+  { name: "Blog", href: "/blog" }
+];
+
+export const footerNavigation = [
+  { name: "Team", href: "/team" },
+  { name: "Downloads", href: "/downloads" }
 ];
 
 export const legalLinks = [

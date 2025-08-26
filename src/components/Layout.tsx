@@ -10,7 +10,7 @@ export function Layout({ children }: LayoutProps) {
   return (
     <div className="min-h-screen flex flex-col relative">
       {/* Global grid background */}
-      <div className="fixed inset-0 opacity-5 pointer-events-none z-0">
+      <div className="absolute inset-0 opacity-5 pointer-events-none z-0">
         <div className="absolute inset-0" style={{
           backgroundImage: `linear-gradient(hsl(var(--noreja-tertiary)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--noreja-tertiary)) 1px, transparent 1px)`,
           backgroundSize: '50px 50px'

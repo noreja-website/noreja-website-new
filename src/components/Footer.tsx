@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Github, Linkedin, Twitter } from "lucide-react";
-import { siteConfig, navigation, legalLinks } from "@/lib/config";
+import { siteConfig, footerNavigation, legalLinks } from "@/lib/config";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -54,9 +54,9 @@ export function Footer() {
 
           {/* Navigation */}
           <div className="md:col-span-2">
-            <h3 className="font-semibold mb-4">Navigation</h3>
+            <h3 className="font-semibold mb-4">Resources</h3>
             <div className="grid grid-cols-2 gap-4">
-              {navigation.map((item) => (
+              {footerNavigation.map((item) => (
                 <Link
                   key={item.href}
                   to={item.href}
