@@ -13,9 +13,12 @@ export function Footer() {
           {/* Brand */}
           <div className="md:col-span-1">
             <Link to="/" className="flex items-center space-x-2 mb-4">
-              <motion.div
-                className="w-8 h-8 bg-gradient-primary rounded-lg glow-primary"
+              <motion.img
+                src="/src/assets/logo.png"
+                alt="Noreja Logo"
+                className="w-8 h-8"
                 whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               />
               <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
                 Noreja
