@@ -1,6 +1,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
-import { Database, Shield, Zap, Users, Rocket, Target, ArrowDown, BarChart3, Brain, Lock } from "lucide-react";
+import { Database, Shield, Users, Rocket, Target, BarChart3, Brain, Lock } from "lucide-react";
+import graphThreeNodes from "@/assets/graph_three_nodes.png";
 
 interface Connection {
   targetId: string;
@@ -204,9 +205,9 @@ function ProcessNode({ step, index, allSteps }: { step: ProcessStep; index: numb
           {step.id === "security" ? (
             <img 
               data-node-id={step.id}
-              src="/src/assets/graph_three_nodes.png" 
+              src={graphThreeNodes} 
               alt="Security Layer" 
-              className={`${getNodeSize()} object-contain shadow-glow-accent`}
+              className={`${getNodeSize()} object-contain w-44 h-22`}
             />
           ) : (
             <div 
@@ -217,19 +218,21 @@ function ProcessNode({ step, index, allSteps }: { step: ProcessStep; index: numb
             </div>
           )}
           
-          {/* Pulse effect */}
-          <motion.div
-            className={`absolute inset-0 ${getNodeSize()} border-2 border-noreja-tertiary rounded-full`}
-            animate={shouldAnimate ? {
-              scale: [1, 1.4, 1],
-              opacity: [0.4, 0, 0.4]
-            } : {}}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              delay: 1.5
-            }}
-          />
+          {/* Pulse effect (disabled for security image node) */}
+          {step.id !== "security" && (
+            <motion.div
+              className={`absolute inset-0 ${getNodeSize()} border-2 border-noreja-tertiary rounded-full`}
+              animate={shouldAnimate ? {
+                scale: [1, 1.4, 1],
+                opacity: [0.4, 0, 0.4]
+              } : {}}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                delay: 1.5
+              }}
+            />
+          )}
         </motion.div>
 
         {/* Caption */}

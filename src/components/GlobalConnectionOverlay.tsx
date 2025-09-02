@@ -226,14 +226,13 @@ export function GlobalConnectionOverlay({ connections }: GlobalConnectionOverlay
           
           return (
             <g key={pathId}>
-              {/* Main connection path */}
+              {/* Main connection path (no arrowheads) */}
               <motion.path
                 d={path}
                 stroke="url(#global-flow-gradient)"
                 strokeWidth="4"
                 fill="none"
                 strokeDasharray="10,5"
-                markerEnd="url(#global-arrowhead)"
                 initial={{ pathLength: 0, opacity: 0 }}
                 animate={connectionState.isVisible ? { pathLength: 1, opacity: 0.9 } : { pathLength: 0, opacity: 0 }}
                 transition={{ 
