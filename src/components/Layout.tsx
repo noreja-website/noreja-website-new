@@ -1,12 +1,45 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
+import { GlobalConnectionOverlay } from "./GlobalConnectionOverlay";
 
 interface LayoutProps {
   children: ReactNode;
 }
 
 export function Layout({ children }: LayoutProps) {
+  const [globalConnections, setGlobalConnections] = useState<any[]>([]);
+
+  useEffect(() => {
+    // Listen for global connections data from ProcessGraphSection
+    const updateConnections = () => {
+      const section = document.querySelector('[data-global-connections]');
+      if (section) {
+        const connectionsData = section.getAttribute('data-global-connections');
+        if (connectionsData) {
+          try {
+            setGlobalConnections(JSON.parse(connectionsData));
+          } catch (e) {
+            console.warn('Failed to parse global connections:', e);
+          }
+        }
+      }
+    };
+
+    // Check immediately and set up observer
+    updateConnections();
+    
+    const observer = new MutationObserver(updateConnections);
+    observer.observe(document.body, { 
+      childList: true, 
+      subtree: true, 
+      attributes: true,
+      attributeFilter: ['data-global-connections']
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col relative">
       {/* Global grid background */}
@@ -23,10 +56,13 @@ export function Layout({ children }: LayoutProps) {
       */}
       
       <Header />
-      <main className="flex-1 relative z-10 overflow-y-auto">
+      <main className="flex-1 relative z-10">
         {children}
       </main>
       <Footer />
+      
+      {/* Global Connection Overlay */}
+      <GlobalConnectionOverlay connections={globalConnections} />
       
       {/* TODO: Add HubSpot chat widget */}
       {/* 

@@ -1,7 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import { Database, Shield, Zap, Users, Rocket, Target, ArrowDown, BarChart3, Brain, Lock } from "lucide-react";
-import { GlobalConnectionOverlay } from "./GlobalConnectionOverlay";
 
 interface Connection {
   targetId: string;
@@ -261,11 +260,8 @@ export function ProcessGraphSection({ steps = defaultSteps }: ProcessGraphSectio
   }, []);
 
   return (
-    <>
-      <GlobalConnectionOverlay 
-        connections={globalConnections}
-      />
-      <section ref={containerRef} className="relative py-20">
+    <section ref={containerRef} className="relative py-20"
+      data-global-connections={JSON.stringify(globalConnections)}>
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 lg:px-8">
           {/* Process graph nodes - starting from second step since first is in header */}
           <div className="relative">
@@ -280,6 +276,5 @@ export function ProcessGraphSection({ steps = defaultSteps }: ProcessGraphSectio
           </div>
         </div>
       </section>
-    </>
   );
 }
