@@ -204,7 +204,7 @@ function ProcessNode({ step, index, allSteps }: { step: ProcessStep; index: numb
           {step.id === "security" ? (
             <img 
               data-node-id={step.id}
-              src="/lovable-uploads/47bee226-22ba-4a86-8552-ea2963418d01.png" 
+              src="/src/assets/graph_three_nodes.png" 
               alt="Security Layer" 
               className={`${getNodeSize()} object-contain shadow-glow-accent`}
             />
