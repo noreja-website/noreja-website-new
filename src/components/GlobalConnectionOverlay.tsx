@@ -20,6 +20,7 @@ interface ConnectionState {
     isVisible: boolean;
     sourceVisible: boolean;
     targetVisible: boolean;
+    hasBeenVisible: boolean;
   };
 }
 
@@ -123,7 +124,8 @@ export function GlobalConnectionOverlay({ connections }: GlobalConnectionOverlay
                 const current = updated[connectionId] || { 
                   isVisible: false, 
                   sourceVisible: false, 
-                  targetVisible: false 
+                  targetVisible: false,
+                  hasBeenVisible: false
                 };
                 
                 if (connection.sourceId === nodeId) {
@@ -132,7 +134,11 @@ export function GlobalConnectionOverlay({ connections }: GlobalConnectionOverlay
                   current.targetVisible = entry.isIntersecting;
                 }
                 
-                current.isVisible = current.sourceVisible;
+                const shouldBeVisible = current.sourceVisible;
+                if (shouldBeVisible && !current.hasBeenVisible) {
+                  current.hasBeenVisible = true;
+                }
+                current.isVisible = current.hasBeenVisible;
                 updated[connectionId] = current;
               });
               

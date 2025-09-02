@@ -119,8 +119,18 @@ const defaultSteps = allSteps.slice(1);
 
 function ProcessNode({ step, index, allSteps }: { step: ProcessStep; index: number; allSteps: ProcessStep[] }) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-300px" });
+  const isInView = useInView(ref, { margin: "-300px" });
+  const [hasBeenVisible, setHasBeenVisible] = useState(false);
   const Icon = step.icon;
+
+  // Track if animation has been triggered at least once
+  useEffect(() => {
+    if (isInView && !hasBeenVisible) {
+      setHasBeenVisible(true);
+    }
+  }, [isInView, hasBeenVisible]);
+
+  const shouldAnimate = hasBeenVisible;
   
   const getNodeSize = () => {
     switch (step.size) {
@@ -182,7 +192,7 @@ function ProcessNode({ step, index, allSteps }: { step: ProcessStep; index: numb
         {/* Node */}
         <motion.div
           initial={{ scale: 0, opacity: 0, y: 50 }}
-          animate={isInView ? { scale: 1, opacity: 1, y: 0 } : { scale: 0, opacity: 0, y: 50 }}
+          animate={shouldAnimate ? { scale: 1, opacity: 1, y: 0 } : { scale: 0, opacity: 0, y: 50 }}
           transition={{ 
             delay: 0.2,
             duration: 0.8,
@@ -201,7 +211,7 @@ function ProcessNode({ step, index, allSteps }: { step: ProcessStep; index: numb
           {/* Pulse effect */}
           <motion.div
             className={`absolute inset-0 ${getNodeSize()} border-2 border-noreja-tertiary rounded-full`}
-            animate={isInView ? {
+            animate={shouldAnimate ? {
               scale: [1, 1.4, 1],
               opacity: [0.4, 0, 0.4]
             } : {}}
@@ -216,7 +226,7 @@ function ProcessNode({ step, index, allSteps }: { step: ProcessStep; index: numb
         {/* Caption */}
         <motion.div
           initial={{ opacity: 0, x: step.side === 'right' ? 30 : -30 }}
-          animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: step.side === 'right' ? 30 : -30 }}
+          animate={shouldAnimate ? { opacity: 1, x: 0 } : { opacity: 0, x: step.side === 'right' ? 30 : -30 }}
           transition={{ delay: 0.6, duration: 0.8 }}
           className={`max-w-sm ${getCaptionPosition()}`}
         >
