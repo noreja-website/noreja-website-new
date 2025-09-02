@@ -201,21 +201,21 @@ function ProcessNode({ step, index, allSteps }: { step: ProcessStep; index: numb
           }}
           className="relative flex-shrink-0"
         >
-          <div 
-            data-node-id={step.id}
-            className={`${getNodeSize()} bg-card border-2 border-noreja-tertiary rounded-full flex items-center justify-center shadow-glow-accent overflow-hidden`}
-          >
-            {step.id === "security" ? (
-              <img 
-                src="/lovable-uploads/47bee226-22ba-4a86-8552-ea2963418d01.png" 
-                alt="Security Layer" 
-                className="w-1/4 h-auto object-contain max-w-full"
-                style={{ width: '25%' }}
-              />
-            ) : (
+          {step.id === "security" ? (
+            <img 
+              data-node-id={step.id}
+              src="/lovable-uploads/47bee226-22ba-4a86-8552-ea2963418d01.png" 
+              alt="Security Layer" 
+              className={`${getNodeSize()} object-contain shadow-glow-accent`}
+            />
+          ) : (
+            <div 
+              data-node-id={step.id}
+              className={`${getNodeSize()} bg-card border-2 border-noreja-tertiary rounded-full flex items-center justify-center shadow-glow-accent`}
+            >
               <Icon className={`${getIconSize()} text-noreja-tertiary`} />
-            )}
-          </div>
+            </div>
+          )}
           
           {/* Pulse effect */}
           <motion.div
