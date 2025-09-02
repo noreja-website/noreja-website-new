@@ -6,7 +6,6 @@ export function IntegratedHeroSection() {
   return (
     <section className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden">
       {/* Background Effects */}
-      <div className="absolute inset-0 bg-gradient-dark opacity-50" />
       <div className="absolute inset-0">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-noreja-main/10 rounded-full blur-3xl" />
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-noreja-tertiary/10 rounded-full blur-3xl" />
