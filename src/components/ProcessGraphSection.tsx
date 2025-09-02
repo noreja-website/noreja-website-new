@@ -203,9 +203,18 @@ function ProcessNode({ step, index, allSteps }: { step: ProcessStep; index: numb
         >
           <div 
             data-node-id={step.id}
-            className={`${getNodeSize()} bg-card border-2 border-noreja-tertiary rounded-full flex items-center justify-center shadow-glow-accent`}
+            className={`${getNodeSize()} bg-card border-2 border-noreja-tertiary rounded-full flex items-center justify-center shadow-glow-accent overflow-hidden`}
           >
-            <Icon className={`${getIconSize()} text-noreja-tertiary`} />
+            {step.id === "security" ? (
+              <img 
+                src="/lovable-uploads/47bee226-22ba-4a86-8552-ea2963418d01.png" 
+                alt="Security Layer" 
+                className="w-1/4 h-auto object-contain max-w-full"
+                style={{ width: '25%' }}
+              />
+            ) : (
+              <Icon className={`${getIconSize()} text-noreja-tertiary`} />
+            )}
           </div>
           
           {/* Pulse effect */}
