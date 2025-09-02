@@ -12,17 +12,14 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="md:col-span-1">
-            <Link to="/" className="flex items-center space-x-2 mb-4">
+            <Link to="/" className="flex items-center mb-4">
               <motion.img
-                src="/src/assets/logo.png"
-                alt="Noreja Logo"
-                className="w-8 h-8"
+                src="/src/assets/logo-triangular.png"
+                alt="Company Logo"
+                className="w-10 h-10"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               />
-              <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-                Noreja
-              </span>
             </Link>
             <p className="text-muted-foreground text-sm mb-4">
               {siteConfig.description}

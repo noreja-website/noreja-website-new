@@ -8,7 +8,7 @@ interface LayoutProps {
 
 export function Layout({ children }: LayoutProps) {
   return (
-    <div className="min-h-screen max-h-screen flex flex-col relative overflow-hidden">
+    <div className="min-h-screen flex flex-col relative">
       {/* Global grid background */}
       <div className="fixed inset-0 opacity-5 pointer-events-none z-0">
         <div className="absolute inset-0" style={{
@@ -23,7 +23,7 @@ export function Layout({ children }: LayoutProps) {
       */}
       
       <Header />
-      <main className="flex-1 relative z-10">
+      <main className="flex-1 relative z-10 overflow-y-auto">
         {children}
       </main>
       <Footer />

@@ -16,17 +16,14 @@ export function Header() {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
+          <Link to="/" className="flex items-center">
             <motion.img
-              src="/src/assets/logo.png"
-              alt="Noreja Logo"
-              className="w-8 h-8"
+              src="/src/assets/logo-triangular.png"
+              alt="Company Logo"
+              className="w-10 h-10"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             />
-            <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-              Noreja
-            </span>
           </Link>
 
           {/* Desktop Navigation */}
