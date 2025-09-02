@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Github, Linkedin, Twitter } from "lucide-react";
 import { siteConfig, footerNavigation, legalLinks } from "@/lib/config";
+import logo from "@/assets/noreja_logo_white.png";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -14,9 +15,9 @@ export function Footer() {
           <div className="md:col-span-1">
             <Link to="/" className="flex items-center mb-4">
               <motion.img
-                src="/src/assets/logo-triangular.png"
-                alt="Company Logo"
-                className="w-10 h-10"
+                src={logo}
+                alt="Noreja Logo"
+                className="w-36 h-10"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               />

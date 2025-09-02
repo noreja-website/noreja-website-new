@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { headerNavigation } from "@/lib/config";
+import logo from "@/assets/noreja_logo_white.png";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,9 +19,9 @@ export function Header() {
           {/* Logo */}
           <Link to="/" className="flex items-center">
             <motion.img
-              src="/src/assets/logo-triangular.png"
-              alt="Company Logo"
-              className="w-10 h-10"
+              src={logo}
+              alt="Noreja Logo"
+              className="w-36 h-10"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             />
