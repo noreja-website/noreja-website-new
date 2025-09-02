@@ -203,12 +203,39 @@ function ProcessNode({ step, index, allSteps }: { step: ProcessStep; index: numb
           className="relative flex-shrink-0"
         >
           {step.id === "security" ? (
-            <img 
-              data-node-id={step.id}
-              src={graphThreeNodes} 
-              alt="Security Layer" 
-              className={`${getNodeSize()} object-contain w-44 h-22`}
-            />
+            <div style={{ perspective: 800 }}>
+              <motion.div
+                initial={{ rotateY: 0 }}
+                animate={shouldAnimate ? { rotateY: [-8, 0, 8, 0, -8] } : { rotateY: 0 }}
+                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                style={{ transformStyle: 'preserve-3d' }}
+              >
+                <div className={`relative w-72 h-44 rounded-md bg-black/30 p-3 flex items-center justify-center`} data-node-id={step.id}>
+                  <motion.img 
+                    src={graphThreeNodes} 
+                    alt="Security Layer" 
+                    className="w-full h-full object-contain"
+                    initial={{ rotateY: 0 }}
+                    animate={shouldAnimate ? { rotateY: [-8, 0, 8, 0, -8] } : { rotateY: 0 }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                    style={{ transformStyle: 'preserve-3d', backfaceVisibility: 'hidden' }}
+                  />
+                  {/* Rectangular glow pulse */}
+                  <motion.div
+                    className="pointer-events-none absolute inset-0 rounded-md border-2 border-noreja-tertiary"
+                    animate={shouldAnimate ? {
+                      scale: [1, 1.06, 1],
+                      opacity: [0.35, 0, 0.35]
+                    } : {}}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      delay: 1.2
+                    }}
+                  />
+                </div>
+              </motion.div>
+            </div>
           ) : (
             <div 
               data-node-id={step.id}

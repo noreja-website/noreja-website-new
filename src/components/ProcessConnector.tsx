@@ -83,14 +83,14 @@ export function ProcessConnector({
           
           return (
             <g key={`${sourceId}-${connection.targetId}`}>
-              {/* Main path */}
+              {/* Main path (no arrowheads) */}
               <motion.path
                 d={path}
                 stroke={`url(#flow-gradient-${sourceId})`}
                 strokeWidth="3"
                 fill="none"
                 strokeDasharray="8,4"
-                markerEnd={`url(#arrowhead-${sourceId})`}
+                
                 opacity="0.8"
                 initial={{ pathLength: 0 }}
                 animate={isVisible ? { pathLength: 1 } : { pathLength: 0 }}
