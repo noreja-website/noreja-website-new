@@ -105,9 +105,16 @@ export interface Translations {
           features: string[];
           cta: string;
         };
+        };
+      };
+      contact: {
+        title: string;
+        subtitle: string;
+        bookCallText: string;
+        bookCallButton: string;
+        responseNote: string;
       };
     };
-  };
   hero: {
     badge: string;
     title: string;
