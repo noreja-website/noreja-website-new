@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Github, Linkedin, Twitter } from "lucide-react";
 import { siteConfig } from "@/lib/config";
 import { useLanguage } from "@/contexts/LanguageContext";
-import logo from "@/assets/noreja_logo_white.png";
+import logo from "@/assets/noreja_logo_white_violet.png";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();

@@ -1,9 +1,27 @@
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
 
 const ContactUs = () => {
   const { t } = useLanguage();
+
+  // Load HubSpot embed script once and let it initialize the form container
+  useEffect(() => {
+    const existing = document.querySelector(
+      'script[src="https://js-eu1.hsforms.net/forms/embed/144242473.js"]'
+    ) as HTMLScriptElement | null;
+    if (existing) return;
+
+    const script = document.createElement('script');
+    script.src = 'https://js-eu1.hsforms.net/forms/embed/144242473.js';
+    script.defer = true;
+    document.body.appendChild(script);
+
+    return () => {
+      // keep script for SPA navigation; no cleanup to avoid reloading on route change
+    };
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">
@@ -30,15 +48,12 @@ const ContactUs = () => {
                 id="hubspot-contact-form"
                 style={{ minHeight: '400px' }}
               >
-                {/* HubSpot form will be embedded here */}
-                <div className="flex items-center justify-center h-96 bg-muted/20 rounded-lg border-2 border-dashed border-border">
-                  <div className="text-center">
-                    <p className="text-muted-foreground text-lg mb-2">HubSpot Contact Form</p>
-                    <p className="text-sm text-muted-foreground">
-                      Form will be embedded here with portal ID and form GUID
-                    </p>
-                  </div>
-                </div>
+                <div
+                  className="hs-form-frame"
+                  data-region="eu1"
+                  data-form-id="8e77caaf-8841-462e-b0bb-0ef0082e0c48"
+                  data-portal-id="144242473"
+                />
               </div>
             </div>
           </div>
@@ -54,7 +69,7 @@ const ContactUs = () => {
           <Button 
             size="lg"
             className="text-lg px-8 py-3"
-            onClick={() => window.open('https://outlook.live.com/book/', '_blank')}
+            onClick={() => window.open('https://outlook.office365.com/book/Kennenlernen@noreja.com/?ismsaljsauthenabled=true', '_blank')}
           >
             {t.pages.contact.bookCallButton}
             <ExternalLink className="ml-2 h-5 w-5" />
