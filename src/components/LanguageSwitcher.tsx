@@ -39,7 +39,7 @@ export function LanguageSwitcher() {
         className="absolute bottom-0 left-0 h-0.5 bg-primary"
         initial={false}
         animate={{
-          x: language === 'en' ? 4 : 24,
+          x: language === 'en' ? 4 : 32,
           width: language === 'en' ? 16 : 16
         }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
