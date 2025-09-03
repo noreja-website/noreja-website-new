@@ -13,6 +13,7 @@ import Partners from "./pages/Partners";
 import Blog from "./pages/Blog";
 import Downloads from "./pages/Downloads";
 import Pricing from "./pages/Pricing";
+import ContactUs from "./pages/ContactUs";
 import Imprint from "./pages/Imprint";
 import NotFound from "./pages/NotFound";
 
@@ -35,6 +36,7 @@ const App = () => (
             <Route path="/blog" element={<Blog />} />
             <Route path="/downloads" element={<Downloads />} />
             <Route path="/pricing" element={<Pricing />} />
+            <Route path="/contact" element={<ContactUs />} />
             <Route path="/imprint" element={<Imprint />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />

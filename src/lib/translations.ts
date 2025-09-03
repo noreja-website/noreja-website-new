@@ -454,6 +454,13 @@ export const translations: Record<Language, Translations> = {
             cta: "Contact us"
           }
         }
+      },
+      contact: {
+        title: "Get in Touch",
+        subtitle: "We'd love to hear from you. Reach out to our team for questions, collaborations, or product demos.",
+        bookCallText: "Prefer to book a call directly?",
+        bookCallButton: "Book a Call",
+        responseNote: "We typically respond within 24 hours."
       }
     },
     hero: {
@@ -800,6 +807,13 @@ export const translations: Record<Language, Translations> = {
             cta: "Kontakt aufnehmen"
           }
         }
+      },
+      contact: {
+        title: "Kontakt aufnehmen",
+        subtitle: "Wir freuen uns auf Ihre Nachricht. Kontaktieren Sie unser Team für Fragen, Kooperationen oder Produktdemos.",
+        bookCallText: "Lieber direkt einen Termin buchen?",
+        bookCallButton: "Termin buchen",
+        responseNote: "Wir antworten in der Regel innerhalb von 24 Stunden."
       }
     },
     hero: {

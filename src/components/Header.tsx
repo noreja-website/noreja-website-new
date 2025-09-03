@@ -65,9 +65,11 @@ export function Header() {
           {/* Language Switcher and CTA */}
           <div className="hidden md:flex items-center space-x-4">
             <LanguageSwitcher />
-            <Button size="sm" className="gradient-primary glow-primary">
-              {t.buttons.contactUs}
-            </Button>
+            <Link to="/contact">
+              <Button size="sm" className="gradient-primary glow-primary">
+                {t.buttons.contactUs}
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -106,9 +108,11 @@ export function Header() {
               ))}
               <div className="flex flex-col space-y-2 pt-4">
                 <LanguageSwitcher />
-                <Button size="sm" className="gradient-primary">
-                  {t.buttons.contactUs}
-                </Button>
+                <Link to="/contact">
+                  <Button size="sm" className="gradient-primary">
+                    {t.buttons.contactUs}
+                  </Button>
+                </Link>
               </div>
             </nav>
           </motion.div>
