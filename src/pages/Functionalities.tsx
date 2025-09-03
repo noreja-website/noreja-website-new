@@ -2,50 +2,53 @@ import { motion } from "framer-motion";
 import { SchematicCanvas } from "@/components/SchematicCanvas";
 import { FunctionalitiesNav } from "@/components/FunctionalitiesNav";
 import { HubSpotBlogTeaser } from "@/components/HubSpotBlogTeaser";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Functionalities = () => {
+  const { t } = useLanguage();
+  
   const capabilities = [
     {
       id: "data-collection",
-      title: "Data Collection",
-      description: "Intelligent data gathering from multiple sources with automated processing and real-time synchronization. Our advanced algorithms ensure comprehensive coverage while maintaining data integrity and compliance standards.",
-      schematicTitle: "Data Flow Architecture",
-      schematicDesc: "Multi-source data ingestion pipeline"
+      title: t.pages.functionalities.capabilities.dataCollection.title,
+      description: t.pages.functionalities.capabilities.dataCollection.description,
+      schematicTitle: t.pages.functionalities.capabilities.dataCollection.schematicTitle,
+      schematicDesc: t.pages.functionalities.capabilities.dataCollection.schematicDesc
     },
     {
       id: "ai-processing",
-      title: "AI Processing",
-      description: "State-of-the-art machine learning models that analyze, classify, and extract insights from your data. Our AI engine continuously learns and adapts to provide increasingly accurate and relevant results.",
-      schematicTitle: "Neural Network Pipeline",
-      schematicDesc: "Advanced ML processing workflow"
+      title: t.pages.functionalities.capabilities.aiProcessing.title,
+      description: t.pages.functionalities.capabilities.aiProcessing.description,
+      schematicTitle: t.pages.functionalities.capabilities.aiProcessing.schematicTitle,
+      schematicDesc: t.pages.functionalities.capabilities.aiProcessing.schematicDesc
     },
     {
       id: "analytics-insights",
-      title: "Analytics & Insights",
-      description: "Transform raw data into actionable insights with our comprehensive analytics suite. Generate detailed reports, identify trends, and make data-driven decisions with confidence.",
-      schematicTitle: "Analytics Dashboard",
-      schematicDesc: "Real-time insights visualization"
+      title: t.pages.functionalities.capabilities.analyticsInsights.title,
+      description: t.pages.functionalities.capabilities.analyticsInsights.description,
+      schematicTitle: t.pages.functionalities.capabilities.analyticsInsights.schematicTitle,
+      schematicDesc: t.pages.functionalities.capabilities.analyticsInsights.schematicDesc
     },
     {
       id: "automation",
-      title: "Automation",
-      description: "Streamline your workflows with intelligent automation that reduces manual effort and eliminates repetitive tasks. Set up custom triggers and actions to optimize your business processes.",
-      schematicTitle: "Workflow Engine",
-      schematicDesc: "Automated process orchestration"
+      title: t.pages.functionalities.capabilities.automation.title,
+      description: t.pages.functionalities.capabilities.automation.description,
+      schematicTitle: t.pages.functionalities.capabilities.automation.schematicTitle,
+      schematicDesc: t.pages.functionalities.capabilities.automation.schematicDesc
     },
     {
       id: "integration",
-      title: "Integration",
-      description: "Seamlessly connect with your existing tools and systems through our robust API and pre-built integrations. Ensure smooth data flow across your entire technology stack.",
-      schematicTitle: "Integration Hub",
-      schematicDesc: "System connectivity matrix"
+      title: t.pages.functionalities.capabilities.integration.title,
+      description: t.pages.functionalities.capabilities.integration.description,
+      schematicTitle: t.pages.functionalities.capabilities.integration.schematicTitle,
+      schematicDesc: t.pages.functionalities.capabilities.integration.schematicDesc
     },
     {
       id: "security",
-      title: "Security",
-      description: "Enterprise-grade security features protect your data at every level. With end-to-end encryption, access controls, and compliance certifications, your information stays secure.",
-      schematicTitle: "Security Framework",
-      schematicDesc: "Multi-layer protection system"
+      title: t.pages.functionalities.capabilities.security.title,
+      description: t.pages.functionalities.capabilities.security.description,
+      schematicTitle: t.pages.functionalities.capabilities.security.schematicTitle,
+      schematicDesc: t.pages.functionalities.capabilities.security.schematicDesc
     }
   ];
 
@@ -61,11 +64,10 @@ const Functionalities = () => {
             className="text-center mb-16"
           >
             <h1 className="text-4xl lg:text-6xl font-bold mb-6 text-foreground">
-              Product <span className="text-noreja-main">Functionalities</span>
+              {t.pages.functionalities.title} <span className="text-noreja-main">{t.pages.functionalities.titleHighlight}</span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Discover the comprehensive capabilities that power your data-driven success. 
-              From intelligent collection to actionable insights, explore how our platform transforms your workflow.
+              {t.pages.functionalities.subtitle}
             </p>
           </motion.div>
         </div>
@@ -126,10 +128,10 @@ const Functionalities = () => {
             className="text-center mb-12"
           >
             <h2 className="text-3xl lg:text-4xl font-bold mb-4 text-foreground">
-              Learn More
+              {t.pages.functionalities.learnMore}
             </h2>
             <p className="text-lg text-muted-foreground">
-              Discover insights and best practices from our experts
+              {t.pages.functionalities.learnMoreSubtitle}
             </p>
           </motion.div>
           

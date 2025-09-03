@@ -12,6 +12,102 @@ export interface Translations {
     downloads: string;
     quickNavigation: string;
   };
+  pages: {
+    functionalities: {
+      title: string;
+      titleHighlight: string;
+      subtitle: string;
+      learnMore: string;
+      learnMoreSubtitle: string;
+      capabilities: {
+        dataCollection: {
+          title: string;
+          description: string;
+          schematicTitle: string;
+          schematicDesc: string;
+        };
+        aiProcessing: {
+          title: string;
+          description: string;
+          schematicTitle: string;
+          schematicDesc: string;
+        };
+        analyticsInsights: {
+          title: string;
+          description: string;
+          schematicTitle: string;
+          schematicDesc: string;
+        };
+        automation: {
+          title: string;
+          description: string;
+          schematicTitle: string;
+          schematicDesc: string;
+        };
+        integration: {
+          title: string;
+          description: string;
+          schematicTitle: string;
+          schematicDesc: string;
+        };
+        security: {
+          title: string;
+          description: string;
+          schematicTitle: string;
+          schematicDesc: string;
+        };
+      };
+    };
+    successStories: {
+      title: string;
+      titleHighlight: string;
+      subtitle: string;
+      readCaseStudy: string;
+    };
+    partners: {
+      title: string;
+      titleHighlight: string;
+      subtitle: string;
+      strategicPartnerships: string;
+      trustedBy: string;
+      visitWebsite: string;
+      becomePartner: string;
+      partnerWithUs: string;
+      learnMore: string;
+      partnerSubtitle: string;
+    };
+    pricing: {
+      title: string;
+      subtitle: string;
+      teamSize: string;
+      users: string;
+      user: string;
+      mostPopular: string;
+      month: string;
+      viewAllFeatures: string;
+      footerNote: string;
+      plans: {
+        starter: {
+          name: string;
+          description: string;
+          features: string[];
+          cta: string;
+        };
+        pro: {
+          name: string;
+          description: string;
+          features: string[];
+          cta: string;
+        };
+        enterprise: {
+          name: string;
+          description: string;
+          features: string[];
+          cta: string;
+        };
+      };
+    };
+  };
   hero: {
     badge: string;
     title: string;
@@ -242,6 +338,124 @@ export const translations: Record<Language, Translations> = {
       downloads: "Downloads",
       quickNavigation: "Quick Navigation",
     },
+    pages: {
+      functionalities: {
+        title: "Product",
+        titleHighlight: "Functionalities",
+        subtitle: "Discover the comprehensive capabilities that power your data-driven success. From intelligent collection to actionable insights, explore how our platform transforms your workflow.",
+        learnMore: "Learn More",
+        learnMoreSubtitle: "Discover insights and best practices from our experts",
+        capabilities: {
+          dataCollection: {
+            title: "Data Collection",
+            description: "Intelligent data gathering from multiple sources with automated processing and real-time synchronization. Our advanced algorithms ensure comprehensive coverage while maintaining data integrity and compliance standards.",
+            schematicTitle: "Data Flow Architecture",
+            schematicDesc: "Multi-source data ingestion pipeline"
+          },
+          aiProcessing: {
+            title: "AI Processing",
+            description: "State-of-the-art machine learning models that analyze, classify, and extract insights from your data. Our AI engine continuously learns and adapts to provide increasingly accurate and relevant results.",
+            schematicTitle: "Neural Network Pipeline",
+            schematicDesc: "Advanced ML processing workflow"
+          },
+          analyticsInsights: {
+            title: "Analytics & Insights",
+            description: "Transform raw data into actionable insights with our comprehensive analytics suite. Generate detailed reports, identify trends, and make data-driven decisions with confidence.",
+            schematicTitle: "Analytics Dashboard",
+            schematicDesc: "Real-time insights visualization"
+          },
+          automation: {
+            title: "Automation",
+            description: "Streamline your workflows with intelligent automation that reduces manual effort and eliminates repetitive tasks. Set up custom triggers and actions to optimize your business processes.",
+            schematicTitle: "Workflow Engine",
+            schematicDesc: "Automated process orchestration"
+          },
+          integration: {
+            title: "Integration",
+            description: "Seamlessly connect with your existing tools and systems through our robust API and pre-built integrations. Ensure smooth data flow across your entire technology stack.",
+            schematicTitle: "Integration Hub",
+            schematicDesc: "System connectivity matrix"
+          },
+          security: {
+            title: "Security",
+            description: "Enterprise-grade security features protect your data at every level. With end-to-end encryption, access controls, and compliance certifications, your information stays secure.",
+            schematicTitle: "Security Framework",
+            schematicDesc: "Multi-layer protection system"
+          }
+        }
+      },
+      successStories: {
+        title: "Customer",
+        titleHighlight: "Success Stories",
+        subtitle: "Discover how leading organizations across industries have transformed their operations and achieved remarkable results with our platform.",
+        readCaseStudy: "Read Case Study"
+      },
+      partners: {
+        title: "Our",
+        titleHighlight: "Partners",
+        subtitle: "Collaborating with industry leaders to deliver innovative solutions and drive digital transformation across every sector.",
+        strategicPartnerships: "Strategic Partnerships",
+        trustedBy: "Trusted by leading organizations worldwide",
+        visitWebsite: "Visit Website",
+        becomePartner: "Become a Partner",
+        partnerWithUs: "Partner With Us",
+        learnMore: "Learn More",
+        partnerSubtitle: "Join our ecosystem of innovative partners and unlock new opportunities for growth, collaboration, and shared success."
+      },
+      pricing: {
+        title: "Simple, Transparent Pricing",
+        subtitle: "Choose the plan that fits your team size and needs. All plans include a 14-day free trial.",
+        teamSize: "Team Size:",
+        users: "users",
+        user: "user",
+        mostPopular: "Most Popular",
+        month: "/month",
+        viewAllFeatures: "View all features",
+        footerNote: "All plans include 14-day free trial • No setup fees • Cancel anytime",
+        plans: {
+          starter: {
+            name: "Starter",
+            description: "Perfect for small teams getting started",
+            features: [
+              "Up to 5 projects",
+              "Basic analytics",
+              "Email support",
+              "Core integrations",
+              "Standard security"
+            ],
+            cta: "Start free trial"
+          },
+          pro: {
+            name: "Pro",
+            description: "Best for growing teams and businesses",
+            features: [
+              "Unlimited projects",
+              "Advanced analytics",
+              "Priority support",
+              "All integrations",
+              "Enhanced security",
+              "Custom workflows",
+              "Team collaboration tools"
+            ],
+            cta: "Start free trial"
+          },
+          enterprise: {
+            name: "Enterprise",
+            description: "For large organizations with specific needs",
+            features: [
+              "Everything in Pro",
+              "Dedicated support",
+              "Custom integrations",
+              "Advanced security",
+              "SLA guarantee",
+              "On-premise deployment",
+              "Custom training"
+            ],
+            cta: "Contact us"
+          }
+        }
+      }
+    },
     hero: {
       badge: "Revolutionary Technology",
       title: "The Future of",
@@ -470,6 +684,124 @@ export const translations: Record<Language, Translations> = {
       downloads: "Downloads",
       quickNavigation: "Schnellnavigation",
     },
+    pages: {
+      functionalities: {
+        title: "Produkt",
+        titleHighlight: "Funktionen",
+        subtitle: "Entdecken Sie die umfassenden Fähigkeiten, die Ihren datengetriebenen Erfolg vorantreiben. Von intelligenter Erfassung bis zu umsetzbaren Erkenntnissen - erkunden Sie, wie unsere Plattform Ihren Workflow transformiert.",
+        learnMore: "Mehr erfahren",
+        learnMoreSubtitle: "Entdecken Sie Einblicke und Best Practices von unseren Experten",
+        capabilities: {
+          dataCollection: {
+            title: "Datenerfassung",
+            description: "Intelligente Datensammlung aus mehreren Quellen mit automatisierter Verarbeitung und Echtzeit-Synchronisation. Unsere fortschrittlichen Algorithmen gewährleisten umfassende Abdeckung bei gleichzeitiger Wahrung der Datenintegrität und Compliance-Standards.",
+            schematicTitle: "Datenfluss-Architektur",
+            schematicDesc: "Multi-Source Datenaufnahme-Pipeline"
+          },
+          aiProcessing: {
+            title: "KI-Verarbeitung",
+            description: "Modernste Machine-Learning-Modelle, die Ihre Daten analysieren, klassifizieren und Erkenntnisse extrahieren. Unsere KI-Engine lernt kontinuierlich und passt sich an, um zunehmend präzise und relevante Ergebnisse zu liefern.",
+            schematicTitle: "Neuronale Netzwerk-Pipeline",
+            schematicDesc: "Erweiterte ML-Verarbeitungs-Workflow"
+          },
+          analyticsInsights: {
+            title: "Analytics & Insights",
+            description: "Verwandeln Sie Rohdaten in umsetzbare Erkenntnisse mit unserer umfassenden Analytics-Suite. Erstellen Sie detaillierte Berichte, identifizieren Sie Trends und treffen Sie datengestützte Entscheidungen mit Vertrauen.",
+            schematicTitle: "Analytics Dashboard",
+            schematicDesc: "Echtzeit-Erkenntnisse Visualisierung"
+          },
+          automation: {
+            title: "Automatisierung",
+            description: "Optimieren Sie Ihre Workflows mit intelligenter Automatisierung, die manuellen Aufwand reduziert und wiederkehrende Aufgaben eliminiert. Richten Sie benutzerdefinierte Trigger und Aktionen ein, um Ihre Geschäftsprozesse zu optimieren.",
+            schematicTitle: "Workflow-Engine",
+            schematicDesc: "Automatisierte Prozess-Orchestrierung"
+          },
+          integration: {
+            title: "Integration",
+            description: "Verbinden Sie sich nahtlos mit Ihren bestehenden Tools und Systemen über unsere robuste API und vorgefertigte Integrationen. Gewährleisten Sie einen reibungslosen Datenfluss durch Ihren gesamten Technologie-Stack.",
+            schematicTitle: "Integration Hub",
+            schematicDesc: "System-Konnektivitäts-Matrix"
+          },
+          security: {
+            title: "Sicherheit",
+            description: "Sicherheitsfunktionen auf Unternehmensebene schützen Ihre Daten auf jeder Ebene. Mit Ende-zu-Ende-Verschlüsselung, Zugriffskontrollen und Compliance-Zertifizierungen bleiben Ihre Informationen sicher.",
+            schematicTitle: "Sicherheits-Framework",
+            schematicDesc: "Mehrschichtiges Schutzsystem"
+          }
+        }
+      },
+      successStories: {
+        title: "Kunden",
+        titleHighlight: "Erfolgsgeschichten",
+        subtitle: "Entdecken Sie, wie führende Organisationen verschiedener Branchen ihre Abläufe transformiert und bemerkenswerte Ergebnisse mit unserer Plattform erzielt haben.",
+        readCaseStudy: "Fallstudie lesen"
+      },
+      partners: {
+        title: "Unsere",
+        titleHighlight: "Partner",
+        subtitle: "Zusammenarbeit mit Branchenführern zur Bereitstellung innovativer Lösungen und zur Förderung der digitalen Transformation in jedem Sektor.",
+        strategicPartnerships: "Strategische Partnerschaften",
+        trustedBy: "Vertraut von führenden Organisationen weltweit",
+        visitWebsite: "Website besuchen",
+        becomePartner: "Partner werden",
+        partnerWithUs: "Partner werden",
+        learnMore: "Mehr erfahren",
+        partnerSubtitle: "Treten Sie unserem Ökosystem innovativer Partner bei und erschließen Sie neue Möglichkeiten für Wachstum, Zusammenarbeit und gemeinsamen Erfolg."
+      },
+      pricing: {
+        title: "Einfache, transparente Preise",
+        subtitle: "Wählen Sie den Plan, der zu Ihrer Teamgröße und Ihren Bedürfnissen passt. Alle Pläne beinhalten eine 14-tägige kostenlose Testversion.",
+        teamSize: "Teamgröße:",
+        users: "Benutzer",
+        user: "Benutzer",
+        mostPopular: "Am beliebtesten",
+        month: "/Monat",
+        viewAllFeatures: "Alle Features anzeigen",
+        footerNote: "Alle Pläne beinhalten 14-tägige kostenlose Testversion • Keine Einrichtungsgebühren • Jederzeit kündbar",
+        plans: {
+          starter: {
+            name: "Starter",
+            description: "Perfekt für kleine Teams, die anfangen",
+            features: [
+              "Bis zu 5 Projekte",
+              "Basis-Analytics",
+              "E-Mail-Support",
+              "Kern-Integrationen",
+              "Standard-Sicherheit"
+            ],
+            cta: "Kostenlose Testversion starten"
+          },
+          pro: {
+            name: "Pro",
+            description: "Am besten für wachsende Teams und Unternehmen",
+            features: [
+              "Unbegrenzte Projekte",
+              "Erweiterte Analytics",
+              "Prioritäts-Support",
+              "Alle Integrationen",
+              "Erweiterte Sicherheit",
+              "Benutzerdefinierte Workflows",
+              "Team-Collaboration-Tools"
+            ],
+            cta: "Kostenlose Testversion starten"
+          },
+          enterprise: {
+            name: "Enterprise",
+            description: "Für große Organisationen mit spezifischen Anforderungen",
+            features: [
+              "Alles aus Pro",
+              "Dedizierter Support",
+              "Benutzerdefinierte Integrationen",
+              "Erweiterte Sicherheit",
+              "SLA-Garantie",
+              "On-Premise-Bereitstellung",
+              "Benutzerdefinierte Schulungen"
+            ],
+            cta: "Kontakt aufnehmen"
+          }
+        }
+      }
+    },
     hero: {
       badge: "Revolutionäre Technologie",
       title: "Die Zukunft der",
@@ -500,11 +832,11 @@ export const translations: Record<Language, Translations> = {
       },
       aiProcessing: {
         title: "KI-Verarbeitung",
-        description: "Intelligente Automatisierung und maschinelle Lernalgorithmen für verbesserte Entscheidungsfindung.",
+        description: "Intelligente Automatisierung und Machine-Learning-Algorithmen für verbesserte Entscheidungsfindung.",
       },
       analyticsInsights: {
-        title: "Analytics & Erkenntnisse",
-        description: "Umfassendes Analytics-Dashboard mit umsetzbaren Erkenntnissen und prädiktiven Analysen.",
+        title: "Analytics & Insights",
+        description: "Umfassendes Analytics-Dashboard mit umsetzbaren Erkenntnissen und prädiktiver Analytik.",
       },
       automation: {
         title: "Automatisierung",
@@ -516,12 +848,12 @@ export const translations: Record<Language, Translations> = {
       },
       security: {
         title: "Sicherheit",
-        description: "Sicherheitsmaßnahmen auf Unternehmensebene für Datenschutz und Compliance.",
+        description: "Sicherheitsmaßnahmen auf Unternehmensebene zur Gewährleistung von Datenschutz und Compliance.",
       },
       features: {
         aiAnalytics: {
           title: "KI-gestützte Analytik",
-          description: "Fortschrittliche Machine-Learning-Algorithmen, die tiefe Einblicke in Ihre Daten bieten."
+          description: "Fortschrittliche Machine-Learning-Algorithmen, die tiefgreifende Einblicke in Ihre Daten bieten."
         },
         dataIntegration: {
           title: "Datenintegration",
@@ -529,33 +861,33 @@ export const translations: Record<Language, Translations> = {
         },
         security: {
           title: "Unternehmenssicherheit",
-          description: "Bankenstandard-Sicherheitsprotokolle zum Schutz Ihrer sensiblen Informationen."
+          description: "Sicherheitsprotokolle auf Bankenniveau zum Schutz Ihrer sensiblen Informationen."
         },
         realTime: {
-          title: "Echtzeit-Verarbeitung",
+          title: "Echtzeitverarbeitung",
           description: "Blitzschnelle Verarbeitung für sofortige Ergebnisse und Erkenntnisse."
         }
       }
     },
     process: {
-      title: "So funktioniert es",
+      title: "Wie es funktioniert",
       subtitle: "Unser optimierter Ansatz gewährleistet maximale Effizienz und optimale Ergebnisse.",
       steps: {
         collect: {
           title: "Sammeln",
-          description: "Sammeln und organisieren Sie Daten aus mehreren Quellen mit automatisierten Erfassungsprozessen.",
+          description: "Sammeln und organisieren Sie Daten aus mehreren Quellen mit automatisierten Sammelprozessen.",
         },
         process: {
           title: "Verarbeiten",
-          description: "Anwenden fortschrittlicher Algorithmen und KI zur Transformation von Rohdaten in umsetzbare Erkenntnisse.",
+          description: "Wenden Sie fortschrittliche Algorithmen und KI an, um Rohdaten in umsetzbare Erkenntnisse zu verwandeln.",
         },
         analyze: {
           title: "Analysieren",
-          description: "Erstellen umfassender Berichte und Visualisierungen für fundierte Entscheidungsfindung.",
+          description: "Erstellen Sie umfassende Berichte und Visualisierungen für fundierte Entscheidungsfindung.",
         },
         optimize: {
           title: "Optimieren",
-          description: "Kontinuierliche Verbesserung der Prozesse basierend auf Leistungskennzahlen und Feedback.",
+          description: "Verbessern Sie kontinuierlich Prozesse basierend auf Leistungsmetriken und Feedback.",
         },
         processing: {
           title: "KI-Verarbeitung",
@@ -563,7 +895,7 @@ export const translations: Record<Language, Translations> = {
         },
         security: {
           title: "Sicherheitsebene",
-          description: "Unternehmenstaugliche Sicherheit und Compliance"
+          description: "Sicherheit und Compliance auf Unternehmensebene"
         },
         analysis: {
           title: "Musteranalyse",
@@ -575,7 +907,7 @@ export const translations: Record<Language, Translations> = {
         },
         encryption: {
           title: "Datenverschlüsselung",
-          description: "Militärstandard-Schutz für sensible Informationen"
+          description: "Schutz auf militärischem Niveau für sensible Informationen"
         },
         deployment: {
           title: "Bereitstellung",
@@ -590,36 +922,36 @@ export const translations: Record<Language, Translations> = {
     partners: {
       title: "Vertraut von",
       titleHighlight: "Branchenführern",
-      subtitle: "Schließen Sie sich einem wachsenden Ökosystem innovativer Unternehmen und Organisationen an, die unseren Lösungen vertrauen.",
+      subtitle: "Treten Sie einem wachsenden Ökosystem innovativer Unternehmen und Organisationen bei, die unseren Lösungen vertrauen.",
       viewAll: "Alle Partner anzeigen",
       viewAllPartners: "Alle Partner anzeigen",
       stats: {
         clients: "Unternehmenskunden",
         countries: "Länder",
-        users: "Nutzer weltweit"
+        users: "Benutzer weltweit"
       }
     },
     blog: {
       title: "Unser Blog",
-      subtitle: "Tauchen Sie ein in Brancheneinblicke, technische Innovationen und Thought Leadership von unserem Expertenteam auf unserer dedizierten Blog-Plattform.",
+      subtitle: "Tauchen Sie tief in Brancheneinblicke, technische Innovationen und Thought Leadership unseres Expertenteams auf unserer dedizierten Blog-Plattform ein.",
       latestPosts: "Neueste Beiträge",
-      readMore: "Weiterlesen",
+      readMore: "Mehr lesen",
       openBlog: "Blog öffnen",
       poweredBy: "unterstützt von HubSpot",
-      placeholder: "Blog-Beiträge werden hier angezeigt",
+      placeholder: "Blog-Beiträge werden hier erscheinen",
       configNote: "HubSpot-Einbettung oder RSS-Feed in useEffect konfigurieren",
       features: {
         innovation: {
-          title: "Innovations-Einblicke",
-          description: "Neueste Trends und bahnbrechende Technologien, die die Zukunft der Wirtschaft prägen.",
+          title: "Innovationseinblicke",
+          description: "Neueste Trends und bahnbrechende Technologien, die die Zukunft der Geschäftswelt prägen.",
         },
         technical: {
-          title: "Technische Tiefblicke",
-          description: "Tiefgreifende technische Artikel und Tutorials von unserem Engineering-Team.",
+          title: "Technische Tiefenanalysen",
+          description: "Detaillierte technische Artikel und Tutorials von unserem Engineering-Team.",
         },
         analysis: {
           title: "Branchenanalyse",
-          description: "Datengestützte Analysen und Expertenkommentare zu Marktentwicklungen.",
+          description: "Datengetriebene Analysen und Expertenkommentare zu Marktentwicklungen.",
         },
       },
       subscribeRss: "RSS abonnieren",
@@ -630,50 +962,50 @@ export const translations: Record<Language, Translations> = {
     },
     downloads: {
       title: "Ressourcen-Downloads",
-      subtitle: "Zugang zu umfassenden Leitfäden, Dokumentationen, Tools und Ressourcen zur Beschleunigung Ihrer Implementierung und Maximierung Ihres Plattform-Potentials.",
+      subtitle: "Zugang zu umfassenden Leitfäden, Dokumentationen, Tools und Ressourcen, um Ihre Implementierung zu beschleunigen und das Potenzial Ihrer Plattform zu maximieren.",
       filterByCategory: "Nach Kategorie filtern:",
       availableDownloads: "Verfügbare Downloads",
       resource: "Ressource",
       resources: "Ressourcen",
-      clickToDownload: "Klicken Sie auf eine beliebige Ressource unten, um sie nach Ausfüllen eines kurzen Formulars herunterzuladen.",
+      clickToDownload: "Klicken Sie auf eine Ressource unten, um sie nach dem Ausfüllen eines kurzen Formulars herunterzuladen.",
       noResourcesFound: "Keine Ressourcen gefunden",
       noResourcesDescription: "Keine Downloads für die ausgewählte Kategorie verfügbar.",
       needAdditionalResources: "Benötigen Sie zusätzliche Ressourcen?",
-      needAdditionalDescription: "Können Sie nicht finden, wonach Sie suchen? Unser Team hilft Ihnen dabei, die richtigen Ressourcen für Ihren spezifischen Anwendungsfall zu finden.",
+      needAdditionalDescription: "Können Sie nicht finden, wonach Sie suchen? Unser Team ist hier, um Ihnen zu helfen, die richtigen Ressourcen für Ihren spezifischen Anwendungsfall zu finden.",
       contactSupport: "Support kontaktieren",
       requestCustomResource: "Individuelle Ressource anfordern",
     },
     team: {
       title: "Lernen Sie unser Team kennen",
       subtitle: "Leidenschaftliche Fachkräfte, die sich der Innovation und der Bereitstellung außergewöhnlicher Ergebnisse für unsere Kunden weltweit widmen.",
-      connectLinkedIn: "Auf LinkedIn vernetzen",
+      connectLinkedIn: "Auf LinkedIn verbinden",
     },
     downloadGate: {
       download: "Herunterladen",
       downloaded: "Heruntergeladen",
-      fillForm: "Bitte füllen Sie das folgende Formular aus, um Zugang zu Ihrem Download zu erhalten.",
+      fillForm: "Bitte füllen Sie das untenstehende Formular aus, um auf Ihren Download zuzugreifen.",
       success: "Erfolg!",
       downloadStarted: "Ihr Download hat begonnen.",
       error: "Fehler",
-      formLoadError: "Das Download-Formular konnte nicht geladen werden. Bitte versuchen Sie es erneut.",
+      formLoadError: "Fehler beim Laden des Download-Formulars. Bitte versuchen Sie es erneut.",
     },
     finalCta: {
-      badge: "Startbereit",
+      badge: "Bereit zum Start",
       title: "Transformieren Sie Ihr Unternehmen",
       titleHighlight: "Heute",
-      subtitle: "Schließen Sie sich Tausenden von Unternehmen an, die bereits unsere revolutionäre Plattform nutzen, um Wachstum und Innovation zu beschleunigen.",
-      ctaPrimary: "Heute starten",
-      ctaSecondary: "Demo terminieren",
+      subtitle: "Treten Sie Tausenden von Unternehmen bei, die bereits unsere revolutionäre Plattform nutzen, um Wachstum und Innovation zu beschleunigen.",
+      ctaPrimary: "Heute loslegen",
+      ctaSecondary: "Demo vereinbaren",
       startJourney: "Starten Sie Ihre Reise",
       scheduleDemo: "Demo vereinbaren"
     },
     footer: {
-      description: "Stärkung von Unternehmen mit innovativen Technologielösungen für nachhaltiges Wachstum und digitale Transformation.",
+      description: "Wir stärken Unternehmen mit innovativen Technologielösungen für nachhaltiges Wachstum und digitale Transformation.",
       copyright: "Alle Rechte vorbehalten.",
       builtWith: "Erstellt mit moderner Technologie",
       links: {
         imprint: "Impressum",
-        privacy: "Datenschutzerklärung",
+        privacy: "Datenschutz",
         terms: "Nutzungsbedingungen",
       },
       legal: {
@@ -683,7 +1015,7 @@ export const translations: Record<Language, Translations> = {
       }
     },
     buttons: {
-      contactUs: "Kontaktieren Sie uns"
+      contactUs: "Kontakt"
     }
   }
 };

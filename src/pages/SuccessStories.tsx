@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ExternalLink, TrendingUp } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -9,6 +10,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { useEffect, useState } from "react";
 
 const SuccessStories = () => {
+  const { t } = useLanguage();
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
@@ -57,11 +59,10 @@ const SuccessStories = () => {
             className="text-center mb-16"
           >
             <h1 className="text-4xl lg:text-6xl font-bold mb-6 text-foreground">
-              Customer <span className="text-noreja-main">Success Stories</span>
+              {t.pages.successStories.title} <span className="text-noreja-main">{t.pages.successStories.titleHighlight}</span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Discover how leading organizations across industries have transformed their operations 
-              and achieved remarkable results with our platform.
+              {t.pages.successStories.subtitle}
             </p>
           </motion.div>
         </div>
@@ -148,7 +149,7 @@ const SuccessStories = () => {
                             className="w-full group-hover:bg-noreja-main group-hover:text-white group-hover:border-noreja-main transition-all"
                             onClick={() => window.open(story.externalUrl, '_blank')}
                           >
-                            Read Case Study
+                            {t.pages.successStories.readCaseStudy}
                             <ExternalLink className="w-4 h-4 ml-2" />
                           </Button>
                         </CardContent>

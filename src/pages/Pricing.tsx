@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
@@ -33,6 +34,7 @@ const calculatePricing = (teamSizeIndex: number) => {
 };
 
 const Pricing = () => {
+  const { t } = useLanguage();
   const [teamSizeIndex, setTeamSizeIndex] = useState(1); // Default to 10 users
   const currentTeamSize = teamSizeLabels[teamSizeIndex];
   const pricing = calculatePricing(teamSizeIndex);

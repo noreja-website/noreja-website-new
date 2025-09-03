@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -7,6 +8,7 @@ import { HubSpotBlogTeaser } from "@/components/HubSpotBlogTeaser";
 import { partners } from "@/lib/partners";
 
 export default function Partners() {
+  const { t } = useLanguage();
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
