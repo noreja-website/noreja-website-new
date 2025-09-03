@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { config } from "@/lib/config";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface DownloadGateProps {
   title: string;
@@ -103,6 +104,7 @@ export const DownloadGate: React.FC<DownloadGateProps> = ({
   className = "",
   variant = "default"
 }) => {
+  const { t } = useLanguage();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFormLoading, setIsFormLoading] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
@@ -132,8 +134,8 @@ export const DownloadGate: React.FC<DownloadGateProps> = ({
     } catch (error) {
       console.error("Error loading HubSpot form:", error);
       toast({
-        title: "Error",
-        description: "Failed to load download form. Please try again.",
+        title: t.downloadGate.error,
+        description: t.downloadGate.formLoadError,
         variant: "destructive"
       });
       setIsModalOpen(false);
@@ -148,8 +150,8 @@ export const DownloadGate: React.FC<DownloadGateProps> = ({
     onSuccess?.();
     
     toast({
-      title: "Success!",
-      description: "Your download has started.",
+      title: t.downloadGate.success,
+      description: t.downloadGate.downloadStarted,
       variant: "default"
     });
   };
@@ -205,7 +207,7 @@ export const DownloadGate: React.FC<DownloadGateProps> = ({
                 ) : (
                   <Download className="w-4 h-4 mr-2" />
                 )}
-                {isDownloading ? "Downloaded" : "Download"}
+                {isDownloading ? t.downloadGate.downloaded : t.downloadGate.download}
               </Button>
             </div>
           </CardContent>
@@ -221,7 +223,7 @@ export const DownloadGate: React.FC<DownloadGateProps> = ({
             </DialogHeader>
             <div className="py-4">
               <p className="text-muted-foreground mb-6">
-                Please fill out the form below to access your download.
+                {t.downloadGate.fillForm}
               </p>
               
               {isFormLoading ? (
@@ -258,7 +260,7 @@ export const DownloadGate: React.FC<DownloadGateProps> = ({
         ) : (
           <Download className="w-5 h-5 mr-2" />
         )}
-        {isDownloading ? "Downloaded" : "Download"}
+        {isDownloading ? t.downloadGate.downloaded : t.downloadGate.download}
       </Button>
 
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
@@ -271,7 +273,7 @@ export const DownloadGate: React.FC<DownloadGateProps> = ({
           </DialogHeader>
           <div className="py-4">
             <p className="text-muted-foreground mb-6">
-              Please fill out the form below to access your download.
+              {t.downloadGate.fillForm}
             </p>
             
             {isFormLoading ? (
@@ -298,13 +300,16 @@ export const DownloadGateInline: React.FC<DownloadGateInlineProps> = ({
   formGuid = config.hubspot.defaultFormGuid,
   onSuccess,
   className = "",
-  buttonText = "Download",
+  buttonText,
   buttonVariant = "outline"
 }) => {
+  const { t } = useLanguage();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFormLoading, setIsFormLoading] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
   const { toast } = useToast();
+
+  const defaultButtonText = buttonText || t.downloadGate.download;
 
   const formTargetId = `hubspot-form-inline-${Math.random().toString(36).substr(2, 9)}`;
 
@@ -326,8 +331,8 @@ export const DownloadGateInline: React.FC<DownloadGateInlineProps> = ({
     } catch (error) {
       console.error("Error loading HubSpot form:", error);
       toast({
-        title: "Error",
-        description: "Failed to load download form. Please try again.",
+        title: t.downloadGate.error,
+        description: t.downloadGate.formLoadError,
         variant: "destructive"
       });
       setIsModalOpen(false);
@@ -341,8 +346,8 @@ export const DownloadGateInline: React.FC<DownloadGateInlineProps> = ({
     onSuccess?.();
     
     toast({
-      title: "Success!",
-      description: "Your download has started.",
+      title: t.downloadGate.success,
+      description: t.downloadGate.downloadStarted,
       variant: "default"
     });
   };
@@ -366,7 +371,7 @@ export const DownloadGateInline: React.FC<DownloadGateInlineProps> = ({
         ) : (
           <Download className="w-4 h-4 mr-2" />
         )}
-        {isDownloading ? "Downloaded" : buttonText}
+        {isDownloading ? t.downloadGate.downloaded : defaultButtonText}
       </Button>
 
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
@@ -390,7 +395,7 @@ export const DownloadGateInline: React.FC<DownloadGateInlineProps> = ({
             </div>
             
             <p className="text-muted-foreground mb-6">
-              Please fill out the form below to access your download.
+              {t.downloadGate.fillForm}
             </p>
             
             {isFormLoading ? (

@@ -1,22 +1,24 @@
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface NavItem {
   id: string;
-  title: string;
+  titleKey: "dataCollection" | "aiProcessing" | "analyticsInsights" | "automation" | "integration" | "security";
 }
 
-const navItems: NavItem[] = [
-  { id: "data-collection", title: "Data Collection" },
-  { id: "ai-processing", title: "AI Processing" },
-  { id: "analytics-insights", title: "Analytics & Insights" },
-  { id: "automation", title: "Automation" },
-  { id: "integration", title: "Integration" },
-  { id: "security", title: "Security" }
-];
-
 export function FunctionalitiesNav() {
+  const { t } = useLanguage();
   const [activeSection, setActiveSection] = useState<string>("");
+
+  const navItems: NavItem[] = [
+    { id: "data-collection", titleKey: "dataCollection" },
+    { id: "ai-processing", titleKey: "aiProcessing" },
+    { id: "analytics-insights", titleKey: "analyticsInsights" },
+    { id: "automation", titleKey: "automation" },
+    { id: "integration", titleKey: "integration" },
+    { id: "security", titleKey: "security" }
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -48,7 +50,7 @@ export function FunctionalitiesNav() {
   return (
     <nav className="sticky top-24 z-20">
       <div className="bg-background/80 backdrop-blur-sm border border-border rounded-lg p-4 shadow-sm">
-        <h3 className="text-sm font-semibold text-foreground mb-3">Quick Navigation</h3>
+        <h3 className="text-sm font-semibold text-foreground mb-3">{t.navigation.quickNavigation}</h3>
         <ul className="space-y-2">
           {navItems.map((item) => (
             <li key={item.id}>
@@ -62,7 +64,7 @@ export function FunctionalitiesNav() {
                     : "text-muted-foreground"
                 )}
               >
-                {item.title}
+                {t.functionalities[item.titleKey].title}
               </button>
             </li>
           ))}

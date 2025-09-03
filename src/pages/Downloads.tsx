@@ -5,8 +5,10 @@ import { Button } from "@/components/ui/button";
 import { DownloadGate } from "@/components/DownloadGate";
 import { downloadAssets } from "@/lib/downloads";
 import { useState } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Downloads() {
+  const { t } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   
   // Get unique categories
@@ -29,11 +31,10 @@ export default function Downloads() {
             className="text-center mb-16"
           >
             <h1 className="text-4xl lg:text-6xl font-bold mb-6 text-foreground">
-              Resource <span className="text-noreja-main">Downloads</span>
+              {t.downloads.title}
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Access comprehensive guides, documentation, tools, and resources to accelerate 
-              your implementation and maximize your platform potential.
+              {t.downloads.subtitle}
             </p>
           </motion.div>
         </div>
@@ -50,7 +51,7 @@ export default function Downloads() {
           >
             <div className="flex items-center gap-2">
               <Filter className="w-5 h-5 text-noreja-main" />
-              <span className="font-semibold text-foreground">Filter by Category:</span>
+              <span className="font-semibold text-foreground">{t.downloads.filterByCategory}</span>
             </div>
             
             <div className="flex flex-wrap gap-2">
@@ -90,14 +91,14 @@ export default function Downloads() {
             <div className="flex items-center gap-3 mb-2">
               <FolderDown className="w-6 h-6 text-noreja-main" />
               <h2 className="text-2xl font-bold text-foreground">
-                Available Downloads
+                {t.downloads.availableDownloads}
               </h2>
               <Badge variant="outline" className="text-noreja-main border-noreja-main/30">
-                {filteredAssets.length} {filteredAssets.length === 1 ? "resource" : "resources"}
+                {filteredAssets.length} {filteredAssets.length === 1 ? t.downloads.resource : t.downloads.resources}
               </Badge>
             </div>
             <p className="text-muted-foreground">
-              Click on any resource below to download after completing a quick form.
+              {t.downloads.clickToDownload}
             </p>
           </motion.div>
 
@@ -134,10 +135,10 @@ export default function Downloads() {
             >
               <FolderDown className="w-16 h-16 text-muted-foreground/50 mx-auto mb-4" />
               <h3 className="text-xl font-semibold text-muted-foreground mb-2">
-                No resources found
+                {t.downloads.noResourcesFound}
               </h3>
               <p className="text-muted-foreground">
-                No downloads available for the selected category.
+                {t.downloads.noResourcesDescription}
               </p>
             </motion.div>
           )}
@@ -155,25 +156,24 @@ export default function Downloads() {
             className="text-center"
           >
             <h2 className="text-3xl font-bold mb-4 text-foreground">
-              Need Additional Resources?
+              {t.downloads.needAdditionalResources}
             </h2>
             <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Cannot find what you are looking for? Our team is here to help you access 
-              the right resources for your specific use case.
+              {t.downloads.needAdditionalDescription}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
                 size="lg"
                 className="bg-noreja-main hover:bg-noreja-main/90 text-white px-8"
               >
-                Contact Support
+                {t.downloads.contactSupport}
               </Button>
               <Button
                 variant="outline"
                 size="lg"
                 className="border-noreja-main/30 hover:bg-noreja-main/10 px-8"
               >
-                Request Custom Resource
+                {t.downloads.requestCustomResource}
               </Button>
             </div>
           </motion.div>

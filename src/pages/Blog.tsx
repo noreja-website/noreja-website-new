@@ -4,8 +4,29 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { HubSpotBlogTeaser } from "@/components/HubSpotBlogTeaser";
 import { BLOG_SUBDOMAIN_URL } from "@/lib/config";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Blog() {
+  const { t } = useLanguage();
+
+  const blogFeatures = [
+    {
+      icon: "🚀",
+      title: t.blog.features.innovation.title,
+      description: t.blog.features.innovation.description,
+    },
+    {
+      icon: "🛠️",
+      title: t.blog.features.technical.title,
+      description: t.blog.features.technical.description,
+    },
+    {
+      icon: "📊",
+      title: t.blog.features.analysis.title,
+      description: t.blog.features.analysis.description,
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
@@ -18,11 +39,10 @@ export default function Blog() {
             className="text-center mb-16"
           >
             <h1 className="text-4xl lg:text-6xl font-bold mb-6 text-foreground">
-              Our <span className="text-noreja-main">Blog</span>
+              {t.blog.title}
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-12">
-              Dive deep into industry insights, technical innovations, and thought leadership 
-              from our team of experts on our dedicated blog platform.
+              {t.blog.subtitle}
             </p>
             
             {/* Primary CTA */}
@@ -38,7 +58,7 @@ export default function Blog() {
                 onClick={() => window.open(BLOG_SUBDOMAIN_URL, '_blank')}
               >
                 <BookOpen className="w-6 h-6 mr-3" />
-                Open Blog
+                {t.blog.openBlog}
                 <ExternalLink className="w-5 h-5 ml-3" />
               </Button>
             </motion.div>
@@ -53,7 +73,7 @@ export default function Blog() {
               <p className="text-muted-foreground">
                 Our blog is hosted on{" "}
                 <span className="font-semibold text-noreja-main">blog.noreja.com</span>{" "}
-                powered by HubSpot
+                {t.blog.poweredBy}
               </p>
             </motion.div>
           </motion.div>
@@ -71,7 +91,7 @@ export default function Blog() {
             className="text-center mb-16"
           >
             <h2 className="text-3xl lg:text-4xl font-bold mb-4 text-foreground">
-              What You'll Find
+              {t.blog.whatYouFind}
             </h2>
             <p className="text-lg text-muted-foreground">
               Regular updates on industry trends, technical deep-dives, and expert insights
@@ -79,23 +99,7 @@ export default function Blog() {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            {[
-              {
-                icon: "🚀",
-                title: "Innovation Insights",
-                description: "Latest trends and breakthrough technologies shaping the future of business."
-              },
-              {
-                icon: "🛠️",
-                title: "Technical Deep-Dives",
-                description: "In-depth technical articles and tutorials from our engineering team."
-              },
-              {
-                icon: "📊",
-                title: "Industry Analysis",
-                description: "Data-driven analysis and expert commentary on market developments."
-              }
-            ].map((feature, index) => (
+            {blogFeatures.map((feature, index) => (
               <motion.div
                 key={feature.title}
                 initial={{ opacity: 0, y: 20 }}
@@ -136,7 +140,7 @@ export default function Blog() {
                 onClick={() => window.open('https://blog.noreja.com/rss', '_blank')}
               >
                 <Rss className="w-5 h-5 mr-2" />
-                Subscribe to RSS
+                {t.blog.subscribeRss}
               </Button>
               <Button
                 variant="outline"
@@ -144,7 +148,7 @@ export default function Blog() {
                 className="border-noreja-main/30 hover:bg-noreja-main/10 px-8"
                 onClick={() => window.open('https://blog.noreja.com/newsletter', '_blank')}
               >
-                Subscribe to Newsletter
+                {t.blog.subscribeNewsletter}
               </Button>
             </div>
           </motion.div>
@@ -162,10 +166,10 @@ export default function Blog() {
             className="text-center mb-8 pt-20"
           >
             <h2 className="text-3xl lg:text-4xl font-bold mb-4 text-foreground">
-              Latest Posts Preview
+              {t.blog.latestPostsPreview}
             </h2>
             <p className="text-lg text-muted-foreground">
-              Get a glimpse of our recent content
+              {t.blog.getGlimpse}
             </p>
           </motion.div>
           

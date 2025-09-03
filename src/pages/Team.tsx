@@ -4,8 +4,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { HubSpotBlogTeaser } from "@/components/HubSpotBlogTeaser";
 import { teamMembers } from "@/lib/team";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Team() {
+  const { t } = useLanguage();
+
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
@@ -18,11 +21,10 @@ export default function Team() {
             className="text-center mb-16"
           >
             <h1 className="text-4xl lg:text-6xl font-bold mb-6 text-foreground">
-              Meet Our <span className="text-noreja-main">Team</span>
+              {t.team.title}
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Passionate professionals dedicated to driving innovation and delivering 
-              exceptional results for our clients worldwide.
+              {t.team.subtitle}
             </p>
           </motion.div>
         </div>
@@ -84,7 +86,7 @@ export default function Team() {
                       onClick={() => window.open(member.linkedInUrl, '_blank')}
                     >
                       <Linkedin className="w-4 h-4 mr-2" />
-                      Connect on LinkedIn
+                      {t.team.connectLinkedIn}
                     </Button>
                   </CardContent>
                 </Card>
