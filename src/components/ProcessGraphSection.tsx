@@ -139,24 +139,6 @@ function ProcessNode({ step, index, allSteps }: { step: ProcessStep; index: numb
   }, [isInView, hasBeenVisible]);
 
   const shouldAnimate = hasBeenVisible;
-  
-  const getNodeSize = () => {
-    switch (step.size) {
-      case 'large': return 'w-32 h-32';
-      case 'medium': return 'w-24 h-24';
-      case 'small': return 'w-20 h-20';
-      default: return 'w-24 h-24';
-    }
-  };
-
-  const getIconSize = () => {
-    switch (step.size) {
-      case 'large': return 'w-16 h-16';
-      case 'medium': return 'w-12 h-12';
-      case 'small': return 'w-10 h-10';
-      default: return 'w-12 h-12';
-    }
-  };
 
   const getLayoutClasses = () => {
     const baseClasses = "relative w-full flex items-center flex-col md:flex-row";
@@ -195,7 +177,7 @@ function ProcessNode({ step, index, allSteps }: { step: ProcessStep; index: numb
   };
 
   return (
-    <div ref={ref} className="relative min-h-[40vh] w-full flex flex-col">
+    <div ref={ref} className="relative min-h-[30vh] w-full flex flex-col">
       <div className={getLayoutClasses()}>
         {/* Node */}
         <motion.div

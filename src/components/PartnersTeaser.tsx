@@ -3,14 +3,15 @@ import { useRef } from "react";
 import { ArrowRight, Building, Globe, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
+import bocLogo from "@/assets/partners/BOC_logo_White.png";
 
 const partnerLogos = [
-  { name: "TechCorp", logo: "TC" },
-  { name: "DataSystems", logo: "DS" },
-  { name: "CloudVision", logo: "CV" },
-  { name: "InnovateAI", logo: "IA" },
-  { name: "FutureScale", logo: "FS" },
-  { name: "NextGen", logo: "NG" }
+  { name: "BOC Group", src: bocLogo },
+  { name: "BOC Group", src: bocLogo },
+  { name: "BOC Group", src: bocLogo },
+  { name: "BOC Group", src: bocLogo },
+  { name: "BOC Group", src: bocLogo },
+  { name: "BOC Group", src: bocLogo }
 ];
 
 export function PartnersTeaser() {
@@ -85,9 +86,12 @@ export function PartnersTeaser() {
               }}
               className="flex items-center justify-center h-16 bg-muted/50 rounded-lg border border-border hover:bg-muted/70 transition-colors"
             >
-              <div className="text-lg font-bold text-muted-foreground">
-                {partner.logo}
-              </div>
+              <img
+                src={partner.src}
+                alt={partner.name}
+                className="max-h-10 w-auto object-contain opacity-90"
+                loading="lazy"
+              />
             </motion.div>
           ))}
         </motion.div>
