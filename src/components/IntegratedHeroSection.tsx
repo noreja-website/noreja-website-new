@@ -1,9 +1,12 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Zap, Shield, Rocket, Database } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
 import graphThreeNodes from "@/assets/graph_three_nodes.png";
 
 export function IntegratedHeroSection() {
+  const { t } = useLanguage();
+
   return (
     <section className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden">
       {/* Background Effects */}
@@ -28,7 +31,7 @@ export function IntegratedHeroSection() {
             className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8"
           >
             <Zap className="w-4 h-4 mr-2 text-noreja-tertiary" />
-            <span className="text-sm font-medium">Revolutionary Technology</span>
+            <span className="text-sm font-medium">{t.hero.badge}</span>
           </motion.div>
 
           {/* Main Heading */}
@@ -38,9 +41,9 @@ export function IntegratedHeroSection() {
             transition={{ delay: 0.4, duration: 0.8 }}
             className="text-5xl md:text-7xl font-bold mb-6 leading-tight"
           >
-            The Future of{" "}
+            {t.hero.title}{" "}
             <span className="bg-gradient-primary bg-clip-text text-transparent">
-              Innovation
+              {t.hero.titleHighlight}
             </span>
           </motion.h1>
 
@@ -51,7 +54,7 @@ export function IntegratedHeroSection() {
             transition={{ delay: 0.6, duration: 0.8 }}
             className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto"
           >
-            Experience revolutionary solutions that transform businesses and accelerate growth with cutting-edge technology.
+            {t.hero.subtitle}
           </motion.p>
 
           {/* CTA Buttons */}
@@ -62,11 +65,11 @@ export function IntegratedHeroSection() {
             className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
           >
             <Button size="lg" className="gradient-primary glow-primary group">
-              Get Started
+              {t.hero.getStarted}
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
             <Button size="lg" variant="outline" className="border-primary/30 hover:bg-primary/10">
-              Learn More
+              {t.hero.learnMore}
             </Button>
           </motion.div>
 
@@ -79,15 +82,15 @@ export function IntegratedHeroSection() {
           >
             <div className="flex items-center space-x-2">
               <Shield className="h-5 w-5 text-noreja-tertiary" />
-              <span className="text-sm">Secure</span>
+              <span className="text-sm">{t.hero.features.secure}</span>
             </div>
             <div className="flex items-center space-x-2">
               <Rocket className="h-5 w-5 text-noreja-tertiary" />
-              <span className="text-sm">Fast</span>
+              <span className="text-sm">{t.hero.features.fast}</span>
             </div>
             <div className="flex items-center space-x-2">
               <Zap className="h-5 w-5 text-noreja-tertiary" />
-              <span className="text-sm">Innovative</span>
+              <span className="text-sm">{t.hero.features.innovative}</span>
             </div>
           </motion.div>
         </motion.div>
@@ -145,8 +148,8 @@ export function IntegratedHeroSection() {
             transition={{ delay: 2, duration: 0.8 }}
             className="text-center mt-6"
           >
-            <h3 className="text-2xl font-bold mb-2 text-foreground">Data Collection</h3>
-            <p className="text-base text-muted-foreground">Intelligent data gathering from multiple sources</p>
+            <h3 className="text-2xl font-bold mb-2 text-foreground">{t.hero.dataCollection.title}</h3>
+            <p className="text-base text-muted-foreground">{t.hero.dataCollection.description}</p>
           </motion.div>
 
         </div>

@@ -2,33 +2,35 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { ArrowRight, Cpu, Database, Shield, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-const features = [
-  {
-    icon: Cpu,
-    title: "AI-Powered Analytics",
-    description: "Advanced machine learning algorithms that provide deep insights into your data."
-  },
-  {
-    icon: Database,
-    title: "Data Integration",
-    description: "Seamless integration with multiple data sources and platforms."
-  },
-  {
-    icon: Shield,
-    title: "Enterprise Security",
-    description: "Bank-grade security protocols to protect your sensitive information."
-  },
-  {
-    icon: Zap,
-    title: "Real-time Processing",
-    description: "Lightning-fast processing for immediate results and insights."
-  }
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export function FunctionalitiesTeaser() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLanguage();
+
+  const features = [
+    {
+      icon: Cpu,
+      title: t.functionalities.features.aiAnalytics.title,
+      description: t.functionalities.features.aiAnalytics.description
+    },
+    {
+      icon: Database,
+      title: t.functionalities.features.dataIntegration.title,
+      description: t.functionalities.features.dataIntegration.description
+    },
+    {
+      icon: Shield,
+      title: t.functionalities.features.security.title,
+      description: t.functionalities.features.security.description
+    },
+    {
+      icon: Zap,
+      title: t.functionalities.features.realTime.title,
+      description: t.functionalities.features.realTime.description
+    }
+  ];
 
   return (
     <section ref={ref} className="py-20 bg-muted/30">
@@ -40,17 +42,17 @@ export function FunctionalitiesTeaser() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl font-bold mb-6">
-            Powerful{" "}
+            {t.functionalities.title}{" "}
             <span className="bg-gradient-primary bg-clip-text text-transparent">
-              Functionalities
+              {t.functionalities.titleHighlight}
             </span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
-            Discover the comprehensive suite of tools and features designed to transform your business operations.
+            {t.functionalities.subtitle}
           </p>
           <Button asChild size="lg" className="gradient-primary glow-primary group">
             <a href="/functionalities">
-              Explore All Features
+              {t.functionalities.exploreFeatures}
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </a>
           </Button>

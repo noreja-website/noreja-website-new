@@ -1,10 +1,13 @@
 import { useEffect } from 'react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface HubSpotBlogTeaserProps {
   maxItems?: number;
 }
 
 export function HubSpotBlogTeaser({ maxItems = 3 }: HubSpotBlogTeaserProps) {
+  const { t } = useLanguage();
+
   useEffect(() => {
     // Client-side script loading for HubSpot blog teaser
     // This ensures the component is safe for server-side rendering
@@ -61,8 +64,8 @@ export function HubSpotBlogTeaser({ maxItems = 3 }: HubSpotBlogTeaserProps) {
     <section className="py-20" aria-labelledby="blog-teaser-heading">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-12">
-          <h2 id="blog-teaser-heading" className="text-3xl font-bold mb-4">Latest Insights</h2>
-          <p className="text-muted-foreground">Stay updated with our latest thoughts and innovations</p>
+          <h2 id="blog-teaser-heading" className="text-3xl font-bold mb-4">{t.blog.title}</h2>
+          <p className="text-muted-foreground">{t.blog.subtitle}</p>
         </div>
         
         {/* HubSpot Blog Teaser Embed Container */}
@@ -71,8 +74,8 @@ export function HubSpotBlogTeaser({ maxItems = 3 }: HubSpotBlogTeaserProps) {
           className="min-h-[400px] bg-muted/30 rounded-lg border border-border flex items-center justify-center"
         >
           <div className="text-center text-muted-foreground">
-            <p className="text-sm">Blog posts will appear here (showing up to {maxItems} items)</p>
-            <p className="text-xs mt-2">Configure HubSpot embed or RSS feed in useEffect</p>
+            <p className="text-sm">{t.blog.placeholder} (showing up to {maxItems} items)</p>
+            <p className="text-xs mt-2">{t.blog.configNote}</p>
           </div>
         </div>
         

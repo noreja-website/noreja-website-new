@@ -2,6 +2,7 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { ArrowRight, Building, Globe, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const partnerLogos = [
   { name: "TechCorp", logo: "TC" },
@@ -12,15 +13,16 @@ const partnerLogos = [
   { name: "NextGen", logo: "NG" }
 ];
 
-const stats = [
-  { icon: Building, value: "500+", label: "Enterprise Clients" },
-  { icon: Globe, value: "50+", label: "Countries" },
-  { icon: Users, value: "1M+", label: "Users Worldwide" }
-];
-
 export function PartnersTeaser() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLanguage();
+
+  const stats = [
+    { icon: Building, value: "500+", label: t.partners.stats.clients },
+    { icon: Globe, value: "50+", label: t.partners.stats.countries },
+    { icon: Users, value: "1M+", label: t.partners.stats.users }
+  ];
 
   return (
     <section ref={ref} className="py-20">
@@ -32,13 +34,13 @@ export function PartnersTeaser() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl font-bold mb-6">
-            Trusted by{" "}
+            {t.partners.title}{" "}
             <span className="bg-gradient-primary bg-clip-text text-transparent">
-              Industry Leaders
+              {t.partners.titleHighlight}
             </span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
-            Join a growing ecosystem of innovative companies and organizations that trust our solutions.
+            {t.partners.subtitle}
           </p>
         </motion.div>
 
@@ -98,7 +100,7 @@ export function PartnersTeaser() {
         >
           <Button asChild size="lg" variant="outline" className="border-primary/30 hover:bg-primary/10">
             <a href="/partners">
-              View All Partners
+              {t.partners.viewAllPartners}
               <ArrowRight className="ml-2 h-4 w-4" />
             </a>
           </Button>

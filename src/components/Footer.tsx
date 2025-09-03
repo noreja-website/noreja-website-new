@@ -1,11 +1,24 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Github, Linkedin, Twitter } from "lucide-react";
-import { siteConfig, footerNavigation, legalLinks } from "@/lib/config";
+import { siteConfig } from "@/lib/config";
+import { useLanguage } from "@/contexts/LanguageContext";
 import logo from "@/assets/noreja_logo_white.png";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
+  const { t } = useLanguage();
+
+  const footerNavigation = [
+    { name: t.navigation.team, href: "/team" },
+    { name: t.navigation.downloads, href: "/downloads" }
+  ];
+
+  const legalLinks = [
+    { name: t.footer.legal.imprint, href: "/imprint" },
+    { name: t.footer.legal.privacy, href: "/privacy" },
+    { name: t.footer.legal.terms, href: "/terms" }
+  ];
 
   return (
     <footer className="border-t border-border/40 bg-card/30 backdrop-blur-sm">
@@ -23,7 +36,7 @@ export function Footer() {
               />
             </Link>
             <p className="text-muted-foreground text-sm mb-4">
-              {siteConfig.description}
+              {t.footer.description}
             </p>
             <div className="flex space-x-4">
               <motion.a
@@ -88,10 +101,10 @@ export function Footer() {
 
         <div className="border-t border-border/40 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-muted-foreground text-sm">
-            © {currentYear} {siteConfig.name}. All rights reserved.
+            © {currentYear} {siteConfig.name}. {t.footer.copyright}
           </p>
           <p className="text-muted-foreground text-sm mt-2 md:mt-0">
-            Built with cutting-edge technology
+            {t.footer.builtWith}
           </p>
         </div>
       </div>

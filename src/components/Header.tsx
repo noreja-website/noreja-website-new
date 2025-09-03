@@ -3,14 +3,25 @@ import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { headerNavigation } from "@/lib/config";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import logo from "@/assets/noreja_logo_white.png";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const { t } = useLanguage();
 
   const isActive = (href: string) => location.pathname === href;
+
+  const navigationItems = [
+    { name: t.navigation.home, href: "/" },
+    { name: t.navigation.functionalities, href: "/functionalities" },
+    { name: t.navigation.successStories, href: "/success-stories" },
+    { name: t.navigation.partners, href: "/partners" },
+    { name: t.navigation.pricing, href: "/pricing" },
+    { name: t.navigation.blog, href: "/blog" }
+  ];
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-xl">
@@ -29,7 +40,7 @@ export function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            {headerNavigation.map((item) => (
+            {navigationItems.map((item) => (
               <Link
                 key={item.href}
                 to={item.href}
@@ -51,13 +62,11 @@ export function Header() {
             ))}
           </nav>
 
-          {/* CTA Button */}
+          {/* Language Switcher and CTA */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="outline" size="sm">
-              Get Started
-            </Button>
+            <LanguageSwitcher />
             <Button size="sm" className="gradient-primary glow-primary">
-              Contact Us
+              {t.buttons.contactUs}
             </Button>
           </div>
 
@@ -81,7 +90,7 @@ export function Header() {
             className="md:hidden py-4 border-t border-border/40"
           >
             <nav className="flex flex-col space-y-4">
-              {headerNavigation.map((item) => (
+              {navigationItems.map((item) => (
                 <Link
                   key={item.href}
                   to={item.href}
@@ -96,11 +105,9 @@ export function Header() {
                 </Link>
               ))}
               <div className="flex flex-col space-y-2 pt-4">
-                <Button variant="outline" size="sm">
-                  Get Started
-                </Button>
+                <LanguageSwitcher />
                 <Button size="sm" className="gradient-primary">
-                  Contact Us
+                  {t.buttons.contactUs}
                 </Button>
               </div>
             </nav>

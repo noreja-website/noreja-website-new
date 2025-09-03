@@ -2,10 +2,12 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { ArrowRight, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export function FinalCTA() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLanguage();
 
   return (
     <section ref={ref} className="py-20 relative overflow-hidden">
@@ -30,7 +32,7 @@ export function FinalCTA() {
             className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8"
           >
             <Rocket className="w-4 h-4 mr-2 text-noreja-tertiary" />
-            <span className="text-sm font-medium">Ready to Launch</span>
+            <span className="text-sm font-medium">{t.finalCta.badge}</span>
           </motion.div>
 
           <motion.h2
@@ -39,9 +41,9 @@ export function FinalCTA() {
             transition={{ delay: 0.4, duration: 0.8 }}
             className="text-4xl md:text-6xl font-bold mb-6 leading-tight"
           >
-            Transform Your Business{" "}
+            {t.finalCta.title}{" "}
             <span className="bg-gradient-primary bg-clip-text text-transparent">
-              Today
+              {t.finalCta.titleHighlight}
             </span>
           </motion.h2>
 
@@ -51,7 +53,7 @@ export function FinalCTA() {
             transition={{ delay: 0.6, duration: 0.8 }}
             className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto"
           >
-            Join thousands of companies already using our revolutionary platform to accelerate growth and innovation.
+            {t.finalCta.subtitle}
           </motion.p>
 
           <motion.div
@@ -61,11 +63,11 @@ export function FinalCTA() {
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
             <Button size="lg" className="gradient-primary glow-primary group">
-              Start Your Journey
+              {t.finalCta.startJourney}
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
             <Button size="lg" variant="outline" className="border-primary/30 hover:bg-primary/10">
-              Schedule Demo
+              {t.finalCta.scheduleDemo}
             </Button>
           </motion.div>
         </motion.div>

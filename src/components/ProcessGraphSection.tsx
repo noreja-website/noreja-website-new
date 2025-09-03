@@ -1,6 +1,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import { Database, Shield, Users, Rocket, Target, BarChart3, Brain, Lock } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 import graphThreeNodes from "@/assets/graph_three_nodes.png";
 
 interface Connection {
@@ -23,100 +24,106 @@ interface ProcessGraphSectionProps {
   steps?: ProcessStep[];
 }
 
-// All steps including the header step for connection calculation
-const allSteps: ProcessStep[] = [
-  {
-    id: "data",
-    title: "Data Collection",
-    description: "Intelligent data gathering from multiple sources",
-    icon: Database,
-    side: 'center',
-    size: 'large',
-    connections: [
-      { targetId: "processing", type: 'branch' },
-      { targetId: "security", type: 'branch' }
-    ]
-  },
-  {
-    id: "processing", 
-    title: "AI Processing",
-    description: "Advanced machine learning algorithms analyze patterns",
-    icon: Brain,
-    side: 'left',
-    size: 'medium',
-    connections: [
-      { targetId: "analysis", type: 'merge' }
-    ]
-  },
-  {
-    id: "security",
-    title: "Security Layer", 
-    description: "Enterprise-grade security and compliance",
-    icon: Shield,
-    side: 'right',
-    size: 'medium',
-    connections: [
-      { targetId: "analysis", type: 'merge' }
-    ]
-  },
-  {
-    id: "analysis",
-    title: "Pattern Analysis",
-    description: "Deep learning identifies complex data relationships", 
-    icon: BarChart3,
-    side: 'center',
-    size: 'large',
-    connections: [
-      { targetId: "optimization", type: 'branch' },
-      { targetId: "encryption", type: 'branch' }
-    ]
-  },
-  {
-    id: "optimization",
-    title: "Optimization",
-    description: "Continuous performance enhancement", 
-    icon: Target,
-    side: 'left',
-    size: 'medium',
-    connections: [
-      { targetId: "deployment", type: 'merge' }
-    ]
-  },
-  {
-    id: "encryption",
-    title: "Data Encryption",
-    description: "Military-grade protection for sensitive information",
-    icon: Lock,
-    side: 'right',
-    size: 'medium',
-    connections: [
-      { targetId: "deployment", type: 'merge' }
-    ]
-  },
-  {
-    id: "deployment",
-    title: "Deployment",
-    description: "Seamless integration with your systems",
-    icon: Rocket,
-    side: 'center',
-    size: 'large',
-    connections: [
-      { targetId: "users", type: 'direct' }
-    ]
-  },
-  {
-    id: "users",
-    title: "User Experience",
-    description: "Intuitive interface for maximum productivity",
-    icon: Users,
-    side: 'center',
-    size: 'large',
-    connections: []
-  }
-];
+export function ProcessGraphSection({ steps = undefined }: ProcessGraphSectionProps) {
+  const containerRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const { t } = useLanguage();
 
-// Steps for rendering (excluding the header step)
-const defaultSteps = allSteps.slice(1);
+  // All steps including the header step for connection calculation
+  const allSteps: ProcessStep[] = [
+    {
+      id: "data",
+      title: t.hero.dataCollection.title,
+      description: t.hero.dataCollection.description,
+      icon: Database,
+      side: 'center',
+      size: 'large',
+      connections: [
+        { targetId: "processing", type: 'branch' },
+        { targetId: "security", type: 'branch' }
+      ]
+    },
+    {
+      id: "processing", 
+      title: t.process.steps.processing.title,
+      description: t.process.steps.processing.description,
+      icon: Brain,
+      side: 'left',
+      size: 'medium',
+      connections: [
+        { targetId: "analysis", type: 'merge' }
+      ]
+    },
+    {
+      id: "security",
+      title: t.process.steps.security.title,
+      description: t.process.steps.security.description,
+      icon: Shield,
+      side: 'right',
+      size: 'medium',
+      connections: [
+        { targetId: "analysis", type: 'merge' }
+      ]
+    },
+    {
+      id: "analysis",
+      title: t.process.steps.analysis.title,
+      description: t.process.steps.analysis.description,
+      icon: BarChart3,
+      side: 'center',
+      size: 'large',
+      connections: [
+        { targetId: "optimization", type: 'branch' },
+        { targetId: "encryption", type: 'branch' }
+      ]
+    },
+    {
+      id: "optimization",
+      title: t.process.steps.optimization.title,
+      description: t.process.steps.optimization.description,
+      icon: Target,
+      side: 'left',
+      size: 'medium',
+      connections: [
+        { targetId: "deployment", type: 'merge' }
+      ]
+    },
+    {
+      id: "encryption",
+      title: t.process.steps.encryption.title,
+      description: t.process.steps.encryption.description,
+      icon: Lock,
+      side: 'right',
+      size: 'medium',
+      connections: [
+        { targetId: "deployment", type: 'merge' }
+      ]
+    },
+    {
+      id: "deployment",
+      title: t.process.steps.deployment.title,
+      description: t.process.steps.deployment.description,
+      icon: Rocket,
+      side: 'center',
+      size: 'large',
+      connections: [
+        { targetId: "users", type: 'direct' }
+      ]
+    },
+    {
+      id: "users",
+      title: t.process.steps.users.title,
+      description: t.process.steps.users.description,
+      icon: Users,
+      side: 'center',
+      size: 'large',
+      connections: []
+    }
+  ];
+
+  // Steps for rendering (excluding the header step)
+  const defaultSteps = allSteps.slice(1);
+  const processSteps = steps || defaultSteps;
 
 function ProcessNode({ step, index, allSteps }: { step: ProcessStep; index: number; allSteps: ProcessStep[] }) {
   const ref = useRef(null);
@@ -256,9 +263,6 @@ function ProcessNode({ step, index, allSteps }: { step: ProcessStep; index: numb
   );
 }
 
-export function ProcessGraphSection({ steps = defaultSteps }: ProcessGraphSectionProps) {
-  const containerRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
 
   // Create global connections array from all steps
   const globalConnections = allSteps.flatMap(step => 
@@ -292,7 +296,7 @@ export function ProcessGraphSection({ steps = defaultSteps }: ProcessGraphSectio
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 lg:px-8">
           {/* Process graph nodes - starting from second step since first is in header */}
           <div className="relative">
-            {steps.map((step, index) => (
+            {processSteps.map((step, index) => (
               <ProcessNode 
                 key={step.id}
                 step={step} 
