@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Zap, Shield, Rocket, Database } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import graphThreeNodes from "@/assets/graph_three_nodes.png";
 
 export function IntegratedHeroSection() {
   return (
@@ -100,28 +101,41 @@ export function IntegratedHeroSection() {
         className="relative z-20 pb-20"
       >
         <div className="flex flex-col items-center">
-          {/* Large first node */}
-          <div className="relative">
-            <div 
-              data-node-id="data"
-              className="w-32 h-32 bg-card border-4 border-noreja-tertiary rounded-full flex items-center justify-center shadow-glow-accent"
-            >
-              <Database className="w-16 h-16 text-noreja-tertiary" />
-            </div>
-            
-            {/* Pulse effect */}
+          {/* Large first node replaced with graph image */}
+          <div className="relative" style={{ perspective: 800 }}>
             <motion.div
-              className="absolute inset-0 w-32 h-32 border-2 border-noreja-tertiary rounded-full"
-              animate={{
-                scale: [1, 1.4, 1],
-                opacity: [0.4, 0, 0.4]
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                delay: 2
-              }}
-            />
+              initial={{ rotateY: 0 }}
+              animate={{ rotateY: [-8, 0, 8, 0, -8] }}
+              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+              style={{ transformStyle: 'preserve-3d' }}
+            >
+              <div 
+                data-node-id="data"
+                className="w-64 h-40 md:w-72 md:h-44 rounded-md bg-black/30 p-3 flex items-center justify-center"
+              >
+                <motion.img 
+                  src={graphThreeNodes} 
+                  alt="Data Collection"
+                  className="w-full h-full object-contain"
+                  initial={{ rotateY: 0 }}
+                  animate={{ rotateY: [-8, 0, 8, 0, -8] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  style={{ transformStyle: 'preserve-3d', backfaceVisibility: 'hidden' }}
+                />
+                <motion.div
+                  className="pointer-events-none absolute inset-0 rounded-md border-2 border-noreja-tertiary"
+                  animate={{
+                    scale: [1, 1.06, 1],
+                    opacity: [0.35, 0, 0.35]
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    delay: 1.2
+                  }}
+                />
+              </div>
+            </motion.div>
           </div>
           
           {/* Caption */}

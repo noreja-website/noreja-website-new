@@ -152,29 +152,29 @@ function ProcessNode({ step, index, allSteps }: { step: ProcessStep; index: numb
   };
 
   const getLayoutClasses = () => {
-    const baseClasses = "relative w-full flex items-center";
+    const baseClasses = "relative w-full flex items-center flex-col md:flex-row";
     switch (step.side) {
       case 'left':
-        return `${baseClasses} justify-start pl-8 lg:pl-16`;
+        return `${baseClasses} md:justify-start pl-0 md:pl-16`;
       case 'right':
-        return `${baseClasses} justify-end pr-8 lg:pr-16`;
+        return `${baseClasses} md:justify-end pr-0 md:pr-16`;
       case 'center':
-        return `${baseClasses} justify-center`;
+        return `${baseClasses} md:justify-center`;
       default:
-        return `${baseClasses} justify-center`;
+        return `${baseClasses} md:justify-center`;
     }
   };
 
   const getCaptionPosition = () => {
     switch (step.side) {
       case 'left':
-        return "ml-8";
+        return "mt-4 md:mt-0 md:ml-8";
       case 'right':
-        return "mr-8 order-first";
+        return "mt-4 md:mt-0 md:mr-8 md:order-first";
       case 'center':
-        return "ml-8";
+        return "mt-4 md:mt-0 md:ml-8";
       default:
-        return "ml-8";
+        return "mt-4 md:mt-0 md:ml-8";
     }
   };
 
@@ -202,64 +202,42 @@ function ProcessNode({ step, index, allSteps }: { step: ProcessStep; index: numb
           }}
           className="relative flex-shrink-0"
         >
-          {step.id === "security" ? (
-            <div style={{ perspective: 800 }}>
-              <motion.div
-                initial={{ rotateY: 0 }}
-                animate={shouldAnimate ? { rotateY: [-8, 0, 8, 0, -8] } : { rotateY: 0 }}
-                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                style={{ transformStyle: 'preserve-3d' }}
-              >
-                <div className={`relative w-72 h-44 rounded-md bg-black/30 p-3 flex items-center justify-center`} data-node-id={step.id}>
-                  <motion.img 
-                    src={graphThreeNodes} 
-                    alt="Security Layer" 
-                    className="w-full h-full object-contain"
-                    initial={{ rotateY: 0 }}
-                    animate={shouldAnimate ? { rotateY: [-8, 0, 8, 0, -8] } : { rotateY: 0 }}
-                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                    style={{ transformStyle: 'preserve-3d', backfaceVisibility: 'hidden' }}
-                  />
-                  {/* Rectangular glow pulse */}
-                  <motion.div
-                    className="pointer-events-none absolute inset-0 rounded-md border-2 border-noreja-tertiary"
-                    animate={shouldAnimate ? {
-                      scale: [1, 1.06, 1],
-                      opacity: [0.35, 0, 0.35]
-                    } : {}}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      delay: 1.2
-                    }}
-                  />
-                </div>
-              </motion.div>
-            </div>
-          ) : (
-            <div 
-              data-node-id={step.id}
-              className={`${getNodeSize()} bg-card border-2 border-noreja-tertiary rounded-full flex items-center justify-center shadow-glow-accent`}
-            >
-              <Icon className={`${getIconSize()} text-noreja-tertiary`} />
-            </div>
-          )}
-          
-          {/* Pulse effect (disabled for security image node) */}
-          {step.id !== "security" && (
+          {/* All nodes use graph image with rectangular glow and Y-rotation */}
+          <div style={{ perspective: 800 }}>
             <motion.div
-              className={`absolute inset-0 ${getNodeSize()} border-2 border-noreja-tertiary rounded-full`}
-              animate={shouldAnimate ? {
-                scale: [1, 1.4, 1],
-                opacity: [0.4, 0, 0.4]
-              } : {}}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                delay: 1.5
-              }}
-            />
-          )}
+              initial={{ rotateY: 0 }}
+              animate={shouldAnimate ? { rotateY: [-8, 0, 8, 0, -8] } : { rotateY: 0 }}
+              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+              style={{ transformStyle: 'preserve-3d' }}
+            >
+              <div className={`relative w-64 h-40 md:w-72 md:h-44 rounded-md bg-black/30 p-3 flex items-center justify-center`} data-node-id={step.id}>
+                <motion.img 
+                  src={graphThreeNodes} 
+                  alt={step.title}
+                  className="w-full h-full object-contain"
+                  initial={{ rotateY: 0 }}
+                  animate={shouldAnimate ? { rotateY: [-8, 0, 8, 0, -8] } : { rotateY: 0 }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  style={{ transformStyle: 'preserve-3d', backfaceVisibility: 'hidden' }}
+                />
+                {/* Rectangular glow pulse */}
+                <motion.div
+                  className="pointer-events-none absolute inset-0 rounded-md border-2 border-noreja-tertiary"
+                  animate={shouldAnimate ? {
+                    scale: [1, 1.06, 1],
+                    opacity: [0.35, 0, 0.35]
+                  } : {}}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    delay: 1.2
+                  }}
+                />
+              </div>
+            </motion.div>
+          </div>
+          
+          {/* Circular pulse removed since all nodes now use rectangular glow */}
         </motion.div>
 
         {/* Caption */}
