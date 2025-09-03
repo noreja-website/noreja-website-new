@@ -41,50 +41,28 @@ const Pricing = () => {
 
   const plans = [
     {
-      name: "Starter",
+      name: t.pages.pricing.plans.starter.name,
       price: pricing.starter,
-      description: "Perfect for small teams getting started",
-      features: [
-        "Up to 5 projects",
-        "Basic analytics",
-        "Email support",
-        "Core integrations",
-        "Standard security"
-      ],
-      cta: "Start free trial",
+      description: t.pages.pricing.plans.starter.description,
+      features: t.pages.pricing.plans.starter.features,
+      cta: t.pages.pricing.plans.starter.cta,
       ctaVariant: "outline" as const
     },
     {
-      name: "Pro",
+      name: t.pages.pricing.plans.pro.name,
       price: pricing.pro,
-      description: "Best for growing teams and businesses",
-      features: [
-        "Unlimited projects",
-        "Advanced analytics",
-        "Priority support",
-        "All integrations",
-        "Enhanced security",
-        "Custom workflows",
-        "Team collaboration tools"
-      ],
-      cta: "Start free trial",
+      description: t.pages.pricing.plans.pro.description,
+      features: t.pages.pricing.plans.pro.features,
+      cta: t.pages.pricing.plans.pro.cta,
       ctaVariant: "default" as const,
       popular: true
     },
     {
-      name: "Enterprise",
+      name: t.pages.pricing.plans.enterprise.name,
       price: pricing.enterprise,
-      description: "For large organizations with specific needs",
-      features: [
-        "Everything in Pro",
-        "Dedicated support",
-        "Custom integrations",
-        "Advanced security",
-        "SLA guarantee",
-        "On-premise deployment",
-        "Custom training"
-      ],
-      cta: "Contact us",
+      description: t.pages.pricing.plans.enterprise.description,
+      features: t.pages.pricing.plans.enterprise.features,
+      cta: t.pages.pricing.plans.enterprise.cta,
       ctaVariant: "outline" as const
     }
   ];
@@ -95,10 +73,10 @@ const Pricing = () => {
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold mb-4 text-foreground">
-            Simple, Transparent Pricing
+            {t.pages.pricing.title}
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Choose the plan that fits your team size and needs. All plans include a 14-day free trial.
+            {t.pages.pricing.subtitle}
           </p>
         </div>
 
@@ -106,7 +84,7 @@ const Pricing = () => {
         <div className="max-w-2xl mx-auto mb-16">
           <div className="bg-card rounded-lg p-8 border">
             <h3 className="text-lg font-semibold mb-6 text-center text-foreground">
-              Team Size: {currentTeamSize.label} {currentTeamSize.users > 1 ? 'users' : 'user'}
+              {t.pages.pricing.teamSize} {currentTeamSize.label} {currentTeamSize.users > 1 ? t.pages.pricing.users : t.pages.pricing.user}
             </h3>
             
             <div className="space-y-6">
@@ -138,7 +116,7 @@ const Pricing = () => {
               {plan.popular && (
                 <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
                   <Badge variant="default" className="gradient-primary text-white">
-                    Most Popular
+                    {t.pages.pricing.mostPopular}
                   </Badge>
                 </div>
               )}
@@ -151,7 +129,7 @@ const Pricing = () => {
                   <span className="text-4xl font-bold text-foreground">
                     ${plan.price}
                   </span>
-                  <span className="text-muted-foreground">/month</span>
+                  <span className="text-muted-foreground">{t.pages.pricing.month}</span>
                 </div>
                 <CardDescription className="text-base mt-2">
                   {plan.description}
@@ -179,7 +157,7 @@ const Pricing = () => {
                   
                   <div className="text-center">
                     <button className="text-sm text-primary hover:underline">
-                      View all features
+                      {t.pages.pricing.viewAllFeatures}
                     </button>
                   </div>
                 </div>
@@ -190,7 +168,7 @@ const Pricing = () => {
 
         {/* Footer Note */}
         <div className="text-center mt-12 text-muted-foreground">
-          <p>All plans include 14-day free trial • No setup fees • Cancel anytime</p>
+          <p>{t.pages.pricing.footerNote}</p>
         </div>
       </div>
     </div>

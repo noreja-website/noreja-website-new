@@ -21,11 +21,10 @@ export default function Partners() {
             className="text-center mb-16"
           >
             <h1 className="text-4xl lg:text-6xl font-bold mb-6 text-foreground">
-              Our <span className="text-noreja-main">Partners</span>
+              {t.pages.partners.title} <span className="text-noreja-main">{t.pages.partners.titleHighlight}</span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Collaborating with industry leaders to deliver innovative solutions 
-              and drive digital transformation across every sector.
+              {t.pages.partners.subtitle}
             </p>
           </motion.div>
         </div>
@@ -42,10 +41,10 @@ export default function Partners() {
             className="text-center mb-16"
           >
             <h2 className="text-3xl lg:text-4xl font-bold mb-4 text-foreground">
-              Strategic Partnerships
+              {t.pages.partners.strategicPartnerships}
             </h2>
             <p className="text-lg text-muted-foreground">
-              Trusted by leading organizations worldwide
+              {t.pages.partners.trustedBy}
             </p>
           </motion.div>
 
@@ -127,7 +126,7 @@ export default function Partners() {
                       className="group hover:bg-noreja-main hover:border-noreja-main hover:text-white transition-all"
                       onClick={() => window.open(partner.website, '_blank')}
                     >
-                      Visit Website
+                      {t.pages.partners.visitWebsite}
                       <ExternalLink className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                     </Button>
                   </motion.div>
@@ -147,11 +146,10 @@ export default function Partners() {
             <Card className="bg-gradient-to-br from-noreja-main/5 to-noreja-main/10 border-noreja-main/20">
               <CardHeader className="text-center pb-6">
                 <CardTitle className="text-3xl font-bold mb-4">
-                  Become a Partner
+                  {t.pages.partners.becomePartner}
                 </CardTitle>
                 <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                  Join our ecosystem of innovative partners and unlock new opportunities 
-                  for growth, collaboration, and shared success.
+                  {t.pages.partners.partnerSubtitle}
                 </p>
               </CardHeader>
               <CardContent className="text-center">
@@ -160,14 +158,14 @@ export default function Partners() {
                     size="lg"
                     className="bg-noreja-main hover:bg-noreja-main/90 text-white px-8"
                   >
-                    Partner With Us
+                    {t.pages.partners.partnerWithUs}
                   </Button>
                   <Button 
                     variant="outline" 
                     size="lg"
                     className="border-noreja-main/30 hover:bg-noreja-main/10 px-8"
                   >
-                    Learn More
+                    {t.pages.partners.learnMore}
                   </Button>
                 </div>
               </CardContent>
