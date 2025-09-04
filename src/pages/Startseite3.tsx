@@ -6,15 +6,15 @@ import { FinalCTA } from "@/components/FinalCTA";
 
 const Startseite3 = () => {
   return (
-    <>
+    <div className="relative">
       <ProcessDiscoveryAnimation />
-      <div className="relative z-20 bg-background">
+      <div className="relative z-30 bg-background">
         <FunctionalitiesTeaser />
         <HubSpotBlogTeaser />
         <PartnersTeaser />
         <FinalCTA />
       </div>
-    </>
+    </div>
   );
 };
 

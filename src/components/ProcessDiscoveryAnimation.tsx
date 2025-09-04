@@ -71,10 +71,14 @@ export function ProcessDiscoveryAnimation() {
   const scanProgress = useTransform(scrollYProgress, [0, 0.3], [0, 1]);
 
   return (
-    <div ref={containerRef} className="relative">
-      {/* Fixed immersive hero section - full viewport coverage */}
+    <div ref={containerRef} className="relative h-[400vh]">
+      {/* Sticky hero section that remains fixed while scroll drives animation */}
       <motion.div 
-        className="fixed inset-0 z-10 overflow-hidden"
+        className="sticky top-0 h-screen w-full z-10 overflow-hidden"
+        style={{
+          opacity: isComplete ? 0 : 1
+        }}
+        transition={{ duration: 1 }}
       >
         {/* Animated background with particles and grid */}
         <div className="absolute inset-0">
@@ -442,10 +446,33 @@ export function ProcessDiscoveryAnimation() {
             </div>
           </motion.div>
         </div>
-      </motion.div>
 
-      {/* Extended spacer for longer scroll experience */}
-      <div className="h-[500vh]" />
+        {/* Hero content visible when animation completes */}
+        {isComplete && (
+          <motion.div
+            className="absolute inset-0 flex items-center justify-center z-30"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.5 }}
+          >
+            <div className="text-center">
+              <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-[#452BE9] via-[#4569E7] to-[#23F3DA] bg-clip-text text-transparent mb-6">
+                Noreja Process Mining
+              </h1>
+              <p className="text-xl md:text-2xl text-muted-foreground mb-8">
+                Transform your business processes with AI-powered insights
+              </p>
+              <motion.button
+                className="px-8 py-4 bg-gradient-to-r from-[#452BE9] to-[#4569E7] text-white rounded-lg font-semibold text-lg hover:scale-105 transition-transform duration-200"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Get Started
+              </motion.button>
+            </div>
+          </motion.div>
+        )}
+      </motion.div>
     </div>
   );
 }
