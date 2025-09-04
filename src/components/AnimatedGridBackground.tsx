@@ -25,14 +25,13 @@ export function AnimatedGridBackground({ className = "" }: AnimatedGridBackgroun
   const MIN_SPEED = 0.002;
   const MAX_SPEED = 0.006;
 
-  // Initialize points
+  // Initialize points - use full viewport dimensions
   useEffect(() => {
-    if (!containerRef.current) return;
-
     const updateDimensions = () => {
-      if (!containerRef.current) return;
-      const rect = containerRef.current.getBoundingClientRect();
-      setDimensions({ width: rect.width, height: rect.height });
+      setDimensions({ 
+        width: window.innerWidth, 
+        height: window.innerHeight 
+      });
     };
 
     updateDimensions();
@@ -144,7 +143,7 @@ export function AnimatedGridBackground({ className = "" }: AnimatedGridBackgroun
   return (
     <div 
       ref={containerRef}
-      className={`absolute inset-0 overflow-hidden pointer-events-none ${className}`}
+      className={`fixed inset-0 overflow-hidden pointer-events-none ${className}`}
     >
       
       {/* Animated Points */}
