@@ -1,5 +1,4 @@
-import { IntegratedHeroSection } from "@/components/IntegratedHeroSection";
-import { ProcessGraphSection } from "@/components/ProcessGraphSection";
+import { ProcessDiscoveryAnimation } from "@/components/ProcessDiscoveryAnimation";
 import { FunctionalitiesTeaser } from "@/components/FunctionalitiesTeaser";
 import { HubSpotBlogTeaser } from "@/components/HubSpotBlogTeaser";
 import { PartnersTeaser } from "@/components/PartnersTeaser";
@@ -8,12 +7,13 @@ import { FinalCTA } from "@/components/FinalCTA";
 const Startseite3 = () => {
   return (
     <>
-      <IntegratedHeroSection />
-      <ProcessGraphSection />
-      <FunctionalitiesTeaser />
-      <HubSpotBlogTeaser />
-      <PartnersTeaser />
-      <FinalCTA />
+      <ProcessDiscoveryAnimation />
+      <div className="relative z-20 bg-background">
+        <FunctionalitiesTeaser />
+        <HubSpotBlogTeaser />
+        <PartnersTeaser />
+        <FinalCTA />
+      </div>
     </>
   );
 };
