@@ -21,9 +21,9 @@ export function AnimatedGridBackground({ className = "" }: AnimatedGridBackgroun
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
   const GRID_SIZE = 50;
-  const POINT_COUNT = 12; // Reduced for performance
-  const MIN_SPEED = 0.3;
-  const MAX_SPEED = 0.8;
+  const POINT_COUNT = 20; // Increased for better coverage
+  const MIN_SPEED = 0.002;
+  const MAX_SPEED = 0.006;
 
   // Initialize points
   useEffect(() => {
@@ -46,38 +46,46 @@ export function AnimatedGridBackground({ className = "" }: AnimatedGridBackgroun
 
     const horizontalLines = Math.ceil(dimensions.height / GRID_SIZE);
     const verticalLines = Math.ceil(dimensions.width / GRID_SIZE);
+    const totalLines = horizontalLines + verticalLines;
 
     const newPoints: GridPoint[] = [];
 
-    for (let i = 0; i < POINT_COUNT; i++) {
-      const isHorizontal = Math.random() > 0.5;
+    // Distribute points across all grid lines for better coverage
+    const horizontalCount = Math.ceil(POINT_COUNT * 0.5);
+    const verticalCount = POINT_COUNT - horizontalCount;
+
+    // Create horizontal points (moving left-right)
+    for (let i = 0; i < horizontalCount; i++) {
+      const gridLineIndex = i % horizontalLines;
+      const y = gridLineIndex * GRID_SIZE;
       const speed = MIN_SPEED + Math.random() * (MAX_SPEED - MIN_SPEED);
       
-      if (isHorizontal) {
-        const gridLineIndex = Math.floor(Math.random() * horizontalLines);
-        const y = gridLineIndex * GRID_SIZE;
-        newPoints.push({
-          id: `h-${i}`,
-          x: Math.random() * dimensions.width,
-          y,
-          direction: 'horizontal',
-          speed,
-          progress: Math.random(),
-          gridLineIndex
-        });
-      } else {
-        const gridLineIndex = Math.floor(Math.random() * verticalLines);
-        const x = gridLineIndex * GRID_SIZE;
-        newPoints.push({
-          id: `v-${i}`,
-          x,
-          y: Math.random() * dimensions.height,
-          direction: 'vertical',
-          speed,
-          progress: Math.random(),
-          gridLineIndex
-        });
-      }
+      newPoints.push({
+        id: `h-${i}`,
+        x: 0,
+        y,
+        direction: 'horizontal',
+        speed,
+        progress: Math.random(),
+        gridLineIndex
+      });
+    }
+
+    // Create vertical points (moving top-bottom)
+    for (let i = 0; i < verticalCount; i++) {
+      const gridLineIndex = i % verticalLines;
+      const x = gridLineIndex * GRID_SIZE;
+      const speed = MIN_SPEED + Math.random() * (MAX_SPEED - MIN_SPEED);
+      
+      newPoints.push({
+        id: `v-${i}`,
+        x,
+        y: 0,
+        direction: 'vertical',
+        speed,
+        progress: Math.random(),
+        gridLineIndex
+      });
     }
 
     setPoints(newPoints);
@@ -90,19 +98,23 @@ export function AnimatedGridBackground({ className = "" }: AnimatedGridBackgroun
     const animate = () => {
       setPoints(prevPoints => 
         prevPoints.map(point => {
-          let newProgress = point.progress + point.speed * 0.01;
+          let newProgress = point.progress + point.speed;
           let newX = point.x;
           let newY = point.y;
 
           if (point.direction === 'horizontal') {
+            // Horizontal points move left to right, Y stays fixed
             newX = newProgress * dimensions.width;
-            if (newX > dimensions.width) {
+            newY = point.gridLineIndex * GRID_SIZE;
+            if (newProgress >= 1) {
               newProgress = 0;
               newX = 0;
             }
           } else {
+            // Vertical points move top to bottom, X stays fixed
+            newX = point.gridLineIndex * GRID_SIZE;
             newY = newProgress * dimensions.height;
-            if (newY > dimensions.height) {
+            if (newProgress >= 1) {
               newProgress = 0;
               newY = 0;
             }
@@ -134,14 +146,6 @@ export function AnimatedGridBackground({ className = "" }: AnimatedGridBackgroun
       ref={containerRef}
       className={`absolute inset-0 overflow-hidden pointer-events-none ${className}`}
     >
-      {/* Static Grid */}
-      <div 
-        className="absolute inset-0 opacity-5"
-        style={{
-          backgroundImage: `linear-gradient(hsl(var(--noreja-tertiary)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--noreja-tertiary)) 1px, transparent 1px)`,
-          backgroundSize: `${GRID_SIZE}px ${GRID_SIZE}px`
-        }}
-      />
       
       {/* Animated Points */}
       <div className="absolute inset-0">
