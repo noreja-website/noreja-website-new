@@ -15,7 +15,9 @@ export function Header() {
   const isActive = (href: string) => location.pathname === href;
 
   const navigationItems = [
-    { name: t.navigation.home, href: "/" },
+    { name: "Startseite 1", href: "/" },
+    { name: "Startseite 2", href: "/startseite-2" },
+    { name: "Startseite 3", href: "/startseite-3" },
     { name: t.navigation.functionalities, href: "/functionalities" },
     { name: t.navigation.successStories, href: "/success-stories" },
     { name: t.navigation.partners, href: "/partners" },

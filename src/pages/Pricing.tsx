@@ -15,9 +15,19 @@ const teamSizeLabels = [
   { value: 6, label: "500+", users: 500 }
 ];
 
+const dataVolumeLabels = [
+  { value: 0, label: "1GB", volume: 1 },
+  { value: 1, label: "10GB", volume: 10 },
+  { value: 2, label: "100GB", volume: 100 },
+  { value: 3, label: "1TB", volume: 1000 },
+  { value: 4, label: "10TB", volume: 10000 },
+  { value: 5, label: "100TB+", volume: 100000 }
+];
+
 // Placeholder pricing logic - replace with real pricing calculations
-const calculatePricing = (teamSizeIndex: number) => {
+const calculatePricing = (teamSizeIndex: number, dataVolumeIndex: number) => {
   const baseUsers = teamSizeLabels[teamSizeIndex].users;
+  const baseVolume = dataVolumeLabels[dataVolumeIndex].volume;
   
   // Simple scaling formula - customize as needed
   const starterBase = 29;
@@ -25,19 +35,22 @@ const calculatePricing = (teamSizeIndex: number) => {
   const enterpriseBase = 199;
   
   const multiplier = Math.max(1, baseUsers / 10);
+  const volumeMultiplier = Math.max(1, baseVolume / 10);
   
   return {
-    starter: Math.round(starterBase * multiplier),
-    pro: Math.round(proBase * multiplier),
-    enterprise: Math.round(enterpriseBase * multiplier)
+    starter: Math.round(starterBase * multiplier * volumeMultiplier * 0.8),
+    pro: Math.round(proBase * multiplier * volumeMultiplier * 0.9),
+    enterprise: Math.round(enterpriseBase * multiplier * volumeMultiplier)
   };
 };
 
 const Pricing = () => {
   const { t } = useLanguage();
   const [teamSizeIndex, setTeamSizeIndex] = useState(1); // Default to 10 users
+  const [dataVolumeIndex, setDataVolumeIndex] = useState(1); // Default to 10GB
   const currentTeamSize = teamSizeLabels[teamSizeIndex];
-  const pricing = calculatePricing(teamSizeIndex);
+  const currentDataVolume = dataVolumeLabels[dataVolumeIndex];
+  const pricing = calculatePricing(teamSizeIndex, dataVolumeIndex);
 
   const plans = [
     {
@@ -80,30 +93,64 @@ const Pricing = () => {
           </p>
         </div>
 
-        {/* Team Size Slider */}
-        <div className="max-w-2xl mx-auto mb-16">
-          <div className="bg-card rounded-lg p-8 border">
-            <h3 className="text-lg font-semibold mb-6 text-center text-foreground">
-              {t.pages.pricing.teamSize} {currentTeamSize.label} {currentTeamSize.users > 1 ? t.pages.pricing.users : t.pages.pricing.user}
-            </h3>
-            
-            <div className="space-y-6">
-              <Slider
-                value={[teamSizeIndex]}
-                onValueChange={(value) => setTeamSizeIndex(value[0])}
-                max={6}
-                min={0}
-                step={1}
-                className="w-full"
-              />
+        {/* Pricing Sliders */}
+        <div className="max-w-6xl mx-auto mb-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Team Size Slider */}
+            <div className="bg-card rounded-lg p-8 border">
+              <h3 className="text-lg font-semibold mb-6 text-center text-foreground">
+                {t.pages.pricing.teamSize} {currentTeamSize.label} {currentTeamSize.users > 1 ? t.pages.pricing.users : t.pages.pricing.user}
+              </h3>
               
-              {/* Labels */}
-              <div className="flex justify-between text-sm text-muted-foreground px-2">
-                {teamSizeLabels.map((label) => (
-                  <span key={label.value} className="text-center">
-                    {label.label}
-                  </span>
-                ))}
+              <div className="space-y-6">
+                <div className="px-3">
+                  <Slider
+                    value={[teamSizeIndex]}
+                    onValueChange={(value) => setTeamSizeIndex(value[0])}
+                    max={6}
+                    min={0}
+                    step={1}
+                    className="w-full"
+                  />
+                </div>
+                
+                {/* Labels Team Size*/}
+                <div className="flex justify-between text-sm text-muted-foreground px-3 w-full">
+                  {teamSizeLabels.map((label) => (
+                    <span key={label.value} className="text-center flex-[0_0_5%]">
+                      {label.label}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+            
+            {/* Data Volume Slider */}
+            <div className="bg-card rounded-lg p-8 border">
+              <h3 className="text-lg font-semibold mb-6 text-center text-foreground">
+                Data Volume: {currentDataVolume.label}
+              </h3>
+              
+              <div className="space-y-6">
+                <div className="px-2">
+                  <Slider
+                    value={[dataVolumeIndex]}
+                    onValueChange={(value) => setDataVolumeIndex(value[0])}
+                    max={5}
+                    min={0}
+                    step={1}
+                    className="w-full"
+                  />
+                </div>
+                
+                {/* Labels Data Volume */}
+                <div className="flex justify-between text-sm text-muted-foreground px-3 w-full">
+                  {dataVolumeLabels.map((label) => (
+                    <span key={label.value} className="text-center flex-[0_0_5%]">
+                      {label.label}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
