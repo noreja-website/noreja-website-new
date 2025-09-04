@@ -21,9 +21,8 @@ export function AnimatedGridBackground({ className = "" }: AnimatedGridBackgroun
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
   const GRID_SIZE = 50;
-  const POINT_COUNT = 20; // Increased for better coverage
-  const MIN_SPEED = 0.002;
-  const MAX_SPEED = 0.006;
+  const MIN_SPEED = 0.001;
+  const MAX_SPEED = 0.003;
 
   // Initialize points - use full viewport dimensions
   useEffect(() => {
@@ -43,19 +42,20 @@ export function AnimatedGridBackground({ className = "" }: AnimatedGridBackgroun
   useEffect(() => {
     if (dimensions.width === 0 || dimensions.height === 0) return;
 
-    const horizontalLines = Math.ceil(dimensions.height / GRID_SIZE);
-    const verticalLines = Math.ceil(dimensions.width / GRID_SIZE);
-    const totalLines = horizontalLines + verticalLines;
+    // Use Math.floor to prevent overflow and ensure proper grid bounds
+    const horizontalLines = Math.floor(dimensions.height / GRID_SIZE);
+    const verticalLines = Math.floor(dimensions.width / GRID_SIZE);
+    
+    // Calculate point count based on screen size (1 point per 4-5 grid lines)
+    const horizontalCount = Math.max(2, Math.floor(horizontalLines / 4));
+    const verticalCount = Math.max(2, Math.floor(verticalLines / 4));
 
     const newPoints: GridPoint[] = [];
 
-    // Distribute points across all grid lines for better coverage
-    const horizontalCount = Math.ceil(POINT_COUNT * 0.5);
-    const verticalCount = POINT_COUNT - horizontalCount;
-
-    // Create horizontal points (moving left-right)
+    // Create horizontal points distributed across ALL horizontal lines
     for (let i = 0; i < horizontalCount; i++) {
-      const gridLineIndex = i % horizontalLines;
+      // Randomly distribute across all available horizontal lines
+      const gridLineIndex = Math.floor(Math.random() * horizontalLines);
       const y = gridLineIndex * GRID_SIZE;
       const speed = MIN_SPEED + Math.random() * (MAX_SPEED - MIN_SPEED);
       
@@ -70,9 +70,10 @@ export function AnimatedGridBackground({ className = "" }: AnimatedGridBackgroun
       });
     }
 
-    // Create vertical points (moving top-bottom)
+    // Create vertical points distributed across ALL vertical lines
     for (let i = 0; i < verticalCount; i++) {
-      const gridLineIndex = i % verticalLines;
+      // Randomly distribute across all available vertical lines
+      const gridLineIndex = Math.floor(Math.random() * verticalLines);
       const x = gridLineIndex * GRID_SIZE;
       const speed = MIN_SPEED + Math.random() * (MAX_SPEED - MIN_SPEED);
       
@@ -151,16 +152,13 @@ export function AnimatedGridBackground({ className = "" }: AnimatedGridBackgroun
         {points.map(point => (
           <div
             key={point.id}
-            className="absolute w-1.5 h-1.5 rounded-full transition-opacity duration-300"
+            className="absolute w-1 h-1 rounded-full transition-opacity duration-300"
             style={{
               left: `${point.x}px`,
               top: `${point.y}px`,
               backgroundColor: '#23F3DA',
-              boxShadow: '0 0 6px #23F3DA, 0 0 12px #23F3DA40',
-              transform: 'translate(-50%, -50%)',
-              opacity: point.direction === 'horizontal' 
-                ? Math.sin(point.progress * Math.PI) * 0.8 + 0.2
-                : Math.sin(point.progress * Math.PI) * 0.8 + 0.2
+              boxShadow: '0 0 3px #23F3DA30, 0 0 6px #23F3DA20',
+              opacity: Math.sin(point.progress * Math.PI) * 0.4 + 0.15
             }}
           />
         ))}
