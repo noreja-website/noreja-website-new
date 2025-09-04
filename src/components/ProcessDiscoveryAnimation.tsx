@@ -74,7 +74,7 @@ export function ProcessDiscoveryAnimation() {
     <div ref={containerRef} className="relative h-[400vh]">
       {/* Sticky hero section that remains fixed while scroll drives animation */}
       <motion.div 
-        className="sticky top-0 h-screen w-full z-10 overflow-hidden"
+        className="sticky top-16 h-[calc(100vh-4rem)] w-full z-40 overflow-hidden bg-gradient-to-br from-background via-background/95 to-background/90"
         style={{
           opacity: isComplete ? 0 : 1
         }}
@@ -82,7 +82,8 @@ export function ProcessDiscoveryAnimation() {
       >
         {/* Animated background with particles and grid */}
         <div className="absolute inset-0">
-          {/* Base gradient background */}
+          {/* Additional background coverage to prevent transparency */}
+          <div className="absolute inset-0 bg-background" />
           <div className="absolute inset-0 bg-gradient-to-br from-background via-background/95 to-background/90" />
           
           {/* Animated grid overlay */}
