@@ -43,13 +43,15 @@ export function ProcessDiscoveryAnimation() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isComplete, setIsComplete] = useState(false);
   const [showParticles, setShowParticles] = useState(false);
+  
+  // Use window scroll instead of container scroll for true sticky behavior
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"]
   });
 
-  // Transform scroll progress to animation steps (0-8 steps) with longer scroll distance
-  const animationProgress = useTransform(scrollYProgress, [0, 1], [0, 8]);
+  // Transform scroll progress to animation steps (0-8 steps) with much slower progression
+  const animationProgress = useTransform(scrollYProgress, [0, 0.9], [0, 8]);
   const [currentStep, setCurrentStep] = useState(0);
 
   useEffect(() => {
@@ -71,20 +73,20 @@ export function ProcessDiscoveryAnimation() {
   const scanProgress = useTransform(scrollYProgress, [0, 0.3], [0, 1]);
 
   return (
-    <div ref={containerRef} className="relative h-[400vh]">
-      {/* Sticky hero section that remains fixed while scroll drives animation */}
+    <div ref={containerRef} className="relative h-[600vh]">
+      {/* Sticky animation section - truly sticky until complete */}
       <motion.div 
-        className="sticky top-16 h-[calc(100vh-4rem)] w-full z-40 overflow-hidden bg-gradient-to-br from-background via-background/95 to-background/90"
+        className="sticky top-0 h-screen w-full z-40 overflow-hidden bg-background"
         style={{
           opacity: isComplete ? 0 : 1
         }}
-        transition={{ duration: 1 }}
+        transition={{ duration: 1.5 }}
       >
         {/* Animated background with particles and grid */}
         <div className="absolute inset-0">
-          {/* Additional background coverage to prevent transparency */}
+          {/* Solid background to prevent any transparency */}
           <div className="absolute inset-0 bg-background" />
-          <div className="absolute inset-0 bg-gradient-to-br from-background via-background/95 to-background/90" />
+          <div className="absolute inset-0 bg-gradient-to-br from-background via-primary/5 to-secondary/5" />
           
           {/* Animated grid overlay */}
           <motion.div 
@@ -185,11 +187,11 @@ export function ProcessDiscoveryAnimation() {
                   fill="none"
                   filter="url(#glow)"
                   initial={{ pathLength: 0, opacity: 0 }}
-                  animate={{
-                    pathLength: currentStep >= edge.step ? 1 : 0,
-                    opacity: currentStep >= edge.step ? 0.9 : 0
-                  }}
-                  transition={{ duration: 1.5, ease: "easeInOut", delay: edge.step * 0.2 }}
+                animate={{
+                  pathLength: currentStep >= edge.step ? 1 : 0,
+                  opacity: currentStep >= edge.step ? 0.9 : 0
+                }}
+                transition={{ duration: 2.5, ease: "easeInOut", delay: edge.step * 0.5 }}
                 />
                 
                 {/* Data flow particles */}
@@ -239,9 +241,9 @@ export function ProcessDiscoveryAnimation() {
                   opacity: isVisible ? 1 : 0
                 }}
                 transition={{ 
-                  duration: 1, 
+                  duration: 1.5, 
                   ease: [0.25, 0.46, 0.45, 0.94],
-                  delay: isVisible ? node.step * 0.3 : 0
+                  delay: isVisible ? node.step * 0.5 : 0
                 }}
               >
                 {/* Multiple layered glow effects */}
