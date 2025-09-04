@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { ArrowRight, Building, Globe, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
-import bocLogo from "@/assets/partners/BOC_logo_White.png";
+import bocLogo from "@/assets/partners/BOC-logo-white.png";
 
 const partnerLogos = [
   { name: "BOC Group", src: bocLogo },
