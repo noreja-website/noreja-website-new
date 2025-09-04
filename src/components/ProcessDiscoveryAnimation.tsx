@@ -20,23 +20,44 @@ interface ProcessEdge {
 }
 
 const processNodes: ProcessNode[] = [
-  { id: 'data', x: 20, y: 50, icon: Database, label: 'Data Collection', description: 'Raw process data', step: 1 },
-  { id: 'extract', x: 40, y: 30, icon: Cpu, label: 'Data Processing', description: 'Extract patterns', step: 2 },
-  { id: 'analyze', x: 60, y: 60, icon: BarChart3, label: 'Analysis', description: 'Discover insights', step: 3 },
-  { id: 'optimize', x: 80, y: 40, icon: Target, label: 'Optimization', description: 'Improve processes', step: 4 },
-  { id: 'monitor', x: 50, y: 80, icon: TrendingUp, label: 'Monitoring', description: 'Continuous tracking', step: 5 },
-  { id: 'workflow', x: 30, y: 70, icon: Workflow, label: 'Process Flow', description: 'Automated workflows', step: 6 },
-  { id: 'insights', x: 70, y: 20, icon: Zap, label: 'AI Insights', description: 'Smart recommendations', step: 7 },
+  { id: 'data', x: 15, y: 45, icon: Database, label: 'Data Collection', description: 'Raw process data', step: 1 },
+  { id: 'extract', x: 30, y: 25, icon: Cpu, label: 'Data Processing', description: 'Extract patterns', step: 2 },
+  { id: 'analyze', x: 50, y: 60, icon: BarChart3, label: 'Analysis', description: 'Discover insights', step: 3 },
+  { id: 'optimize', x: 75, y: 35, icon: Target, label: 'Optimization', description: 'Improve processes', step: 4 },
+  { id: 'monitor', x: 40, y: 75, icon: TrendingUp, label: 'Monitoring', description: 'Continuous tracking', step: 5 },
+  { id: 'workflow', x: 25, y: 65, icon: Workflow, label: 'Process Flow', description: 'Automated workflows', step: 6 },
+  { id: 'insights', x: 65, y: 20, icon: Zap, label: 'AI Insights', description: 'Smart recommendations', step: 7 },
+  { id: 'security', x: 85, y: 60, icon: Database, label: 'Security Layer', description: 'Data protection', step: 8 },
+  { id: 'integration', x: 10, y: 20, icon: Cpu, label: 'System Integration', description: 'Connect systems', step: 9 },
+  { id: 'automation', x: 60, y: 80, icon: BarChart3, label: 'Automation', description: 'Automated tasks', step: 10 },
+  { id: 'reporting', x: 90, y: 25, icon: Target, label: 'Reporting', description: 'Generate reports', step: 11 },
+  { id: 'compliance', x: 20, y: 85, icon: TrendingUp, label: 'Compliance', description: 'Regulatory checks', step: 12 },
+  { id: 'prediction', x: 80, y: 75, icon: Workflow, label: 'Prediction', description: 'Future insights', step: 13 },
+  { id: 'alerts', x: 45, y: 15, icon: Zap, label: 'Real-time Alerts', description: 'Instant notifications', step: 14 },
+  { id: 'dashboard', x: 70, y: 50, icon: Database, label: 'Live Dashboard', description: 'Real-time view', step: 15 },
 ];
 
 const processEdges: ProcessEdge[] = [
-  { from: 'data', to: 'extract', step: 2, path: 'M 20 50 Q 30 40 40 30' },
-  { from: 'extract', to: 'analyze', step: 3, path: 'M 40 30 Q 50 45 60 60' },
-  { from: 'analyze', to: 'optimize', step: 4, path: 'M 60 60 Q 70 50 80 40' },
-  { from: 'data', to: 'workflow', step: 6, path: 'M 20 50 Q 25 60 30 70' },
-  { from: 'workflow', to: 'monitor', step: 6, path: 'M 30 70 Q 40 75 50 80' },
-  { from: 'extract', to: 'insights', step: 7, path: 'M 40 30 Q 55 25 70 20' },
-  { from: 'analyze', to: 'monitor', step: 5, path: 'M 60 60 Q 55 70 50 80' },
+  { from: 'integration', to: 'data', step: 2, path: 'M 10 20 Q 12.5 32.5 15 45' },
+  { from: 'data', to: 'extract', step: 3, path: 'M 15 45 Q 22.5 35 30 25' },
+  { from: 'extract', to: 'analyze', step: 4, path: 'M 30 25 Q 40 42.5 50 60' },
+  { from: 'analyze', to: 'optimize', step: 5, path: 'M 50 60 Q 62.5 47.5 75 35' },
+  { from: 'data', to: 'workflow', step: 6, path: 'M 15 45 Q 20 55 25 65' },
+  { from: 'workflow', to: 'monitor', step: 7, path: 'M 25 65 Q 32.5 70 40 75' },
+  { from: 'extract', to: 'insights', step: 8, path: 'M 30 25 Q 47.5 22.5 65 20' },
+  { from: 'analyze', to: 'monitor', step: 9, path: 'M 50 60 Q 45 67.5 40 75' },
+  { from: 'optimize', to: 'security', step: 10, path: 'M 75 35 Q 80 47.5 85 60' },
+  { from: 'insights', to: 'alerts', step: 11, path: 'M 65 20 Q 55 17.5 45 15' },
+  { from: 'monitor', to: 'automation', step: 12, path: 'M 40 75 Q 50 77.5 60 80' },
+  { from: 'security', to: 'reporting', step: 13, path: 'M 85 60 Q 87.5 42.5 90 25' },
+  { from: 'workflow', to: 'compliance', step: 14, path: 'M 25 65 Q 22.5 75 20 85' },
+  { from: 'automation', to: 'prediction', step: 15, path: 'M 60 80 Q 70 77.5 80 75' },
+  { from: 'optimize', to: 'dashboard', step: 16, path: 'M 75 35 Q 72.5 42.5 70 50' },
+  { from: 'security', to: 'dashboard', step: 17, path: 'M 85 60 Q 77.5 55 70 50' },
+  { from: 'insights', to: 'dashboard', step: 18, path: 'M 65 20 Q 67.5 35 70 50' },
+  { from: 'alerts', to: 'dashboard', step: 19, path: 'M 45 15 Q 57.5 32.5 70 50' },
+  { from: 'reporting', to: 'dashboard', step: 20, path: 'M 90 25 Q 80 37.5 70 50' },
+  { from: 'prediction', to: 'dashboard', step: 21, path: 'M 80 75 Q 75 62.5 70 50' },
 ];
 
 export function ProcessDiscoveryAnimation() {
@@ -48,15 +69,15 @@ export function ProcessDiscoveryAnimation() {
     offset: ["start start", "end start"]
   });
 
-  // Transform scroll progress to animation steps (0-8 steps) with longer scroll distance
-  const animationProgress = useTransform(scrollYProgress, [0, 1], [0, 8]);
+  // Transform scroll progress to animation steps (0-22 steps) with much longer scroll distance
+  const animationProgress = useTransform(scrollYProgress, [0, 1], [0, 22]);
   const [currentStep, setCurrentStep] = useState(0);
 
   useEffect(() => {
     const unsubscribe = animationProgress.on('change', (latest) => {
       const step = Math.floor(latest);
       setCurrentStep(step);
-      if (step >= 8) {
+      if (step >= 22) {
         setIsComplete(true);
       }
       if (step >= 2) {
@@ -72,9 +93,10 @@ export function ProcessDiscoveryAnimation() {
 
   return (
     <div ref={containerRef} className="relative">
-      {/* Fixed immersive hero section - full viewport coverage */}
+      {/* Fixed immersive hero section - respects navbar space */}
       <motion.div 
-        className="fixed inset-0 z-10 overflow-hidden"
+        className="fixed top-16 left-0 right-0 bottom-0 z-10 overflow-hidden"
+        style={{ height: 'calc(100vh - 4rem)' }}
       >
         {/* Animated background with particles and grid */}
         <div className="absolute inset-0">
@@ -284,11 +306,11 @@ export function ProcessDiscoveryAnimation() {
                   }}
                 />
 
-                {/* Enhanced node circle - Much larger */}
+                {/* Enhanced node circle - Extra large and futuristic */}
                 <motion.div 
-                  className="relative w-24 h-24 bg-gradient-to-br from-noreja-main via-noreja-secondary to-noreja-tertiary rounded-full flex items-center justify-center shadow-2xl border-4 border-noreja-tertiary/50"
+                  className="relative w-32 h-32 bg-gradient-to-br from-noreja-main via-noreja-secondary to-noreja-tertiary rounded-full flex items-center justify-center shadow-2xl border-4 border-noreja-tertiary/50"
                   style={{
-                    boxShadow: '0 0 40px hsl(var(--noreja-main) / 0.6), inset 0 0 20px hsl(var(--noreja-tertiary) / 0.3)'
+                    boxShadow: '0 0 60px hsl(var(--noreja-main) / 0.8), inset 0 0 30px hsl(var(--noreja-tertiary) / 0.4)'
                   }}
                   animate={{
                     rotateY: isVisible ? [0, 360] : 0
@@ -299,7 +321,7 @@ export function ProcessDiscoveryAnimation() {
                     ease: "linear"
                   }}
                 >
-                  <Icon className="w-12 h-12 text-white drop-shadow-lg" />
+                  <Icon className="w-16 h-16 text-white drop-shadow-lg" />
                   
                   {/* Inner pulse effect */}
                   <motion.div
@@ -318,7 +340,7 @@ export function ProcessDiscoveryAnimation() {
 
                 {/* Enhanced node label with holographic effect */}
                 <motion.div
-                  className="absolute top-28 left-1/2 transform -translate-x-1/2 text-center min-w-max"
+                  className="absolute top-36 left-1/2 transform -translate-x-1/2 text-center min-w-max"
                   initial={{ opacity: 0, y: 15 }}
                   animate={{
                     opacity: isVisible ? 1 : 0,
@@ -406,7 +428,7 @@ export function ProcessDiscoveryAnimation() {
                 <motion.div
                   className="h-full bg-gradient-to-r from-noreja-main to-noreja-tertiary"
                   initial={{ width: '0%' }}
-                  animate={{ width: `${(currentStep / 8) * 100}%` }}
+                  animate={{ width: `${(currentStep / 22) * 100}%` }}
                   transition={{ duration: 0.3 }}
                 />
               </div>
@@ -444,8 +466,8 @@ export function ProcessDiscoveryAnimation() {
         </div>
       </motion.div>
 
-      {/* Extended spacer for longer scroll experience */}
-      <div className="h-[500vh]" />
+      {/* Extended spacer for much longer scroll experience */}
+      <div className="h-[800vh]" />
     </div>
   );
 }
