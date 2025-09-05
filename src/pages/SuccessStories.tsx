@@ -93,7 +93,7 @@ const SuccessStories = () => {
                       transition={{ duration: 0.6, delay: index * 0.1 }}
                       className="h-full"
                     >
-                      <Card className="h-full group hover:shadow-lg transition-all duration-300 cursor-pointer border-border/40 hover:border-noreja-main/30 max-w-2xl mx-auto">
+                      <Card className="h-full group hover:shadow-lg transition-all duration-300 cursor-pointer border-border/40 hover:border-noreja-main/30 max-w-4xl mx-auto">
                         <CardHeader className="pb-6">
                           {/* Company Logo */}
                           <div className="w-full h-40 mb-6 overflow-hidden rounded-lg bg-muted flex items-center justify-center">
