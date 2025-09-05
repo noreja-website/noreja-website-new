@@ -16,7 +16,7 @@ export interface EventData {
     capacity?: number;
     spotsLeft?: number;
   };
-  type: 'webinar' | 'conference' | 'workshop' | 'announcement' | 'product-launch';
+  type: 'webinar' | 'conference' | 'workshop' | 'announcement';
   isFree: boolean;
   featured?: boolean;
   tags?: string[];
@@ -34,8 +34,8 @@ export const eventData: EventData[] = [
     id: '1',
     title: 'AI-Powered Business Intelligence Summit 2024',
     description: 'Join industry leaders as we explore the future of AI in business intelligence. Discover cutting-edge strategies, real-world case studies, and networking opportunities.',
-    date: new Date('2024-03-15T14:00:00Z'),
-    endDate: new Date('2024-03-15T17:00:00Z'),
+    date: new Date('2025-03-15T14:00:00Z'),
+    endDate: new Date('2025-03-15T17:00:00Z'),
     location: {
       type: 'hybrid',
       address: 'Berlin Convention Center, Germany',
@@ -44,7 +44,7 @@ export const eventData: EventData[] = [
     registration: {
       required: true,
       url: '/contact',
-      deadline: new Date('2024-03-10T23:59:59Z'),
+      deadline: new Date('2025-03-10T23:59:59Z'),
       capacity: 500,
       spotsLeft: 87
     },
@@ -63,8 +63,8 @@ export const eventData: EventData[] = [
     id: '2',
     title: 'Data Security Best Practices Webinar',
     description: 'Learn essential data security practices and compliance requirements. This free webinar covers enterprise-grade security measures and implementation strategies.',
-    date: new Date('2024-03-22T10:00:00Z'),
-    endDate: new Date('2024-03-22T11:30:00Z'),
+    date: new Date('2025-12-22T10:00:00Z'),
+    endDate: new Date('2025-12-22T11:30:00Z'),
     location: {
       type: 'online',
       platform: 'Microsoft Teams'
@@ -88,14 +88,14 @@ export const eventData: EventData[] = [
     id: '3',
     title: 'Product Platform Update v3.2 Release',
     description: 'Exciting new features and improvements are coming to our platform. Enhanced AI capabilities, improved user interface, and advanced analytics dashboard.',
-    date: new Date('2024-04-01T09:00:00Z'),
+    date: new Date('2025-12-01T09:00:00Z'),
     location: {
       type: 'online'
     },
     registration: {
       required: false
     },
-    type: 'product-launch',
+    type: 'webinar',
     isFree: true,
     featured: true,
     tags: ['Product Update', 'New Features', 'Platform'],
@@ -104,11 +104,7 @@ export const eventData: EventData[] = [
       url: '/functionalities',
       type: 'learn-more'
     }
-  }
-];
-
-// Mock past events for demonstration
-export const pastEventData: EventData[] = [
+  },
   {
     id: 'past-1',
     title: 'Digital Transformation Workshop 2023',
@@ -154,7 +150,8 @@ export const getUpcomingEvents = (): EventData[] => {
 
 export const getPastEvents = (): EventData[] => {
   const now = new Date();
-  return [...eventData.filter(event => event.date <= now), ...pastEventData]
+  return eventData
+    .filter(event => event.date <= now)
     .sort((a, b) => b.date.getTime() - a.date.getTime());
 };
 
