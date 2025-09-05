@@ -10,6 +10,7 @@ export interface Translations {
     blog: string;
     team: string;
     downloads: string;
+    events: string;
     quickNavigation: string;
   };
   pages: {
@@ -273,21 +274,49 @@ export interface Translations {
     latestPostsPreview: string;
     getGlimpse: string;
   };
-  downloads: {
-    title: string;
-    subtitle: string;
-    filterByCategory: string;
-    availableDownloads: string;
-    resource: string;
-    resources: string;
-    clickToDownload: string;
-    noResourcesFound: string;
-    noResourcesDescription: string;
-    needAdditionalResources: string;
-    needAdditionalDescription: string;
-    contactSupport: string;
-    requestCustomResource: string;
-  };
+    downloads: {
+      title: string;
+      subtitle: string;
+      filterByCategory: string;
+      availableDownloads: string;
+      resource: string;
+      resources: string;
+      clickToDownload: string;
+      noResourcesFound: string;
+      noResourcesDescription: string;
+      needAdditionalResources: string;
+      needAdditionalDescription: string;
+      contactSupport: string;
+      requestCustomResource: string;
+    };
+    events: {
+      title: string;
+      titleHighlight: string;
+      subtitle: string;
+      upcomingEvents: string;
+      pastEvents: string;
+      noUpcomingEvents: string;
+      noUpcomingDescription: string;
+      stayTuned: string;
+      subscribeNewsletter: string;
+      register: string;
+      learnMore: string;
+      viewDetails: string;
+      showPastEvents: string;
+      hidePastEvents: string;
+      eventDate: string;
+      eventTime: string;
+      location: string;
+      online: string;
+      onsite: string;
+      hybrid: string;
+      free: string;
+      paid: string;
+      capacity: string;
+      spotsLeft: string;
+      soldOut: string;
+      loadingEvents: string;
+    };
   team: {
     title: string;
     subtitle: string;
@@ -343,6 +372,7 @@ export const translations: Record<Language, Translations> = {
       blog: "Blog",
       team: "Team",
       downloads: "Downloads",
+      events: "Events",
       quickNavigation: "Quick Navigation",
     },
     pages: {
@@ -643,6 +673,34 @@ export const translations: Record<Language, Translations> = {
       contactSupport: "Contact Support",
       requestCustomResource: "Request Custom Resource",
     },
+    events: {
+      title: "Events &",
+      titleHighlight: "Announcements",
+      subtitle: "Stay updated with our latest events, webinars, and important announcements. Join us for insights and networking opportunities.",
+      upcomingEvents: "Upcoming Events",
+      pastEvents: "Past Events",
+      noUpcomingEvents: "No upcoming events at the moment",
+      noUpcomingDescription: "Stay tuned for future announcements and exciting events. We'll keep you informed about upcoming opportunities.",
+      stayTuned: "Stay tuned for future announcements",
+      subscribeNewsletter: "Subscribe to Newsletter",
+      register: "Register",
+      learnMore: "Learn More",
+      viewDetails: "View Details",
+      showPastEvents: "Show Past Events",
+      hidePastEvents: "Hide Past Events",
+      eventDate: "Event Date",
+      eventTime: "Time",
+      location: "Location",
+      online: "Online",
+      onsite: "On-site",
+      hybrid: "Hybrid",
+      free: "Free",
+      paid: "Paid",
+      capacity: "Capacity",
+      spotsLeft: "spots left",
+      soldOut: "Sold Out",
+      loadingEvents: "Loading events..."
+    },
     team: {
       title: "Meet Our Team",
       subtitle: "Passionate professionals dedicated to driving innovation and delivering exceptional results for our clients worldwide.",
@@ -696,6 +754,7 @@ export const translations: Record<Language, Translations> = {
       blog: "Blog",
       team: "Team",
       downloads: "Downloads",
+      events: "Veranstaltungen",
       quickNavigation: "Schnellnavigation",
     },
     pages: {
@@ -995,6 +1054,34 @@ export const translations: Record<Language, Translations> = {
       needAdditionalDescription: "Können Sie nicht finden, wonach Sie suchen? Unser Team ist hier, um Ihnen zu helfen, die richtigen Ressourcen für Ihren spezifischen Anwendungsfall zu finden.",
       contactSupport: "Support kontaktieren",
       requestCustomResource: "Individuelle Ressource anfordern",
+    },
+    events: {
+      title: "Veranstaltungen &",
+      titleHighlight: "Ankündigungen",
+      subtitle: "Bleiben Sie auf dem Laufenden über unsere neuesten Veranstaltungen, Webinare und wichtige Ankündigungen. Begleiten Sie uns für Insights und Networking-Möglichkeiten.",
+      upcomingEvents: "Kommende Veranstaltungen",
+      pastEvents: "Vergangene Veranstaltungen",
+      noUpcomingEvents: "Momentan keine kommenden Veranstaltungen",
+      noUpcomingDescription: "Bleiben Sie gespannt auf zukünftige Ankündigungen und aufregende Veranstaltungen. Wir halten Sie über kommende Gelegenheiten auf dem Laufenden.",
+      stayTuned: "Bleiben Sie gespannt auf zukünftige Ankündigungen",
+      subscribeNewsletter: "Newsletter abonnieren",
+      register: "Anmelden",
+      learnMore: "Mehr erfahren",
+      viewDetails: "Details anzeigen",
+      showPastEvents: "Vergangene Veranstaltungen anzeigen",
+      hidePastEvents: "Vergangene Veranstaltungen ausblenden",
+      eventDate: "Veranstaltungsdatum",
+      eventTime: "Uhrzeit",
+      location: "Ort",
+      online: "Online",
+      onsite: "Vor Ort",
+      hybrid: "Hybrid",
+      free: "Kostenlos",
+      paid: "Kostenpflichtig",
+      capacity: "Kapazität",
+      spotsLeft: "Plätze verfügbar",
+      soldOut: "Ausverkauft",
+      loadingEvents: "Lade Veranstaltungen..."
     },
     team: {
       title: "Lernen Sie unser Team kennen",

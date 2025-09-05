@@ -21,6 +21,7 @@ export function Header() {
     { name: t.navigation.functionalities, href: "/functionalities" },
     { name: t.navigation.successStories, href: "/success-stories" },
     { name: t.navigation.partners, href: "/partners" },
+    { name: t.navigation.events, href: "/events" },
     { name: t.navigation.pricing, href: "/pricing" },
     { name: t.navigation.blog, href: "http://144242473.hs-sites-eu1.com/noreja-intelligecne-gmbh-blog", target: "_blank", rel: "noopener noreferrer" }
   ];

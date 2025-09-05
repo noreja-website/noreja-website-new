@@ -14,6 +14,7 @@ import Team from "./pages/Team";
 import Partners from "./pages/Partners";
 import Blog from "./pages/Blog";
 import Downloads from "./pages/Downloads";
+import Events from "./pages/Events";
 import Pricing from "./pages/Pricing";
 import ContactUs from "./pages/ContactUs";
 import Imprint from "./pages/Imprint";
@@ -39,6 +40,7 @@ const App = () => (
             <Route path="/partners" element={<Partners />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/downloads" element={<Downloads />} />
+            <Route path="/events" element={<Events />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/imprint" element={<Imprint />} />
