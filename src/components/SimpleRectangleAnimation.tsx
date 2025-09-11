@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { AnimatedGridBackground } from "@/components/AnimatedGridBackground";
 
 const SimpleRectangleAnimation = () => {
   const [animationStep, setAnimationStep] = useState(0);
@@ -14,6 +15,7 @@ const SimpleRectangleAnimation = () => {
 
   return (
     <div className="relative w-full h-screen bg-gradient-to-br from-noreja-main/5 to-noreja-main/10 flex flex-col items-center justify-center overflow-hidden">
+      <AnimatedGridBackground className="z-0" />
       {/* Text content at the top */}
       <div className="relative z-10 text-center mb-16">
         <motion.h1 
