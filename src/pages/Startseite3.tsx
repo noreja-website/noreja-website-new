@@ -1,4 +1,4 @@
-import SimpleRectangleAnimation from "@/components/SimpleRectangleAnimation";
+import StickyCardStack from "@/components/StickyCardStack";
 import { FunctionalitiesTeaser } from "@/components/FunctionalitiesTeaser";
 import { HubSpotBlogTeaser } from "@/components/HubSpotBlogTeaser";
 import { PartnersTeaser } from "@/components/PartnersTeaser";
@@ -7,7 +7,7 @@ import { FinalCTA } from "@/components/FinalCTA";
 const Startseite3 = () => {
   return (
     <div className="relative">
-      <SimpleRectangleAnimation />
+      <StickyCardStack />
       <div className="relative z-30 bg-background">
         <FunctionalitiesTeaser />
         <HubSpotBlogTeaser />
