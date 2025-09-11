@@ -6,44 +6,79 @@ import noreja_logo_white_violet from "@/assets/sampleimage.png";
 const SimpleRectangleAnimation = () => {
   // Animation state: tracks which step of the 4-card cycle we're in (0, 1, 2, 3)
   const [animationStep, setAnimationStep] = useState(0);
+  const [reducedMotion, setReducedMotion] = useState(false);
   const cardContainerRef = useRef<HTMLDivElement>(null);
+  // Step sentinels and intersection ratios
+  const stepRefs = useRef<HTMLDivElement[]>([]);
+  const ratiosRef = useRef<number[]>([0, 0, 0, 0]);
+  const activeIndexRef = useRef(0);
 
-  // Scroll-based animation: detects when viewport is on cards and animates based on scroll
+  // Accessibility: track prefers-reduced-motion
   useEffect(() => {
-    const handleScroll = () => {
-      if (!cardContainerRef.current) return;
-      
-      const cardContainer = cardContainerRef.current;
-      const rect = cardContainer.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-      
-      // Check if the card area is in viewport
-      const isInViewport = rect.top < windowHeight && rect.bottom > 0;
-      
-      if (isInViewport) {
-        // Calculate scroll progress within the card area
-        // Start when card container enters viewport, end when it exits
-        const scrollProgress = Math.max(0, Math.min(1, 
-          (windowHeight - rect.top) / (windowHeight + rect.height)
-        ));
-        
-        // Map scroll progress to animation steps (0-3) with more sensitivity
-        // Multiply by 4 and use Math.floor to get 0, 1, 2, 3
-        const newStep = Math.floor(scrollProgress * 4);
-        const clampedStep = Math.min(3, Math.max(0, newStep));
-        
-        // Debug logging
-        console.log('Scroll progress:', scrollProgress, 'New step:', newStep, 'Clamped step:', clampedStep);
-        
-        setAnimationStep(clampedStep);
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const update = () => setReducedMotion(mq.matches);
+    update();
+    if (mq.addEventListener) {
+      mq.addEventListener('change', update);
+    } else if ((mq as any).addListener) {
+      (mq as any).addListener(update);
+    }
+    return () => {
+      if (mq.removeEventListener) {
+        mq.removeEventListener('change', update);
+      } else if ((mq as any).removeListener) {
+        (mq as any).removeListener(update);
       }
     };
-
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Initial call to set correct state
-
-    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Scroll logic: use IntersectionObserver on 4 step sentinels
+  useEffect(() => {
+    const steps = stepRefs.current.filter(Boolean);
+    if (steps.length !== 4) return;
+
+    ratiosRef.current = [0, 0, 0, 0];
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const el = entry.target as HTMLElement;
+          const idx = Number(el.dataset.stepIndex ?? el.getAttribute('data-step-index'));
+          if (!Number.isNaN(idx)) {
+            ratiosRef.current[idx] = entry.isIntersecting ? entry.intersectionRatio : 0;
+          }
+        });
+        // Decide the active step by largest intersectionRatio
+        let max = -1;
+        let best = activeIndexRef.current;
+        for (let i = 0; i < ratiosRef.current.length; i++) {
+          if (ratiosRef.current[i] > max) {
+            max = ratiosRef.current[i];
+            best = i;
+          }
+        }
+        if (best !== activeIndexRef.current) {
+          activeIndexRef.current = best;
+          setAnimationStep(best);
+        }
+      },
+      { root: null, threshold: 0.6, rootMargin: '-20% 0px -20% 0px' }
+    );
+
+    steps.forEach((el, i) => {
+      if (el) {
+        (el as HTMLElement).dataset.stepIndex = String(i);
+        observer.observe(el);
+      }
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Keep ref in sync for stable comparisons without re-subscribing
+  useEffect(() => {
+    activeIndexRef.current = animationStep;
+  }, [animationStep]);
 
   return (
     <>
@@ -73,6 +108,8 @@ const SimpleRectangleAnimation = () => {
       <div className="sticky top-0 w-full h-screen bg-gradient-to-br from-noreja-main/5 to-noreja-main/10 flex flex-col items-center justify-center overflow-hidden z-10">
         {/* Animated background: moving grid points from Startseite2 */}
         <AnimatedGridBackground className="z-0" />
+        {/* Accessibility live region for screen readers */}
+        <div className="sr-only" aria-live="polite" aria-atomic="true">Active step {animationStep + 1} of 4</div>
         
         {/* Card animation area: contains the 4 glass cards that cycle positions */}
         <div 
@@ -81,8 +118,10 @@ const SimpleRectangleAnimation = () => {
         >
           {/* CARD 1: Blue glass card - cycles through all 4 positions */}
           <motion.div
+            data-active={animationStep === 0 ? true : undefined}
+            aria-hidden={animationStep !== 0}
             className="absolute w-2/4 h-full backdrop-blur-md rounded-xl shadow-2xl text-center"
-            style={{ 
+            style={{ display: reducedMotion && animationStep !== 0 ? 'none' : undefined,
               // Z-index cycling: front(4) → back(1) → middle(2) → middle(3)
               zIndex: animationStep === 0 ? 4 : animationStep === 1 ? 1 : animationStep === 2 ? 2 : 3,
               // Dynamic opacity based on position: front=high, back=low
@@ -126,8 +165,10 @@ const SimpleRectangleAnimation = () => {
 
           {/* CARD 2: Green glass card - cycles through all 4 positions */}
           <motion.div
+            data-active={animationStep === 1}
+            aria-hidden={animationStep !== 1}
             className="absolute w-2/4 h-full backdrop-blur-md rounded-xl shadow-2xl text-center"
-            style={{ 
+            style={{ display: reducedMotion && animationStep !== 1 ? 'none' : undefined,
               zIndex: animationStep === 0 ? 3 : animationStep === 1 ? 4 : animationStep === 2 ? 1 : 2,
               // Dynamic opacity based on position: front=high, back=low
               opacity: animationStep === 1 ? 1 : animationStep === 2 ? 0.3 : animationStep === 0 ? 0.8 : 0.6,
@@ -170,8 +211,10 @@ const SimpleRectangleAnimation = () => {
           
           {/* CARD 3: Purple glass card - cycles through all 4 positions */}
           <motion.div
+            data-active={animationStep === 2}
+            aria-hidden={animationStep !== 2}
             className="absolute w-2/4 h-full backdrop-blur-md rounded-xl shadow-2xl text-center"
-            style={{ 
+            style={{ display: reducedMotion && animationStep !== 2 ? 'none' : undefined,
               zIndex: animationStep === 0 ? 2 : animationStep === 1 ? 3 : animationStep === 2 ? 4 : 1,
               // Dynamic opacity based on position: front=high, back=low
               opacity: animationStep === 2 ? 1 : animationStep === 3 ? 0.3 : animationStep === 0 ? 0.6 : 0.8,
@@ -214,8 +257,10 @@ const SimpleRectangleAnimation = () => {
           
           {/* CARD 4: Orange glass card - cycles through all 4 positions */}
           <motion.div
+            data-active={animationStep === 3}
+            aria-hidden={animationStep !== 3}
             className="absolute w-2/4 h-full backdrop-blur-md rounded-xl shadow-2xl text-center"
-            style={{ 
+            style={{ display: reducedMotion && animationStep !== 3 ? 'none' : undefined,
               zIndex: animationStep === 0 ? 1 : animationStep === 1 ? 2 : animationStep === 2 ? 3 : 4,
               // Dynamic opacity based on position: front=high, back=low
               opacity: animationStep === 3 ? 1 : animationStep === 0 ? 0.3 : animationStep === 1 ? 0.6 : 0.8,
@@ -258,27 +303,52 @@ const SimpleRectangleAnimation = () => {
         </div>
       </div>
 
-      {/* Spacer content below for scrolling - this triggers the card animation */}
-      <div className="h-[400vh] bg-gradient-to-br from-noreja-main/5 to-noreja-main/10 flex items-center justify-center">
-        <div className="text-center">
-          <motion.h2 
-            className="text-3xl md:text-5xl font-bold text-foreground mb-4"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-            viewport={{ once: true }}
-          >
-            Continue Your Journey
-          </motion.h2>
-          <motion.p 
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            Scroll down to explore more of our innovative solutions
-          </motion.p>
+      {/* Step sentinels (4 x ~100vh) drive the active card via IntersectionObserver */}
+      <div className="bg-gradient-to-br from-noreja-main/5 to-noreja-main/10">
+        <div
+          ref={(el) => { if (el) stepRefs.current[0] = el; }}
+          data-step-index="0"
+          aria-label="Scroll step 1"
+          className="h-screen"
+        />
+        <div
+          ref={(el) => { if (el) stepRefs.current[1] = el; }}
+          data-step-index="1"
+          aria-label="Scroll step 2"
+          className="h-screen"
+        />
+        <div
+          ref={(el) => { if (el) stepRefs.current[2] = el; }}
+          data-step-index="2"
+          aria-label="Scroll step 3"
+          className="h-screen"
+        />
+        <div
+          ref={(el) => { if (el) stepRefs.current[3] = el; }}
+          data-step-index="3"
+          aria-label="Scroll step 4"
+          className="h-screen flex items-center justify-center"
+        >
+          <div className="text-center">
+            <motion.h2 
+              className="text-3xl md:text-5xl font-bold text-foreground mb-4"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1 }}
+              viewport={{ once: true }}
+            >
+              Continue Your Journey
+            </motion.h2>
+            <motion.p 
+              className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
+              Scroll down to explore more of our innovative solutions
+            </motion.p>
+          </div>
         </div>
       </div>
     </>
