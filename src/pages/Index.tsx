@@ -1,3 +1,4 @@
+import SimpleRectangleAnimation from "@/components/SimpleRectangleAnimation";
 import { IntegratedHeroSection } from "@/components/IntegratedHeroSection";
 import { ProcessGraphSection } from "@/components/ProcessGraphSection";
 import { FunctionalitiesTeaser } from "@/components/FunctionalitiesTeaser";
@@ -7,14 +8,17 @@ import { FinalCTA } from "@/components/FinalCTA";
 
 const Index = () => {
   return (
-    <>
-      <IntegratedHeroSection />
-      <ProcessGraphSection />
-      <FunctionalitiesTeaser />
-      <HubSpotBlogTeaser />
-      <PartnersTeaser />
-      <FinalCTA />
-    </>
+    <div className="relative">
+      <SimpleRectangleAnimation />
+      <div className="relative z-30 bg-background">
+        <IntegratedHeroSection />
+        <ProcessGraphSection />
+        <FunctionalitiesTeaser />
+        <HubSpotBlogTeaser />
+        <PartnersTeaser />
+        <FinalCTA />
+      </div>
+    </div>
   );
 };
 
