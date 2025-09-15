@@ -13,10 +13,10 @@ export function PartnersTeaser() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
 
-  // Get partners with quotes for the gallery
-  const galleryPartners = partners.filter(partner => partner.quote).slice(0, 6);
+  // Get all partners with quotes for the gallery
+  const galleryPartners = partners.filter(partner => partner.quote);
 
-  // Auto-rotate functionality
+  // Auto-rotate functionality - works globally across all partners
   useEffect(() => {
     if (!isHovered && galleryPartners.length > 1) {
       const interval = setInterval(() => {
@@ -33,6 +33,10 @@ export function PartnersTeaser() {
 
   const prevSlide = () => {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + galleryPartners.length) % galleryPartners.length);
+  };
+
+  const handleTabChange = (partnerIndex: number) => {
+    setCurrentIndex(partnerIndex);
   };
 
 
@@ -56,6 +60,29 @@ export function PartnersTeaser() {
           </p>
         </motion.div>
 
+        {/* Company Tabs Navigation */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="flex justify-center mb-8"
+        >
+          <div className="flex flex-wrap gap-2 bg-muted/30 rounded-xl p-2 max-w-6xl overflow-x-auto">
+            {galleryPartners.map((partner, index) => (
+              <button
+                key={partner.id}
+                onClick={() => handleTabChange(index)}
+                className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 whitespace-nowrap ${
+                  currentIndex === index
+                    ? 'bg-white text-foreground shadow-sm'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-white/50'
+                }`}
+              >
+                {partner.name}
+              </button>
+            ))}
+          </div>
+        </motion.div>
 
         {/* Partner Gallery */}
         <motion.div
@@ -70,7 +97,7 @@ export function PartnersTeaser() {
             onMouseLeave={() => setIsHovered(false)}
           >
             <AnimatePresence mode="wait">
-              {galleryPartners.length > 0 && (
+              {galleryPartners.length > 0 && galleryPartners[currentIndex] && (
                 <motion.div
                   key={currentIndex}
                   initial={{ opacity: 0, x: 50 }}
@@ -111,45 +138,52 @@ export function PartnersTeaser() {
               )}
             </AnimatePresence>
 
-            {/* Navigation Controls */}
-            {galleryPartners.length > 1 && (
-              <>
-                <button
-                  onClick={prevSlide}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/20 hover:bg-white/50 rounded-full shadow-lg flex items-center justify-center transition-all duration-200 hover:scale-110"
-                  aria-label="Previous partner"
-                >
-                  <ChevronLeft className="w-5 h-5 text-foreground" />
-                </button>
-                <button
-                  onClick={nextSlide}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/20 hover:bg-white/50 rounded-full shadow-lg flex items-center justify-center transition-all duration-200 hover:scale-110"
-                  aria-label="Next partner"
-                >
-                  <ChevronRight className="w-5 h-5 text-foreground" />
-                </button>
-              </>
-            )}
-
-            {/* Dots Indicator */}
-            {galleryPartners.length > 1 && (
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-                {galleryPartners.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentIndex(index)}
-                    className={`w-2 h-2 rounded-full transition-all duration-200 ${
-                      index === currentIndex 
-                        ? 'bg-noreja-primary scale-125' 
-                        : 'bg-white/60 hover:bg-white/80'
-                    }`}
-                    aria-label={`Go to slide ${index + 1}`}
-                  />
-                ))}
-              </div>
-            )}
           </div>
         </motion.div>
+
+        {/* Navigation Controls Below Gallery */}
+        {galleryPartners.length > 1 && (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+            className="flex items-center justify-center gap-8 mb-12"
+          >
+            {/* Previous Button */}
+            <button
+              onClick={prevSlide}
+              className="w-12 h-12 bg-muted/50 hover:bg-muted rounded-full shadow-lg flex items-center justify-center transition-all duration-200 hover:scale-110 border border-border/50"
+              aria-label="Previous partner"
+            >
+              <ChevronLeft className="w-6 h-6 text-foreground" />
+            </button>
+
+            {/* Dots Indicator */}
+            <div className="flex gap-3">
+              {galleryPartners.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentIndex(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-200 ${
+                    index === currentIndex 
+                      ? 'bg-noreja-primary scale-125' 
+                      : 'bg-muted-foreground/60 hover:bg-muted-foreground'
+                  }`}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
+
+            {/* Next Button */}
+            <button
+              onClick={nextSlide}
+              className="w-12 h-12 bg-muted/50 hover:bg-muted rounded-full shadow-lg flex items-center justify-center transition-all duration-200 hover:scale-110 border border-border/50"
+              aria-label="Next partner"
+            >
+              <ChevronRight className="w-6 h-6 text-foreground" />
+            </button>
+          </motion.div>
+        )}
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}

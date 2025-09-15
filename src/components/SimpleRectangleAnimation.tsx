@@ -231,30 +231,6 @@ const SimpleRectangleAnimation = () => {
           </div>
         </motion.div>
       </div>
-
-      {/* Spacer content below for scrolling - this triggers the card animation */}
-      <div className="h-[400vh] bg-gradient-to-br from-noreja-main/5 to-noreja-main/10 flex items-center justify-center">
-        <div className="text-center">
-          <motion.h2 
-            className="text-3xl md:text-5xl font-bold text-foreground mb-4"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-            viewport={{ once: true }}
-          >
-            Continue Your Journey
-          </motion.h2>
-          <motion.p 
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            Scroll down to explore more of our innovative solutions
-          </motion.p>
-        </div>
-      </div>
     </div>
   );
 };

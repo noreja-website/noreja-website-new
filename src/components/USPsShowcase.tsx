@@ -1,5 +1,5 @@
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export function USPsShowcase() {
@@ -7,6 +7,22 @@ export function USPsShowcase() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const { t } = useLanguage();
   const [selectedCard, setSelectedCard] = useState<number | null>(null);
+
+  // Disable body scroll when a card is selected
+  useEffect(() => {
+    if (selectedCard !== null) {
+      // Simply prevent scrolling by hiding overflow
+      document.body.style.overflow = 'hidden';
+    } else {
+      // Re-enable scrolling
+      document.body.style.overflow = '';
+    }
+
+    // Cleanup function to ensure scroll is re-enabled on unmount
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [selectedCard]);
 
   const usps = [
     {
