@@ -5,6 +5,8 @@ export interface Partner {
   logoUrl: string;
   website: string;
   category: string;
+  quote?: string;
+  quoteAuthor?: string;
 }
 
 export const partners: Partner[] = [
@@ -14,7 +16,9 @@ export const partners: Partner[] = [
     description: "Strategic cloud infrastructure partnership powering enterprise-scale solutions.",
     logoUrl: "/placeholder.svg",
     website: "https://microsoft.com",
-    category: "Technology"
+    category: "Technology",
+    quote: "Noreja's platform has revolutionized how we approach enterprise solutions, delivering unprecedented scalability and reliability.",
+    quoteAuthor: "Sarah Johnson, CTO"
   },
   {
     id: "2",
@@ -22,7 +26,9 @@ export const partners: Partner[] = [
     description: "CRM integration specialist delivering seamless customer relationship management.",
     logoUrl: "/placeholder.svg",
     website: "https://salesforce.com",
-    category: "Software"
+    category: "Software",
+    quote: "The integration capabilities of Noreja have transformed our customer data management, creating seamless workflows across all touchpoints.",
+    quoteAuthor: "Michael Chen, VP Engineering"
   },
   {
     id: "3",
@@ -30,7 +36,9 @@ export const partners: Partner[] = [
     description: "Leading cloud provider enabling scalable and reliable infrastructure solutions.",
     logoUrl: "/placeholder.svg",
     website: "https://aws.amazon.com",
-    category: "Cloud"
+    category: "Cloud",
+    quote: "Noreja's cloud-native approach perfectly complements our infrastructure, enabling our customers to scale effortlessly.",
+    quoteAuthor: "Lisa Rodriguez, Solutions Architect"
   },
   {
     id: "4",
@@ -38,7 +46,9 @@ export const partners: Partner[] = [
     description: "AI and machine learning innovation partner for next-generation applications.",
     logoUrl: "/placeholder.svg",
     website: "https://cloud.google.com",
-    category: "Cloud"
+    category: "Cloud",
+    quote: "Working with Noreja has accelerated our AI initiatives, bringing machine learning capabilities to enterprises faster than ever.",
+    quoteAuthor: "David Kim, Head of AI Partnerships"
   },
   {
     id: "5",
@@ -46,7 +56,9 @@ export const partners: Partner[] = [
     description: "Enterprise resource planning integration for comprehensive business management.",
     logoUrl: "/placeholder.svg",
     website: "https://sap.com",
-    category: "Enterprise"
+    category: "Enterprise",
+    quote: "Noreja's enterprise integration solutions have streamlined our ERP implementations, reducing complexity and time-to-value.",
+    quoteAuthor: "Anna Müller, Integration Director"
   },
   {
     id: "6",
@@ -54,7 +66,9 @@ export const partners: Partner[] = [
     description: "Database excellence and enterprise software solutions for mission-critical systems.",
     logoUrl: "/placeholder.svg",
     website: "https://oracle.com",
-    category: "Database"
+    category: "Database",
+    quote: "The reliability and performance of Noreja's database solutions have exceeded our expectations for mission-critical applications.",
+    quoteAuthor: "Robert Taylor, Database Administrator"
   },
   {
     id: "7",
@@ -62,7 +76,9 @@ export const partners: Partner[] = [
     description: "Advanced analytics and AI consulting for digital transformation initiatives.",
     logoUrl: "/placeholder.svg",
     website: "https://ibm.com",
-    category: "Consulting"
+    category: "Consulting",
+    quote: "Noreja's analytics platform has been instrumental in our digital transformation projects, delivering insights that drive real business value.",
+    quoteAuthor: "Jennifer Wang, Senior Consultant"
   },
   {
     id: "8",
@@ -70,22 +86,8 @@ export const partners: Partner[] = [
     description: "Workflow automation platform integration for streamlined business processes.",
     logoUrl: "/placeholder.svg",
     website: "https://servicenow.com",
-    category: "Automation"
-  },
-  {
-    id: "9",
-    name: "Slack",
-    description: "Communication platform integration enhancing team collaboration and productivity.",
-    logoUrl: "/placeholder.svg",
-    website: "https://slack.com",
-    category: "Communication"
-  },
-  {
-    id: "10",
-    name: "Adobe",
-    description: "Creative suite integration for enhanced digital experience and content management.",
-    logoUrl: "/placeholder.svg",
-    website: "https://adobe.com",
-    category: "Creative"
+    category: "Automation",
+    quote: "The workflow automation capabilities of Noreja have revolutionized our business processes, increasing efficiency by 40%.",
+    quoteAuthor: "Carlos Silva, Process Manager"
   }
 ];

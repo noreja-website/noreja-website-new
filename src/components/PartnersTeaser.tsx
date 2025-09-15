@@ -1,29 +1,40 @@
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
-import { ArrowRight, Building, Globe, Users } from "lucide-react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
-import bocLogo from "@/assets/partners/BOC-logo-white.png";
-
-const partnerLogos = [
-  { name: "BOC Group", src: bocLogo },
-  { name: "BOC Group", src: bocLogo },
-  { name: "BOC Group", src: bocLogo },
-  { name: "BOC Group", src: bocLogo },
-  { name: "BOC Group", src: bocLogo },
-  { name: "BOC Group", src: bocLogo }
-];
+import { partners } from "@/lib/partners";
 
 export function PartnersTeaser() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const { t } = useLanguage();
+  
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
 
-  const stats = [
-    { icon: Building, value: "500+", label: t.partners.stats.clients },
-    { icon: Globe, value: "50+", label: t.partners.stats.countries },
-    { icon: Users, value: "1M+", label: t.partners.stats.users }
-  ];
+  // Get partners with quotes for the gallery
+  const galleryPartners = partners.filter(partner => partner.quote).slice(0, 6);
+
+  // Auto-rotate functionality
+  useEffect(() => {
+    if (!isHovered && galleryPartners.length > 1) {
+      const interval = setInterval(() => {
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % galleryPartners.length);
+      }, 5000); // Change every 5 seconds
+
+      return () => clearInterval(interval);
+    }
+  }, [isHovered, galleryPartners.length]);
+
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % galleryPartners.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + galleryPartners.length) % galleryPartners.length);
+  };
+
 
   return (
     <section ref={ref} className="py-20">
@@ -45,55 +56,99 @@ export function PartnersTeaser() {
           </p>
         </motion.div>
 
-        {/* Stats */}
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
-          {stats.map((stat, index) => {
-            const Icon = stat.icon;
-            return (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-                transition={{ 
-                  duration: 0.6,
-                  delay: index * 0.1 + 0.3
-                }}
-                className="text-center"
-              >
-                <Icon className="w-8 h-8 text-noreja-tertiary mx-auto mb-4" />
-                <div className="text-3xl font-bold text-foreground mb-2">{stat.value}</div>
-                <div className="text-muted-foreground">{stat.label}</div>
-              </motion.div>
-            );
-          })}
-        </div>
 
-        {/* Partner Logos */}
+        {/* Partner Gallery */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="grid grid-cols-3 md:grid-cols-6 gap-8 mb-12"
+          className="relative max-w-6xl mx-auto mb-12"
         >
-          {partnerLogos.map((partner, index) => (
-            <motion.div
-              key={partner.name}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-              transition={{ 
-                duration: 0.5,
-                delay: index * 0.1 + 0.8
-              }}
-              className="flex items-center justify-center h-16 bg-muted/50 rounded-lg border border-border hover:bg-muted/70 transition-colors"
-            >
-              <img
-                src={partner.src}
-                alt={partner.name}
-                className="max-h-10 w-auto object-contain opacity-90"
-                loading="lazy"
-              />
-            </motion.div>
-          ))}
+          <div 
+            className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-muted/50 to-muted/30 border border-border/50"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          >
+            <AnimatePresence mode="wait">
+              {galleryPartners.length > 0 && (
+                <motion.div
+                  key={currentIndex}
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -50 }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
+                  className="p-10 md:p-16"
+                >
+                  <div className="flex flex-col md:flex-row items-center gap-12">
+                    {/* Partner Logo */}
+                    <div className="flex-shrink-0">
+                      <div className="w-40 h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 bg-white/90 rounded-xl shadow-lg flex items-center justify-center p-8">
+                        <img
+                          src={galleryPartners[currentIndex].logoUrl}
+                          alt={galleryPartners[currentIndex].name}
+                          className="max-h-full max-w-full object-contain"
+                          loading="lazy"
+                        />
+                      </div>
+                    </div>
+                    
+                    {/* Quote Section */}
+                    <div className="flex-1 text-center md:text-left">
+                      <blockquote className="text-xl md:text-2xl lg:text-3xl text-foreground font-medium mb-8 leading-relaxed">
+                        "{galleryPartners[currentIndex].quote}"
+                      </blockquote>
+                      <div className="text-base md:text-lg text-muted-foreground">
+                        <div className="font-semibold text-foreground">
+                          {galleryPartners[currentIndex].quoteAuthor}
+                        </div>
+                        <div className="text-noreja-tertiary">
+                          {galleryPartners[currentIndex].name}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* Navigation Controls */}
+            {galleryPartners.length > 1 && (
+              <>
+                <button
+                  onClick={prevSlide}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/20 hover:bg-white/50 rounded-full shadow-lg flex items-center justify-center transition-all duration-200 hover:scale-110"
+                  aria-label="Previous partner"
+                >
+                  <ChevronLeft className="w-5 h-5 text-foreground" />
+                </button>
+                <button
+                  onClick={nextSlide}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/20 hover:bg-white/50 rounded-full shadow-lg flex items-center justify-center transition-all duration-200 hover:scale-110"
+                  aria-label="Next partner"
+                >
+                  <ChevronRight className="w-5 h-5 text-foreground" />
+                </button>
+              </>
+            )}
+
+            {/* Dots Indicator */}
+            {galleryPartners.length > 1 && (
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                {galleryPartners.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentIndex(index)}
+                    className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                      index === currentIndex 
+                        ? 'bg-noreja-primary scale-125' 
+                        : 'bg-white/60 hover:bg-white/80'
+                    }`}
+                    aria-label={`Go to slide ${index + 1}`}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
         </motion.div>
 
         <motion.div
