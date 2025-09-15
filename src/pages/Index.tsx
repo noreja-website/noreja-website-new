@@ -8,17 +8,16 @@ import { FinalCTA } from "@/components/FinalCTA";
 
 const Index = () => {
   return (
-    <div className="relative">
+    <>
+      <IntegratedHeroSection />
       <SimpleRectangleAnimation />
-      <div className="relative z-30 bg-background">
-        <IntegratedHeroSection />
-        <ProcessGraphSection />
+      <div className="bg-background">
         <FunctionalitiesTeaser />
         <HubSpotBlogTeaser />
         <PartnersTeaser />
         <FinalCTA />
       </div>
-    </div>
+    </>
   );
 };
 

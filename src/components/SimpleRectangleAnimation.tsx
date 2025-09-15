@@ -22,26 +22,6 @@ const SimpleRectangleAnimation = () => {
       {/* Animated background: moving grid points from Startseite2 */}
       <AnimatedGridBackground className="z-0" />
       
-      {/* Header section: title and subtitle with fade-in animation */}
-      <div className="relative z-10 text-center mb-16">
-        <motion.h1 
-          className="text-4xl md:text-6xl font-bold text-foreground mb-4"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.5 }}
-        >
-          Innovation in Motion
-        </motion.h1>
-        <motion.p 
-          className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.7 }}
-        >
-          Experience the seamless flow of technology and creativity
-        </motion.p>
-      </div>
-      
       {/* Card animation area: contains the 4 glass cards that cycle positions */}
       <div className="relative w-full h-2/5 flex items-center justify-center z-20 mt-16">
         
