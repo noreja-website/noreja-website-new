@@ -47,6 +47,34 @@ export function USPsShowcase() {
     }
   ];
 
+  // Define specific animation properties for each card
+  const getCardAnimation = (cardIndex: number) => {
+    const animations = {
+      0: { // Top left card (aiAnalytics)
+        initial: { opacity: 0, scale: 0.8, x: -200, y: -100 },
+        animate: { opacity: 1, scale: 1.1, x: 0, y: 0 },
+        exit: { opacity: 0, scale: 0.8, x: -200, y: -100 }
+      },
+      1: { // Top right card (dataIntegration)
+        initial: { opacity: 0, scale: 0.8, x: 200, y: -100 },
+        animate: { opacity: 1, scale: 1.1, x: 0, y: 0 },
+        exit: { opacity: 0, scale: 0.8, x: 200, y: -100 }
+      },
+      2: { // Bottom left card (security)
+        initial: { opacity: 0, scale: 0.8, x: -200, y: 100 },
+        animate: { opacity: 1, scale: 1.1, x: 0, y: 0 },
+        exit: { opacity: 0, scale: 0.8, x: -200, y: 100 }
+      },
+      3: { // Bottom right card (realTime)
+        initial: { opacity: 0, scale: 0.8, x: 200, y: 100 },
+        animate: { opacity: 1, scale: 1.1, x: 0, y: 0 },
+        exit: { opacity: 0, scale: 0.8, x: 200, y: 100 }
+      }
+    };
+    
+    return animations[cardIndex as keyof typeof animations] || animations[0];
+  };
+
   return (
     <section ref={ref} className="py-20 bg-background">
       <div className="container mx-auto px-4 lg:px-8">
@@ -70,75 +98,78 @@ export function USPsShowcase() {
         <div className="relative max-w-6xl mx-auto">
           {/* Background overlay when a card is selected */}
           {selectedCard !== null && (
-            <div className="fixed inset-0 bg-black/30 z-40" />
+            <motion.div 
+              className="fixed inset-0 bg-black/30 z-40"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            />
           )}
           
-          {/* Selected card overlay */}
-          {selectedCard !== null && (
-            <div 
-              className="fixed inset-0 flex items-center justify-center z-50"
-              onClick={() => setSelectedCard(null)}
-            >
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1.05 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 150,
-                  damping: 30,
-                  duration: 1
-                }}
-                className="relative h-64 w-full max-w-2xl mx-auto shadow-2xl border border-primary/50 rounded-2xl overflow-hidden"
-                onClick={(e) => e.stopPropagation()}
+          {/* Selected card overlay - positioned relative to the cards container */}
+          <AnimatePresence>
+            {selectedCard !== null && (
+              <motion.div 
+                className="fixed inset-0 z-50 flex items-center justify-center"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                onClick={() => setSelectedCard(null)}
               >
-                {/* Background Image */}
-                <div 
-                  className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                  style={{ backgroundImage: `url(${usps[selectedCard].backgroundImage})` }}
-                />
-                
-                {/* Individual card overlay */}
-                <div className="absolute inset-0 bg-black/20" />
-                
-                {/* Content */}
-                <div className="relative z-10 h-full flex flex-col justify-center items-center p-6">
-                  <motion.h3 
-                    className="text-2xl font-bold text-white text-center mb-4"
-                    animate={{
-                      scale: 1.1,
-                      y: -10
-                    }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 300,
-                      damping: 25,
-                      duration: 0.5
-                    }}
-                  >
-                    {usps[selectedCard].title}
-                  </motion.h3>
+                <motion.div
+                  initial={getCardAnimation(selectedCard).initial}
+                  animate={getCardAnimation(selectedCard).animate}
+                  exit={getCardAnimation(selectedCard).exit}
+                  transition={{
+                    type: "spring",
+                    stiffness: 200,
+                    damping: 25,
+                    duration: 0.8
+                  }}
+                  className="relative h-80 w-full max-w-2xl mx-auto shadow-2xl border border-primary/50 rounded-2xl overflow-hidden"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {/* Background Image */}
+                  <div 
+                    className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                    style={{ backgroundImage: `url(${usps[selectedCard].backgroundImage})` }}
+                  />
                   
-                  {/* Description */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 30, scale: 0.9 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    transition={{ 
-                      type: "spring",
-                      stiffness: 300,
-                      damping: 25,
-                      duration: 0.6
-                    }}
-                    className="text-white/90 text-center leading-relaxed max-w-md"
-                  >
-                    {usps[selectedCard].description}
-                  </motion.div>
-                </div>
+                  {/* Individual card overlay */}
+                  <div className="absolute inset-0 bg-black/20" />
+                  
+                  {/* Content */}
+                  <div className="relative z-10 h-full flex flex-col justify-center items-center p-8">
+                    <motion.h3 
+                      className="text-3xl font-bold text-white text-center mb-6"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2, duration: 0.5 }}
+                    >
+                      {usps[selectedCard].title}
+                    </motion.h3>
+                    
+                    {/* Description */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.4, duration: 0.6 }}
+                      className="text-white/90 text-center leading-relaxed max-w-lg text-lg"
+                    >
+                      {usps[selectedCard].description}
+                    </motion.div>
+                  </div>
+                </motion.div>
               </motion.div>
-            </div>
-          )}
+            )}
+          </AnimatePresence>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div 
+            data-cards-container
+            className="grid grid-cols-1 md:grid-cols-2 gap-6"
+          >
             {usps.map((usp, index) => {
               const isSelected = selectedCard === index;
               const isBackground = selectedCard !== null && selectedCard !== index;
@@ -146,37 +177,30 @@ export function USPsShowcase() {
               return (
                 <motion.div
                   key={usp.title}
-                  initial={{ opacity: 0, y: 50 }}
+                  data-card-index={index}
+                  initial={{ opacity: 0 }}
                   animate={isInView ? { 
-                    opacity: 1, 
-                    y: 0
-                  } : { opacity: 0, y: 50 }}
+                    opacity: isSelected ? 0 : 1, 
+                    scale: isBackground ? 0.95 : 1
+                  } : { opacity: 0 }}
                   transition={{ 
-                    duration: 0.6,
-                    delay: index * 0.1 + 0.3
+                    duration: isSelected ? 0.2 : 0.6, // Faster fade out for selected card
+                    delay: isSelected ? 0 : 0.6, // Same delay for all cards - matches the bottom right timing
+                    ease: "easeOut" // Consistent easing for all cards
                   }}
                   whileHover={selectedCard === null ? { 
-                    y: -8,
+                    scale: 1.02,
                     transition: { duration: 0.2 }
                   } : {}}
                   onClick={() => setSelectedCard(isSelected ? null : index)}
                   className="group cursor-pointer"
                 >
-                  <motion.div 
-                    className={`relative h-64 border border-border rounded-2xl overflow-hidden ${
-                      isSelected 
-                        ? 'opacity-0' 
+                  <div 
+                    className={`relative h-64 border border-border rounded-2xl overflow-hidden transition-all duration-500 ${
+                      isBackground 
+                        ? 'opacity-60 blur-sm' 
                         : 'group-hover:border-primary/50 group-hover:shadow-lg group-hover:shadow-primary/10'
                     }`}
-                    animate={{
-                      scale: 1,
-                    }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 100,
-                      damping: 20,
-                      duration: 1
-                    }}
                   >
                     {/* Background Image */}
                     <div 
@@ -184,7 +208,7 @@ export function USPsShowcase() {
                       style={{ backgroundImage: `url(${usp.backgroundImage})` }}
                     />
                     
-                    {/* Individual card overlay - only on the card itself */}
+                    {/* Individual card overlay */}
                     <div className={`absolute inset-0 transition-opacity duration-500 ${
                       isBackground ? 'bg-black/60' : 'bg-black/40'
                     }`} />
@@ -195,7 +219,7 @@ export function USPsShowcase() {
                         {usp.title}
                       </h3>
                     </div>
-                  </motion.div>
+                  </div>
                 </motion.div>
               );
             })}
