@@ -126,6 +126,7 @@ export function USPsShowcase() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
+              onClick={() => setSelectedCard(null)}
             />
           )}
           
@@ -134,7 +135,7 @@ export function USPsShowcase() {
             <AnimatePresence>
               {selectedCard !== null && (
                 <motion.div 
-                  className="fixed inset-0 z-50 flex items-center justify-center"
+                  className="absolute inset-0 z-50 flex items-center justify-center"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
@@ -151,7 +152,7 @@ export function USPsShowcase() {
                       damping: 25,
                       duration: 0.8
                     }}
-                    className="relative h-80 w-full max-w-2xl mx-auto shadow-2xl border border-primary/50 rounded-2xl overflow-hidden"
+                    className="relative h-80 w-full max-w-2xl mx-auto shadow-2xl rounded-2xl overflow-hidden"
                     onClick={(e) => e.stopPropagation()}
                   >
                     {/* Background Image */}
