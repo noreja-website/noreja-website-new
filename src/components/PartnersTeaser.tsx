@@ -67,18 +67,24 @@ export function PartnersTeaser() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="flex justify-center mb-8"
         >
-          <div className="flex flex-wrap gap-2 bg-muted/30 rounded-xl p-2 max-w-6xl overflow-x-auto">
+          <div className="flex flex-wrap gap-3 bg-muted/30 rounded-xl p-3 max-w-6xl overflow-x-auto">
             {galleryPartners.map((partner, index) => (
               <button
                 key={partner.id}
                 onClick={() => handleTabChange(index)}
-                className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 whitespace-nowrap ${
+                className={`w-16 h-16 md:w-20 md:h-20 rounded-lg transition-all duration-200 flex items-center justify-center p-2 ${
                   currentIndex === index
-                    ? 'bg-white text-foreground shadow-sm'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-white/50'
+                    ? 'bg-white shadow-sm border-2 border-noreja-primary'
+                    : 'bg-white/50 hover:bg-white/80 border-2 border-transparent hover:border-noreja-primary/30'
                 }`}
+                title={partner.name}
               >
-                {partner.name}
+                <img
+                  src={partner.logoUrl}
+                  alt={partner.name}
+                  className="max-h-full max-w-full object-contain"
+                  loading="lazy"
+                />
               </button>
             ))}
           </div>
@@ -107,13 +113,13 @@ export function PartnersTeaser() {
                   className="p-10 md:p-16"
                 >
                   <div className="flex flex-col md:flex-row items-center gap-12">
-                    {/* Partner Logo */}
+                    {/* Person Photo */}
                     <div className="flex-shrink-0">
-                      <div className="w-40 h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 bg-white/90 rounded-xl shadow-lg flex items-center justify-center p-8">
+                      <div className="w-40 h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 bg-white/90 rounded-xl shadow-lg flex items-center justify-center p-4 overflow-hidden">
                         <img
-                          src={galleryPartners[currentIndex].logoUrl}
-                          alt={galleryPartners[currentIndex].name}
-                          className="max-h-full max-w-full object-contain"
+                          src={galleryPartners[currentIndex].personPhotoUrl || galleryPartners[currentIndex].logoUrl}
+                          alt={galleryPartners[currentIndex].quoteAuthor || galleryPartners[currentIndex].name}
+                          className="w-full h-full object-cover rounded-lg"
                           loading="lazy"
                         />
                       </div>
@@ -121,7 +127,7 @@ export function PartnersTeaser() {
                     
                     {/* Quote Section */}
                     <div className="flex-1 text-center md:text-left">
-                      <blockquote className="text-xl md:text-2xl lg:text-3xl text-foreground font-medium mb-8 leading-relaxed">
+                      <blockquote className="text-xl md:text-2xl lg:text-3xl text-foreground font-medium mb-8 leading-relaxed whitespace-pre-line">
                         "{galleryPartners[currentIndex].quote}"
                       </blockquote>
                       <div className="text-base md:text-lg text-muted-foreground">

@@ -3,6 +3,7 @@ export interface Partner {
   name: string;
   description: string;
   logoUrl: string;
+  personPhotoUrl?: string;
   website: string;
   category: string;
   quote?: string;
@@ -12,59 +13,64 @@ export interface Partner {
 export const partners: Partner[] = [
   {
     id: "1",
-    name: "Microsoft",
+    name: "Aptean",
     description: "Strategic cloud infrastructure partnership powering enterprise-scale solutions.",
-    logoUrl: "/placeholder.svg",
-    website: "https://microsoft.com",
+    logoUrl: "/src/assets/partners/aptean_logo.svg",
+    personPhotoUrl: "/src/assets/partnerFaces/markus_neumayr_locker_aptean.jpg",
+    website: "https://www.aptean.com/en-US",
     category: "Technology",
-    quote: "Noreja's platform has revolutionized how we approach enterprise solutions, delivering unprecedented scalability and reliability.",
-    quoteAuthor: "Sarah Johnson, CTO"
+    quote: "Mit der Lösung von Noreja können die Geschäftsprozesse unserer ERP-Suite rs2 in wenigen Tagen auf Schwachstellen durchleuchtet werden.\n\nDabei werden selbst komplexe Zusammenhänge in den Daten korrekt abgebildet - ohne dass wir einen Event-Log benötigen.\n\nZudem haben mich die KI-Features beeindruckt, die sehr gut auf Fehlerursachen und Interpretationsunterstützung ausgerichtet sind.",
+    quoteAuthor: "Markus Neumayr, General Manager Aptean Austria"
   },
   {
     id: "2",
-    name: "Salesforce",
+    name: "Miragon",
     description: "CRM integration specialist delivering seamless customer relationship management.",
-    logoUrl: "/placeholder.svg",
+    logoUrl: "/src/assets/partners/miragon_logo.svg",
+    personPhotoUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
     website: "https://salesforce.com",
     category: "Software",
-    quote: "The integration capabilities of Noreja have transformed our customer data management, creating seamless workflows across all touchpoints.",
-    quoteAuthor: "Michael Chen, VP Engineering"
+    quote: "Die Partnerschaft zwischen Miragon und Noreja ist für mich etwas Besonderes.\n\nDie Zusammenarbeit ist auf Augenhöhe, Kommunikation und Verständnis sind außergewöhnlich.\n\nDas Produkt ist technisch ausgereift, bietet einen frischen Ansatz im Process Mining und ist dabei auch erschwinglich. Dadurch können wir unser Automatisierungswissen ideal mit dem Knowhow von Noreja verbinden und so Kunden über den gesamten BPM Lifecycle hinweg ganzheitlich beraten und echten Mehrwert schaffen.",
+    quoteAuthor: "Thomas Heinrichs, Growth & Smart Automation Lead"
   },
   {
     id: "3",
-    name: "Amazon Web Services",
+    name: "Changeenablers Ltd.",
     description: "Leading cloud provider enabling scalable and reliable infrastructure solutions.",
-    logoUrl: "/placeholder.svg",
-    website: "https://aws.amazon.com",
-    category: "Cloud",
-    quote: "Noreja's cloud-native approach perfectly complements our infrastructure, enabling our customers to scale effortlessly.",
-    quoteAuthor: "Lisa Rodriguez, Solutions Architect"
+    logoUrl: "/src/assets/partners/changeenablers_logo.png",
+    personPhotoUrl: "/src/assets/partnerFaces/niyi_changeenablers.jpg",
+    website: "https://changeenablers.net/ce_home.html",
+    category: "Consulting",
+    quote: "Noreja has completely redefined how we think about process intelligence. Unlike traditional tools that depend on complex log data, Noreja's approach requires no logs at all—dramatically reducing setup effort and accelerating our time to market. Within weeks, we were uncovering insights that would have taken months with other solutions.\n\nWhat truly sets Noreja apart is the depth of causal insights it delivers. Powered by cutting-edge AI, the platform doesn't just surface correlations—it helps us understand why things happen, enabling smarter decisions with confidence.\n\nOn top of that, the value for money is outstanding, enabling organizations to accessing enterprise-grade intelligence at a fraction of the usual cost. Noreja has become an indispensable partner in driving efficiency, growth, and innovation.",
+    quoteAuthor: "Niyi Ogunbiyi, Co-Founder"
   },
   {
     id: "4",
-    name: "Google Cloud",
+    name: "Waits",
     description: "AI and machine learning innovation partner for next-generation applications.",
-    logoUrl: "/placeholder.svg",
-    website: "https://cloud.google.com",
-    category: "Cloud",
-    quote: "Working with Noreja has accelerated our AI initiatives, bringing machine learning capabilities to enterprises faster than ever.",
-    quoteAuthor: "David Kim, Head of AI Partnerships"
+    logoUrl: "/src/assets/partners/waits_logo.svg",
+    personPhotoUrl: "/src/assets/partnerFaces/christian_waits.png",
+    website: "https://www.waits-gmbh.de/",
+    category: "Consulting",
+    quote: "Die Partnerschaft mit noreja bedeutet uns sehr viel.\nAls CEO der WAITS Software- und Prozessberatungsgesellschaft mbH ist es mir wichtig einen starken Partner an unserer Seite zu wissen, welcher genau wie wir, das Wohlergehen und die Resilienz des Kunden im Fokus hat.\nAuf dieser Basis lässt sich eine langfristige Beziehung untereinander und zu den Kunden aufbauen.",
+    quoteAuthor: "Christian M. Mzyk, CEO"
   },
   {
     id: "5",
-    name: "SAP",
+    name: "Nexigo",
     description: "Enterprise resource planning integration for comprehensive business management.",
-    logoUrl: "/placeholder.svg",
-    website: "https://sap.com",
-    category: "Enterprise",
-    quote: "Noreja's enterprise integration solutions have streamlined our ERP implementations, reducing complexity and time-to-value.",
-    quoteAuthor: "Anna Müller, Integration Director"
+    logoUrl: "/src/assets/partners/nexigo_logo.png",
+    personPhotoUrl: "/src/assets/partnerFaces/marcel_schober_nexigo.jpeg",
+    website: "https://nexigo.io/",
+    category: "Consulting",
+    quote: "Durch diese Partnerschaft schaffen wir eine sehr gute Lösung, die Unternehmen dabei hilft, ihr ERP-System zu optimieren und ihre Prozesse nachhaltig zu verbessern.",
+    quoteAuthor: "Marcel Schober, Geschäftsführer"
   },
   {
     id: "6",
     name: "Oracle",
     description: "Database excellence and enterprise software solutions for mission-critical systems.",
-    logoUrl: "/placeholder.svg",
+    logoUrl: "https://upload.wikimedia.org/wikipedia/commons/5/50/Oracle_logo.svg",
     website: "https://oracle.com",
     category: "Database",
     quote: "The reliability and performance of Noreja's database solutions have exceeded our expectations for mission-critical applications.",
@@ -74,7 +80,7 @@ export const partners: Partner[] = [
     id: "7",
     name: "IBM",
     description: "Advanced analytics and AI consulting for digital transformation initiatives.",
-    logoUrl: "/placeholder.svg",
+    logoUrl: "https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg",
     website: "https://ibm.com",
     category: "Consulting",
     quote: "Noreja's analytics platform has been instrumental in our digital transformation projects, delivering insights that drive real business value.",
@@ -84,10 +90,10 @@ export const partners: Partner[] = [
     id: "8",
     name: "ServiceNow",
     description: "Workflow automation platform integration for streamlined business processes.",
-    logoUrl: "/placeholder.svg",
+    logoUrl: "https://upload.wikimedia.org/wikipedia/commons/0/0e/ServiceNow_logo.svg",
     website: "https://servicenow.com",
     category: "Automation",
-    quote: "The workflow automation capabilities of Noreja have revolutionized our business processes, increasing efficiency by 40%.",
-    quoteAuthor: "Carlos Silva, Process Manager"
+    quote: "Noreja hat uns dabei geholfen Kern-, Management- und Supportprozesse unseres Versicherungsdienstes aufzunehmen, zu verstehen und abzubilden. \n\n Mit Hilfe von Minerva-AI konnten wir in Rekordgeschwindigkeit aus textbasierter Dokumentation Prozessmodelle generieren.",
+    quoteAuthor: "Stefan Best, TODO"
   }
 ];
