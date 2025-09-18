@@ -143,6 +143,16 @@
   .animate-scroll {
     animation: scroll 30s linear infinite;
   }
+
+  /* Vertical marquee for integrations */
+  @keyframes marquee {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-50%);
+    }
+  }
   
   /* 3D Flip Animation Classes */
   .perspective-1000 {

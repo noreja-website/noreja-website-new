@@ -7,6 +7,7 @@ import { FunctionalitiesTeaser } from "@/components/FunctionalitiesTeaser";
 import { HubSpotBlogTeaser } from "@/components/HubSpotBlogTeaser";
 import { PartnersTeaser } from "@/components/PartnersTeaser";
 import { FinalCTA } from "@/components/FinalCTA";
+import { IntegrationsShowcase } from "@/components/IntegrationsShowcase";
 
 const Index = () => {
   return (
@@ -19,6 +20,7 @@ const Index = () => {
         <FunctionalitiesTeaser />
         <HubSpotBlogTeaser />
         <PartnersTeaser />
+        <IntegrationsShowcase />
         <FinalCTA />
       </div>
     </>
