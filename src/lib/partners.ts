@@ -27,7 +27,7 @@ export const partners: Partner[] = [
     name: "Miragon",
     description: "CRM integration specialist delivering seamless customer relationship management.",
     logoUrl: "/src/assets/partners/miragon_logo.svg",
-    personPhotoUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
+    personPhotoUrl: "/src/assets/partnerFaces/thomas_heinrichs_miragon.png",
     website: "https://salesforce.com",
     category: "Software",
     quote: "Die Partnerschaft zwischen Miragon und Noreja ist für mich etwas Besonderes.\n\nDie Zusammenarbeit ist auf Augenhöhe, Kommunikation und Verständnis sind außergewöhnlich.\n\nDas Produkt ist technisch ausgereift, bietet einen frischen Ansatz im Process Mining und ist dabei auch erschwinglich. Dadurch können wir unser Automatisierungswissen ideal mit dem Knowhow von Noreja verbinden und so Kunden über den gesamten BPM Lifecycle hinweg ganzheitlich beraten und echten Mehrwert schaffen.",
@@ -78,22 +78,24 @@ export const partners: Partner[] = [
   },
   {
     id: "7",
-    name: "IBM",
+    name: "Vienesse Consulting",
     description: "Advanced analytics and AI consulting for digital transformation initiatives.",
-    logoUrl: "https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg",
-    website: "https://ibm.com",
+    logoUrl: "/src/assets/partners/vienesse_logo.png",
+    personPhotoUrl: "/src/assets/partnerFaces/robin_lange_vienesse.jpeg",
+    website: "https://vienesse-consulting.com/",
     category: "Consulting",
-    quote: "Noreja's analytics platform has been instrumental in our digital transformation projects, delivering insights that drive real business value.",
-    quoteAuthor: "Jennifer Wang, Senior Consultant"
+    quote: "Bei Vienesse verbinden wir Beratung und Implementierung, damit aus Zielen messbare Ergebnisse werden. Process Mining verschafft unseren Kunden den nüchternen Blick dank echter Datenflüsse auf reale Prozesse, so reduzieren wir Kosten, erhöhen Qualität und schaffen die Basis für skalierbare Automatisierung. Mit Noreja als zuverlässigen Partner an unserer Seite setzen wir individuelle Anforderungen schnell und pragmatisch um.",
+    quoteAuthor: "Robin Lange, Head of Process Science"
   },
   {
     id: "8",
     name: "ServiceNow",
     description: "Workflow automation platform integration for streamlined business processes.",
-    logoUrl: "https://upload.wikimedia.org/wikipedia/commons/0/0e/ServiceNow_logo.svg",
-    website: "https://servicenow.com",
-    category: "Automation",
+    logoUrl: "/src/assets/partners/schleswiger_logo.svg",
+    personPhotoUrl: "/src/assets/partnerFaces/stefan_best_schleswiger.jpeg",
+    website: "https://schleswiger.de/",
+    category: "Insurance",
     quote: "Noreja hat uns dabei geholfen Kern-, Management- und Supportprozesse unseres Versicherungsdienstes aufzunehmen, zu verstehen und abzubilden. \n\n Mit Hilfe von Minerva-AI konnten wir in Rekordgeschwindigkeit aus textbasierter Dokumentation Prozessmodelle generieren.",
-    quoteAuthor: "Stefan Best, TODO"
+    quoteAuthor: "Stefan Best, Gesamtvertriebsleiter & Geschäftsführer"
   }
 ];

@@ -10,8 +10,8 @@ const LogoBanner: React.FC = () => {
     { name: 'SAP', logo: '/placeholder.svg' },
     { name: 'Oracle', logo: '/placeholder.svg' },
     { name: 'IBM', logo: '/placeholder.svg' },
-    { name: 'ServiceNow', logo: '/placeholder.svg' },
-    { name: 'BOC', logo: '/src/assets/partners/BOC-logo-white.png' },
+    { name: 'Vienesse', logo: '/src/assets/partners/partners_white/vienesse_logo_white.svg' },
+    { name: 'BOC', logo: '/src/assets/partners/partners_white/BOC-logo-white.png' },
   ];
 
   // Duplicate logos for seamless scrolling
