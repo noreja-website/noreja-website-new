@@ -1,6 +1,6 @@
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
-import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { partners } from "@/lib/partners";
@@ -123,6 +123,20 @@ export function PartnersTeaser() {
                           loading="lazy"
                         />
                       </div>
+                      {/* LinkedIn Link */}
+                      {galleryPartners[currentIndex].linkedin && (
+                        <div className="mt-4 flex justify-center">
+                          <a
+                            href={galleryPartners[currentIndex].linkedin}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center justify-center w-12 h-12 text-white-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors duration-200"
+                            title="LinkedIn Profile"
+                          >
+                            <Linkedin className="w-7 h-7" />
+                          </a>
+                        </div>
+                      )}
                     </div>
                     
                     {/* Quote Section */}
