@@ -6,6 +6,7 @@ import { USPsShowcase } from "@/components/USPsShowcase";
 import { FunctionalitiesTeaser } from "@/components/FunctionalitiesTeaser";
 import { HubSpotBlogTeaser } from "@/components/HubSpotBlogTeaser";
 import { PartnersTeaser } from "@/components/PartnersTeaser";
+import { PartnerPhotosGrid } from "@/components/PartnerPhotosGrid";
 import { FinalCTA } from "@/components/FinalCTA";
 import { IntegrationsShowcase } from "@/components/IntegrationsShowcase";
 
@@ -20,6 +21,7 @@ const Index = () => {
         <FunctionalitiesTeaser />
         <HubSpotBlogTeaser />
         <PartnersTeaser />
+        <PartnerPhotosGrid />
         <IntegrationsShowcase />
         <FinalCTA />
       </div>
