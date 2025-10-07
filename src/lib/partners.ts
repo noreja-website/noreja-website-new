@@ -118,5 +118,17 @@ export const partners: Partner[] = [
     quote: "Mit Noreja können wir Salesforce-basierte Vertriebsprozesse extrem detailliert für unsere Kunden auswerten. Die Lösung arbeitet system-agnostisch und funktioniert auf allen relationalen Datenbanken sowie APIs.\n\nEine Expertenlösung mit enormem Potenzial. Für mich eine notwendige Ergänzung zu klassischen Business Intelligence Tools für jeden Entscheider.",
     quoteAuthor: "Christian Riffner, Geschäftsführer",
     linkedin: "https://www.linkedin.com/in/christian-riffner-0119b233/"
+  },
+  {
+    id: "10",
+    name: "Fortlane Partners Consulting GmbH",
+    description: "Workflow automation platform integration for streamlined business processes.",
+    logoUrl: "/src/assets/partners/fortlane_logo.png",
+    personPhotoUrl: "/src/assets/partnerFaces/Christoph_Blum_fortlane.png",
+    website: "https://www.fortlane.com/de",
+    category: "Consulting",
+    quote: "Process Mining ist ein Schlüsselfaktor, um strategische Transformationen nicht nur erfolgreich umzusetzen, sondern auch nachhaltig messbar zu machen. Noreja Process Intelligence schafft dabei die notwendige Transparenz, um Fortschritte klar zu quantifizieren und Organisationen nachhaltig leistungsfähiger zu gestalten.",
+    quoteAuthor: "Christoph Blum, Principal",
+    linkedin: "https://www.linkedin.com/in/christoph-blum/"
   }
 ];

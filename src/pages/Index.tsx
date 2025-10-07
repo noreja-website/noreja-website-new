@@ -19,10 +19,9 @@ const Index = () => {
       <USPsShowcase />
       <div className="bg-background">
         <FunctionalitiesTeaser />
-        <HubSpotBlogTeaser />
-        <PartnersTeaser />
         <PartnerPhotosGrid />
         <IntegrationsShowcase />
+        <HubSpotBlogTeaser />
         <FinalCTA />
       </div>
     </>
