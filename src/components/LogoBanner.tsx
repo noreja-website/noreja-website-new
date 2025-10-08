@@ -14,7 +14,7 @@ const LogoBanner: React.FC = () => {
   ];
 
   // Duplicate logos for seamless scrolling
-  const duplicatedLogos = [...logos, ...logos, ...logos];
+  const duplicatedLogos = [...logos, ...logos, ...logos, ...logos];
 
   return (
     <div className="relative overflow-hidden py-8">
