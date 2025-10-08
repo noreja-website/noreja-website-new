@@ -3,20 +3,38 @@ import React from "react";
 type IntegrationLogo = {
   alt: string;
   src: string;
+  isLarge?: boolean;
 };
 
-const DEFAULT_LOGOS: IntegrationLogo[] = [
-  { alt: "GitHub", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" },
-  { alt: "GitLab", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gitlab/gitlab-original.svg" },
-  { alt: "Jira", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jira/jira-original.svg" },
-  { alt: "Trello", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/trello/trello-plain.svg" },
-  { alt: "Slack", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/slack/slack-original.svg" },
-  { alt: "Vercel", src: "https://assets.vercel.com/image/upload/front/assets/design/vercel-triangle-black.svg" },
-  { alt: "Oracle", src: "https://upload.wikimedia.org/wikipedia/commons/5/50/Oracle_logo.svg" },
-  { alt: "Azure", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" },
-  { alt: "AWS", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg" },
-  { alt: "Google Cloud", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg" }
-];
+// Dynamically import all images from the integrations folder
+const integrationImages = import.meta.glob<{ default: string }>(
+  '../assets/integrations/*.{png,jpg,jpeg,svg,webp}',
+  { eager: true }
+);
+
+// Convert the imported images to IntegrationLogo format
+const DEFAULT_LOGOS: IntegrationLogo[] = Object.entries(integrationImages).map(
+  ([path, module]) => {
+    // Extract filename without extension from path
+    const filename = path.split('/').pop()?.replace(/\.(png|jpg|jpeg|svg|webp)$/, '') || '';
+    // Check if filename has _large postfix
+    const isLarge = filename.toLowerCase().includes('_large');
+    // Convert filename to readable alt text (e.g., "mysql_logo" -> "MySQL")
+    const alt = filename
+      .replace(/_logo|_white|-logo|_large/gi, '')
+      .replace(/[-_]/g, ' ')
+      .trim()
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+    
+    return {
+      alt,
+      src: module.default,
+      isLarge
+    };
+  }
+);
 
 export interface IntegrationsShowcaseProps {
   title?: string;
@@ -92,7 +110,7 @@ const VerticalTicker: React.FC<{ items: IntegrationLogo[]; reverse?: boolean }> 
   // Duplicate list for seamless loop
   const sequence = [...items, ...items];
   return (
-    <div className="relative h-[520px] overflow-hidden rounded-xl bg-secondary/40">
+    <div className="relative h-[520px] overflow-hidden rounded-xl bg-secondary/60">
       <div
         className={
           "absolute left-0 top-0 flex w-full flex-col gap-4 animate-[marquee_18s_linear_infinite] " +
@@ -102,12 +120,12 @@ const VerticalTicker: React.FC<{ items: IntegrationLogo[]; reverse?: boolean }> 
         {sequence.map((logo, idx) => (
           <div
             key={idx}
-            className="mx-auto grid h-24 w-24 place-content-center rounded-xl bg-background/70 shadow-sm ring-1 ring-border"
+            className="mx-auto grid h-24 w-24 place-content-center rounded-xl bg-white shadow-sm ring-1 ring-border"
           >
             <img
               src={logo.src}
               alt={logo.alt}
-              className="max-h-12 max-w-12 object-contain opacity-90"
+              className={logo.isLarge ? "max-h-32 max-w-32 object-contain opacity-90" : "max-h-12 max-w-12 object-contain opacity-90"}
               loading="lazy"
             />
           </div>
