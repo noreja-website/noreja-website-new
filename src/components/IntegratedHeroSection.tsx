@@ -1,11 +1,24 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Zap, Shield, Rocket, Database } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import graphThreeNodes from "@/assets/graph_three_nodes.png";
+import { useState, useEffect } from "react";
 
 export function IntegratedHeroSection() {
   const { t } = useLanguage();
+  
+  // Rotating words for the animated highlight
+  const rotatingWords = ["Control", "Stabilize", "Understand", "Improve"];
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentWordIndex((prev) => (prev + 1) % rotatingWords.length);
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <section className="relative pt-32 pb-0 flex flex-col justify-center items-center overflow-hidden">
@@ -39,12 +52,23 @@ export function IntegratedHeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="text-5xl md:text-7xl font-bold mb-6 leading-tight"
+            className="text-5xl md:text-7xl font-bold mb-6 leading-tight flex flex-col items-center"
           >
-            {t.hero.title}{" "}
-            <span className="bg-gradient-primary bg-clip-text text-transparent">
-              {t.hero.titleHighlight}
-            </span>
+            <div className="h-[1.2em] flex items-center justify-center mb-2 w-full">
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={rotatingWords[currentWordIndex]}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.5 }}
+                  className="bg-gradient-primary bg-clip-text text-transparent whitespace-nowrap"
+                >
+                  {rotatingWords[currentWordIndex]}
+                </motion.span>
+              </AnimatePresence>
+            </div>
+            <span>Processes</span>
           </motion.h1>
 
           {/* Subtitle */}

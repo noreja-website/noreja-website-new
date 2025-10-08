@@ -15,7 +15,7 @@ const Index = () => {
     <>
       <IntegratedHeroSection />
       <LogoBanner />
-      <SimpleRectangleAnimation />
+      {/* <SimpleRectangleAnimation /> */}
       <USPsShowcase />
       <div className="bg-background">
         <FunctionalitiesTeaser />
