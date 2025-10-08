@@ -1,5 +1,6 @@
 import SimpleRectangleAnimation from "@/components/SimpleRectangleAnimation";
 import { IntegratedHeroSection } from "@/components/IntegratedHeroSection";
+import { PlaceholderImageSection } from "@/components/PlaceholderImageSection";
 import LogoBanner from "@/components/LogoBanner";
 import { ProcessGraphSection } from "@/components/ProcessGraphSection";
 import { USPsShowcase } from "@/components/USPsShowcase";
@@ -16,6 +17,7 @@ const Index = () => {
       <IntegratedHeroSection />
       <LogoBanner />
       {/* <SimpleRectangleAnimation /> */}
+      <PlaceholderImageSection />
       <USPsShowcase />
       <div className="bg-background">
         <FunctionalitiesTeaser />
