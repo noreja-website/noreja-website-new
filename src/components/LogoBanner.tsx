@@ -3,13 +3,12 @@ import React from 'react';
 const LogoBanner: React.FC = () => {
   // Company logos data - using placeholder for now, can be replaced with actual logos
   const logos = [
-    { name: 'Microsoft', logo: '/placeholder.svg' },
-    { name: 'Salesforce', logo: '/placeholder.svg' },
-    { name: 'AWS', logo: '/placeholder.svg' },
-    { name: 'Google Cloud', logo: '/placeholder.svg' },
-    { name: 'SAP', logo: '/placeholder.svg' },
-    { name: 'Oracle', logo: '/placeholder.svg' },
-    { name: 'IBM', logo: '/placeholder.svg' },
+    { name: 'Nexigo', logo: '/src/assets/partners/partners_white/nexigo_white.png' },
+    { name: 'Miragon', logo: '/src/assets/partners/partners_white/miragon_white.png' },
+    { name: 'Fortlane', logo: '/src/assets/partners/partners_white/fortlane_white.png' },
+    { name: 'Google Cloud', logo: '/src/assets/partners/partners_white/novofactum_white.png' },
+    { name: 'Schleswiger', logo: '/src/assets/partners/partners_white/schleswiger_white.png' },
+    { name: 'WAITS', logo: '/src/assets/partners/partners_white/waits_white.png' },
     { name: 'Vienesse', logo: '/src/assets/partners/partners_white/vienesse_logo_white.svg' },
     { name: 'BOC', logo: '/src/assets/partners/partners_white/BOC-logo-white.png' },
   ];
@@ -29,7 +28,7 @@ const LogoBanner: React.FC = () => {
               <img
                 src={company.logo}
                 alt={`${company.name} logo`}
-                className="max-h-8 max-w-16 object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                className="max-h-12 max-w-20 object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
               />
             </div>
           </div>
