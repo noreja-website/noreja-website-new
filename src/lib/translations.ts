@@ -183,6 +183,36 @@ export interface Translations {
       };
     };
   };
+  usps: {
+    title: string;
+    subtitle: string;
+    tapToLearnMore: string;
+    features: {
+      connectionSpeed: {
+        title: string;
+        description: string;
+      };
+      realisticResults: {
+        title: string;
+        description: string;
+      };
+      multidimensionalPerspectives: {
+        title: string;
+        description: string;
+      };
+      contextDomainKnowledge: {
+        title: string;
+        description: string;
+      };
+    };
+  };
+  integrations: {
+    badge: string;
+    title: string;
+    titleHighlight: string;
+    subtitle: string;
+    discoverIntegrations: string;
+  };
   process: {
     title: string;
     subtitle: string;
@@ -550,22 +580,52 @@ export const translations: Record<Language, Translations> = {
       },
       features: {
         aiAnalytics: {
-          "title": "Connection Speed",
-          "description": "Data integration works without intermediate steps such as an event log. The Builder connects directly to the tables of the (relational) databases. This significantly accelerates data connection compared to conventional solutions."
+          "title": "Lorem Ipsum Feature 1",
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
         },
         dataIntegration: {
-          "title": "Realistic Results",
-          "description": "The process analysis takes into account the complex relationships within the data schema of the underlying source systems. This makes the analyses more realistic and avoids the weaknesses of traditional solutions."
+          "title": "Lorem Ipsum Feature 2",
+          "description": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia."
         },
         security: {
-          "title": "Multidimensional Perspectives",
-          "description": "Process analysis can be performed in a multidimensional way. Users can add additional views based on various business objects, such as an order number, user ID, or invoice number."
+          "title": "Lorem Ipsum Feature 3",
+          "description": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi."
         },
         realTime: {
-          "title": "Context and Domain Knowledge",
-          "description": "By integrating context and domain knowledge (unstructured text), a direct comparison between the target (TO-BE) and actual (AS-IS) state of a process can be made. In addition, AI can better interpret process analyses with context and derive the right implications."
+          "title": "Lorem Ipsum Feature 4",
+          "description": "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati."
         }
       }
+    },
+    usps: {
+      title: "Why Choose",
+      subtitle: "Discover the key advantages that make our platform the preferred choice for data-driven organizations worldwide.",
+      tapToLearnMore: "Tap to learn more",
+      features: {
+        connectionSpeed: {
+          title: "Connection Speed",
+          description: "Data integration works without intermediate steps such as an event log. The Builder connects directly to the tables of the (relational) databases. This significantly accelerates data connection compared to conventional solutions."
+        },
+        realisticResults: {
+          title: "Realistic Results",
+          description: "The process analysis takes into account the complex relationships within the data schema of the underlying source systems. This makes the analyses more realistic and avoids the weaknesses of traditional solutions."
+        },
+        multidimensionalPerspectives: {
+          title: "Multidimensional Perspectives",
+          description: "Process analysis can be performed in a multidimensional way. Users can add additional views based on various business objects, such as an order number, user ID, or invoice number."
+        },
+        contextDomainKnowledge: {
+          title: "Context and Domain Knowledge",
+          description: "By integrating context and domain knowledge (unstructured text), a direct comparison between the target (TO-BE) and actual (AS-IS) state of a process can be made. In addition, AI can better interpret process analyses with context and derive the right implications."
+        }
+      }
+    },
+    integrations: {
+      badge: "Integrations",
+      title: "Over 100",
+      titleHighlight: "Integrations available",
+      subtitle: "Simply connect and get started: With numerous integrations, connecting your IT landscape is child's play.",
+      discoverIntegrations: "Discover integrations"
     },
     process: {
       title: "How It Works",
@@ -932,22 +992,52 @@ export const translations: Record<Language, Translations> = {
       },
       features: {
         aiAnalytics: {
+          title: "Lorem Ipsum Feature 1",
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
+        },
+        dataIntegration: {
+          title: "Lorem Ipsum Feature 2",
+          description: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia."
+        },
+        security: {
+          title: "Lorem Ipsum Feature 3",
+          description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi."
+        },
+        realTime: {
+          title: "Lorem Ipsum Feature 4",
+          description: "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati."
+        }
+      }
+    },
+    usps: {
+      title: "Warum",
+      subtitle: "Entdecken Sie die wichtigsten Vorteile, die unsere Plattform zur bevorzugten Wahl für datengetriebene Organisationen weltweit machen.",
+      tapToLearnMore: "Tippen, um mehr zu erfahren",
+      features: {
+        connectionSpeed: {
           title: "Anbindungsgeschwindigkeit",
           description: "Die Datenanbindung funktioniert ohne Zwischenschritte wie einem Event-Log. Der Builder verbindet sich direkt zu den Tabellen der (relationalen) Datenbanken. Dies beschleunigt die Datenanbindung im Vergleich zu herkömmlichen Lösungen enorm."
         },
-        dataIntegration: {
+        realisticResults: {
           title: "Realitätsgetrue Ergebnisse",
           description: "Die Prozessanalyse berücksichtigt komplexe Zusammenhänge des Datenschemas der zugrunde liegenden Quellsysteme. Dies macht die Analysen realistischer und umgeht die Schwächen herkömmlicher Lösungen."
         },
-        security: {
+        multidimensionalPerspectives: {
           title: "Multidimensionale Perspektiven",
           description: "Die Prozessanalyse kann multidimensionalen durchgeführt werden. Benutzer können zusätzliche Ansichten auf der Grundlage verschiedener Geschäftsobjekte hinzufügen, z.B. einer Bestellnummer, einer Benutzer-ID oder einer Rechnungsnummer."
         },
-        realTime: {
+        contextDomainKnowledge: {
           title: "Kontext- und Domänenwissen",
           description: "Durch die Integration von Kontext- und Domänenwissen (unstrukturierte Texte) kann ein direkter Abgleich zwischen dem SOLL- und dem IST-Zustand eines Prozesses vorgenommen werden. Zudem kann die KI-Prozessanalysen mit Kontext besser einschätzen und die richtigen Implikationen ableiten."
         }
       }
+    },
+    integrations: {
+      badge: "Integrationen",
+      title: "Über 100",
+      titleHighlight: "Integrationen verfügbar",
+      subtitle: "Einfach verbinden und loslegen: Mit zahlreichen Integrationen ist die Verbindung Ihrer IT-Landschaft ein Kinderspiel.",
+      discoverIntegrations: "Integrationen entdecken"
     },
     process: {
       title: "Wie es funktioniert",

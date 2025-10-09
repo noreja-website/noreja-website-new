@@ -1,4 +1,5 @@
 import React from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 type IntegrationLogo = {
   alt: string;
@@ -61,34 +62,37 @@ function buildRows(all: IntegrationLogo[], rows: number): IntegrationLogo[][] {
 }
 
 export const IntegrationsShowcase: React.FC<IntegrationsShowcaseProps> = ({
-  title = "Over 100 Integrations available",
-  subtitle =
-    "Simply connect and get started: With numerous integrations, connecting your IT landscape is child's play.",
+  title,
+  subtitle,
   logos = DEFAULT_LOGOS,
   rows = 4
 }) => {
+  const { t } = useLanguage();
   const rowsData = buildRows(logos, rows);
+  
+  // Use translations as defaults if no props are provided
+  const displayTitle = title || `${t.integrations.title} ${t.integrations.titleHighlight}`;
+  const displaySubtitle = subtitle || t.integrations.subtitle;
   return (
     <section className="relative py-20">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           <div className="max-w-xl">
             <span className="inline-block rounded-full bg-primary/10 text-primary text-xs font-medium tracking-wide px-4 py-2 mb-6">
-              Integrations
+              {t.integrations.badge}
             </span>
             <h2 className="text-4xl md:text-5xl font-semibold leading-tight text-foreground">
-              <span className="text-primary">Over 100</span> Integrations
-              <br /> available
+              <span className="text-primary">{t.integrations.title}</span> {t.integrations.titleHighlight}
             </h2>
-            <p className="text-muted-foreground mt-6">{subtitle}</p>
-            <div className="flex gap-3 mt-8">
+            <p className="text-muted-foreground mt-6">{displaySubtitle}</p>
+            {/*<div className="flex gap-3 mt-8">
               <a
                 href="#integrations"
                 className="inline-flex items-center justify-center rounded-md bg-primary text-primary-foreground px-5 py-3 text-sm font-medium shadow transition-opacity hover:opacity-90"
               >
-                Discover integrations
+                {t.integrations.discoverIntegrations}
               </a>
-            </div>
+            </div>*/}
           </div>
 
           <div className="relative w-full">

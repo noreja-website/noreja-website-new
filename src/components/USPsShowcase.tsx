@@ -29,23 +29,23 @@ export function USPsShowcase() {
 
   const usps = [
     {
-      title: t.functionalities.features.aiAnalytics.title,
-      description: t.functionalities.features.aiAnalytics.description,
+      title: t.usps.features.connectionSpeed.title,
+      description: t.usps.features.connectionSpeed.description,
       backgroundImage: "/src/assets/graph_three_nodes.png"
     },
     {
-      title: t.functionalities.features.dataIntegration.title,
-      description: t.functionalities.features.dataIntegration.description,
+      title: t.usps.features.realisticResults.title,
+      description: t.usps.features.realisticResults.description,
       backgroundImage: "/src/assets/sampleimage.png"
     },
     {
-      title: t.functionalities.features.security.title,
-      description: t.functionalities.features.security.description,
+      title: t.usps.features.multidimensionalPerspectives.title,
+      description: t.usps.features.multidimensionalPerspectives.description,
       backgroundImage: "/src/assets/graph_three_nodes.png"
     },
     {
-      title: t.functionalities.features.realTime.title,
-      description: t.functionalities.features.realTime.description,
+      title: t.usps.features.contextDomainKnowledge.title,
+      description: t.usps.features.contextDomainKnowledge.description,
       backgroundImage: "/src/assets/sampleimage.png"
     }
   ];
@@ -107,13 +107,13 @@ export function USPsShowcase() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl font-bold mb-6">
-            Why Choose{" "}
+            {t.usps.title}{" "}
             <span className="bg-gradient-primary bg-clip-text text-transparent">
               Noreja
             </span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Discover the key advantages that make our platform the preferred choice for data-driven organizations worldwide.
+            {t.usps.subtitle}
           </p>
         </motion.div>
 
@@ -249,7 +249,7 @@ export function USPsShowcase() {
                                 {usp.title}
                               </h3>
                               <div className="text-white/80 text-sm text-center">
-                                Tap to learn more
+                                {t.usps.tapToLearnMore}
                               </div>
                             </div>
                           </div>

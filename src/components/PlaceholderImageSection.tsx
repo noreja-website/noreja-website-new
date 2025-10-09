@@ -28,42 +28,6 @@ export function PlaceholderImageSection() {
               </div>
             </div>
           </div>
-
-          {/* Text content */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="space-y-6"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold">
-              Your Content
-              <span className="bg-gradient-primary bg-clip-text text-transparent"> Here</span>
-            </h2>
-            
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              This is a placeholder section where you can add your custom content, 
-              images, or components. Replace this with your actual content when ready.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors"
-              >
-                Call to Action
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-6 py-3 border border-primary text-primary rounded-lg font-medium hover:bg-primary/10 transition-colors"
-              >
-                Learn More
-              </motion.button>
-            </div>
-          </motion.div>
         </motion.div>
       </div>
     </section>
