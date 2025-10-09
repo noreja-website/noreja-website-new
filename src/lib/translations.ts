@@ -504,7 +504,7 @@ export const translations: Record<Language, Translations> = {
       badge: "Revolutionary Technology",
       title: "The Future of",
       titleHighlight: "Innovation",
-      subtitle: "Experience revolutionary solutions that transform businesses and accelerate growth with cutting-edge technology.",
+      subtitle: "Enterprise technology, built for efficiency in medium-sized businesses.",
       ctaPrimary: "Get Started",
       ctaSecondary: "Learn More",
       getStarted: "Get Started",
@@ -550,20 +550,20 @@ export const translations: Record<Language, Translations> = {
       },
       features: {
         aiAnalytics: {
-          title: "AI-Powered Analytics",
-          description: "Advanced machine learning algorithms that provide deep insights into your data."
+          "title": "Connection Speed",
+          "description": "Data integration works without intermediate steps such as an event log. The Builder connects directly to the tables of the (relational) databases. This significantly accelerates data connection compared to conventional solutions."
         },
         dataIntegration: {
-          title: "Data Integration",
-          description: "Seamless integration with multiple data sources and platforms."
+          "title": "Realistic Results",
+          "description": "The process analysis takes into account the complex relationships within the data schema of the underlying source systems. This makes the analyses more realistic and avoids the weaknesses of traditional solutions."
         },
         security: {
-          title: "Enterprise Security",
-          description: "Bank-grade security protocols to protect your sensitive information."
+          "title": "Multidimensional Perspectives",
+          "description": "Process analysis can be performed in a multidimensional way. Users can add additional views based on various business objects, such as an order number, user ID, or invoice number."
         },
         realTime: {
-          title: "Real-time Processing",
-          description: "Lightning-fast processing for immediate results and insights."
+          "title": "Context and Domain Knowledge",
+          "description": "By integrating context and domain knowledge (unstructured text), a direct comparison between the target (TO-BE) and actual (AS-IS) state of a process can be made. In addition, AI can better interpret process analyses with context and derive the right implications."
         }
       }
     },
@@ -886,7 +886,7 @@ export const translations: Record<Language, Translations> = {
       badge: "Revolutionäre Technologie",
       title: "Die Zukunft der",
       titleHighlight: "Innovation",
-      subtitle: "Erleben Sie revolutionäre Lösungen, die Unternehmen transformieren und das Wachstum mit modernster Technologie beschleunigen.",
+      subtitle: "Enterprise technology, built for efficiency in medium-sized businesses",
       ctaPrimary: "Loslegen",
       ctaSecondary: "Mehr erfahren",
       getStarted: "Jetzt starten",
@@ -932,20 +932,20 @@ export const translations: Record<Language, Translations> = {
       },
       features: {
         aiAnalytics: {
-          title: "KI-gestützte Analytik",
-          description: "Fortschrittliche Machine-Learning-Algorithmen, die tiefgreifende Einblicke in Ihre Daten bieten."
+          title: "Anbindungsgeschwindigkeit",
+          description: "Die Datenanbindung funktioniert ohne Zwischenschritte wie einem Event-Log. Der Builder verbindet sich direkt zu den Tabellen der (relationalen) Datenbanken. Dies beschleunigt die Datenanbindung im Vergleich zu herkömmlichen Lösungen enorm."
         },
         dataIntegration: {
-          title: "Datenintegration",
-          description: "Nahtlose Integration mit mehreren Datenquellen und Plattformen."
+          title: "Realitätsgetrue Ergebnisse",
+          description: "Die Prozessanalyse berücksichtigt komplexe Zusammenhänge des Datenschemas der zugrunde liegenden Quellsysteme. Dies macht die Analysen realistischer und umgeht die Schwächen herkömmlicher Lösungen."
         },
         security: {
-          title: "Unternehmenssicherheit",
-          description: "Sicherheitsprotokolle auf Bankenniveau zum Schutz Ihrer sensiblen Informationen."
+          title: "Multidimensionale Perspektiven",
+          description: "Die Prozessanalyse kann multidimensionalen durchgeführt werden. Benutzer können zusätzliche Ansichten auf der Grundlage verschiedener Geschäftsobjekte hinzufügen, z.B. einer Bestellnummer, einer Benutzer-ID oder einer Rechnungsnummer."
         },
         realTime: {
-          title: "Echtzeitverarbeitung",
-          description: "Blitzschnelle Verarbeitung für sofortige Ergebnisse und Erkenntnisse."
+          title: "Kontext- und Domänenwissen",
+          description: "Durch die Integration von Kontext- und Domänenwissen (unstrukturierte Texte) kann ein direkter Abgleich zwischen dem SOLL- und dem IST-Zustand eines Prozesses vorgenommen werden. Zudem kann die KI-Prozessanalysen mit Kontext besser einschätzen und die richtigen Implikationen ableiten."
         }
       }
     },
