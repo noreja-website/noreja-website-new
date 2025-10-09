@@ -3,7 +3,7 @@ import React from "react";
 type IntegrationLogo = {
   alt: string;
   src: string;
-  isLarge?: boolean;
+  size?: 'regular' | 'large' | 'xlarge';
 };
 
 // Dynamically import all images from the integrations folder
@@ -17,11 +17,16 @@ const DEFAULT_LOGOS: IntegrationLogo[] = Object.entries(integrationImages).map(
   ([path, module]) => {
     // Extract filename without extension from path
     const filename = path.split('/').pop()?.replace(/\.(png|jpg|jpeg|svg|webp)$/, '') || '';
-    // Check if filename has _large postfix
-    const isLarge = filename.toLowerCase().includes('_large');
+    // Determine size based on filename postfix
+    let size: 'regular' | 'large' | 'xlarge' = 'regular';
+    if (filename.toLowerCase().includes('_xlarge')) {
+      size = 'xlarge';
+    } else if (filename.toLowerCase().includes('_large')) {
+      size = 'large';
+    }
     // Convert filename to readable alt text (e.g., "mysql_logo" -> "MySQL")
     const alt = filename
-      .replace(/_logo|_white|-logo|_large/gi, '')
+      .replace(/_logo|_white|-logo|_large|_xlarge/gi, '')
       .replace(/[-_]/g, ' ')
       .trim()
       .split(' ')
@@ -31,7 +36,7 @@ const DEFAULT_LOGOS: IntegrationLogo[] = Object.entries(integrationImages).map(
     return {
       alt,
       src: module.default,
-      isLarge
+      size
     };
   }
 );
@@ -117,19 +122,26 @@ const VerticalTicker: React.FC<{ items: IntegrationLogo[]; reverse?: boolean }> 
           (reverse ? "[animation-direction:reverse]" : "")
         }
       >
-        {sequence.map((logo, idx) => (
-          <div
-            key={idx}
-            className="mx-auto grid h-24 w-24 place-content-center rounded-xl bg-white shadow-sm ring-1 ring-border"
-          >
-            <img
-              src={logo.src}
-              alt={logo.alt}
-              className={logo.isLarge ? "max-h-32 max-w-32 object-contain opacity-90" : "max-h-12 max-w-12 object-contain opacity-90"}
-              loading="lazy"
-            />
-          </div>
-        ))}
+        {sequence.map((logo, idx) => {
+          const sizeClass = 
+            logo.size === 'xlarge' ? 'max-h-32 max-w-32' :
+            logo.size === 'large' ? 'max-h-16 max-w-16' :
+            'max-h-12 max-w-12';
+          
+          return (
+            <div
+              key={idx}
+              className="mx-auto grid h-24 w-24 place-content-center rounded-xl bg-white shadow-sm ring-1 ring-border"
+            >
+              <img
+                src={logo.src}
+                alt={logo.alt}
+                className={`${sizeClass} object-contain opacity-90`}
+                loading="lazy"
+              />
+            </div>
+          );
+        })}
       </div>
     </div>
   );
