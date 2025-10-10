@@ -122,7 +122,7 @@ const VerticalTicker: React.FC<{ items: IntegrationLogo[]; reverse?: boolean }> 
     <div className="relative h-[520px] overflow-hidden rounded-xl bg-secondary/60">
       <div
         className={
-          "absolute left-0 top-0 flex w-full flex-col gap-4 animate-[marquee_18s_linear_infinite] " +
+          "absolute left-0 top-0 flex w-full flex-col gap-4 animate-[marquee_30s_linear_infinite] " +
           (reverse ? "[animation-direction:reverse]" : "")
         }
       >
