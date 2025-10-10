@@ -1,102 +1,260 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Button } from '@/components/ui/button';
+import { ExternalLink } from 'lucide-react';
+
+interface BlogPost {
+  title: string;
+  link: string;
+  pubDate: string;
+  description: string;
+  author?: string;
+  imageUrl?: string;
+}
 
 interface HubSpotBlogTeaserProps {
   maxItems?: number;
 }
 
 export function HubSpotBlogTeaser({ maxItems = 3 }: HubSpotBlogTeaserProps) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // HubSpot RSS Feed URLs - adjust based on language
+  const RSS_FEED_URL = language === 'de' 
+    ? 'https://144242473.hs-sites-eu1.com/de-de/noreja-intelligecne-gmbh-blog/rss.xml'
+    : 'https://144242473.hs-sites-eu1.com/en/noreja-intelligecne-gmbh-blog/rss.xml';
 
   useEffect(() => {
-    // Client-side script loading for HubSpot blog teaser
-    // This ensures the component is safe for server-side rendering
-    
-    /* 
-    TODO: Uncomment and configure one of the following options:
-    
-    OPTION 1: HubSpot Blog Listing Widget
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.id = 'hs-script-loader';
-    script.async = true;
-    script.defer = true;
-    script.src = `//js.hs-scripts.com/YOUR_HUBSPOT_PORTAL_ID.js`;
-    document.head.appendChild(script);
-    
-    OR
-    
-    OPTION 2: Custom RSS Feed Implementation
-    // Fetch blog posts from RSS feed and render manually
     const fetchBlogPosts = async () => {
       try {
-        // Replace with your blog RSS feed URL
-        const response = await fetch('/api/blog-feed'); // or your RSS endpoint
-        const posts = await response.json();
-        const limitedPosts = posts.slice(0, ${maxItems});
+        setLoading(true);
+        setError(null);
         
-        // Render posts in the hubspot-blog-teaser container
-        const container = document.getElementById('hubspot-blog-teaser');
-        if (container) {
-          container.innerHTML = limitedPosts.map(post => `
-            <article class="blog-post">
-              <h3><a href="${post.link}">${post.title}</a></h3>
-              <p>${post.excerpt}</p>
-              <time>${post.publishDate}</time>
-            </article>
-          `).join('');
+        // Fetch RSS feed via CORS proxy or direct fetch
+        const response = await fetch(RSS_FEED_URL, {
+          headers: {
+            'Accept': 'application/rss+xml, application/xml, text/xml',
+          },
+        });
+        
+        if (!response.ok) {
+          throw new Error(`Failed to fetch blog posts: ${response.status}`);
         }
-      } catch (error) {
-        console.error('Failed to load blog posts:', error);
+        
+        const xmlText = await response.text();
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
+        
+        // Check for parsing errors
+        const parserError = xmlDoc.querySelector('parsererror');
+        if (parserError) {
+          throw new Error('Failed to parse RSS feed');
+        }
+        
+        // Extract blog posts from RSS feed
+        const items = xmlDoc.querySelectorAll('item');
+        const blogPosts: BlogPost[] = Array.from(items).slice(0, maxItems).map(item => {
+          const title = item.querySelector('title')?.textContent || 'Untitled';
+          const link = item.querySelector('link')?.textContent || '#';
+          const pubDate = item.querySelector('pubDate')?.textContent || '';
+          const description = item.querySelector('description')?.textContent || '';
+          const author = item.querySelector('author, dc\\:creator')?.textContent;
+          
+          // Extract image from various possible RSS elements
+          let imageUrl: string | undefined;
+          
+          // Try media:content (common in RSS feeds)
+          const mediaContent = item.querySelector('media\\:content, content');
+          if (mediaContent) {
+            imageUrl = mediaContent.getAttribute('url') || undefined;
+          }
+          
+          // Try enclosure tag
+          if (!imageUrl) {
+            const enclosure = item.querySelector('enclosure[type^="image"]');
+            if (enclosure) {
+              imageUrl = enclosure.getAttribute('url') || undefined;
+            }
+          }
+          
+          // Try to extract image from description HTML
+          if (!imageUrl && description) {
+            const imgMatch = description.match(/<img[^>]+src="([^">]+)"/);
+            if (imgMatch) {
+              imageUrl = imgMatch[1];
+            }
+          }
+          
+          // Clean up description (remove HTML tags if present)
+          const cleanDescription = description.replace(/<[^>]*>/g, '').substring(0, 200) + '...';
+          
+          return {
+            title,
+            link,
+            pubDate,
+            description: cleanDescription,
+            author,
+            imageUrl,
+          };
+        });
+        
+        setPosts(blogPosts);
+      } catch (err) {
+        console.error('Error fetching blog posts:', err);
+        setError(err instanceof Error ? err.message : 'Failed to load blog posts');
+      } finally {
+        setLoading(false);
       }
     };
-    
+
     fetchBlogPosts();
-    */
-    
-    // Cleanup function
-    return () => {
-      // Remove scripts if needed when component unmounts
-    };
-  }, [maxItems]);
+  }, [maxItems, language]);
+
+  const formatDate = (dateString: string) => {
+    try {
+      const date = new Date(dateString);
+      return date.toLocaleDateString(language === 'de' ? 'de-DE' : 'en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      });
+    } catch {
+      return dateString;
+    }
+  };
 
   return (
-    <section className="py-20" aria-labelledby="blog-teaser-heading">
-      <div className="container mx-auto px-4 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 id="blog-teaser-heading" className="text-3xl font-bold mb-4">{t.blog.title}</h2>
-          <p className="text-muted-foreground">{t.blog.subtitle}</p>
+    <section className="py-12 md:py-16 lg:py-20" aria-labelledby="blog-teaser-heading">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-8 md:mb-12">
+          <h2 id="blog-teaser-heading" className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 md:mb-4 px-4">
+            {t.blog.title}
+          </h2>
+          <p className="text-muted-foreground text-sm sm:text-base max-w-2xl mx-auto px-4">
+            {t.blog.subtitle}
+          </p>
         </div>
         
-        {/* HubSpot Blog Teaser Embed Container */}
-        <div 
-          id="hubspot-blog-teaser"
-          className="min-h-[400px] bg-muted/30 rounded-lg border border-border flex items-center justify-center"
-        >
-          <div className="text-center text-muted-foreground">
-            <p className="text-sm">{t.blog.placeholder} (showing up to {maxItems} items)</p>
-            <p className="text-xs mt-2">{t.blog.configNote}</p>
+        {/* Blog Posts Grid */}
+        {loading && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            {Array.from({ length: maxItems }).map((_, i) => (
+              <Card key={i} className="overflow-hidden">
+                <Skeleton className="w-full aspect-video" />
+                <CardHeader>
+                  <Skeleton className="h-6 w-3/4 mb-2" />
+                  <Skeleton className="h-4 w-1/2" />
+                </CardHeader>
+                <CardContent>
+                  <Skeleton className="h-4 w-full mb-2" />
+                  <Skeleton className="h-4 w-full mb-2" />
+                  <Skeleton className="h-4 w-2/3 mb-4" />
+                  <Skeleton className="h-10 w-full" />
+                </CardContent>
+              </Card>
+            ))}
           </div>
-        </div>
-        
-        {/* 
-        HubSpot Blog Listing Widget Configuration:
-        1. Replace YOUR_HUBSPOT_PORTAL_ID in the useEffect with your actual Portal ID
-        2. If using HubSpot's blog listing widget, the maxItems limit may need to be configured
-           in your HubSpot dashboard under Content > Blog > Settings > Blog Listing
-        3. For RSS implementation, the maxItems prop controls the number of posts shown
-        
-        Alternative HubSpot Blog Module Embed (if you prefer inline approach):
-        <div id="hs_cos_wrapper_blog_teaser" 
-             className="hs_cos_wrapper hs_cos_wrapper_widget" 
-             data-hs-cos-general-type="widget" 
-             data-hs-cos-type="module">
-        </div>
-        
-        Note: HubSpot blog listing widgets don't always support direct item limits via embed code.
-        You may need to configure this in your HubSpot portal settings or use custom CSS/JS
-        to limit the displayed items to the maxItems value.
-        */}
+        )}
+
+        {error && (
+          <div className="text-center py-8 md:py-12 px-4">
+            <p className="text-muted-foreground mb-4 text-sm sm:text-base">{error}</p>
+            <Button 
+              variant="outline"
+              size="lg"
+              onClick={() => window.location.reload()}
+              className="min-h-[44px]"
+            >
+              {language === 'de' ? 'Erneut versuchen' : 'Try Again'}
+            </Button>
+          </div>
+        )}
+
+        {!loading && !error && posts.length === 0 && (
+          <div className="text-center py-8 md:py-12 px-4">
+            <p className="text-muted-foreground text-sm sm:text-base">
+              {language === 'de' ? 'Keine Blog-Beiträge verfügbar' : 'No blog posts available'}
+            </p>
+          </div>
+        )}
+
+        {!loading && !error && posts.length > 0 && (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 md:mb-8">
+              {posts.map((post, index) => (
+                <Card key={index} className="flex flex-col hover:shadow-lg transition-shadow overflow-hidden">
+                  {post.imageUrl && (
+                    <div className="w-full aspect-video overflow-hidden bg-muted">
+                      <img 
+                        src={post.imageUrl} 
+                        alt={post.title}
+                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
+                  <CardHeader className="pb-3">
+                    <CardTitle className="text-lg sm:text-xl line-clamp-2 leading-snug">
+                      {post.title}
+                    </CardTitle>
+                    <CardDescription className="text-xs sm:text-sm">
+                      {formatDate(post.pubDate)}
+                      {post.author && ` • ${post.author}`}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="flex-grow pt-0">
+                    <p className="text-muted-foreground text-sm line-clamp-3 mb-4">
+                      {post.description}
+                    </p>
+                    <Button 
+                      variant="outline" 
+                      size="lg"
+                      className="w-full min-h-[44px]"
+                      asChild
+                    >
+                      <a 
+                        href={post.link} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-2"
+                      >
+                        {t.blog.readMore}
+                        <ExternalLink className="h-4 w-4" />
+                      </a>
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            
+            <div className="text-center px-4">
+              <Button 
+                variant="default"
+                size="lg"
+                className="min-h-[44px] w-full sm:w-auto"
+                asChild
+              >
+                <a 
+                  href={language === 'de' 
+                    ? 'https://144242473.hs-sites-eu1.com/de-de/noreja-intelligecne-gmbh-blog'
+                    : 'https://144242473.hs-sites-eu1.com/en/noreja-intelligecne-gmbh-blog'
+                  }
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2"
+                >
+                  {t.blog.openBlog}
+                  <ExternalLink className="h-4 w-4" />
+                </a>
+              </Button>
+            </div>
+          </>
+        )}
       </div>
     </section>
   );
