@@ -59,7 +59,7 @@ export function PartnerPhotosGrid() {
               className="group cursor-pointer"
               onClick={() => openModal(partner)}
             >
-              <div className="relative overflow-hidden rounded-xl bg-white shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+              <div className="relative overflow-hidden rounded-xl bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105">
                 <div className="aspect-square p-4">
                   <img
                     src={partner.personPhotoUrl}
