@@ -68,7 +68,7 @@ export function IntegratedHeroSection() {
                 </motion.span>
               </AnimatePresence>
             </div>
-            <span>Processes</span>
+            <span>by Process</span>
           </motion.h1>
 
           {/* Subtitle */}

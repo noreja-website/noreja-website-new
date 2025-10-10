@@ -1,3 +1,23 @@
+// Dynamically import all partner logos
+const partnerLogoImages = import.meta.glob<{ default: string }>(
+  '../assets/partners/*.{png,jpg,jpeg,svg,webp}',
+  { eager: true }
+);
+
+// Dynamically import all partner face photos
+const partnerFaceImages = import.meta.glob<{ default: string }>(
+  '../assets/partnerFaces/*.{png,jpg,jpeg}',
+  { eager: true }
+);
+
+// Helper function to get image path from imports
+const getImagePath = (images: Record<string, { default: string }>, filename: string): string => {
+  const entry = Object.entries(images).find(([path]) => 
+    path.toLowerCase().includes(filename.toLowerCase())
+  );
+  return entry ? entry[1].default : '';
+};
+
 export interface Partner {
   id: string;
   name: string;
@@ -16,8 +36,8 @@ export const partners: Partner[] = [
     id: "1",
     name: "Aptean",
     description: "Strategic cloud infrastructure partnership powering enterprise-scale solutions.",
-    logoUrl: "/src/assets/partners/aptean_logo.svg",
-    personPhotoUrl: "/src/assets/partnerFaces/markus_neumayr_locker_aptean.jpg",
+    logoUrl: getImagePath(partnerLogoImages, "aptean_logo.svg"),
+    personPhotoUrl: getImagePath(partnerFaceImages, "markus_neumayr_locker_aptean.jpg"),
     website: "https://www.aptean.com/en-US",
     category: "Technology",
     quote: "Mit der Lösung von Noreja können die Geschäftsprozesse unserer ERP-Suite rs2 in wenigen Tagen auf Schwachstellen durchleuchtet werden.\n\nDabei werden selbst komplexe Zusammenhänge in den Daten korrekt abgebildet - ohne dass wir einen Event-Log benötigen.\n\nZudem haben mich die KI-Features beeindruckt, die sehr gut auf Fehlerursachen und Interpretationsunterstützung ausgerichtet sind.",
@@ -28,8 +48,8 @@ export const partners: Partner[] = [
     id: "2",
     name: "Miragon",
     description: "CRM integration specialist delivering seamless customer relationship management.",
-    logoUrl: "/src/assets/partners/miragon_logo.svg",
-    personPhotoUrl: "/src/assets/partnerFaces/thomas_heinrichs_miragon.jpeg",
+    logoUrl: getImagePath(partnerLogoImages, "miragon_logo.svg"),
+    personPhotoUrl: getImagePath(partnerFaceImages, "thomas_heinrichs_miragon.jpeg"),
     website: "https://salesforce.com",
     category: "Software",
     quote: "Die Partnerschaft zwischen Miragon und Noreja ist für mich etwas Besonderes.\n\nDie Zusammenarbeit ist auf Augenhöhe, Kommunikation und Verständnis sind außergewöhnlich.\n\nDas Produkt ist technisch ausgereift, bietet einen frischen Ansatz im Process Mining und ist dabei auch erschwinglich. Dadurch können wir unser Automatisierungswissen ideal mit dem Knowhow von Noreja verbinden und so Kunden über den gesamten BPM Lifecycle hinweg ganzheitlich beraten und echten Mehrwert schaffen.",
@@ -40,8 +60,8 @@ export const partners: Partner[] = [
     id: "3",
     name: "Changeenablers Ltd.",
     description: "Leading cloud provider enabling scalable and reliable infrastructure solutions.",
-    logoUrl: "/src/assets/partners/changeenablers_logo.png",
-    personPhotoUrl: "/src/assets/partnerFaces/niyi_changeenablers.jpg",
+    logoUrl: getImagePath(partnerLogoImages, "changeenablers_logo.png"),
+    personPhotoUrl: getImagePath(partnerFaceImages, "niyi_changeenablers.jpg"),
     website: "https://changeenablers.net/ce_home.html",
     category: "Consulting",
     quote: "Noreja has completely redefined how we think about process intelligence. Unlike traditional tools that depend on complex log data, Noreja's approach requires no logs at all—dramatically reducing setup effort and accelerating our time to market. Within weeks, we were uncovering insights that would have taken months with other solutions.\n\nWhat truly sets Noreja apart is the depth of causal insights it delivers. Powered by cutting-edge AI, the platform doesn't just surface correlations—it helps us understand why things happen, enabling smarter decisions with confidence.\n\nOn top of that, the value for money is outstanding, enabling organizations to accessing enterprise-grade intelligence at a fraction of the usual cost. Noreja has become an indispensable partner in driving efficiency, growth, and innovation.",
@@ -52,8 +72,8 @@ export const partners: Partner[] = [
     id: "4",
     name: "Waits",
     description: "AI and machine learning innovation partner for next-generation applications.",
-    logoUrl: "/src/assets/partners/waits_logo.svg",
-    personPhotoUrl: "/src/assets/partnerFaces/christian_waits.png",
+    logoUrl: getImagePath(partnerLogoImages, "waits_logo.svg"),
+    personPhotoUrl: getImagePath(partnerFaceImages, "christian_waits.png"),
     website: "https://www.waits-gmbh.de/",
     category: "Consulting",
     quote: "Die Partnerschaft mit noreja bedeutet uns sehr viel.\nAls CEO der WAITS Software- und Prozessberatungsgesellschaft mbH ist es mir wichtig einen starken Partner an unserer Seite zu wissen, welcher genau wie wir, das Wohlergehen und die Resilienz des Kunden im Fokus hat.\nAuf dieser Basis lässt sich eine langfristige Beziehung untereinander und zu den Kunden aufbauen.",
@@ -64,8 +84,8 @@ export const partners: Partner[] = [
     id: "5",
     name: "Nexigo",
     description: "Enterprise resource planning integration for comprehensive business management.",
-    logoUrl: "/src/assets/partners/nexigo_logo.png",
-    personPhotoUrl: "/src/assets/partnerFaces/marcel_schober_nexigo.jpeg",
+    logoUrl: getImagePath(partnerLogoImages, "nexigo_logo.png"),
+    personPhotoUrl: getImagePath(partnerFaceImages, "marcel_schober_nexigo.jpeg"),
     website: "https://nexigo.io/",
     category: "Consulting",
     quote: "Durch diese Partnerschaft schaffen wir eine sehr gute Lösung, die Unternehmen dabei hilft, ihr ERP-System zu optimieren und ihre Prozesse nachhaltig zu verbessern.",
@@ -87,8 +107,8 @@ export const partners: Partner[] = [
     id: "7",
     name: "Vienesse Consulting",
     description: "Advanced analytics and AI consulting for digital transformation initiatives.",
-    logoUrl: "/src/assets/partners/vienesse_logo.png",
-    personPhotoUrl: "/src/assets/partnerFaces/robin_lange_vienesse.jpeg",
+    logoUrl: getImagePath(partnerLogoImages, "vienesse_logo.png"),
+    personPhotoUrl: getImagePath(partnerFaceImages, "robin_lange_vienesse.jpeg"),
     website: "https://vienesse-consulting.com/",
     category: "Consulting",
     quote: "Bei Vienesse verbinden wir Beratung und Implementierung, damit aus Zielen messbare Ergebnisse werden. Process Mining verschafft unseren Kunden den nüchternen Blick dank echter Datenflüsse auf reale Prozesse, so reduzieren wir Kosten, erhöhen Qualität und schaffen die Basis für skalierbare Automatisierung. Mit Noreja als zuverlässigen Partner an unserer Seite setzen wir individuelle Anforderungen schnell und pragmatisch um.",
@@ -99,8 +119,8 @@ export const partners: Partner[] = [
     id: "8",
     name: "Schleswiger Versicherungen",
     description: "Workflow automation platform integration for streamlined business processes.",
-    logoUrl: "/src/assets/partners/schleswiger_logo.svg",
-    personPhotoUrl: "/src/assets/partnerFaces/stefan_best_schleswiger.jpeg",
+    logoUrl: getImagePath(partnerLogoImages, "schleswiger_logo.svg"),
+    personPhotoUrl: getImagePath(partnerFaceImages, "stefan_best_schleswiger.jpeg"),
     website: "https://schleswiger.de/",
     category: "Insurance",
     quote: "Noreja hat uns dabei geholfen Kern-, Management- und Supportprozesse unseres Versicherungsdienstes aufzunehmen, zu verstehen und abzubilden. \n\n Mit Hilfe von Minerva-AI konnten wir in Rekordgeschwindigkeit aus textbasierter Dokumentation Prozessmodelle generieren.",
@@ -111,8 +131,8 @@ export const partners: Partner[] = [
     id: "9",
     name: "Novofactum GmbH",
     description: "Workflow automation platform integration for streamlined business processes.",
-    logoUrl: "/src/assets/partners/novofactum_logo.png",
-    personPhotoUrl: "/src/assets/partnerFaces/christian_riffner_novofactum.jpeg",
+    logoUrl: getImagePath(partnerLogoImages, "novofactum_logo.png"),
+    personPhotoUrl: getImagePath(partnerFaceImages, "christian_riffner_novofactum.jpeg"),
     website: "https://www.novofactum.de/",
     category: "Consulting",
     quote: "Mit Noreja können wir Salesforce-basierte Vertriebsprozesse extrem detailliert für unsere Kunden auswerten. Die Lösung arbeitet system-agnostisch und funktioniert auf allen relationalen Datenbanken sowie APIs.\n\nEine Expertenlösung mit enormem Potenzial. Für mich eine notwendige Ergänzung zu klassischen Business Intelligence Tools für jeden Entscheider.",
@@ -123,8 +143,8 @@ export const partners: Partner[] = [
     id: "10",
     name: "Fortlane Partners Consulting GmbH",
     description: "Workflow automation platform integration for streamlined business processes.",
-    logoUrl: "/src/assets/partners/fortlane_logo.png",
-    personPhotoUrl: "/src/assets/partnerFaces/Christoph_Blum_fortlane.png",
+    logoUrl: getImagePath(partnerLogoImages, "fortlane_logo.png"),
+    personPhotoUrl: getImagePath(partnerFaceImages, "Christoph_Blum_fortlane.png"),
     website: "https://www.fortlane.com/de",
     category: "Consulting",
     quote: "Process Mining ist ein Schlüsselfaktor, um strategische Transformationen nicht nur erfolgreich umzusetzen, sondern auch nachhaltig messbar zu machen. Noreja Process Intelligence schafft dabei die notwendige Transparenz, um Fortschritte klar zu quantifizieren und Organisationen nachhaltig leistungsfähiger zu gestalten.",

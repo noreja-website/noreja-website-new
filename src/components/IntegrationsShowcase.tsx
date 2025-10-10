@@ -49,14 +49,33 @@ export interface IntegrationsShowcaseProps {
   rows?: number;
 }
 
+// Fisher-Yates shuffle with seed for reproducibility
+function seededShuffle<T>(array: T[], seed: number): T[] {
+  const arr = [...array];
+  let currentSeed = seed;
+  const random = () => {
+    currentSeed = (currentSeed * 9301 + 49297) % 233280;
+    return currentSeed / 233280;
+  };
+  
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
 function buildRows(all: IntegrationLogo[], rows: number): IntegrationLogo[][] {
   if (all.length === 0) return [];
   const result: IntegrationLogo[][] = [];
+  
+  // Create a different randomized sequence for each row
+  // This minimizes the chance of seeing the same logo multiple times on screen
   for (let i = 0; i < rows; i++) {
-    // Offset each row slightly so columns are staggered
-    const offset = (i * Math.floor(all.length / rows)) % all.length;
-    const row = [...all.slice(offset), ...all.slice(0, offset)];
-    result.push(row);
+    // Use row index as seed to get different but consistent shuffle per row
+    const shuffled = seededShuffle(all, i * 1000 + Date.now());
+    // VerticalTicker will handle the duplication for seamless loop
+    result.push(shuffled);
   }
   return result;
 }
@@ -122,7 +141,7 @@ const VerticalTicker: React.FC<{ items: IntegrationLogo[]; reverse?: boolean }> 
     <div className="relative h-[520px] overflow-hidden rounded-xl bg-secondary/60">
       <div
         className={
-          "absolute left-0 top-0 flex w-full flex-col gap-4 animate-[marquee_30s_linear_infinite] " +
+          "absolute left-0 top-0 flex w-full flex-col gap-4 animate-[marquee_70s_linear_infinite] " +
           (reverse ? "[animation-direction:reverse]" : "")
         }
       >

@@ -531,10 +531,10 @@ export const translations: Record<Language, Translations> = {
       }
     },
     hero: {
-      badge: "Revolutionary Technology",
+      badge: "Generative Process Intelligence",
       title: "The Future of",
       titleHighlight: "Innovation",
-      subtitle: "Enterprise technology, built for efficiency in medium-sized businesses.",
+      subtitle: "Elevating Process Knowledge with the Power of GenAI - Enterprise technology, built for efficiency in medium-sized businesses.",
       ctaPrimary: "Get Started",
       ctaSecondary: "Learn More",
       getStarted: "Get Started",
@@ -943,10 +943,10 @@ export const translations: Record<Language, Translations> = {
       }
     },
     hero: {
-      badge: "Revolutionäre Technologie",
+      badge: "Generative Process Intelligence",
       title: "Die Zukunft der",
       titleHighlight: "Innovation",
-      subtitle: "Enterprise technology, built for efficiency in medium-sized businesses",
+      subtitle: "Elevating Process Knowledge with the Power of GenAI - Enterprise technology, built for efficiency in medium-sized businesses",
       ctaPrimary: "Loslegen",
       ctaSecondary: "Mehr erfahren",
       getStarted: "Jetzt starten",
