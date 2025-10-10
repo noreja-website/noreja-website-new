@@ -93,27 +93,23 @@ export const IntegrationsShowcase: React.FC<IntegrationsShowcaseProps> = ({
   const displayTitle = title || `${t.integrations.title} ${t.integrations.titleHighlight}`;
   const displaySubtitle = subtitle || t.integrations.subtitle;
   return (
-    <section className="relative py-20">
+    <section className="relative bg-muted/50">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          <div className="max-w-xl">
-            <span className="inline-block rounded-full bg-primary/10 text-primary text-xs font-medium tracking-wide px-4 py-2 mb-6">
-              {t.integrations.badge}
-            </span>
-            <h2 className="text-4xl md:text-5xl font-semibold leading-tight text-foreground">
-              <span className="text-primary">{t.integrations.title}</span> {t.integrations.titleHighlight}
+          {/* Left: Text Content */}
+          <div className="max-w-xl pt-20">
+            <h2 className="text-4xl font-bold mb-6">
+              {t.integrations.title}{" "}
+              <span className="bg-gradient-primary bg-clip-text text-transparent">
+                {t.integrations.titleHighlight}
+              </span>
             </h2>
-            <p className="text-muted-foreground mt-6">{displaySubtitle}</p>
-            {/*<div className="flex gap-3 mt-8">
-              <a
-                href="#integrations"
-                className="inline-flex items-center justify-center rounded-md bg-primary text-primary-foreground px-5 py-3 text-sm font-medium shadow transition-opacity hover:opacity-90"
-              >
-                {t.integrations.discoverIntegrations}
-              </a>
-            </div>*/}
+            <p className="text-xl text-muted-foreground">
+              {displaySubtitle}
+            </p>
           </div>
 
+          {/* Right: Integrations Animation Grid */}
           <div className="relative w-full">
             <div className="grid grid-cols-4 gap-4" aria-hidden>
               {rowsData.map((row, rowIndex) => (
@@ -138,7 +134,7 @@ const VerticalTicker: React.FC<{ items: IntegrationLogo[]; reverse?: boolean }> 
   // Duplicate list for seamless loop
   const sequence = [...items, ...items];
   return (
-    <div className="relative h-[520px] overflow-hidden rounded-xl bg-secondary/60">
+    <div className="relative h-[520px] overflow-hidden rounded-xl bg-secondary/40">
       <div
         className={
           "absolute left-0 top-0 flex w-full flex-col gap-4 animate-[marquee_70s_linear_infinite] " +
@@ -166,6 +162,9 @@ const VerticalTicker: React.FC<{ items: IntegrationLogo[]; reverse?: boolean }> 
           );
         })}
       </div>
+      {/* Fade overlays at top and bottom */}
+      <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-secondary/80 to-transparent pointer-events-none z-10" />
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-secondary/80 to-transparent pointer-events-none z-10" />
     </div>
   );
 };
