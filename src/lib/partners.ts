@@ -29,7 +29,7 @@ export const partners: Partner[] = [
     name: "Miragon",
     description: "CRM integration specialist delivering seamless customer relationship management.",
     logoUrl: "/src/assets/partners/miragon_logo.svg",
-    personPhotoUrl: "/src/assets/partnerFaces/thomas_heinrichs_miragon.png",
+    personPhotoUrl: "/src/assets/partnerFaces/thomas_heinrichs_miragon.jpeg",
     website: "https://salesforce.com",
     category: "Software",
     quote: "Die Partnerschaft zwischen Miragon und Noreja ist für mich etwas Besonderes.\n\nDie Zusammenarbeit ist auf Augenhöhe, Kommunikation und Verständnis sind außergewöhnlich.\n\nDas Produkt ist technisch ausgereift, bietet einen frischen Ansatz im Process Mining und ist dabei auch erschwinglich. Dadurch können wir unser Automatisierungswissen ideal mit dem Knowhow von Noreja verbinden und so Kunden über den gesamten BPM Lifecycle hinweg ganzheitlich beraten und echten Mehrwert schaffen.",

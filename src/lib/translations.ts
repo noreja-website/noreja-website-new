@@ -992,20 +992,20 @@ export const translations: Record<Language, Translations> = {
       },
       features: {
         aiAnalytics: {
-          title: "Lorem Ipsum Feature 1",
-          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
+          title: "Minerva",
+          description: "TODO"
         },
         dataIntegration: {
-          title: "Lorem Ipsum Feature 2",
-          description: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia."
+          title: "Analyzer",
+          description: "Der Analyzer ermöglicht es dir, tief in deine Prozesse einzutauchen, dein Verständnis für deine Organisation und deren Menschen zu verbessern und genau herauszufinden, wie du die gefundenen Probleme angehen kannst.",
         },
         security: {
-          title: "Lorem Ipsum Feature 3",
-          description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi."
+          title: "Dashboard",
+          description: "Unser flexibel konfigurierbares Dashboard ermöglicht es dir, die gefundenen Prozess-Insights deinen Kollegen und Geschäftspartnern auf eine vertraute, kompakte und leicht verständliche Weise zu präsentieren oder aber für Analysezwecke zu nutzen, um Veränderungen und Verbesserungen kontinuierlich zu überwachen."
         },
         realTime: {
-          title: "Lorem Ipsum Feature 4",
-          description: "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati."
+          title: "Builder",
+          description: "Anstatt komplexe Event-Logs zu generieren gibt dir unser Importer die Kontrolle zurück in die eigenen Hände, indem dir direkt beim Import die Möglichkeit geboten wird, dein bestehendes Wissen in Form von Arbeitshypothesen einzubringen und beliebige Kontext-Daten hinzuzufügen – wann immer du willst, alles mit wenigen Klicks."
         }
       }
     },
@@ -1034,8 +1034,8 @@ export const translations: Record<Language, Translations> = {
     },
     integrations: {
       badge: "Integrationen",
-      title: "Über 100",
-      titleHighlight: "Integrationen verfügbar",
+      title: "Ready to connect",
+      titleHighlight: "- mit den wichtigsten Plattformen",
       subtitle: "Einfach verbinden und loslegen: Mit zahlreichen Integrationen ist die Verbindung Ihrer IT-Landschaft ein Kinderspiel.",
       discoverIntegrations: "Integrationen entdecken"
     },
