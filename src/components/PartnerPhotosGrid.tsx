@@ -33,7 +33,7 @@ export function PartnerPhotosGrid() {
   };
 
   return (
-    <section ref={ref} className="py-20 bg-muted/20">
+    <section ref={ref} className="py-20 bg-muted/50">
       <div className="container mx-auto px-4 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 50 }}

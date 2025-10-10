@@ -20,10 +20,8 @@ const Index = () => {
       <PlaceholderImageSection />
       <USPsShowcase />
       <div className="bg-background">
-        <FunctionalitiesTeaser />
         <PartnerPhotosGrid />
-        {/* farbliche trennung zwischen den sektionen + verlauf beim auslaufen aus der sektion*/}
-        {/* header ist noch anders als bei anderen*/}
+        <FunctionalitiesTeaser />
         <IntegrationsShowcase />
         <HubSpotBlogTeaser />
         <FinalCTA />
