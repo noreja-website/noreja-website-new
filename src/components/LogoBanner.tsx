@@ -1,16 +1,24 @@
 import React from 'react';
+import nexigoLogo from '@/assets/partners/partners_white/nexigo_white.png';
+import miragonLogo from '@/assets/partners/partners_white/miragon_white.png';
+import fortlaneLogo from '@/assets/partners/partners_white/fortlane_white.png';
+import novofactumLogo from '@/assets/partners/partners_white/novofactum_white.png';
+import schleswigerLogo from '@/assets/partners/partners_white/schleswiger_white.png';
+import waitsLogo from '@/assets/partners/partners_white/waits_white.png';
+import vienesseLogo from '@/assets/partners/partners_white/vienesse_logo_white.svg';
+import bocLogo from '@/assets/partners/partners_white/BOC-logo-white.png';
 
 const LogoBanner: React.FC = () => {
-  // Company logos data - using placeholder for now, can be replaced with actual logos
+  // Company logos data - using imported assets for proper Vite handling
   const logos = [
-    { name: 'Nexigo', logo: '/src/assets/partners/partners_white/nexigo_white.png' },
-    { name: 'Miragon', logo: '/src/assets/partners/partners_white/miragon_white.png' },
-    { name: 'Fortlane', logo: '/src/assets/partners/partners_white/fortlane_white.png' },
-    { name: 'Google Cloud', logo: '/src/assets/partners/partners_white/novofactum_white.png' },
-    { name: 'Schleswiger', logo: '/src/assets/partners/partners_white/schleswiger_white.png' },
-    { name: 'WAITS', logo: '/src/assets/partners/partners_white/waits_white.png' },
-    { name: 'Vienesse', logo: '/src/assets/partners/partners_white/vienesse_logo_white.svg' },
-    { name: 'BOC', logo: '/src/assets/partners/partners_white/BOC-logo-white.png' },
+    { name: 'Nexigo', logo: nexigoLogo },
+    { name: 'Miragon', logo: miragonLogo },
+    { name: 'Fortlane', logo: fortlaneLogo },
+    { name: 'Google Cloud', logo: novofactumLogo },
+    { name: 'Schleswiger', logo: schleswigerLogo },
+    { name: 'WAITS', logo: waitsLogo },
+    { name: 'Vienesse', logo: vienesseLogo },
+    { name: 'BOC', logo: bocLogo },
   ];
 
   // Duplicate logos for seamless scrolling
