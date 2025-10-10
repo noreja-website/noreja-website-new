@@ -1,5 +1,5 @@
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useMemo } from "react";
 import { X, Linkedin, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -12,8 +12,17 @@ export function PartnerPhotosGrid() {
   
   const [selectedPartner, setSelectedPartner] = useState<typeof partners[0] | null>(null);
 
-  // Get all partners with photos and quotes for the grid
-  const gridPartners = partners.filter(partner => partner.personPhotoUrl && partner.quote);
+  // Get all partners with photos and quotes for the grid, randomized on every reload
+  const gridPartners = useMemo(() => {
+    const partnersWithPhotos = partners.filter(partner => partner.personPhotoUrl && partner.quote);
+    // Fisher-Yates shuffle algorithm
+    const shuffled = [...partnersWithPhotos];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  }, []);
 
   const openModal = (partner: typeof partners[0]) => {
     setSelectedPartner(partner);
