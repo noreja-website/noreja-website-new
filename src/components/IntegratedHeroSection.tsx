@@ -8,15 +8,50 @@ import { useState, useEffect } from "react";
 export function IntegratedHeroSection() {
   const { t } = useLanguage();
   
-  // Rotating words for the animated highlight
-  const rotatingWords = ["Control", "Stabilize", "Understand", "Improve"];
+  // Typing animation for words
+  const rotatingWords = ["Transparent", "Understandable", "Self-Improving", "Compliant"];
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [displayedText, setDisplayedText] = useState("");
+  const [isTyping, setIsTyping] = useState(true);
+  const [showCursor, setShowCursor] = useState(true);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentWordIndex((prev) => (prev + 1) % rotatingWords.length);
-    }, 2000);
+    const currentWord = rotatingWords[currentWordIndex];
+    
+    if (isTyping) {
+      // Typing effect
+      if (displayedText.length < currentWord.length) {
+        const timer = setTimeout(() => {
+          setDisplayedText(currentWord.slice(0, displayedText.length + 1));
+        }, 100);
+        return () => clearTimeout(timer);
+      } else {
+        // Finished typing, wait then start erasing
+        const timer = setTimeout(() => {
+          setIsTyping(false);
+        }, 1500);
+        return () => clearTimeout(timer);
+      }
+    } else {
+      // Erasing effect
+      if (displayedText.length > 0) {
+        const timer = setTimeout(() => {
+          setDisplayedText(displayedText.slice(0, -1));
+        }, 50);
+        return () => clearTimeout(timer);
+      } else {
+        // Finished erasing, move to next word
+        setIsTyping(true);
+        setCurrentWordIndex((prev) => (prev + 1) % rotatingWords.length);
+      }
+    }
+  }, [displayedText, isTyping, currentWordIndex]);
 
+  // Cursor blinking effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setShowCursor((prev) => !prev);
+    }, 500);
     return () => clearInterval(interval);
   }, []);
 
@@ -52,23 +87,18 @@ export function IntegratedHeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="text-5xl md:text-7xl font-bold mb-6 leading-tight flex flex-col items-center"
+            className="text-5xl md:text-7xl font-bold mb-6 leading-relaxed flex items-center justify-start gap-4 whitespace-nowrap py-4 px-2"
           >
-            <div className="h-[1.2em] flex items-center justify-center mb-2 w-full">
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={rotatingWords[currentWordIndex]}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.5 }}
-                  className="bg-gradient-primary bg-clip-text text-transparent whitespace-nowrap"
-                >
-                  {rotatingWords[currentWordIndex]}
-                </motion.span>
-              </AnimatePresence>
-            </div>
-            <span>by Process</span>
+            <span>Make Processes</span>
+            <motion.span
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
+              className="bg-gradient-primary bg-clip-text text-transparent whitespace-nowrap py-2"
+            >
+              {displayedText}
+              <span className={`inline-block ml-1 ${showCursor ? 'opacity-100' : 'opacity-0'}`} style={{ fontSize: '1em', lineHeight: '0.1', color: 'transparent', background: 'linear-gradient(135deg, #452BE9, #4569E7)', backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>_</span>
+            </motion.span>
           </motion.h1>
 
           {/* Subtitle */}
@@ -76,7 +106,7 @@ export function IntegratedHeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.8 }}
-            className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto"
+            className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-4xl mx-auto whitespace-pre-line"
           >
             {t.hero.subtitle}
           </motion.p>

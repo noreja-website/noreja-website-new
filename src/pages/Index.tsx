@@ -27,6 +27,7 @@ const Index = () => {
       <USPsShowcase />
       <div className="bg-background">
         <PartnerPhotosGrid />
+        {/* TODO: add workbench to features teaser */}
         <FunctionalitiesTeaser />
         <IntegrationsShowcase />
         <HubSpotBlogTeaser />
