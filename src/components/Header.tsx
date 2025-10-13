@@ -15,7 +15,6 @@ export function Header() {
   const isActive = (href: string) => location.pathname === href;
 
   const navigationItems = [
-    { name: "Startseite", href: "/" },
     {/* name: "Startseite 2", href: "/startseite-2" },
     { name: "Startseite 3", href: "/startseite-3" */},
     { name: t.navigation.functionalities, href: "/functionalities" },
@@ -47,10 +46,10 @@ export function Header() {
               <Link
                 key={item.href}
                 to={item.href}
-                className={`text-sm font-medium transition-fast hover:text-primary ${
+                className={`text-sm font-medium transition-fast ${
                   isActive(item.href)
-                    ? "text-primary"
-                    : "text-muted-foreground"
+                    ? "text-[hsl(256,77%,72%)]"
+                    : "text-muted-foreground hover:text-[hsl(256,77%,72%)]"
                 }`}
               >
                 {item.name}
@@ -99,10 +98,10 @@ export function Header() {
                 <Link
                   key={item.href}
                   to={item.href}
-                  className={`text-sm font-medium transition-fast hover:text-primary ${
+                  className={`text-sm font-medium transition-fast ${
                     isActive(item.href)
-                      ? "text-primary"
-                      : "text-muted-foreground"
+                      ? "text-[hsl(256,77%,72%)]"
+                      : "text-muted-foreground hover:text-[hsl(256,77%,72%)]"
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
