@@ -30,23 +30,19 @@ export function USPsShowcase() {
   const usps = [
     {
       title: t.usps.features.connectionSpeed.title,
-      description: t.usps.features.connectionSpeed.description,
-      backgroundImage: "/src/assets/graph_three_nodes.png"
+      description: t.usps.features.connectionSpeed.description
     },
     {
       title: t.usps.features.realisticResults.title,
-      description: t.usps.features.realisticResults.description,
-      backgroundImage: "/src/assets/sampleimage.png"
+      description: t.usps.features.realisticResults.description
     },
     {
       title: t.usps.features.multidimensionalPerspectives.title,
-      description: t.usps.features.multidimensionalPerspectives.description,
-      backgroundImage: "/src/assets/graph_three_nodes.png"
+      description: t.usps.features.multidimensionalPerspectives.description
     },
     {
       title: t.usps.features.contextDomainKnowledge.title,
-      description: t.usps.features.contextDomainKnowledge.description,
-      backgroundImage: "/src/assets/sampleimage.png"
+      description: t.usps.features.contextDomainKnowledge.description
     }
   ];
 
@@ -152,22 +148,14 @@ export function USPsShowcase() {
                       damping: 25,
                       duration: 0.8
                     }}
-                    className="relative h-80 w-full max-w-2xl mx-auto shadow-2xl rounded-2xl overflow-hidden"
+                    className="relative h-80 w-full max-w-2xl mx-auto shadow-2xl rounded-2xl overflow-hidden bg-gradient-to-br from-primary/10 to-primary/20"
                     onClick={(e) => e.stopPropagation()}
                   >
-                    {/* Background Image */}
-                    <div 
-                      className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                      style={{ backgroundImage: `url(${usps[selectedCard].backgroundImage})` }}
-                    />
-                    
-                    {/* Individual card overlay */}
-                    <div className="absolute inset-0 bg-black/20" />
                     
                     {/* Content */}
                     <div className="relative z-10 h-full flex flex-col justify-center items-center p-8">
                       <motion.h3 
-                        className="text-3xl font-bold text-white text-center mb-6"
+                        className="text-3xl font-bold text-foreground text-center mb-6"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2, duration: 0.5 }}
@@ -180,7 +168,7 @@ export function USPsShowcase() {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.4, duration: 0.6 }}
-                        className="text-white/90 text-center leading-relaxed max-w-lg text-lg"
+                        className="text-muted-foreground text-center leading-relaxed max-w-lg text-lg"
                       >
                         {usps[selectedCard].description}
                       </motion.div>
@@ -233,22 +221,13 @@ export function USPsShowcase() {
                         <div className={`absolute inset-0 w-full h-full backface-hidden ${
                           isFlipped ? 'opacity-0' : 'opacity-100'
                         }`}>
-                          <div className="relative h-full border border-border rounded-2xl overflow-hidden group-hover:border-primary/50 group-hover:shadow-lg group-hover:shadow-primary/10">
-                            {/* Background Image */}
-                            <div 
-                              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                              style={{ backgroundImage: `url(${usp.backgroundImage})` }}
-                            />
-                            
-                            {/* Card overlay */}
-                            <div className="absolute inset-0 bg-black/40" />
-                            
+                          <div className="relative h-full border border-border rounded-2xl overflow-hidden group-hover:border-primary/50 group-hover:shadow-lg group-hover:shadow-primary/10 bg-gradient-to-br from-primary/10 to-primary/20">
                             {/* Content */}
                             <div className="relative z-10 h-full flex flex-col justify-center items-center p-6">
-                              <h3 className="text-2xl font-bold text-white text-center mb-4">
+                              <h3 className="text-2xl font-bold text-foreground text-center mb-4">
                                 {usp.title}
                               </h3>
-                              <div className="text-white/80 text-sm text-center">
+                              <div className="text-muted-foreground text-sm text-center">
                                 {t.usps.tapToLearnMore}
                               </div>
                             </div>
@@ -276,26 +255,15 @@ export function USPsShowcase() {
                   ) : (
                     /* Desktop: Regular card */
                     <div 
-                      className={`relative h-64 border border-border rounded-2xl overflow-hidden transition-all duration-500 ${
+                      className={`relative h-64 border border-border rounded-2xl overflow-hidden transition-all duration-500 bg-gradient-to-br from-primary/10 to-primary/20 ${
                         isBackground 
                           ? 'opacity-60 blur-sm' 
                           : 'group-hover:border-primary/50 group-hover:shadow-lg group-hover:shadow-primary/10'
                       }`}
                     >
-                      {/* Background Image */}
-                      <div 
-                        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                        style={{ backgroundImage: `url(${usp.backgroundImage})` }}
-                      />
-                      
-                      {/* Individual card overlay */}
-                      <div className={`absolute inset-0 transition-opacity duration-500 ${
-                        isBackground ? 'bg-black/60' : 'bg-black/40'
-                      }`} />
-                      
                       {/* Content */}
                       <div className="relative z-10 h-full flex flex-col justify-center items-center p-6">
-                        <h3 className="text-2xl font-bold text-white text-center mb-4">
+                        <h3 className="text-2xl font-bold text-foreground text-center mb-4">
                           {usp.title}
                         </h3>
                       </div>
