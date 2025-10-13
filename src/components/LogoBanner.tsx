@@ -87,9 +87,9 @@ const LogoBanner: React.FC = () => {
       };
     });
     
-    // Combine all logos and randomize the order
+    // Combine all logos with customers first, then partners (no randomization)
     const allLogos: Logo[] = [...customerLogos, ...partnerLogos];
-    return shuffleArray(allLogos);
+    return allLogos;
   }, []);
 
   // Duplicate logos for seamless scrolling
