@@ -45,7 +45,7 @@ export function Layout({ children }: LayoutProps) {
       {/* Global grid background */}
       <div className="fixed inset-0 opacity-5 pointer-events-none z-0">
         <div className="absolute inset-0" style={{
-          backgroundImage: `linear-gradient(hsl(var(--noreja-tertiary)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--noreja-tertiary)) 1px, transparent 1px)`,
+          backgroundImage: `linear-gradient(hsl(var(--noreja-main)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--noreja-main)) 1px, transparent 1px)`,
           backgroundSize: '50px 50px'
         }} />
       </div>

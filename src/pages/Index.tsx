@@ -15,7 +15,7 @@ const Index = () => {
     <>
       {/* Sections with animated grid background */}
       <div className="relative">
-        <AnimatedGridBackground />
+        <AnimatedGridBackground key="animated-grid-v2" />
         <IntegratedHeroSection />
         <LogoBanner />
         {/* <SimpleRectangleAnimation /> 

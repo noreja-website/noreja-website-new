@@ -146,6 +146,20 @@ export function AnimatedGridBackground({ className = "" }: AnimatedGridBackgroun
       ref={containerRef}
       className={`absolute inset-0 overflow-hidden pointer-events-none ${className}`}
     >
+      {/* Grid Lines */}
+      <svg className="absolute inset-0 w-full h-full">
+        <defs>
+          <pattern id="grid" width={GRID_SIZE} height={GRID_SIZE} patternUnits="userSpaceOnUse">
+            <path 
+              d={`M ${GRID_SIZE} 0 L 0 0 0 ${GRID_SIZE}`} 
+              fill="none" 
+              stroke="hsl(var(--noreja-main) / 0.08)" 
+              strokeWidth="0.5"
+            />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#grid)" />
+      </svg>
       
       {/* Animated Points */}
       <div className="absolute inset-0">
@@ -156,8 +170,8 @@ export function AnimatedGridBackground({ className = "" }: AnimatedGridBackgroun
             style={{
               left: `${point.x}px`,
               top: `${point.y}px`,
-              backgroundColor: '#23F3DA',
-              boxShadow: '0 0 3px #23F3DA30, 0 0 6px #23F3DA20',
+              backgroundColor: 'hsl(var(--noreja-secondary))',
+              boxShadow: '0 0 4px hsl(var(--noreja-secondary) / 0.4), 0 0 8px hsl(var(--noreja-secondary) / 0.3)',
               opacity: Math.sin(point.progress * Math.PI) * 0.4 + 0.15
             }}
           />
