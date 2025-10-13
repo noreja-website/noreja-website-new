@@ -8,16 +8,22 @@ import { HubSpotBlogTeaser } from "@/components/HubSpotBlogTeaser";
 import { PartnerPhotosGrid } from "@/components/PartnerPhotosGrid";
 import { FinalCTA } from "@/components/FinalCTA";
 import { IntegrationsShowcase } from "@/components/IntegrationsShowcase";
+import { AnimatedGridBackground } from "@/components/AnimatedGridBackground";
 
 const Index = () => {
   return (
     <>
-      <IntegratedHeroSection />
-      <LogoBanner />
-      {/* <SimpleRectangleAnimation /> 
-      TODO: kunden auch in banner anzeigen
-      */}
-      <PlaceholderImageSection />
+      {/* Sections with animated grid background */}
+      <div className="relative">
+        <AnimatedGridBackground />
+        <IntegratedHeroSection />
+        <LogoBanner />
+        {/* <SimpleRectangleAnimation /> 
+        TODO: kunden auch in banner anzeigen
+        */}
+        <PlaceholderImageSection />
+      </div>
+      
       <USPsShowcase />
       <div className="bg-background">
         <PartnerPhotosGrid />

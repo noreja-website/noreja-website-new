@@ -144,7 +144,7 @@ export function AnimatedGridBackground({ className = "" }: AnimatedGridBackgroun
   return (
     <div 
       ref={containerRef}
-      className={`fixed inset-0 overflow-hidden pointer-events-none ${className}`}
+      className={`absolute inset-0 overflow-hidden pointer-events-none ${className}`}
     >
       
       {/* Animated Points */}
