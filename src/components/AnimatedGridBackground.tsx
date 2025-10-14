@@ -145,20 +145,42 @@ export function AnimatedGridBackground({ className = "" }: AnimatedGridBackgroun
     <div 
       ref={containerRef}
       className={`absolute inset-0 overflow-hidden pointer-events-none ${className}`}
+      style={{
+        background: 'hsl(var(--background))',
+        backgroundImage: `
+          radial-gradient(at 20% 50%, hsl(var(--noreja-main) / 0.05) 0px, transparent 50%),
+          radial-gradient(at 80% 20%, hsl(var(--noreja-secondary) / 0.05) 0px, transparent 50%),
+          radial-gradient(at 40% 80%, hsl(var(--noreja-secondary) / 0.05) 0px, transparent 50%)
+        `
+      }}
     >
-      {/* Grid Lines */}
+      {/* Grid Lines - Direct SVG approach */}
       <svg className="absolute inset-0 w-full h-full">
-        <defs>
-          <pattern id="grid" width={GRID_SIZE} height={GRID_SIZE} patternUnits="userSpaceOnUse">
-            <path 
-              d={`M ${GRID_SIZE} 0 L 0 0 0 ${GRID_SIZE}`} 
-              fill="none" 
-              stroke="hsl(var(--noreja-main) / 0.08)" 
-              strokeWidth="0.5"
-            />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#grid)" />
+        {/* Draw grid lines directly */}
+        {Array.from({ length: Math.ceil(dimensions.width / GRID_SIZE) }, (_, i) => (
+          <line
+            key={`v-${i}`}
+            x1={i * GRID_SIZE}
+            y1={0}
+            x2={i * GRID_SIZE}
+            y2={dimensions.height}
+            stroke="#452BE9"
+            strokeWidth="0.3"
+            strokeOpacity="0.8"
+          />
+        ))}
+        {Array.from({ length: Math.ceil(dimensions.height / GRID_SIZE) }, (_, i) => (
+          <line
+            key={`h-${i}`}
+            x1={0}
+            y1={i * GRID_SIZE}
+            x2={dimensions.width}
+            y2={i * GRID_SIZE}
+            stroke="#452BE9"
+            strokeWidth="0.3"
+            strokeOpacity="0.8"
+          />
+        ))}
       </svg>
       
       {/* Animated Points */}
@@ -171,8 +193,8 @@ export function AnimatedGridBackground({ className = "" }: AnimatedGridBackgroun
               left: `${point.x}px`,
               top: `${point.y}px`,
               backgroundColor: 'hsl(var(--noreja-secondary))',
-              boxShadow: '0 0 4px hsl(var(--noreja-secondary) / 0.4), 0 0 8px hsl(var(--noreja-secondary) / 0.3)',
-              opacity: Math.sin(point.progress * Math.PI) * 0.4 + 0.15
+              boxShadow: '0 0 6px hsl(var(--noreja-secondary) / 0.6), 0 0 12px hsl(var(--noreja-secondary) / 0.4)',
+              opacity: Math.sin(point.progress * Math.PI) * 0.6 + 0.4
             }}
           />
         ))}

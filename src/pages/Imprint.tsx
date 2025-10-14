@@ -4,7 +4,7 @@ import { MarkdownBlock } from "@/components/MarkdownBlock";
 
 const impressumContent = `# Impressum
 
-**Noreja Technologies GmbH**
+**Noreja Intelligence GmbH**
 
 Angaben gemäß § 5 TMG
 
@@ -19,8 +19,8 @@ Deutschland
 **Website:** www.noreja.com
 
 ## Geschäftsführung
-Dr. Alex Chen (CEO)
-Sarah Rodriguez (CTO)
+Dr. Lukas Pfahlsberger (CEO)
+Dr. Philipp Waibel (CTO)
 
 ## Registereintrag
 **Eintragung im Handelsregister:** Amtsgericht Berlin
