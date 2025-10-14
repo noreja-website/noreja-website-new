@@ -25,11 +25,27 @@ const Index = () => {
       </div>
       
       <USPsShowcase />
+      
+      {/* PartnerPhotosGrid with animated grid background */}
+      <div className="relative">
+        <AnimatedGridBackground key="animated-grid-partners" />
+        <div className="relative z-10">
+          <PartnerPhotosGrid />
+        </div>
+      </div>
+      
+      {/* TODO: add workbench to features teaser */}
+      <FunctionalitiesTeaser />
+      
+      {/* IntegrationsShowcase with animated grid background */}
+      <div className="relative">
+        <AnimatedGridBackground key="animated-grid-integrations" />
+        <div className="relative z-10">
+          <IntegrationsShowcase />
+        </div>
+      </div>
+      
       <div className="bg-background">
-        <PartnerPhotosGrid />
-        {/* TODO: add workbench to features teaser */}
-        <FunctionalitiesTeaser />
-        <IntegrationsShowcase />
         <HubSpotBlogTeaser />
         <FinalCTA />
       </div>

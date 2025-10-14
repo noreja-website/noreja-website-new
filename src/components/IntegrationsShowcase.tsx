@@ -93,7 +93,7 @@ export const IntegrationsShowcase: React.FC<IntegrationsShowcaseProps> = ({
   const displayTitle = title || `${t.integrations.title} ${t.integrations.titleHighlight}`;
   const displaySubtitle = subtitle || t.integrations.subtitle;
   return (
-    <section className="relative bg-muted/50">
+    <section className="relative">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           {/* Left: Text Content */}
@@ -134,7 +134,7 @@ const VerticalTicker: React.FC<{ items: IntegrationLogo[]; reverse?: boolean }> 
   // Duplicate list for seamless loop
   const sequence = [...items, ...items];
   return (
-    <div className="relative h-[520px] overflow-hidden rounded-xl bg-secondary/40">
+    <div className="relative h-[520px] overflow-hidden rounded-xl bg-transparent">
       <div
         className={
           "absolute left-0 top-0 flex w-full flex-col gap-4 animate-[marquee_70s_linear_infinite] " +
@@ -163,8 +163,8 @@ const VerticalTicker: React.FC<{ items: IntegrationLogo[]; reverse?: boolean }> 
         })}
       </div>
       {/* Fade overlays at top and bottom */}
-      <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-secondary/80 to-transparent pointer-events-none z-10" />
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-secondary/80 to-transparent pointer-events-none z-10" />
+      <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-background to-transparent pointer-events-none z-10" />
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent pointer-events-none z-10" />
     </div>
   );
 };
