@@ -163,13 +163,13 @@ export function AnimatedGridBackground({ className = "" }: AnimatedGridBackgroun
             x1={i * GRID_SIZE}
             y1={0}
             x2={i * GRID_SIZE}
-            y2={dimensions.height}
+            y2="200vh"
             stroke="#452BE9"
             strokeWidth="0.3"
             strokeOpacity="0.8"
           />
         ))}
-        {Array.from({ length: Math.ceil(dimensions.height / GRID_SIZE) }, (_, i) => (
+        {Array.from({ length: Math.ceil(2000 / GRID_SIZE) }, (_, i) => (
           <line
             key={`h-${i}`}
             x1={0}
