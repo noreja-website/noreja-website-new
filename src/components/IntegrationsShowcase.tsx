@@ -87,17 +87,26 @@ export const IntegrationsShowcase: React.FC<IntegrationsShowcaseProps> = ({
   rows = 4
 }) => {
   const { t } = useLanguage();
-  // Use fewer rows on mobile (2) and more on desktop (4)
-  const [isMobile, setIsMobile] = React.useState(false);
+  // Use fewer rows on mobile (2), medium (3), and more on desktop (4)
+  const [screenSize, setScreenSize] = React.useState<'mobile' | 'medium' | 'desktop'>('desktop');
   
   React.useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    const checkScreenSize = () => {
+      const width = window.innerWidth;
+      if (width < 768) {
+        setScreenSize('mobile');
+      } else if (width < 1024) {
+        setScreenSize('medium');
+      } else {
+        setScreenSize('desktop');
+      }
+    };
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
   
-  const actualRows = isMobile ? 2 : rows;
+  const actualRows = screenSize === 'mobile' ? 2 : screenSize === 'medium' ? 3 : rows;
   const rowsData = buildRows(logos, actualRows);
   
   // Use translations as defaults if no props are provided
@@ -122,7 +131,7 @@ export const IntegrationsShowcase: React.FC<IntegrationsShowcaseProps> = ({
 
           {/* Right: Integrations Animation Grid */}
           <div className="relative w-full">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4" aria-hidden>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" aria-hidden>
               {rowsData.map((row, rowIndex) => (
                 <VerticalTicker
                   key={rowIndex}

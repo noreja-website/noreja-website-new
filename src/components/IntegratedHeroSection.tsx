@@ -87,7 +87,7 @@ export function IntegratedHeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="text-4xl sm:text-5xl md:text-5xl lg:text-7xl font-bold mb-4 md:mb-6 leading-tight md:leading-relaxed flex flex-col sm:flex-row items-center justify-center md:justify-start gap-2 sm:gap-4 md:gap-4 whitespace-nowrap py-2 md:py-4 px-2"
+            className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-4 lg:mb-6 leading-tight lg:leading-relaxed flex flex-col lg:flex-row items-center justify-center lg:justify-start gap-2 sm:gap-4 lg:gap-4 whitespace-nowrap py-2 lg:py-4 px-2"
           >
             <span>Make Processes</span>
             <motion.span
