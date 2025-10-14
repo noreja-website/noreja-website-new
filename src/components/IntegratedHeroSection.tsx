@@ -56,15 +56,15 @@ export function IntegratedHeroSection() {
   }, []);
 
   return (
-    <section className="relative pt-32 pb-0 flex flex-col justify-center items-center overflow-hidden">
+    <section className="relative pt-20 md:pt-32 pb-0 flex flex-col justify-center items-center overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-noreja-main/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-noreja-tertiary/10 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 left-1/4 w-48 h-48 md:w-96 md:h-96 bg-noreja-main/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 right-1/4 w-48 h-48 md:w-96 md:h-96 bg-noreja-tertiary/10 rounded-full blur-3xl" />
       </div>
 
       {/* Main Hero Content */}
-      <div className="relative z-10 container mx-auto px-4 lg:px-8 text-center flex-1 flex flex-col justify-center">
+      <div className="relative z-10 container mx-auto px-4 lg:px-8 text-center flex-1 flex flex-col justify-center py-8 md:py-0">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -76,7 +76,7 @@ export function IntegratedHeroSection() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8"
+            className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-4 md:mb-8"
           >
             <Zap className="w-4 h-4 mr-2 text-noreja-tertiary" />
             <span className="text-sm font-medium">{t.hero.badge}</span>
@@ -87,14 +87,14 @@ export function IntegratedHeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="text-5xl md:text-7xl font-bold mb-6 leading-relaxed flex items-center justify-start gap-4 whitespace-nowrap py-4 px-2"
+            className="text-4xl sm:text-5xl md:text-5xl lg:text-7xl font-bold mb-4 md:mb-6 leading-tight md:leading-relaxed flex flex-col sm:flex-row items-center justify-center md:justify-start gap-2 sm:gap-4 md:gap-4 whitespace-nowrap py-2 md:py-4 px-2"
           >
             <span>Make Processes</span>
             <motion.span
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.3 }}
-              className="bg-gradient-primary bg-clip-text text-transparent whitespace-nowrap py-2"
+              className="bg-gradient-primary bg-clip-text text-transparent whitespace-nowrap py-1 md:py-2"
             >
               {displayedText}
               <span className={`inline-block ml-1 ${showCursor ? 'opacity-100' : 'opacity-0'}`} style={{ fontSize: '1em', lineHeight: '0.1', color: 'transparent', background: 'linear-gradient(135deg, #452BE9, #4569E7)', backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>_</span>
@@ -106,7 +106,7 @@ export function IntegratedHeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.8 }}
-            className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-4xl mx-auto whitespace-pre-line"
+            className="text-lg sm:text-xl md:text-2xl text-muted-foreground mb-6 md:mb-8 max-w-4xl mx-auto whitespace-pre-line px-4"
           >
             {t.hero.subtitle}
           </motion.p>
@@ -116,7 +116,7 @@ export function IntegratedHeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.8 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
+            className="flex flex-row gap-3 sm:gap-4 justify-center mb-8 md:mb-12 px-4"
           >
             <Button size="lg" className="gradient-primary glow-primary group">
               {t.hero.getStarted}

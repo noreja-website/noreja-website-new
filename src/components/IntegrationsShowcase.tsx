@@ -87,7 +87,18 @@ export const IntegrationsShowcase: React.FC<IntegrationsShowcaseProps> = ({
   rows = 4
 }) => {
   const { t } = useLanguage();
-  const rowsData = buildRows(logos, rows);
+  // Use fewer rows on mobile (2) and more on desktop (4)
+  const [isMobile, setIsMobile] = React.useState(false);
+  
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+  
+  const actualRows = isMobile ? 2 : rows;
+  const rowsData = buildRows(logos, actualRows);
   
   // Use translations as defaults if no props are provided
   const displayTitle = title || `${t.integrations.title} ${t.integrations.titleHighlight}`;
@@ -111,7 +122,7 @@ export const IntegrationsShowcase: React.FC<IntegrationsShowcaseProps> = ({
 
           {/* Right: Integrations Animation Grid */}
           <div className="relative w-full">
-            <div className="grid grid-cols-4 gap-4" aria-hidden>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4" aria-hidden>
               {rowsData.map((row, rowIndex) => (
                 <VerticalTicker
                   key={rowIndex}
@@ -134,7 +145,7 @@ const VerticalTicker: React.FC<{ items: IntegrationLogo[]; reverse?: boolean }> 
   // Duplicate list for seamless loop
   const sequence = [...items, ...items];
   return (
-    <div className="relative h-[520px] overflow-hidden rounded-xl bg-transparent">
+    <div className="relative h-[320px] md:h-[520px] overflow-hidden rounded-xl bg-transparent">
       <div
         className={
           "absolute left-0 top-0 flex w-full flex-col gap-4 animate-[marquee_70s_linear_infinite] " +
