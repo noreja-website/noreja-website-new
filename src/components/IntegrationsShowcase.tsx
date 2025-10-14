@@ -150,7 +150,7 @@ const VerticalTicker: React.FC<{ items: IntegrationLogo[]; reverse?: boolean }> 
           return (
             <div
               key={idx}
-              className="mx-auto grid h-24 w-24 place-content-center rounded-xl bg-white shadow-sm ring-1 ring-border"
+              className="mx-auto grid h-24 w-24 place-content-center rounded-xl bg-white/90 shadow-sm ring-1 ring-border"
             >
               <img
                 src={logo.src}

@@ -1,8 +1,15 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { ArrowRight, Cpu, Database, Shield, Zap } from "lucide-react";
+import { ArrowRight, Brain, Search, LayoutDashboard, Wrench, Code } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 export function FunctionalitiesTeaser() {
   const ref = useRef(null);
@@ -11,24 +18,29 @@ export function FunctionalitiesTeaser() {
 
   const features = [
     {
-      icon: Cpu,
-      title: t.functionalities.features.aiAnalytics.title,
-      description: t.functionalities.features.aiAnalytics.description
-    },
-    {
-      icon: Database,
-      title: t.functionalities.features.dataIntegration.title,
-      description: t.functionalities.features.dataIntegration.description
-    },
-    {
-      icon: Shield,
+      icon: LayoutDashboard,
       title: t.functionalities.features.security.title,
       description: t.functionalities.features.security.description
     },
     {
-      icon: Zap,
+      icon: Search,
+      title: t.functionalities.features.dataIntegration.title,
+      description: t.functionalities.features.dataIntegration.description
+    },
+    {
+      icon: Brain,
+      title: t.functionalities.features.aiAnalytics.title,
+      description: t.functionalities.features.aiAnalytics.description
+    },
+    {
+      icon: Wrench,
       title: t.functionalities.features.realTime.title,
       description: t.functionalities.features.realTime.description
+    },
+    {
+      icon: Code,
+      title: t.functionalities.features.workbench.title,
+      description: t.functionalities.features.workbench.description
     }
   ];
 
@@ -58,28 +70,95 @@ export function FunctionalitiesTeaser() {
           </Button>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {features.map((feature, index) => {
-            const Icon = feature.icon;
-            return (
-              <motion.div
-                key={feature.title}
-                initial={{ opacity: 0, y: 50 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-                transition={{ 
-                  duration: 0.6,
-                  delay: index * 0.1 + 0.3
-                }}
-                className="text-center group"
-              >
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
-                  <Icon className="w-8 h-8 text-noreja-tertiary" />
-                </div>
-                <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                <p className="text-muted-foreground text-sm">{feature.description}</p>
-              </motion.div>
-            );
-          })}
+        {/* Mobile: Carousel */}
+        <div className="lg:hidden">
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full max-w-sm mx-auto"
+          >
+            <CarouselContent>
+              {features.map((feature, index) => {
+                const Icon = feature.icon;
+                return (
+                  <CarouselItem key={feature.title}>
+                    <motion.div
+                      initial={{ opacity: 0, y: 50 }}
+                      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+                      transition={{ 
+                        duration: 0.6,
+                        delay: index * 0.1 + 0.3
+                      }}
+                      className="text-center group p-6"
+                    >
+                      <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
+                        <Icon className="w-8 h-8 text-noreja-tertiary" />
+                      </div>
+                      <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
+                      <p className="text-muted-foreground text-sm">{feature.description}</p>
+                    </motion.div>
+                  </CarouselItem>
+                );
+              })}
+            </CarouselContent>
+            <CarouselPrevious className="left-0" />
+            <CarouselNext className="right-0" />
+          </Carousel>
+        </div>
+
+        {/* Desktop: 3 items first row, 2 items centered second row */}
+        <div className="hidden lg:block">
+          {/* First row - 3 items */}
+          <div className="flex justify-center gap-8 mb-8">
+            {features.slice(0, 3).map((feature, index) => {
+              const Icon = feature.icon;
+              return (
+                <motion.div
+                  key={feature.title}
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+                  transition={{ 
+                    duration: 0.6,
+                    delay: index * 0.1 + 0.3
+                  }}
+                  className="text-center group flex-1 max-w-xs"
+                >
+                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
+                    <Icon className="w-8 h-8 text-noreja-tertiary" />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
+                  <p className="text-muted-foreground text-sm">{feature.description}</p>
+                </motion.div>
+              );
+            })}
+          </div>
+          
+          {/* Second row - 2 items centered */}
+          <div className="flex justify-center gap-8">
+            {features.slice(3, 5).map((feature, index) => {
+              const Icon = feature.icon;
+              return (
+                <motion.div
+                  key={feature.title}
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+                  transition={{ 
+                    duration: 0.6,
+                    delay: (index + 3) * 0.1 + 0.3
+                  }}
+                  className="text-center group flex-1 max-w-xs"
+                >
+                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
+                    <Icon className="w-8 h-8 text-noreja-tertiary" />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
+                  <p className="text-muted-foreground text-sm">{feature.description}</p>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

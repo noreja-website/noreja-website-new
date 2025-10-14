@@ -181,6 +181,10 @@ export interface Translations {
         title: string;
         description: string;
       };
+      workbench: {
+        title: string;
+        description: string;
+      };
     };
   };
   usps: {
@@ -594,6 +598,10 @@ export const translations: Record<Language, Translations> = {
         realTime: {
           "title": "Lorem Ipsum Feature 4",
           "description": "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati."
+        },
+        workbench: {
+          "title": "Lorem Ipsum Feature 5",
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
         }
       }
     },
@@ -1006,6 +1014,10 @@ export const translations: Record<Language, Translations> = {
         realTime: {
           title: "Builder",
           description: "Anstatt komplexe Event-Logs zu generieren gibt dir unser Importer die Kontrolle zurück in die eigenen Hände, indem dir direkt beim Import die Möglichkeit geboten wird, dein bestehendes Wissen in Form von Arbeitshypothesen einzubringen und beliebige Kontext-Daten hinzuzufügen – wann immer du willst, alles mit wenigen Klicks."
+        },
+        workbench: {
+          title: "Workbench",
+          description: "TODO"
         }
       }
     },
