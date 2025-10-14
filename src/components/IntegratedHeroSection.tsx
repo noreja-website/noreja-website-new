@@ -64,12 +64,12 @@ export function IntegratedHeroSection() {
       </div>
 
       {/* Main Hero Content */}
-      <div className="relative z-10 container mx-auto px-4 lg:px-8 text-center flex-1 flex flex-col justify-center py-8 md:py-0">
+      <div className="relative z-10 container mx-auto px-4 lg:px-8 text-center flex-1 flex flex-col justify-center py-8 md:py-0 max-w-full">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="max-w-4xl mx-auto"
+          className="max-w-4xl mx-auto w-full"
         >
           {/* Badge */}
           <motion.div
@@ -87,14 +87,14 @@ export function IntegratedHeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-4 lg:mb-6 leading-tight lg:leading-relaxed flex flex-col lg:flex-row items-center justify-center lg:justify-start gap-2 sm:gap-4 lg:gap-4 whitespace-nowrap py-2 lg:py-4 px-2"
+            className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-4 lg:mb-6 leading-tight lg:leading-relaxed flex flex-col lg:flex-row items-center justify-center lg:justify-start gap-2 sm:gap-4 lg:gap-4 py-2 lg:py-4 px-2"
           >
             <span>Make Processes</span>
             <motion.span
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.3 }}
-              className="bg-gradient-primary bg-clip-text text-transparent whitespace-nowrap py-1 md:py-2"
+              className="bg-gradient-primary bg-clip-text text-transparent py-1 md:py-2"
             >
               {displayedText}
               <span className={`inline-block ml-1 ${showCursor ? 'opacity-100' : 'opacity-0'}`} style={{ fontSize: '1em', lineHeight: '0.1', color: 'transparent', background: 'linear-gradient(135deg, #452BE9, #4569E7)', backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>_</span>
