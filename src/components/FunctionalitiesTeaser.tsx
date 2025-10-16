@@ -45,7 +45,7 @@ export function FunctionalitiesTeaser() {
   ];
 
   return (
-    <section ref={ref} className="py-20 bg-background">
+    <section ref={ref} className="py-20">
       <div className="container mx-auto px-4 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 50 }}

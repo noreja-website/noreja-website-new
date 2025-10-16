@@ -11,12 +11,6 @@ export function FinalCTA() {
 
   return (
     <section ref={ref} className="py-20 relative overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0 bg-gradient-dark opacity-70" />
-      <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-noreja-main/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-noreja-tertiary/10 rounded-full blur-3xl" />
-      </div>
 
       <div className="relative z-0 container mx-auto px-4 lg:px-8 text-center">
         <motion.div

@@ -26,7 +26,21 @@ const Index = () => {
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-background pointer-events-none z-0" />
       </div>
       
-      <USPsShowcase />
+      {/* USPsShowcase with gradient background */}
+      <div className="relative" style={{
+        background: `
+          linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--noreja-main) / 0.15) 50%, hsl(var(--background)) 100%),
+          radial-gradient(ellipse 1000px 800px at 50% 50%, hsl(var(--noreja-secondary) / 0.12) 0%, transparent 60%)
+        `
+      }}>
+        {/* Gradient fade from previous section */}
+        <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background to-transparent pointer-events-none z-0" />
+        {/* Gradient fade to next section */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-background pointer-events-none z-0" />
+        <div className="relative z-10">
+          <USPsShowcase />
+        </div>
+      </div>
       
       {/* PartnerPhotosGrid with animated grid background */}
       <div className="relative">
@@ -40,8 +54,22 @@ const Index = () => {
         </div>
       </div>
       
-      {/* TODO: add workbench to features teaser */}
-      <FunctionalitiesTeaser />
+      {/* FunctionalitiesTeaser with gradient background */}
+      <div className="relative" style={{
+        background: `
+          linear-gradient(45deg, hsl(var(--background)) 0%, hsl(var(--noreja-secondary) / 0.18) 30%, hsl(var(--background)) 70%),
+          radial-gradient(ellipse 1200px 900px at 30% 70%, hsl(var(--noreja-main) / 0.15) 0%, transparent 50%)
+        `
+      }}>
+        {/* Gradient fade from previous section */}
+        <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background to-transparent pointer-events-none z-0" />
+        {/* Gradient fade to next section */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-background pointer-events-none z-0" />
+        <div className="relative z-10">
+          {/* TODO: add workbench to features teaser */}
+          <FunctionalitiesTeaser />
+        </div>
+      </div>
       
       {/* IntegrationsShowcase with animated grid background */}
       <div className="relative">
@@ -55,9 +83,19 @@ const Index = () => {
         </div>
       </div>
       
-      <div className="bg-background">
-        <HubSpotBlogTeaser />
-        <FinalCTA />
+      {/* Blog and CTA section with gradient background */}
+      <div className="relative" style={{
+        background: `
+          linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--noreja-main) / 0.20) 40%, hsl(var(--noreja-secondary) / 0.15) 80%, hsl(var(--background)) 100%),
+          radial-gradient(ellipse 1000px 700px at 70% 20%, hsl(var(--noreja-secondary) / 0.18) 0%, transparent 60%)
+        `
+      }}>
+        {/* Gradient fade from previous section */}
+        <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background to-transparent pointer-events-none z-0" />
+        <div className="relative z-10">
+          <HubSpotBlogTeaser />
+          <FinalCTA />
+        </div>
       </div>
     </>
   );

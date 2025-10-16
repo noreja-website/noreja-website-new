@@ -116,7 +116,7 @@ export function USPsShowcase() {
   };
 
   return (
-    <section ref={ref} className="py-20 bg-background overflow-hidden">
+    <section ref={ref} className="py-20 overflow-hidden">
       <div className="container mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
