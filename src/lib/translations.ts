@@ -189,6 +189,7 @@ export interface Translations {
   };
   usps: {
     title: string;
+    highlight: string;
     subtitle: string;
     tapToLearnMore: string;
     features: {
@@ -607,6 +608,7 @@ export const translations: Record<Language, Translations> = {
     },
     usps: {
       title: "Why Choose",
+      highlight: "Noreja",
       subtitle: "Discover the key advantages that make our platform the preferred choice for data-driven organizations worldwide.",
       tapToLearnMore: "Tap to learn more",
       features: {
@@ -829,7 +831,7 @@ export const translations: Record<Language, Translations> = {
       functionalities: {
         title: "Produkt",
         titleHighlight: "Funktionen",
-        subtitle: "Entdecken Sie die umfassenden Fähigkeiten, die Ihren datengetriebenen Erfolg vorantreiben. Von intelligenter Erfassung bis zu umsetzbaren Erkenntnissen - erkunden Sie, wie unsere Plattform Ihren Workflow transformiert.",
+        subtitle: "Von automatischer Analyse bis KI-gestützter Ursachenforschung – alles, was du brauchst, um Prozesse selbstverbessernd zu machen.",
         learnMore: "Mehr erfahren",
         learnMoreSubtitle: "Entdecken Sie Einblicke und Best Practices von unseren Experten",
         capabilities: {
@@ -970,9 +972,9 @@ export const translations: Record<Language, Translations> = {
       }
     },
     functionalities: {
-      title: "Leistungsstarke",
-      titleHighlight: "Funktionen",
-      subtitle: "Entdecken Sie die umfassende Suite von Tools und Features, die darauf ausgelegt sind, Ihre Geschäftsabläufe zu transformieren.",
+      title: "Eine Plattfform -",
+      titleHighlight: "fünf Wege zur Process Intelligence",
+      subtitle: "Von automatischer Analyse bis KI-gestützter Ursachenforschung – alles, was du brauchst, um Prozesse selbstverbessernd zu machen.",
       exploreFeatures: "Alle Features erkunden",
       dataCollection: {
         title: "Datenerfassung",
@@ -1001,29 +1003,30 @@ export const translations: Record<Language, Translations> = {
       features: {
         aiAnalytics: {
           title: "Minerva",
-          description: "TODO"
+          description: "Dein KI-gestützter Prozess-Analyst. Minerva kombiniert Prozessdaten mit Kontextwissen, um Ursachen zu erkennen, Zusammenhänge zu erklären und fundierte Handlungsempfehlungen zu geben."
         },
         dataIntegration: {
           title: "Analyzer",
-          description: "Der Analyzer ermöglicht es dir, tief in deine Prozesse einzutauchen, dein Verständnis für deine Organisation und deren Menschen zu verbessern und genau herauszufinden, wie du die gefundenen Probleme angehen kannst.",
+          description: "Tauche tief in deine Prozesse ein, verstehe Zusammenhänge und finde schnell heraus, wo und warum Probleme entstehen – datenbasiert und nachvollziehbar.",
         },
         security: {
           title: "Dashboard",
-          description: "Unser flexibel konfigurierbares Dashboard ermöglicht es dir, die gefundenen Prozess-Insights deinen Kollegen und Geschäftspartnern auf eine vertraute, kompakte und leicht verständliche Weise zu präsentieren oder aber für Analysezwecke zu nutzen, um Veränderungen und Verbesserungen kontinuierlich zu überwachen."
+          description: "Präsentiere deine Prozess-Insights klar und kompakt oder nutze das Dashboard, um Veränderungen und Verbesserungen kontinuierlich zu überwachen."
         },
         realTime: {
           title: "Builder",
-          description: "Anstatt komplexe Event-Logs zu generieren gibt dir unser Importer die Kontrolle zurück in die eigenen Hände, indem dir direkt beim Import die Möglichkeit geboten wird, dein bestehendes Wissen in Form von Arbeitshypothesen einzubringen und beliebige Kontext-Daten hinzuzufügen – wann immer du willst, alles mit wenigen Klicks."
+          description: "Importiere Daten direkt, ohne Event-Logs – ergänze Wissen, Hypothesen oder Kontextdaten mit wenigen Klicks. So behältst du volle Kontrolle über deine Analyse."
         },
         workbench: {
           title: "Workbench",
-          description: "TODO"
+          description: "Erweitere deine Analysen mit individuellen Skripten im integrierten Jupyter Notebook – ohne die Anwendung zu verlassen. Deine Daten bleiben immer bei dir."
         }
       }
     },
     usps: {
-      title: "Warum",
-      subtitle: "Entdecken Sie die wichtigsten Vorteile, die unsere Plattform zur bevorzugten Wahl für datengetriebene Organisationen weltweit machen.",
+      title: "Der neue Standard für ",
+      highlight: "Process Intelligence",
+      subtitle: "Von automatischer Analyse bis KI-gestützter Ursachenforschung – alles, was du brauchst, um Prozesse selbstverbessernd zu machen.",
       tapToLearnMore: "Tippen, um mehr zu erfahren",
       features: {
         connectionSpeed: {
@@ -1031,7 +1034,7 @@ export const translations: Record<Language, Translations> = {
           description: "Die Datenanbindung funktioniert ohne Zwischenschritte wie einem Event-Log. Der Builder verbindet sich direkt zu den Tabellen der (relationalen) Datenbanken. Dies beschleunigt die Datenanbindung im Vergleich zu herkömmlichen Lösungen enorm."
         },
         realisticResults: {
-          title: "Realitätsgetrue Ergebnisse",
+          title: "Realitätsgetreue Ergebnisse",
           description: "Die Prozessanalyse berücksichtigt komplexe Zusammenhänge des Datenschemas der zugrunde liegenden Quellsysteme. Dies macht die Analysen realistischer und umgeht die Schwächen herkömmlicher Lösungen."
         },
         multidimensionalPerspectives: {
@@ -1046,9 +1049,9 @@ export const translations: Record<Language, Translations> = {
     },
     integrations: {
       badge: "Integrationen",
-      title: "Ready to connect",
-      titleHighlight: "- mit den wichtigsten Plattformen",
-      subtitle: "Einfach verbinden und loslegen: Mit zahlreichen Integrationen ist die Verbindung Ihrer IT-Landschaft ein Kinderspiel.",
+      title: "Einfach verbinden.",
+      titleHighlight: "Sofort starten.",
+      subtitle: "Noreja fügt sich nahtlos in deine bestehende Systemlandschaft ein. Flexibel, sicher und ohne zusätzliche Integrationsaufwände.",
       discoverIntegrations: "Integrationen entdecken"
     },
     process: {
@@ -1102,9 +1105,9 @@ export const translations: Record<Language, Translations> = {
       },
     },
     partners: {
-      title: "Vertraut von",
-      titleHighlight: "Branchenführern",
-      subtitle: "Treten Sie einem wachsenden Ökosystem innovativer Unternehmen und Organisationen bei, die unseren Lösungen vertrauen.",
+      title: "Gemeinsam",
+      titleHighlight: "Prozesse neu denken",
+      subtitle: "Unsere Partner teilen unsere Vision von intelligenter Prozessanalyse.\n\nDatengetrieben, offen und auf Wirkung ausgerichtet.",
       viewAll: "Alle Partner anzeigen",
       viewAllPartners: "Alle Partner anzeigen",
       stats: {
@@ -1115,7 +1118,7 @@ export const translations: Record<Language, Translations> = {
     },
     blog: {
       title: "Unser Blog",
-      subtitle: "Tauchen Sie tief in Brancheneinblicke, technische Innovationen und Thought Leadership unseres Expertenteams auf unserer dedizierten Blog-Plattform ein.",
+      subtitle: "Tauche ein in praxisnahe Analysen, Branchenwissen und Innovationen rund um Process Intelligence, direkt von unserem Expertenteam.",
       latestPosts: "Neueste Beiträge",
       readMore: "Mehr lesen",
       openBlog: "Blog öffnen",
@@ -1201,9 +1204,9 @@ export const translations: Record<Language, Translations> = {
     },
     finalCta: {
       badge: "Bereit zum Start",
-      title: "Transformieren Sie Ihr Unternehmen",
-      titleHighlight: "Heute",
-      subtitle: "Treten Sie Tausenden von Unternehmen bei, die bereits unsere revolutionäre Plattform nutzen, um Wachstum und Innovation zu beschleunigen.",
+      title: "Mach den nächsten Schritt – ",
+      titleHighlight: "mit Noreja",
+      subtitle: "Schließe dich Unternehmen an, die mit intelligenter Prozessanalyse Wachstum und Effizienz neu definieren.",
       ctaPrimary: "Heute loslegen",
       ctaSecondary: "Demo vereinbaren",
       startJourney: "Starten Sie Ihre Reise",

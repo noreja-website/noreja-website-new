@@ -2,6 +2,8 @@ import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 export function USPsShowcase() {
   const ref = useRef(null);
@@ -105,12 +107,17 @@ export function USPsShowcase() {
           <h2 className="text-4xl font-bold mb-6">
             {t.usps.title}{" "}
             <span className="bg-gradient-primary bg-clip-text text-transparent">
-              Noreja
+              {t.usps.highlight}
             </span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
             {t.usps.subtitle}
           </p>
+          <Link to="/contact">
+            <Button size="lg" className="gradient-primary glow-primary">
+              {t.hero.ctaSecondary}
+            </Button>
+          </Link>
         </motion.div>
 
         <div className="relative max-w-6xl mx-auto">
