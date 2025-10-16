@@ -12,6 +12,7 @@ export function USPsShowcase() {
   const isMobile = useIsMobile();
   const [selectedCard, setSelectedCard] = useState<number | null>(null);
   const [flippedCards, setFlippedCards] = useState<Set<number>>(new Set());
+  const [isResizing, setIsResizing] = useState(false);
 
   // Disable body scroll when a card is selected
   useEffect(() => {
@@ -28,6 +29,25 @@ export function USPsShowcase() {
       document.body.style.overflow = '';
     };
   }, [selectedCard]);
+
+  // Handle resize events to prevent hover effects during layout changes
+  useEffect(() => {
+    let resizeTimeout: NodeJS.Timeout;
+    
+    const handleResize = () => {
+      setIsResizing(true);
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        setIsResizing(false);
+      }, 150); // Debounce resize events
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      clearTimeout(resizeTimeout);
+    };
+  }, []);
 
   const usps = [
     {
@@ -96,8 +116,8 @@ export function USPsShowcase() {
   };
 
   return (
-    <section ref={ref} className="py-20 bg-background">
-      <div className="container mx-auto px-4 lg:px-8">
+    <section ref={ref} className="py-20 bg-background overflow-hidden">
+      <div className="container mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
@@ -188,7 +208,7 @@ export function USPsShowcase() {
           
           <div 
             data-cards-container
-            className="grid grid-cols-1 md:grid-cols-2 gap-6"
+            className="grid grid-cols-1 md:grid-cols-2 gap-6 overflow-hidden py-4 transition-all duration-300 ease-in-out"
           >
             {usps.map((usp, index) => {
               const isSelected = selectedCard === index;
@@ -209,7 +229,7 @@ export function USPsShowcase() {
                     delay: isSelected ? 0 : 0.6, // Same delay for all cards - matches the bottom right timing
                     ease: "easeOut" // Consistent easing for all cards
                   }}
-                  whileHover={!isMobile && selectedCard === null ? { 
+                  whileHover={!isMobile && selectedCard === null && !isResizing ? { 
                     scale: 1.02,
                     transition: { duration: 0.2 }
                   } : {}}

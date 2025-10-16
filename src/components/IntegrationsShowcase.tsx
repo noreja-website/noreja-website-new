@@ -113,7 +113,7 @@ export const IntegrationsShowcase: React.FC<IntegrationsShowcaseProps> = ({
   const displayTitle = title || `${t.integrations.title} ${t.integrations.titleHighlight}`;
   const displaySubtitle = subtitle || t.integrations.subtitle;
   return (
-    <section className="relative">
+    <section className="relative overflow-hidden">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           {/* Left: Text Content */}
@@ -130,7 +130,7 @@ export const IntegrationsShowcase: React.FC<IntegrationsShowcaseProps> = ({
           </div>
 
           {/* Right: Integrations Animation Grid */}
-          <div className="relative w-full z-0">
+          <div className="relative w-full z-0 overflow-hidden">
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" aria-hidden>
               {rowsData.map((row, rowIndex) => (
                 <VerticalTicker

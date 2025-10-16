@@ -56,7 +56,7 @@ export function IntegratedHeroSection() {
   }, []);
 
   return (
-    <section className="relative pt-20 md:pt-32 pb-0 flex flex-col justify-center items-center overflow-hidden">
+    <section className="relative pt-20 md:pt-32 pb-0 flex flex-col justify-center items-center overflow-hidden w-full max-w-full">
       {/* Background Effects */}
       <div className="absolute inset-0">
         <div className="absolute top-1/4 left-1/4 w-48 h-48 md:w-96 md:h-96 bg-noreja-main/10 rounded-full blur-3xl" />
@@ -87,7 +87,7 @@ export function IntegratedHeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-4 lg:mb-6 leading-tight lg:leading-relaxed flex flex-col lg:flex-row items-center justify-center gap-2 sm:gap-4 lg:gap-4 py-2 lg:py-4 px-2 lg:text-left lg:justify-start"
+            className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-4 lg:mb-6 leading-tight lg:leading-relaxed flex flex-col lg:flex-row items-center justify-center gap-2 sm:gap-4 lg:gap-4 py-2 lg:py-4 px-2 lg:text-left lg:justify-start w-full max-w-full overflow-hidden"
           >
             <span className="lg:whitespace-nowrap">Make Processes</span>
             <motion.span

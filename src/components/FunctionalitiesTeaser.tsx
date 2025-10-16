@@ -111,7 +111,7 @@ export function FunctionalitiesTeaser() {
         {/* Desktop: 3 items first row, 2 items centered second row */}
         <div className="hidden lg:block">
           {/* First row - 3 items */}
-          <div className="flex justify-center gap-8 mb-8">
+          <div className="flex justify-center gap-8 mb-8 overflow-hidden">
             {features.slice(0, 3).map((feature, index) => {
               const Icon = feature.icon;
               return (
@@ -136,7 +136,7 @@ export function FunctionalitiesTeaser() {
           </div>
           
           {/* Second row - 2 items centered */}
-          <div className="flex justify-center gap-8">
+          <div className="flex justify-center gap-8 overflow-hidden">
             {features.slice(3, 5).map((feature, index) => {
               const Icon = feature.icon;
               return (
