@@ -96,8 +96,8 @@ const LogoBanner: React.FC = () => {
   const duplicatedLogos = [...logos, ...logos, ...logos, ...logos];
 
   return (
-    <div className="relative overflow-hidden py-8">
-      <div className="flex animate-scroll w-full max-w-full">
+    <div className="relative overflow-hidden py-8 w-full">
+      <div className="flex animate-scroll w-full">
         {duplicatedLogos.map((company, index) => {
           // Apply size classes based on logo size
           const sizeClass = 
