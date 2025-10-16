@@ -117,7 +117,7 @@ export const IntegrationsShowcase: React.FC<IntegrationsShowcaseProps> = ({
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           {/* Left: Text Content */}
-          <div className="max-w-xl pt-20">
+          <div className="max-w-xl pt-20 relative z-0">
             <h2 className="text-4xl font-bold mb-6">
               {t.integrations.title}{" "}
               <span className="bg-gradient-primary bg-clip-text text-transparent">
@@ -130,7 +130,7 @@ export const IntegrationsShowcase: React.FC<IntegrationsShowcaseProps> = ({
           </div>
 
           {/* Right: Integrations Animation Grid */}
-          <div className="relative w-full">
+          <div className="relative w-full z-0">
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" aria-hidden>
               {rowsData.map((row, rowIndex) => (
                 <VerticalTicker
@@ -154,7 +154,7 @@ const VerticalTicker: React.FC<{ items: IntegrationLogo[]; reverse?: boolean }> 
   // Duplicate list for seamless loop
   const sequence = [...items, ...items];
   return (
-    <div className="relative h-[320px] md:h-[520px] overflow-hidden rounded-xl bg-transparent">
+    <div className="relative h-[320px] md:h-[520px] overflow-hidden rounded-xl bg-transparent z-0">
       <div
         className={
           "absolute left-0 top-0 flex w-full flex-col gap-4 animate-[marquee_70s_linear_infinite] " +
@@ -183,8 +183,8 @@ const VerticalTicker: React.FC<{ items: IntegrationLogo[]; reverse?: boolean }> 
         })}
       </div>
       {/* Fade overlays at top and bottom */}
-      <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-background to-transparent pointer-events-none z-10" />
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent pointer-events-none z-10" />
+      <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-background to-transparent pointer-events-none z-0" />
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent pointer-events-none z-0" />
     </div>
   );
 };

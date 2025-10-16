@@ -182,7 +182,7 @@ export function GlobalConnectionOverlay({ connections }: GlobalConnectionOverlay
   };
 
   return (
-    <div className="absolute inset-0 pointer-events-none z-[5]" style={{ height: dimensions.height }}>
+    <div className="absolute inset-0 pointer-events-none z-0" style={{ height: dimensions.height }}>
       <svg
         ref={svgRef}
         width={dimensions.width}
