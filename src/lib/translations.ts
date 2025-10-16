@@ -585,24 +585,24 @@ export const translations: Record<Language, Translations> = {
       },
       features: {
         aiAnalytics: {
-          "title": "Lorem Ipsum Feature 1",
-          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
+          title: "Minerva",
+          description: "Your AI-powered process analyst. Minerva combines process data with contextual knowledge to identify causes, explain relationships, and provide well-founded recommendations for action."
         },
         dataIntegration: {
-          "title": "Lorem Ipsum Feature 2",
-          "description": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia."
+          title: "Analyzer",
+          description: "Dive deep into your processes, understand relationships, and quickly discover where and why problems arise – data-driven and traceable."
         },
         security: {
-          "title": "Lorem Ipsum Feature 3",
-          "description": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi."
+          title: "Dashboard",
+          description: "Present your process insights clearly and concisely or use the dashboard to continuously monitor changes and improvements."
         },
         realTime: {
-          "title": "Lorem Ipsum Feature 4",
-          "description": "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati."
+          title: "Builder",
+          description: "Import data directly, without event logs – supplement knowledge, hypotheses, or contextual data with just a few clicks. This way you maintain full control over your analysis."
         },
         workbench: {
-          "title": "Lorem Ipsum Feature 5",
-          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
+          title: "Workbench",
+          description: "Extend your analyses with custom scripts in the integrated Jupyter Notebook – without leaving the application. Your data always stays with you."
         }
       }
     },

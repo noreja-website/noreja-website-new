@@ -75,10 +75,10 @@ const Index = () => {
       <div className="relative">
         <AnimatedGridBackground key="animated-grid-integrations" />
         {/* Gradient fade from previous section */}
-        <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-background to-transparent pointer-events-none z-10" />
+        <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-background to-transparent pointer-events-none z-0" />
         {/* Gradient fade to next section */}
-        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-b from-transparent to-background pointer-events-none z-10" />
-        <div className="relative z-0">
+        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-b from-transparent to-background pointer-events-none z-0" />
+        <div className="relative z-10">
           <IntegrationsShowcase />
         </div>
       </div>
