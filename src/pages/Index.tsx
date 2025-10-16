@@ -29,8 +29,8 @@ const Index = () => {
       {/* USPsShowcase with gradient background */}
       <div className="relative" style={{
         background: `
-          linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--noreja-main) / 0.15) 50%, hsl(var(--background)) 100%),
-          radial-gradient(ellipse 1000px 800px at 50% 50%, hsl(var(--noreja-secondary) / 0.12) 0%, transparent 60%)
+          linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--noreja-main) / 0.14) 50%, hsl(var(--background)) 100%),
+          radial-gradient(ellipse 1000px 800px at 50% 50%, hsl(var(--noreja-secondary) / 0.10) 0%, transparent 60%)
         `
       }}>
         {/* Gradient fade from previous section */}
@@ -57,8 +57,8 @@ const Index = () => {
       {/* FunctionalitiesTeaser with gradient background */}
       <div className="relative" style={{
         background: `
-          linear-gradient(45deg, hsl(var(--background)) 0%, hsl(var(--noreja-secondary) / 0.18) 30%, hsl(var(--background)) 70%),
-          radial-gradient(ellipse 1200px 900px at 30% 70%, hsl(var(--noreja-main) / 0.15) 0%, transparent 50%)
+          linear-gradient(45deg, hsl(var(--background)) 0%, hsl(var(--noreja-secondary) / 0.12) 30%, hsl(var(--background)) 100%),
+          radial-gradient(ellipse 1200px 900px at 30% 70%, hsl(var(--noreja-main) / 0.08) 0%, transparent 60%)
         `
       }}>
         {/* Gradient fade from previous section */}
@@ -75,9 +75,9 @@ const Index = () => {
       <div className="relative">
         <AnimatedGridBackground key="animated-grid-integrations" />
         {/* Gradient fade from previous section */}
-        <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background to-transparent pointer-events-none z-0" />
+        <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-background to-transparent pointer-events-none z-10" />
         {/* Gradient fade to next section */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-background pointer-events-none z-0" />
+        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-b from-transparent to-background pointer-events-none z-10" />
         <div className="relative z-0">
           <IntegrationsShowcase />
         </div>
@@ -86,8 +86,8 @@ const Index = () => {
       {/* Blog and CTA section with gradient background */}
       <div className="relative" style={{
         background: `
-          linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--noreja-main) / 0.20) 40%, hsl(var(--noreja-secondary) / 0.15) 80%, hsl(var(--background)) 100%),
-          radial-gradient(ellipse 1000px 700px at 70% 20%, hsl(var(--noreja-secondary) / 0.18) 0%, transparent 60%)
+          linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--noreja-main) / 0.16) 40%, hsl(var(--noreja-secondary) / 0.15) 80%, hsl(var(--background)) 100%),
+          radial-gradient(ellipse 1000px 700px at 70% 20%, hsl(var(--noreja-secondary) / 0.14) 0%, transparent 60%)
         `
       }}>
         {/* Gradient fade from previous section */}
