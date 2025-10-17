@@ -67,16 +67,28 @@ function seededShuffle<T>(array: T[], seed: number): T[] {
 
 function buildRows(all: IntegrationLogo[], rows: number): IntegrationLogo[][] {
   if (all.length === 0) return [];
-  const result: IntegrationLogo[][] = [];
   
-  // Create a different randomized sequence for each row
-  // This minimizes the chance of seeing the same logo multiple times on screen
-  for (let i = 0; i < rows; i++) {
-    // Use row index as seed to get different but consistent shuffle per row
-    const shuffled = seededShuffle(all, i * 1000 + Date.now());
-    // VerticalTicker will handle the duplication for seamless loop
-    result.push(shuffled);
+  // First, shuffle all logos once with a consistent seed
+  const shuffled = seededShuffle(all, 42);
+  
+  // Distribute logos across columns in a round-robin fashion
+  // This ensures each logo appears in different positions across columns
+  const result: IntegrationLogo[][] = Array.from({ length: rows }, () => []);
+  
+  // Calculate how many times we need to go through the logos to fill all columns adequately
+  const logosPerColumn = Math.ceil(shuffled.length * 1.5); // Ensure enough logos per column for smooth scrolling
+  
+  // Distribute logos using offset round-robin to avoid same logos appearing at same positions
+  for (let columnIndex = 0; columnIndex < rows; columnIndex++) {
+    // Start each column at a different offset to spread logos out
+    const offset = Math.floor((columnIndex * shuffled.length) / rows);
+    
+    for (let i = 0; i < logosPerColumn; i++) {
+      const logoIndex = (offset + i) % shuffled.length;
+      result[columnIndex].push(shuffled[logoIndex]);
+    }
   }
+  
   return result;
 }
 
