@@ -87,14 +87,14 @@ export function IntegratedHeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 lg:mb-6 leading-tight lg:leading-relaxed flex flex-col lg:flex-row items-center lg:items-start justify-center lg:justify-start gap-2 sm:gap-4 lg:gap-4 py-2 lg:py-4 px-4 lg:px-6 w-full max-w-full"
+            className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 lg:mb-6 leading-tight lg:leading-relaxed flex flex-col lg:flex-row items-center lg:items-baseline justify-center lg:justify-start gap-2 sm:gap-4 lg:gap-4 py-2 lg:py-4 px-4 lg:px-6 w-full max-w-full"
           >
             <span className="lg:whitespace-nowrap">Make Processes</span>
             <motion.span
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.3 }}
-              className="bg-gradient-primary bg-clip-text text-transparent py-1 md:py-2 lg:whitespace-nowrap"
+              className="bg-gradient-primary bg-clip-text text-transparent lg:whitespace-nowrap"
             >
               {displayedText}
               <span className={`inline-block ml-1 ${showCursor ? 'opacity-100' : 'opacity-0'}`} style={{ fontSize: '1em', lineHeight: '0.1', color: 'transparent', background: 'linear-gradient(135deg, #452BE9, #4569E7)', backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>_</span>
