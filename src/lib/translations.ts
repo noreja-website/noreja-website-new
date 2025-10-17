@@ -607,13 +607,13 @@ export const translations: Record<Language, Translations> = {
       }
     },
     usps: {
-      title: "Why Choose",
-      highlight: "Noreja",
-      subtitle: "Discover the key advantages that make our platform the preferred choice for data-driven organizations worldwide.",
+      title: "The New Standard for ",
+      highlight: "Process Intelligence",
+      subtitle: "From automatic analysis to AI-supported root cause research – everything you need to make processes self-improving.",
       tapToLearnMore: "Tap to learn more",
       features: {
         connectionSpeed: {
-          title: "Connection Speed",
+          title: "Fast Connection",
           description: "Data integration works without intermediate steps such as an event log. The Builder connects directly to the tables of the (relational) databases. This significantly accelerates data connection compared to conventional solutions."
         },
         realisticResults: {
@@ -632,9 +632,9 @@ export const translations: Record<Language, Translations> = {
     },
     integrations: {
       badge: "Integrations",
-      title: "Over 100",
-      titleHighlight: "Integrations available",
-      subtitle: "Simply connect and get started: With numerous integrations, connecting your IT landscape is child's play.",
+      title: "Simply connect.",
+      titleHighlight: "Start immediately.",
+      subtitle: "Noreja integrates seamlessly into your existing system landscape. Flexible, secure and without additional integration efforts.",
       discoverIntegrations: "Discover integrations"
     },
     process: {
@@ -701,7 +701,7 @@ export const translations: Record<Language, Translations> = {
     },
     blog: {
       title: "Our Blog",
-      subtitle: "Dive deep into industry insights, technical innovations, and thought leadership from our team of experts on our dedicated blog platform.",
+      subtitle: "Dive into practical analyses, industry knowledge and innovations around Process Intelligence, directly from our expert team.",
       latestPosts: "Latest Posts",
       readMore: "Read More",
       openBlog: "Open Blog",
@@ -786,13 +786,13 @@ export const translations: Record<Language, Translations> = {
       formLoadError: "Failed to load download form. Please try again.",
     },
     finalCta: {
-      badge: "Ready to Launch",
-      title: "Transform Your Business",
-      titleHighlight: "Today",
-      subtitle: "Join thousands of companies already using our revolutionary platform to accelerate growth and innovation.",
+      badge: "Ready to Start",
+      title: "Take the Next Step – ",
+      titleHighlight: "with Noreja",
+      subtitle: "Join companies that are redefining growth and efficiency with intelligent process analysis.",
       ctaPrimary: "Get Started Today",
       ctaSecondary: "Schedule a Demo",
-      startJourney: "Start Your Journey",
+      startJourney: "Start Your Journey →",
       scheduleDemo: "Schedule Demo"
     },
     footer: {
@@ -1030,7 +1030,7 @@ export const translations: Record<Language, Translations> = {
       tapToLearnMore: "Tippen, um mehr zu erfahren",
       features: {
         connectionSpeed: {
-          title: "Anbindungsgeschwindigkeit",
+          title: "Schnelle Anbindung",
           description: "Die Datenanbindung funktioniert ohne Zwischenschritte wie einem Event-Log. Der Builder verbindet sich direkt zu den Tabellen der (relationalen) Datenbanken. Dies beschleunigt die Datenanbindung im Vergleich zu herkömmlichen Lösungen enorm."
         },
         realisticResults: {
@@ -1039,7 +1039,7 @@ export const translations: Record<Language, Translations> = {
         },
         multidimensionalPerspectives: {
           title: "Multidimensionale Perspektiven",
-          description: "Die Prozessanalyse kann multidimensionalen durchgeführt werden. Benutzer können zusätzliche Ansichten auf der Grundlage verschiedener Geschäftsobjekte hinzufügen, z.B. einer Bestellnummer, einer Benutzer-ID oder einer Rechnungsnummer."
+          description: "Die Prozessanalyse kann multidimensional durchgeführt werden. Benutzer können zusätzliche Ansichten auf der Grundlage verschiedener Geschäftsobjekte hinzufügen, z.B. einer Bestellnummer, einer Benutzer-ID oder einer Rechnungsnummer."
         },
         contextDomainKnowledge: {
           title: "Kontext- und Domänenwissen",
