@@ -26,8 +26,34 @@ export function HubSpotBlogTeaser({ maxItems = 3 }: HubSpotBlogTeaserProps) {
 
   // HubSpot RSS Feed URLs - adjust based on language
   const RSS_FEED_URL = language === 'de' 
-    ? 'https://144242473.hs-sites-eu1.com/de-de/noreja-intelligecne-gmbh-blog/rss.xml'
-    : 'https://144242473.hs-sites-eu1.com/en/noreja-intelligecne-gmbh-blog/rss.xml';
+    ? 'https://144242473.hs-sites-eu1.com/de-de/noreja-intelligence-gmbh-blog/rss.xml'
+    : 'http://144242473.hs-sites-eu1.com/en/noreja-intelligence-blog/rss.xml';
+
+  // Helper function to extract author name without email
+  const extractAuthorName = (authorString: string | null | undefined): string | undefined => {
+    if (!authorString) return undefined;
+    
+    // Format: "email@domain.com (Name)" -> extract Name
+    const nameInParens = authorString.match(/\(([^)]+)\)/);
+    if (nameInParens) {
+      return nameInParens[1].trim();
+    }
+    
+    // Format: "Name <email@domain.com>" -> extract Name
+    const nameBeforeEmail = authorString.match(/^([^<]+)</);
+    if (nameBeforeEmail) {
+      return nameBeforeEmail[1].trim();
+    }
+    
+    // If it's just an email, don't show it
+    const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(authorString.trim());
+    if (isEmail) {
+      return undefined;
+    }
+    
+    // Otherwise return as-is (but trim whitespace)
+    return authorString.trim();
+  };
 
   useEffect(() => {
     const fetchBlogPosts = async () => {
@@ -63,7 +89,8 @@ export function HubSpotBlogTeaser({ maxItems = 3 }: HubSpotBlogTeaserProps) {
           const link = item.querySelector('link')?.textContent || '#';
           const pubDate = item.querySelector('pubDate')?.textContent || '';
           const description = item.querySelector('description')?.textContent || '';
-          const author = item.querySelector('author, dc\\:creator')?.textContent;
+          const authorRaw = item.querySelector('author, dc\\:creator')?.textContent;
+          const author = extractAuthorName(authorRaw);
           
           // Extract image from various possible RSS elements
           let imageUrl: string | undefined;
