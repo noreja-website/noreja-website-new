@@ -389,6 +389,7 @@ export interface Translations {
       imprint: string;
       privacy: string;
       terms: string;
+      trustCenter: string;
     };
   };
   buttons: {
@@ -590,7 +591,7 @@ export const translations: Record<Language, Translations> = {
         },
         dataIntegration: {
           title: "Analyzer",
-          description: "Dive deep into your processes, understand relationships, and quickly discover where and why problems arise – data-driven and traceable."
+          description: "Dive deep into your processes, understand relationships, and quickly discover where and why problems arise, data-driven and traceable."
         },
         security: {
           title: "Dashboard",
@@ -598,18 +599,18 @@ export const translations: Record<Language, Translations> = {
         },
         realTime: {
           title: "Builder",
-          description: "Import data directly, without event logs – supplement knowledge, hypotheses, or contextual data with just a few clicks. This way you maintain full control over your analysis."
+          description: "Import data directly, without event logs, supplement knowledge, hypotheses, or contextual data with just a few clicks. This way you maintain full control over your analysis."
         },
         workbench: {
           title: "Workbench",
-          description: "Extend your analyses with custom scripts in the integrated Jupyter Notebook – without leaving the application. Your data always stays with you."
+          description: "Extend your analyses with custom scripts in the integrated Jupyter Notebook, without leaving the application. Your data always stays with you."
         }
       }
     },
     usps: {
       title: "The New Standard for ",
       highlight: "Process Intelligence",
-      subtitle: "From automatic analysis to AI-supported root cause research – everything you need to make processes self-improving.",
+      subtitle: "From automatic analysis to AI-supported root cause research, everything you need to make processes self-improving.",
       tapToLearnMore: "Tap to learn more",
       features: {
         connectionSpeed: {
@@ -807,7 +808,8 @@ export const translations: Record<Language, Translations> = {
       legal: {
         imprint: "Imprint",
         privacy: "Privacy Policy",
-        terms: "Terms of Service"
+        terms: "Terms of Service",
+        trustCenter: "Trust Center"
       }
     },
     buttons: {
@@ -1224,7 +1226,8 @@ export const translations: Record<Language, Translations> = {
       legal: {
         imprint: "Impressum",
         privacy: "Datenschutz",
-        terms: "Nutzungsbedingungen"
+        terms: "Nutzungsbedingungen",
+        trustCenter: "Trust Center"
       }
     },
     buttons: {

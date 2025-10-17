@@ -15,9 +15,10 @@ export function Footer() {
   ];
 
   const legalLinks = [
-    { name: t.footer.legal.imprint, href: "/imprint" },
-    { name: t.footer.legal.privacy, href: "/privacy" },
-    { name: t.footer.legal.terms, href: "/terms" }
+    { name: t.footer.legal.imprint, href: "/imprint", external: false },
+    { name: t.footer.legal.privacy, href: "/privacy", external: false },
+    { name: t.footer.legal.trustCenter, href: "https://app.kertos.io/trust-center/norejaintelligencegmbh", external: true },
+    { name: t.footer.legal.terms, href: "/terms", external: false }
   ];
 
   return (
@@ -87,13 +88,25 @@ export function Footer() {
             <h3 className="font-semibold mb-4">Legal</h3>
             <div className="flex flex-col space-y-2">
               {legalLinks.map((item) => (
-                <Link
-                  key={item.href}
-                  to={item.href}
-                  className="text-muted-foreground hover:text-primary transition-fast text-sm"
-                >
-                  {item.name}
-                </Link>
+                item.external ? (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-primary transition-fast text-sm"
+                  >
+                    {item.name}
+                  </a>
+                ) : (
+                  <Link
+                    key={item.href}
+                    to={item.href}
+                    className="text-muted-foreground hover:text-primary transition-fast text-sm"
+                  >
+                    {item.name}
+                  </Link>
+                )
               ))}
             </div>
           </div>
