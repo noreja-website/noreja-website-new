@@ -35,9 +35,9 @@ export function TeamCard({ member, index }: TeamCardProps) {
           className="h-full group cursor-pointer"
           onClick={openModal}
         >
-          <div className="h-full bg-card border border-border/40 rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 hover:border-noreja-main/30">
+          <div className="h-full bg-card border border-border/40 rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 hover:border-noreja-main/30 relative">
             {/* Image */}
-            <div className="aspect-[4/3] overflow-hidden">
+            <div className="aspect-[3/4] overflow-hidden">
               <img
                 src={member.imageUrl}
                 alt={`${member.name} profile`}
@@ -54,10 +54,10 @@ export function TeamCard({ member, index }: TeamCardProps) {
               />
             </div>
             
-            {/* Content */}
-            <div className="p-6">
+            {/* Content Overlay */}
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/70 to-transparent p-6">
               {/* Name and Role */}
-              <h3 className="text-lg font-bold mb-2 group-hover:text-noreja-main transition-colors">
+              <h3 className="text-lg font-bold mb-2 text-white group-hover:text-noreja-main transition-colors">
                 {member.name}
               </h3>
               <p className="text-sm font-medium text-noreja-main mb-4">
@@ -69,7 +69,7 @@ export function TeamCard({ member, index }: TeamCardProps) {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="group-hover:bg-noreja-main group-hover:text-white group-hover:border-noreja-main transition-all"
+                  className="bg-white/10 border-white/20 text-white hover:bg-noreja-main hover:text-white hover:border-noreja-main transition-all backdrop-blur-sm"
                   onClick={(e) => {
                     e.stopPropagation();
                     window.open(member.linkedInUrl, '_blank');
@@ -113,7 +113,7 @@ export function TeamCard({ member, index }: TeamCardProps) {
               <div className="flex flex-col lg:flex-row max-h-[80vh] overflow-hidden">
                 {/* Image Section */}
                 <div className="lg:w-2/5 flex-shrink-0 p-6 lg:p-8 flex flex-col">
-                  <div className="aspect-[4/3] lg:aspect-square overflow-hidden mb-6">
+                  <div className="aspect-[3/4] overflow-hidden mb-6 rounded-lg">
                     <img
                       src={member.imageUrl}
                       alt={`${member.name} profile`}
@@ -123,7 +123,7 @@ export function TeamCard({ member, index }: TeamCardProps) {
                         target.style.display = 'none';
                         const parent = target.parentElement;
                         if (parent) {
-                          parent.innerHTML = `<div class="w-full h-full flex items-center justify-center text-6xl font-bold text-noreja-main bg-muted">${member.name.split(' ').map(n => n[0]).join('')}</div>`;
+                          parent.innerHTML = `<div class="w-full h-full flex items-center justify-center text-6xl font-bold text-noreja-main bg-muted rounded-lg">${member.name.split(' ').map(n => n[0]).join('')}</div>`;
                         }
                       }}
                     />
