@@ -120,6 +120,7 @@ const LogoBanner: React.FC = () => {
                   src={company.logo}
                   alt={`${company.name} logo`}
                   className={`${sizeClass} object-contain filter grayscale hover:grayscale-0 transition-all duration-300`}
+                  loading="lazy"
                 />
               </div>
             </div>

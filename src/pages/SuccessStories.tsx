@@ -101,6 +101,7 @@ const SuccessStories = () => {
                               src={story.logoUrl}
                               alt={`${story.companyName} logo`}
                               className="max-w-full max-h-full object-contain transition-transform group-hover:scale-105"
+                              loading="lazy"
                               onClick={() => window.open(story.externalUrl, '_blank')}
                             />
                           </div>

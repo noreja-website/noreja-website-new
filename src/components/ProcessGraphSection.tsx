@@ -204,6 +204,7 @@ function ProcessNode({ step, index, allSteps }: { step: ProcessStep; index: numb
                   src={graphThreeNodes} 
                   alt={step.title}
                   className="w-full h-full object-contain"
+                  loading="lazy"
                   initial={{ rotateY: 0 }}
                   animate={shouldAnimate ? { rotateY: [-8, 0, 8, 0, -8] } : { rotateY: 0 }}
                   transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}

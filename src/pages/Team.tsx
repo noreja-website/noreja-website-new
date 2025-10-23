@@ -51,6 +51,7 @@ export default function Team() {
                           src={member.imageUrl}
                           alt={`${member.name} profile`}
                           className="w-full h-full object-cover"
+                          loading="lazy"
                           onError={(e) => {
                             const target = e.target as HTMLImageElement;
                             target.style.display = 'none';

@@ -82,6 +82,7 @@ export default function Partners() {
                       src={partner.logoUrl}
                       alt={`${partner.name} logo`}
                       className="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-300"
+                      loading="lazy"
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
                         target.style.display = 'none';

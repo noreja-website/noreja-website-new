@@ -32,6 +32,7 @@ export function Footer() {
                 src={logo}
                 alt="Noreja Logo"
                 className="w-36 aspect-[1308/322]"
+                loading="lazy"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               />
