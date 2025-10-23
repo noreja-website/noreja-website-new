@@ -6,8 +6,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Layout } from "@/components/Layout";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import Index from "./pages/Index";
-import Startseite2 from "./pages/Startseite2";
-import Startseite3 from "./pages/Startseite3";
 import Functionalities from "./pages/Functionalities";
 import SuccessStories from "./pages/SuccessStories";
 import Team from "./pages/Team";
@@ -33,8 +31,6 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/functionalities" element={<Functionalities />} />
-            <Route path="/startseite-2" element={<Startseite2 />} />
-            <Route path="/startseite-3" element={<Startseite3 />} />
             <Route path="/success-stories" element={<SuccessStories />} />
             <Route path="/team" element={<Team />} />
             <Route path="/partners" element={<Partners />} />

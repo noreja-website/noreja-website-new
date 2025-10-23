@@ -356,6 +356,11 @@ export interface Translations {
     title: string;
     subtitle: string;
     connectLinkedIn: string;
+    founders: string;
+    team: string;
+    learnMore: string;
+    advisoryBoard: string;
+    advisorySubtitle: string;
   };
   downloadGate: {
     download: string;
@@ -776,6 +781,11 @@ export const translations: Record<Language, Translations> = {
       title: "Meet Our Team",
       subtitle: "Passionate professionals dedicated to driving innovation and delivering exceptional results for our clients worldwide.",
       connectLinkedIn: "Connect on LinkedIn",
+      founders: "Founder-Team",
+      team: "Team",
+      learnMore: "Learn More",
+      advisoryBoard: "Advisory-Board",
+      advisorySubtitle: "Industry experts and thought leaders who guide our strategic direction and innovation.",
     },
     downloadGate: {
       download: "Download",
@@ -1194,6 +1204,11 @@ export const translations: Record<Language, Translations> = {
       title: "Lernen Sie unser Team kennen",
       subtitle: "Leidenschaftliche Fachkräfte, die sich der Innovation und der Bereitstellung außergewöhnlicher Ergebnisse für unsere Kunden weltweit widmen.",
       connectLinkedIn: "Auf LinkedIn verbinden",
+      founders: "Gründer-Team",
+      team: "Team",
+      learnMore: "Mehr erfahren",
+      advisoryBoard: "Advisory-Board",
+      advisorySubtitle: "Branchenexperten und Vordenker, die unsere strategische Ausrichtung und Innovation leiten.",
     },
     downloadGate: {
       download: "Herunterladen",

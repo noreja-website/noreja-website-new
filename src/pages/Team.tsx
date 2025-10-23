@@ -1,13 +1,16 @@
 import { motion } from "framer-motion";
 import { Linkedin } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { HubSpotBlogTeaser } from "@/components/HubSpotBlogTeaser";
-import { teamMembers } from "@/lib/team";
+import { TeamCard } from "@/components/TeamCard";
+import { teamMembers, advisoryMembers } from "@/lib/team";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Team() {
   const { t } = useLanguage();
+
+  // Separate founders and team members
+  const founders = teamMembers.filter(member => member.isFounder);
+  const teamMembers_ = teamMembers.filter(member => !member.isFounder);
 
   return (
     <div className="min-h-screen bg-background">
@@ -30,22 +33,80 @@ export default function Team() {
         </div>
       </section>
 
-      {/* Team Grid */}
+      {/* Founders Section */}
+      <section className="pb-16">
+        <div className="w-full max-w-7xl mx-auto px-4 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl lg:text-4xl font-bold mb-4 text-foreground">
+              {t.team.founders}
+            </h2>
+          </motion.div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {founders.map((member, index) => (
+              <TeamCard key={member.id} member={member} index={index} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Team Section */}
       <section className="pb-20">
         <div className="w-full max-w-7xl mx-auto px-4 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {teamMembers.map((member, index) => (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl lg:text-4xl font-bold mb-4 text-foreground">
+              {t.team.team}
+            </h2>
+          </motion.div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {teamMembers_.map((member, index) => (
+              <TeamCard key={member.id} member={member} index={index} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Advisory Board Section */}
+      <section className="py-20">
+        <div className="w-full max-w-7xl mx-auto px-4 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl lg:text-4xl font-bold mb-4 text-foreground">
+              {t.team.advisoryBoard}
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              {t.team.advisorySubtitle}
+            </p>
+          </motion.div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {advisoryMembers.map((member, index) => (
               <motion.div
                 key={member.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="h-full"
+                className="group"
               >
-                <Card className="h-full group hover:shadow-lg transition-all duration-300 border-border/40 hover:border-noreja-main/30">
-                  <CardHeader className="text-center pb-4">
-                    {/* Profile Image */}
-                    <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-noreja-main/20 to-noreja-main/5 p-1">
+                <div className="text-center">
+                  {/* Circular Image */}
+                  <div className="relative mb-4">
+                    <div className="w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-noreja-main/20 to-noreja-main/5 p-1 group-hover:scale-105 transition-transform duration-300">
                       <div className="w-full h-full rounded-full bg-muted flex items-center justify-center overflow-hidden">
                         <img
                           src={member.imageUrl}
@@ -57,40 +118,27 @@ export default function Team() {
                             target.style.display = 'none';
                             const parent = target.parentElement;
                             if (parent) {
-                              parent.innerHTML = `<div class="w-full h-full flex items-center justify-center text-2xl font-bold text-noreja-main">${member.name.split(' ').map(n => n[0]).join('')}</div>`;
+                              parent.innerHTML = `<div class="w-full h-full flex items-center justify-center text-xl font-bold text-noreja-main">${member.name.split(' ').map(n => n[0]).join('')}</div>`;
                             }
                           }}
                         />
                       </div>
                     </div>
-                    
-                    {/* Name and Role */}
-                    <CardTitle className="text-lg font-bold group-hover:text-noreja-main transition-colors">
-                      {member.name}
-                    </CardTitle>
-                    <p className="text-sm font-medium text-noreja-main">
-                      {member.role}
-                    </p>
-                  </CardHeader>
+                  </div>
                   
-                  <CardContent className="pt-0 px-6 pb-6">
-                    {/* One-liner */}
-                    <p className="text-muted-foreground text-sm leading-relaxed mb-6 text-center">
-                      {member.oneLiner}
-                    </p>
-                    
-                    {/* LinkedIn Button */}
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="w-full group-hover:bg-noreja-main group-hover:text-white group-hover:border-noreja-main transition-all"
-                      onClick={() => window.open(member.linkedInUrl, '_blank')}
-                    >
-                      <Linkedin className="w-4 h-4 mr-2" />
-                      {t.team.connectLinkedIn}
-                    </Button>
-                  </CardContent>
-                </Card>
+                  {/* Name */}
+                  <h3 className="text-sm font-semibold mb-2 group-hover:text-noreja-main transition-colors">
+                    {member.name}
+                  </h3>
+                  
+                  {/* LinkedIn Button */}
+                  <button
+                    onClick={() => window.open(member.linkedInUrl, '_blank')}
+                    className="p-2 rounded-full bg-muted hover:bg-noreja-main hover:text-white transition-all duration-300 group-hover:scale-110"
+                  >
+                    <Linkedin className="w-4 h-4" />
+                  </button>
+                </div>
               </motion.div>
             ))}
           </div>
