@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Linkedin } from "lucide-react";
+import { useMemo } from "react";
 import { HubSpotBlogTeaser } from "@/components/HubSpotBlogTeaser";
 import { TeamCard } from "@/components/TeamCard";
 import { teamMembers, advisoryMembers } from "@/lib/team";
@@ -8,9 +9,22 @@ import { useLanguage } from "@/contexts/LanguageContext";
 export default function Team() {
   const { t } = useLanguage();
 
-  // Separate founders and team members
+  // Shuffle function using Fisher-Yates algorithm
+  const shuffleArray = (array: typeof teamMembers) => {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
+
+  // Separate founders and team members first
   const founders = teamMembers.filter(member => member.isFounder);
-  const teamMembers_ = teamMembers.filter(member => !member.isFounder);
+  const regularTeamMembers = teamMembers.filter(member => !member.isFounder);
+
+  // Only shuffle the regular team members, keep founders in original order
+  const shuffledTeamMembers_ = useMemo(() => shuffleArray(regularTeamMembers), []);
 
   return (
     <div className="min-h-screen bg-background">
@@ -70,7 +84,7 @@ export default function Team() {
           </motion.div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {teamMembers_.map((member, index) => (
+            {shuffledTeamMembers_.map((member, index) => (
               <TeamCard key={member.id} member={member} index={index} />
             ))}
           </div>
