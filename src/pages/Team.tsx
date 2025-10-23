@@ -27,9 +27,20 @@ export default function Team() {
   const shuffledTeamMembers_ = useMemo(() => shuffleArray(regularTeamMembers), []);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen relative" style={{
+      background: `
+        linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--noreja-main) / 0.14) 50%, hsl(var(--background)) 100%),
+        radial-gradient(ellipse 1000px 800px at 50% 50%, hsl(var(--noreja-secondary) / 0.10) 0%, transparent 60%)
+      `
+    }}>
+      {/* Background Effects */}
+      <div className="absolute inset-0">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-noreja-main/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-noreja-tertiary/10 rounded-full blur-3xl" />
+      </div>
+      
       {/* Hero Section */}
-      <section className="relative py-20 lg:py-24">
+      <section className="relative py-20 lg:py-24 z-10">
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -48,7 +59,7 @@ export default function Team() {
       </section>
 
       {/* Founders Section */}
-      <section className="pb-16">
+      <section className="pb-16 relative z-10">
         <div className="w-full max-w-7xl mx-auto px-4 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -70,7 +81,7 @@ export default function Team() {
       </section>
 
       {/* Team Section */}
-      <section className="pb-20">
+      <section className="pb-20 relative z-10">
         <div className="w-full max-w-7xl mx-auto px-4 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -92,7 +103,7 @@ export default function Team() {
       </section>
 
       {/* Advisory Board Section */}
-      <section className="py-20">
+      <section className="py-20 relative z-10">
         <div className="w-full max-w-7xl mx-auto px-4 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -120,7 +131,7 @@ export default function Team() {
                 <div className="text-center">
                   {/* Circular Image */}
                   <div className="relative mb-4">
-                    <div className="w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-noreja-main/20 to-noreja-main/5 p-1 group-hover:scale-105 transition-transform duration-300">
+                    <div className="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-noreja-main/20 to-noreja-main/5 p-1 group-hover:scale-105 transition-transform duration-300">
                       <div className="w-full h-full rounded-full bg-muted flex items-center justify-center overflow-hidden">
                         <img
                           src={member.imageUrl}
@@ -160,7 +171,9 @@ export default function Team() {
       </section>
 
       {/* Blog Teasers Section */}
-      <HubSpotBlogTeaser />
+      <div className="relative z-10">
+        <HubSpotBlogTeaser />
+      </div>
     </div>
   );
 }

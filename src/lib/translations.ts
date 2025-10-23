@@ -779,7 +779,7 @@ export const translations: Record<Language, Translations> = {
     },
     team: {
       title: "Meet Our Team",
-      subtitle: "Passionate professionals dedicated to driving innovation and delivering exceptional results for our clients worldwide.",
+      subtitle: "Get to know the faces behind the vision and development of our solution.",
       connectLinkedIn: "Connect on LinkedIn",
       founders: "Founder-Team",
       team: "Team",
@@ -1201,8 +1201,8 @@ export const translations: Record<Language, Translations> = {
       loadingEvents: "Lade Veranstaltungen..."
     },
     team: {
-      title: "Lernen Sie unser Team kennen",
-      subtitle: "Leidenschaftliche Fachkräfte, die sich der Innovation und der Bereitstellung außergewöhnlicher Ergebnisse für unsere Kunden weltweit widmen.",
+      title: "Unser Team",
+      subtitle: "Lerne das Expertenteam kennen, das sich hinter der Vision und Entwicklung unserer Lösung befindet.",
       connectLinkedIn: "Auf LinkedIn verbinden",
       founders: "Gründer-Team",
       team: "Team",
