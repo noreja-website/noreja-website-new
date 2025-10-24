@@ -879,7 +879,7 @@ export const translations: Record<Language, Translations> = {
         titleHighlight: "Funktionen",
         subtitle: "Von automatischer Analyse bis KI-gestützter Ursachenforschung – alles, was du brauchst, um Prozesse selbstverbessernd zu machen.",
         learnMore: "Mehr erfahren",
-        learnMoreSubtitle: "Entdecken Sie Einblicke und Best Practices von unseren Experten",
+        learnMoreSubtitle: "Entdecke Einblicke und Best Practices von unseren Experten",
         capabilities: {
           dataCollection: {
             title: "Datenerfassung",
@@ -889,31 +889,31 @@ export const translations: Record<Language, Translations> = {
           },
           aiProcessing: {
             title: "KI-Verarbeitung",
-            description: "Modernste Machine-Learning-Modelle, die Ihre Daten analysieren, klassifizieren und Erkenntnisse extrahieren. Unsere KI-Engine lernt kontinuierlich und passt sich an, um zunehmend präzise und relevante Ergebnisse zu liefern.",
+            description: "Modernste Machine-Learning-Modelle, die deine Daten analysieren, klassifizieren und Erkenntnisse extrahieren. Unsere KI-Engine lernt kontinuierlich und passt sich an, um zunehmend präzise und relevante Ergebnisse zu liefern.",
             schematicTitle: "Neuronale Netzwerk-Pipeline",
             schematicDesc: "Erweiterte ML-Verarbeitungs-Workflow"
           },
           analyticsInsights: {
             title: "Analytics & Insights",
-            description: "Verwandeln Sie Rohdaten in umsetzbare Erkenntnisse mit unserer umfassenden Analytics-Suite. Erstellen Sie detaillierte Berichte, identifizieren Sie Trends und treffen Sie datengestützte Entscheidungen mit Vertrauen.",
+            description: "Verwandle Rohdaten in umsetzbare Erkenntnisse mit unserer umfassenden Analytics-Suite. Erstelle detaillierte Berichte, identifiziere Trends und treffe datengestützte Entscheidungen mit Vertrauen.",
             schematicTitle: "Analytics Dashboard",
             schematicDesc: "Echtzeit-Erkenntnisse Visualisierung"
           },
           automation: {
             title: "Automatisierung",
-            description: "Optimieren Sie Ihre Workflows mit intelligenter Automatisierung, die manuellen Aufwand reduziert und wiederkehrende Aufgaben eliminiert. Richten Sie benutzerdefinierte Trigger und Aktionen ein, um Ihre Geschäftsprozesse zu optimieren.",
+            description: "Optimiere deine Workflows mit intelligenter Automatisierung, die manuellen Aufwand reduziert und wiederkehrende Aufgaben eliminiert. Richte benutzerdefinierte Trigger und Aktionen ein, um deine Geschäftsprozesse zu optimieren.",
             schematicTitle: "Workflow-Engine",
             schematicDesc: "Automatisierte Prozess-Orchestrierung"
           },
           integration: {
             title: "Integration",
-            description: "Verbinden Sie sich nahtlos mit Ihren bestehenden Tools und Systemen über unsere robuste API und vorgefertigte Integrationen. Gewährleisten Sie einen reibungslosen Datenfluss durch Ihren gesamten Technologie-Stack.",
+            description: "Verbinde dich nahtlos mit deinen bestehenden Tools und Systemen über unsere robuste API und vorgefertigte Integrationen. Gewährleiste einen reibungslosen Datenfluss durch deinen gesamten Technologie-Stack.",
             schematicTitle: "Integration Hub",
             schematicDesc: "System-Konnektivitäts-Matrix"
           },
           security: {
             title: "Sicherheit",
-            description: "Sicherheitsfunktionen auf Unternehmensebene schützen Ihre Daten auf jeder Ebene. Mit Ende-zu-Ende-Verschlüsselung, Zugriffskontrollen und Compliance-Zertifizierungen bleiben Ihre Informationen sicher.",
+            description: "Sicherheitsfunktionen auf Unternehmensebene schützen deine Daten auf jeder Ebene. Mit Ende-zu-Ende-Verschlüsselung, Zugriffskontrollen und Compliance-Zertifizierungen bleiben deine Informationen sicher.",
             schematicTitle: "Sicherheits-Framework",
             schematicDesc: "Mehrschichtiges Schutzsystem"
           }
@@ -922,7 +922,7 @@ export const translations: Record<Language, Translations> = {
       successStories: {
         title: "Kunden",
         titleHighlight: "Erfolgsgeschichten",
-        subtitle: "Entdecken Sie, wie führende Organisationen verschiedener Branchen ihre Abläufe transformiert und bemerkenswerte Ergebnisse mit unserer Plattform erzielt haben.",
+        subtitle: "Entdecke, wie führende Organisationen verschiedener Branchen ihre Abläufe transformiert und bemerkenswerte Ergebnisse mit unserer Plattform erzielt haben.",
         readCaseStudy: "Fallstudie lesen"
       },
       partners: {
@@ -935,11 +935,11 @@ export const translations: Record<Language, Translations> = {
         becomePartner: "Partner werden",
         partnerWithUs: "Partner werden",
         learnMore: "Mehr erfahren",
-        partnerSubtitle: "Treten Sie unserem Ökosystem innovativer Partner bei und erschließen Sie neue Möglichkeiten für Wachstum, Zusammenarbeit und gemeinsamen Erfolg."
+        partnerSubtitle: "Tritt unserem Ökosystem innovativer Partner bei und erschließe neue Möglichkeiten für Wachstum, Zusammenarbeit und gemeinsamen Erfolg."
       },
       pricing: {
         title: "Einfache, transparente Preise",
-        subtitle: "Wählen Sie den Plan, der zu Ihrer Teamgröße und Ihren Bedürfnissen passt. Alle Pläne beinhalten eine 14-tägige kostenlose Testversion.",
+        subtitle: "Wähle den Plan, der zu deiner Teamgröße und deinen Bedürfnissen passt. Alle Pläne beinhalten eine 14-tägige kostenlose Testversion.",
         teamSize: "Teamgröße:",
         users: "Benutzer",
         user: "Benutzer",
@@ -992,7 +992,7 @@ export const translations: Record<Language, Translations> = {
       },
       contact: {
         title: "Kontakt aufnehmen",
-        subtitle: "Wir freuen uns auf Ihre Nachricht. Kontaktieren Sie unser Team für Fragen, Kooperationen oder Produktdemos.",
+        subtitle: "Wir freuen uns auf deine Nachricht. Kontaktiere unser Team für Fragen, Kooperationen oder Produktdemos.",
         bookCallText: "Lieber direkt einen Termin buchen?",
         bookCallButton: "Termin buchen",
         responseNote: "Wir antworten in der Regel innerhalb von 24 Stunden."
@@ -1106,19 +1106,19 @@ export const translations: Record<Language, Translations> = {
       steps: {
         collect: {
           title: "Sammeln",
-          description: "Sammeln und organisieren Sie Daten aus mehreren Quellen mit automatisierten Sammelprozessen.",
+          description: "Sammle und organisiere Daten aus mehreren Quellen mit automatisierten Sammelprozessen.",
         },
         process: {
           title: "Verarbeiten",
-          description: "Wenden Sie fortschrittliche Algorithmen und KI an, um Rohdaten in umsetzbare Erkenntnisse zu verwandeln.",
+          description: "Wende fortschrittliche Algorithmen und KI an, um Rohdaten in umsetzbare Erkenntnisse zu verwandeln.",
         },
         analyze: {
           title: "Analysieren",
-          description: "Erstellen Sie umfassende Berichte und Visualisierungen für fundierte Entscheidungsfindung.",
+          description: "Erstelle umfassende Berichte und Visualisierungen für fundierte Entscheidungsfindung.",
         },
         optimize: {
           title: "Optimieren",
-          description: "Verbessern Sie kontinuierlich Prozesse basierend auf Leistungsmetriken und Feedback.",
+          description: "Verbessere kontinuierlich Prozesse basierend auf Leistungsmetriken und Feedback.",
         },
         processing: {
           title: "KI-Verarbeitung",
@@ -1142,7 +1142,7 @@ export const translations: Record<Language, Translations> = {
         },
         deployment: {
           title: "Bereitstellung",
-          description: "Nahtlose Integration in Ihre Systeme"
+          description: "Nahtlose Integration in deine Systeme"
         },
         users: {
           title: "Benutzererfahrung",
@@ -1199,39 +1199,39 @@ export const translations: Record<Language, Translations> = {
       latestFrom: "Neueste aus",
       subscribeRss: "RSS abonnieren",
       subscribeNewsletter: "Newsletter abonnieren",
-      whatYouFind: "Unsere Kategorien",
+      whatYouFind: "Entdecke unsere Inhalte nach Kategorien organisiert",
       latestPostsPreview: "Vorschau der neuesten Beiträge",
-      getGlimpse: "Erhalten Sie einen Einblick in unsere neuesten Inhalte",
+      getGlimpse: "Erhalte einen Einblick in unsere neuesten Inhalte",
       newsletterCta: {
-        title: "Bleiben Sie informiert",
-        description: "Erhalten Sie die neuesten Einblicke, technischen Artikel und Branchenanalysen direkt in Ihrem Posteingang.",
+        title: "Bleibe informiert",
+        description: "Erhalte die neuesten Einblicke, technischen Artikel und Branchenanalysen direkt in deinem Posteingang.",
         subscribeLinkedIn: "Auf LinkedIn abonnieren"
       },
     },
     downloads: {
       title: "Ressourcen-Downloads",
-      subtitle: "Zugang zu umfassenden Leitfäden, Dokumentationen, Tools und Ressourcen, um Ihre Implementierung zu beschleunigen und das Potenzial Ihrer Plattform zu maximieren.",
+      subtitle: "Zugang zu umfassenden Leitfäden, Dokumentationen, Tools und Ressourcen, um deine Implementierung zu beschleunigen und das Potenzial deiner Plattform zu maximieren.",
       filterByCategory: "Nach Kategorie filtern:",
       availableDownloads: "Verfügbare Downloads",
       resource: "Ressource",
       resources: "Ressourcen",
-      clickToDownload: "Klicken Sie auf eine Ressource unten, um sie nach dem Ausfüllen eines kurzen Formulars herunterzuladen.",
+      clickToDownload: "Klicke auf eine Ressource unten, um sie nach dem Ausfüllen eines kurzen Formulars herunterzuladen.",
       noResourcesFound: "Keine Ressourcen gefunden",
       noResourcesDescription: "Keine Downloads für die ausgewählte Kategorie verfügbar.",
-      needAdditionalResources: "Benötigen Sie zusätzliche Ressourcen?",
-      needAdditionalDescription: "Können Sie nicht finden, wonach Sie suchen? Unser Team ist hier, um Ihnen zu helfen, die richtigen Ressourcen für Ihren spezifischen Anwendungsfall zu finden.",
+      needAdditionalResources: "Benötigst du zusätzliche Ressourcen?",
+      needAdditionalDescription: "Kannst du nicht finden, wonach du suchst? Unser Team ist hier, um dir zu helfen, die richtigen Ressourcen für deinen spezifischen Anwendungsfall zu finden.",
       contactSupport: "Support kontaktieren",
       requestCustomResource: "Individuelle Ressource anfordern",
     },
     events: {
       title: "Veranstaltungen &",
       titleHighlight: "Ankündigungen",
-      subtitle: "Bleiben Sie auf dem Laufenden über unsere neuesten Veranstaltungen, Webinare und wichtige Ankündigungen. Begleiten Sie uns für Insights und Networking-Möglichkeiten.",
+      subtitle: "Bleibe auf dem Laufenden über unsere neuesten Veranstaltungen, Webinare und wichtige Ankündigungen. Begleite uns für Insights und Networking-Möglichkeiten.",
       upcomingEvents: "Kommende Veranstaltungen",
       pastEvents: "Vergangene Veranstaltungen",
       noUpcomingEvents: "Momentan keine kommenden Veranstaltungen",
-      noUpcomingDescription: "Bleiben Sie gespannt auf zukünftige Ankündigungen und aufregende Veranstaltungen. Wir halten Sie über kommende Gelegenheiten auf dem Laufenden.",
-      stayTuned: "Bleiben Sie gespannt auf zukünftige Ankündigungen",
+      noUpcomingDescription: "Bleibe gespannt auf zukünftige Ankündigungen und aufregende Veranstaltungen. Wir halten dich über kommende Gelegenheiten auf dem Laufenden.",
+      stayTuned: "Bleibe gespannt auf zukünftige Ankündigungen",
       subscribeNewsletter: "Newsletter abonnieren",
       register: "Anmelden",
       learnMore: "Mehr erfahren",
@@ -1264,11 +1264,11 @@ export const translations: Record<Language, Translations> = {
     downloadGate: {
       download: "Herunterladen",
       downloaded: "Heruntergeladen",
-      fillForm: "Bitte füllen Sie das untenstehende Formular aus, um auf Ihren Download zuzugreifen.",
+      fillForm: "Bitte fülle das untenstehende Formular aus, um auf deinen Download zuzugreifen.",
       success: "Erfolg!",
-      downloadStarted: "Ihr Download hat begonnen.",
+      downloadStarted: "Dein Download hat begonnen.",
       error: "Fehler",
-      formLoadError: "Fehler beim Laden des Download-Formulars. Bitte versuchen Sie es erneut.",
+      formLoadError: "Fehler beim Laden des Download-Formulars. Bitte versuche es erneut.",
     },
     finalCta: {
       badge: "Bereit zum Start",
@@ -1277,7 +1277,7 @@ export const translations: Record<Language, Translations> = {
       subtitle: "Schließe dich Unternehmen an, die mit intelligenter Prozessanalyse Wachstum und Effizienz neu definieren.",
       ctaPrimary: "Heute loslegen",
       ctaSecondary: "Demo vereinbaren",
-      startJourney: "Starten Sie Ihre Reise",
+      startJourney: "Starte deine Reise",
       scheduleDemo: "Demo vereinbaren"
     },
     footer: {
