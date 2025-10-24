@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -242,17 +243,8 @@ export function HubSpotBlogTeaser({ maxItems = 3 }: HubSpotBlogTeaserProps) {
                       variant="outline" 
                       size="lg"
                       className="w-full min-h-[44px]"
-                      asChild
                     >
-                      <a 
-                        href={post.link} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-2"
-                      >
-                        {t.blog.readMore}
-                        <ExternalLink className="h-4 w-4" />
-                      </a>
+                      {t.blog.readMore}
                     </Button>
                   </CardContent>
                 </Card>
@@ -266,18 +258,9 @@ export function HubSpotBlogTeaser({ maxItems = 3 }: HubSpotBlogTeaserProps) {
                 className="min-h-[44px] w-full sm:w-auto"
                 asChild
               >
-                <a 
-                  href={language === 'de' 
-                    ? 'https://144242473.hs-sites-eu1.com/de-de/noreja-intelligecne-gmbh-blog'
-                    : 'https://144242473.hs-sites-eu1.com/en/noreja-intelligecne-gmbh-blog'
-                  }
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2"
-                >
+                <Link to="/blog" className="inline-flex items-center gap-2">
                   {t.blog.openBlog}
-                  <ExternalLink className="h-4 w-4" />
-                </a>
+                </Link>
               </Button>
             </div>
           </>

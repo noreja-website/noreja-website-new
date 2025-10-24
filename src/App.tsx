@@ -11,6 +11,7 @@ import SuccessStories from "./pages/SuccessStories";
 import Team from "./pages/Team";
 import Partners from "./pages/Partners";
 import Blog from "./pages/Blog";
+import BlogCategory from "./pages/BlogCategory";
 import Downloads from "./pages/Downloads";
 import Events from "./pages/Events";
 import Pricing from "./pages/Pricing";
@@ -35,6 +36,7 @@ const App = () => (
             <Route path="/team" element={<Team />} />
             <Route path="/partners" element={<Partners />} />
             <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:category" element={<BlogCategory />} />
             <Route path="/downloads" element={<Downloads />} />
             <Route path="/events" element={<Events />} />
             <Route path="/pricing" element={<Pricing />} />
