@@ -302,12 +302,29 @@ export interface Translations {
         title: string;
         description: string;
       };
+      caseStudies: {
+        title: string;
+        description: string;
+      };
     };
     subscribeRss: string;
     subscribeNewsletter: string;
     whatYouFind: string;
     latestPostsPreview: string;
     getGlimpse: string;
+    categories: {
+      innovation: string;
+      technical: string;
+      analysis: string;
+      caseStudies: string;
+    };
+    viewAllPosts: string;
+    latestFrom: string;
+    newsletterCta: {
+      title: string;
+      description: string;
+      subscribeLinkedIn: string;
+    };
   };
     downloads: {
       title: string;
@@ -745,6 +762,11 @@ export const translations: Record<Language, Translations> = {
       whatYouFind: "What You'll Find",
       latestPostsPreview: "Latest Posts Preview",
       getGlimpse: "Get a glimpse of our recent content",
+      newsletterCta: {
+        title: "Stay Updated",
+        description: "Get the latest insights, technical articles, and industry analysis delivered to your inbox.",
+        subscribeLinkedIn: "Subscribe on LinkedIn"
+      },
     },
     downloads: {
       title: "Resource Downloads",
@@ -1177,9 +1199,14 @@ export const translations: Record<Language, Translations> = {
       latestFrom: "Neueste aus",
       subscribeRss: "RSS abonnieren",
       subscribeNewsletter: "Newsletter abonnieren",
-      whatYouFind: "Was Sie finden werden",
+      whatYouFind: "Unsere Kategorien",
       latestPostsPreview: "Vorschau der neuesten Beiträge",
       getGlimpse: "Erhalten Sie einen Einblick in unsere neuesten Inhalte",
+      newsletterCta: {
+        title: "Bleiben Sie informiert",
+        description: "Erhalten Sie die neuesten Einblicke, technischen Artikel und Branchenanalysen direkt in Ihrem Posteingang.",
+        subscribeLinkedIn: "Auf LinkedIn abonnieren"
+      },
     },
     downloads: {
       title: "Ressourcen-Downloads",
