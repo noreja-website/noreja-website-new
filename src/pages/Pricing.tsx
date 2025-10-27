@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -51,6 +51,11 @@ const Pricing = () => {
   const currentTeamSize = teamSizeLabels[teamSizeIndex];
   const currentDataVolume = dataVolumeLabels[dataVolumeIndex];
   const pricing = calculatePricing(teamSizeIndex, dataVolumeIndex);
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const plans = [
     {

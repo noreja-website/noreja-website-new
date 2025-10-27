@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ScrollText, Shield } from "lucide-react";
 import { MarkdownBlock } from "@/components/MarkdownBlock";
+import { useEffect } from "react";
 
 const impressumContent = `# Impressum
 
@@ -116,6 +117,11 @@ Dr. Emily Foster
 **Telefon:** +49 (0) 30 12345678`;
 
 export default function Imprint() {
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}

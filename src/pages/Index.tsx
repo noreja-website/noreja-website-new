@@ -9,8 +9,14 @@ import { PartnerPhotosGrid } from "@/components/PartnerPhotosGrid";
 import { FinalCTA } from "@/components/FinalCTA";
 import { IntegrationsShowcase } from "@/components/IntegrationsShowcase";
 import { AnimatedGridBackground } from "@/components/AnimatedGridBackground";
+import { useEffect } from "react";
 
 const Index = () => {
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       {/* Sections with animated grid background */}

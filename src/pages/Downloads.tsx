@@ -4,12 +4,17 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { DownloadGate } from "@/components/DownloadGate";
 import { downloadAssets } from "@/lib/downloads";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Downloads() {
   const { t } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   
   // Get unique categories
   const categories = ["All", ...Array.from(new Set(downloadAssets.map(asset => asset.category)))];

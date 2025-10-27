@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Linkedin } from "lucide-react";
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
 import { HubSpotBlogTeaser } from "@/components/HubSpotBlogTeaser";
 import { TeamCard } from "@/components/TeamCard";
 import { teamMembers, advisoryMembers } from "@/lib/team";
@@ -8,6 +8,11 @@ import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Team() {
   const { t } = useLanguage();
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   // Shuffle function using Fisher-Yates algorithm
   const shuffleArray = (array: typeof teamMembers) => {

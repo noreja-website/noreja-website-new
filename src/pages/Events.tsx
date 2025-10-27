@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, Clock, MapPin, Users, ExternalLink, ChevronDown, ChevronUp } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -14,6 +14,11 @@ const Events = () => {
   const [showPastEvents, setShowPastEvents] = useState(false);
   const upcomingEvents = getUpcomingEvents();
   const pastEvents = getPastEvents();
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const formatEventDate = (date: Date) => {
     return new Intl.DateTimeFormat('en-US', {

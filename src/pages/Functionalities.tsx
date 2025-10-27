@@ -3,9 +3,15 @@ import { SchematicCanvas } from "@/components/SchematicCanvas";
 import { FunctionalitiesNav } from "@/components/FunctionalitiesNav";
 import { HubSpotBlogTeaser } from "@/components/HubSpotBlogTeaser";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useEffect } from "react";
 
 const Functionalities = () => {
   const { t } = useLanguage();
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   
   const capabilities = [
     {

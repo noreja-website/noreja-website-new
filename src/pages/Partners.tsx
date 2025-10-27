@@ -6,9 +6,16 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { HubSpotBlogTeaser } from "@/components/HubSpotBlogTeaser";
 import { partners } from "@/lib/partners";
+import { useEffect } from "react";
 
 export default function Partners() {
   const { t } = useLanguage();
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
