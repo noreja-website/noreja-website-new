@@ -4,6 +4,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const teamSizeLabels = [
   { value: 0, label: "0", users: 1 },
@@ -48,6 +49,8 @@ const Pricing = () => {
   const { t } = useLanguage();
   const [teamSizeIndex, setTeamSizeIndex] = useState(1); // Default to 10 users
   const [dataVolumeIndex, setDataVolumeIndex] = useState(1); // Default to 10GB
+  const [privateLLMPro, setPrivateLLMPro] = useState(false);
+  const [privateLLMExcellence, setPrivateLLMExcellence] = useState(false);
   const currentTeamSize = teamSizeLabels[teamSizeIndex];
   const currentDataVolume = dataVolumeLabels[dataVolumeIndex];
   const pricing = calculatePricing(teamSizeIndex, dataVolumeIndex);
@@ -59,11 +62,13 @@ const Pricing = () => {
 
   const plans = [
     {
-      name: t.pages.pricing.plans.starter.name,
+      name: t.pages.pricing.plans.core.name,
       price: pricing.starter,
-      description: t.pages.pricing.plans.starter.description,
-      features: t.pages.pricing.plans.starter.features,
-      cta: t.pages.pricing.plans.starter.cta,
+      description: t.pages.pricing.plans.core.description,
+      features: t.pages.pricing.plans.core.features,
+      services: t.pages.pricing.plans.core.services,
+      llmAi: t.pages.pricing.plans.core.llmAi,
+      cta: t.pages.pricing.plans.core.cta,
       ctaVariant: "outline" as const
     },
     {
@@ -71,19 +76,24 @@ const Pricing = () => {
       price: pricing.pro,
       description: t.pages.pricing.plans.pro.description,
       features: t.pages.pricing.plans.pro.features,
+      services: t.pages.pricing.plans.pro.services,
+      llmAi: t.pages.pricing.plans.pro.llmAi,
       cta: t.pages.pricing.plans.pro.cta,
       ctaVariant: "default" as const,
       popular: true
     },
     {
-      name: t.pages.pricing.plans.enterprise.name,
+      name: t.pages.pricing.plans.excellence.name,
       price: pricing.enterprise,
-      description: t.pages.pricing.plans.enterprise.description,
-      features: t.pages.pricing.plans.enterprise.features,
-      cta: t.pages.pricing.plans.enterprise.cta,
+      description: t.pages.pricing.plans.excellence.description,
+      features: t.pages.pricing.plans.excellence.features,
+      services: t.pages.pricing.plans.excellence.services,
+      llmAi: t.pages.pricing.plans.excellence.llmAi,
+      cta: t.pages.pricing.plans.excellence.cta,
       ctaVariant: "outline" as const
     }
   ];
+
 
   return (
     <div className="min-h-screen bg-background">
@@ -179,7 +189,11 @@ const Pricing = () => {
                 </CardTitle>
                 <div className="mt-4">
                   <span className="text-4xl font-bold text-foreground">
-                    ${plan.price}
+                    {plan.name === t.pages.pricing.plans.pro.name && privateLLMPro
+                      ? t.pages.pricing.onRequest
+                      : plan.name === t.pages.pricing.plans.excellence.name && privateLLMExcellence
+                        ? t.pages.pricing.onRequest
+                        : `$${plan.price}`}
                   </span>
                   <span className="text-muted-foreground">{t.pages.pricing.month}</span>
                 </div>
@@ -189,15 +203,68 @@ const Pricing = () => {
               </CardHeader>
               
               <CardContent className="space-y-6">
-                <ul className="space-y-3">
-                  {plan.features.map((feature, index) => (
-                    <li key={index} className="flex items-start text-foreground">
-                      <span className="mr-3 mt-1">•</span>
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
+                <div className="space-y-4">
+                  {/* Feature Category */}
+                  <div>
+                    <h4 className="font-semibold text-foreground mb-2">Feature</h4>
+                    <ul className="space-y-2">
+                      {plan.features.map((feature, index) => (
+                        <li key={index} className="flex items-start text-foreground text-sm">
+                          <span className="mr-2 mt-1 text-primary">•</span>
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Service Category */}
+                  <div>
+                    <h4 className="font-semibold text-foreground mb-2">Service</h4>
+                    <ul className="space-y-2">
+                      {plan.services.map((service, index) => (
+                        <li key={index} className="flex items-start text-foreground text-sm">
+                          <span className="mr-2 mt-1 text-primary">•</span>
+                          <span>{service}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* LLM + AI Category - only show if there are items */}
+                  {plan.llmAi.length > 0 && (
+                    <div>
+                      <h4 className="font-semibold text-foreground mb-2">LLM + AI</h4>
+                      <ul className="space-y-2">
+                        {plan.llmAi.map((item, index) => (
+                          <li key={index} className="flex items-start text-foreground text-sm">
+                            <span className="mr-2 mt-1 text-primary">•</span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
                 
+                {(plan.name === t.pages.pricing.plans.pro.name || plan.name === t.pages.pricing.plans.excellence.name) && (
+                  <div className="flex items-center gap-3 border rounded-md p-3">
+                    <Checkbox
+                      id={`private-llm-${plan.name}`}
+                      checked={plan.name === t.pages.pricing.plans.pro.name ? privateLLMPro : privateLLMExcellence}
+                      onCheckedChange={(checked) => {
+                        if (plan.name === t.pages.pricing.plans.pro.name) {
+                          setPrivateLLMPro(!!checked);
+                        } else {
+                          setPrivateLLMExcellence(!!checked);
+                        }
+                      }}
+                    />
+                    <label htmlFor={`private-llm-${plan.name}`} className="text-sm text-foreground">
+                      Private LLM Hosting durch uns
+                    </label>
+                  </div>
+                )}
+
                  <div className="space-y-3 pt-4">
                   <Button 
                     variant={plan.ctaVariant}
@@ -217,6 +284,7 @@ const Pricing = () => {
             </Card>
           ))}
         </div>
+
 
         {/* Footer Note */}
         <div className="text-center mt-12 text-muted-foreground">

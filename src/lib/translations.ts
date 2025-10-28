@@ -505,46 +505,77 @@ export const translations: Record<Language, Translations> = {
         user: "user",
         mostPopular: "Most Popular",
         month: "/month",
+        onRequest: "on request",
         viewAllFeatures: "View all features",
         footerNote: "All plans include 14-day free trial • No setup fees • Cancel anytime",
         plans: {
-          starter: {
-            name: "Starter",
-            description: "Perfect for small teams getting started",
+          core: {
+            name: "Core",
+            description: "Essential features to get started",
             features: [
-              "Up to 5 projects",
-              "Basic analytics",
-              "Email support",
-              "Core integrations",
-              "Standard security"
+              "Dashboard",
+              "Analyzer", 
+              "Builder",
+              "Knowledge Base"
             ],
+            services: [
+              "Data-Onboarding Workshop (2x p.a.)",
+              "Connect Source",
+              "Set up entities",
+              "Bi-Weekly Value-Support Session (45 mins)",
+              "Rate for on-top support: 1.250€ per day"
+            ],
+            llmAi: [],
             cta: "Start free trial"
           },
           pro: {
             name: "Pro",
-            description: "Best for growing teams and businesses",
+            description: "Advanced features for growing teams",
             features: [
-              "Unlimited projects",
-              "Advanced analytics",
-              "Priority support",
-              "All integrations",
-              "Enhanced security",
-              "Custom workflows",
-              "Team collaboration tools"
+              "all from CORE",
+              "Contextualizer",
+              "Issue Manager",
+              "Macro Builder"
+            ],
+            services: [
+              "Data-Onboarding Workshop (3x p.a.)",
+              "Connect Source",
+              "Set up entities",
+              "Support during dimension build-up",
+              "Process Optimization Workshop (1x p.a.)",
+              "Context-Collection Workshop (1x p.a.)",
+              "Bi-Weekly Value-Support Session (90 mins)",
+              "Rate for on-top support: 950€ per day"
+            ],
+            llmAi: [
+              "Minerva-AI",
+              "(Single) LLM"
             ],
             cta: "Start free trial"
           },
-          enterprise: {
-            name: "Enterprise",
-            description: "For large organizations with specific needs",
+          excellence: {
+            name: "Excellence",
+            description: "Complete solution for enterprise needs",
             features: [
-              "Everything in Pro",
-              "Dedicated support",
-              "Custom integrations",
-              "Advanced security",
-              "SLA guarantee",
-              "On-premise deployment",
-              "Custom training"
+              "all from PRO",
+              "Workbench",
+              "Context Manager"
+            ],
+            services: [
+              "Data-Onboarding Workshop (4x p.a.)",
+              "Connect Source",
+              "Set up entities",
+              "Support during dimension build-up",
+              "Process Optimization Workshop (2x p.a.)",
+              "Context-Collection Workshop (1x p.a.)",
+              "Process-Strategy Workshop with Partner Company (1x p.a.)",
+              "Weekly Value-Support Session (60 mins)",
+              "Customer-specific KPIs/Agent development (2x p.a.)",
+              "Rate for on-top support: 850€ per day"
+            ],
+            llmAi: [
+              "all from PRO",
+              "Multi-LLM"
             ],
             cta: "Contact us"
           }
@@ -945,46 +976,77 @@ export const translations: Record<Language, Translations> = {
         user: "Benutzer",
         mostPopular: "Am beliebtesten",
         month: "/Monat",
+        onRequest: "auf anfrage",
         viewAllFeatures: "Alle Features anzeigen",
         footerNote: "Alle Pläne beinhalten 14-tägige kostenlose Testversion • Keine Einrichtungsgebühren • Jederzeit kündbar",
         plans: {
-          starter: {
-            name: "Starter",
-            description: "Perfekt für kleine Teams, die anfangen",
+          core: {
+            name: "Core",
+            description: "Grundlegende Features für den Einstieg",
             features: [
-              "Bis zu 5 Projekte",
-              "Basis-Analytics",
-              "E-Mail-Support",
-              "Kern-Integrationen",
-              "Standard-Sicherheit"
+              "Dashboard",
+              "Analyzer",
+              "Builder", 
+              "Knowledge Base"
             ],
+            services: [
+              "Data-Onboarding Workshop (2x p.a.)",
+              "Connect Source",
+              "Set up entities",
+              "Bi-Weekly Value-Support Session (45 mins)",
+              "Rate for on-top support: 1.250€ per day"
+            ],
+            llmAi: [],
             cta: "Kostenlose Testversion starten"
           },
           pro: {
             name: "Pro",
-            description: "Am besten für wachsende Teams und Unternehmen",
+            description: "Erweiterte Features für wachsende Teams",
             features: [
-              "Unbegrenzte Projekte",
-              "Erweiterte Analytics",
-              "Prioritäts-Support",
-              "Alle Integrationen",
-              "Erweiterte Sicherheit",
-              "Benutzerdefinierte Workflows",
-              "Team-Collaboration-Tools"
+              "all from CORE",
+              "Contextualizer",
+              "Issue Manager",
+              "Macro Builder"
+            ],
+            services: [
+              "Data-Onboarding Workshop (3x p.a.)",
+              "Connect Source",
+              "Set up entities",
+              "Support during dimension build-up",
+              "Process Optimization Workshop (1x p.a.)",
+              "Context-Collection Workshop (1x p.a.)",
+              "Bi-Weekly Value-Support Session (90 mins)",
+              "Rate for on-top support: 950€ per day"
+            ],
+            llmAi: [
+              "Minerva-AI",
+              "(Single) LLM"
             ],
             cta: "Kostenlose Testversion starten"
           },
-          enterprise: {
-            name: "Enterprise",
-            description: "Für große Organisationen mit spezifischen Anforderungen",
+          excellence: {
+            name: "Excellence",
+            description: "Vollständige Lösung für Enterprise-Bedürfnisse",
             features: [
-              "Alles aus Pro",
-              "Dedizierter Support",
-              "Benutzerdefinierte Integrationen",
-              "Erweiterte Sicherheit",
-              "SLA-Garantie",
-              "On-Premise-Bereitstellung",
-              "Benutzerdefinierte Schulungen"
+              "all from PRO",
+              "Workbench",
+              "Context Manager"
+            ],
+            services: [
+              "Data-Onboarding Workshop (4x p.a.)",
+              "Connect Source",
+              "Set up entities",
+              "Support during dimension build-up",
+              "Process Optimization Workshop (2x p.a.)",
+              "Context-Collection Workshop (1x p.a.)",
+              "Process-Strategy Workshop with Partner Company (1x p.a.)",
+              "Weekly Value-Support Session (60 mins)",
+              "Customer-specific KPIs/Agent development (2x p.a.)",
+              "Rate for on-top support: 850€ per day"
+            ],
+            llmAi: [
+              "all from PRO",
+              "Multi-LLM"
             ],
             cta: "Kontakt aufnehmen"
           }
