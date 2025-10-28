@@ -501,13 +501,51 @@ export const translations: Record<Language, Translations> = {
         title: "Simple, Transparent Pricing",
         subtitle: "Choose the plan that fits your team size and needs. All plans include a 14-day free trial.",
         teamSize: "Team Size:",
+        dataVolume: "Data Volume:",
         users: "users",
         user: "user",
         mostPopular: "Most Popular",
         month: "/month",
         onRequest: "on request",
         viewAllFeatures: "View all features",
+        contactUs: "Contact us",
         footerNote: "All plans include 14-day free trial • No setup fees • Cancel anytime",
+        categories: {
+          feature: "Feature",
+          service: "Service",
+          llmAi: "LLM + AI"
+        },
+        privateLLMHosting: "Private LLM Hosting by us",
+        faq: {
+          title: "Frequently Asked Questions",
+          subtitle: "Find answers to common questions about our pricing and plans",
+          items: [
+            {
+              question: "What's included in the free trial?",
+              answer: "The 14-day free trial includes full access to all features of your chosen plan. No credit card required to start."
+            },
+            {
+              question: "Can I change my plan later?",
+              answer: "Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately and billing is prorated."
+            },
+            {
+              question: "What is private LLM hosting?",
+              answer: "Private LLM hosting means we host and manage your own dedicated language model instance, ensuring complete data privacy and customization for your specific needs."
+            },
+            {
+              question: "Do you offer custom enterprise solutions?",
+              answer: "Yes, our Excellence plan includes custom integrations and we can create tailored solutions for large organizations with specific requirements."
+            },
+            {
+              question: "What support do you provide?",
+              answer: "Support varies by plan: Core includes email support, Pro includes priority support, and Excellence includes dedicated support with weekly sessions."
+            },
+            {
+              question: "Is there a setup fee?",
+              answer: "No, there are no setup fees for any of our plans. You only pay the monthly subscription fee."
+            }
+          ]
+        },
         plans: {
           core: {
             name: "Core",
@@ -972,13 +1010,51 @@ export const translations: Record<Language, Translations> = {
         title: "Einfache, transparente Preise",
         subtitle: "Wähle den Plan, der zu deiner Teamgröße und deinen Bedürfnissen passt. Alle Pläne beinhalten eine 14-tägige kostenlose Testversion.",
         teamSize: "Teamgröße:",
+        dataVolume: "Datenvolumen:",
         users: "Benutzer",
         user: "Benutzer",
         mostPopular: "Am beliebtesten",
         month: "/Monat",
         onRequest: "auf anfrage",
         viewAllFeatures: "Alle Features anzeigen",
+        contactUs: "Kontakt aufnehmen",
         footerNote: "Alle Pläne beinhalten 14-tägige kostenlose Testversion • Keine Einrichtungsgebühren • Jederzeit kündbar",
+        categories: {
+          feature: "Feature",
+          service: "Service",
+          llmAi: "LLM + AI"
+        },
+        privateLLMHosting: "Privates LLM Hosting durch uns",
+        faq: {
+          title: "Häufig gestellte Fragen",
+          subtitle: "Finde Antworten auf häufige Fragen zu unseren Preisen und Plänen",
+          items: [
+            {
+              question: "Was ist in der kostenlosen Testversion enthalten?",
+              answer: "Die 14-tägige kostenlose Testversion beinhaltet vollen Zugang zu allen Features deines gewählten Plans. Keine Kreditkarte erforderlich."
+            },
+            {
+              question: "Kann ich meinen Plan später ändern?",
+              answer: "Ja, du kannst deinen Plan jederzeit upgraden oder downgraden. Änderungen treten sofort in Kraft und die Abrechnung erfolgt anteilig."
+            },
+            {
+              question: "Was ist privates LLM-Hosting?",
+              answer: "Privates LLM-Hosting bedeutet, dass wir deine eigene dedizierte Sprachmodell-Instanz hosten und verwalten, was vollständige Datenschutz und Anpassung an deine spezifischen Bedürfnisse gewährleistet."
+            },
+            {
+              question: "Bietet ihr maßgeschneiderte Enterprise-Lösungen?",
+              answer: "Ja, unser Excellence-Plan beinhaltet benutzerdefinierte Integrationen und wir können maßgeschneiderte Lösungen für große Organisationen mit spezifischen Anforderungen erstellen."
+            },
+            {
+              question: "Welchen Support bietet ihr?",
+              answer: "Der Support variiert je nach Plan: Core beinhaltet E-Mail-Support, Pro beinhaltet Prioritäts-Support und Excellence beinhaltet dedizierten Support mit wöchentlichen Sessions."
+            },
+            {
+              question: "Gibt es eine Einrichtungsgebühr?",
+              answer: "Nein, es gibt keine Einrichtungsgebühren für unsere Pläne. Du zahlst nur die monatliche Abonnementgebühr."
+            }
+          ]
+        },
         plans: {
           core: {
             name: "Core",

@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const teamSizeLabels = [
   { value: 0, label: "0", users: 1 },
@@ -58,6 +59,23 @@ const Pricing = () => {
   // Scroll to top when component mounts
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, []);
+
+  // Load HubSpot embed script once and let it initialize the form container
+  useEffect(() => {
+    const existing = document.querySelector(
+      'script[src="https://js-eu1.hsforms.net/forms/embed/144242473.js"]'
+    ) as HTMLScriptElement | null;
+    if (existing) return;
+
+    const script = document.createElement('script');
+    script.src = 'https://js-eu1.hsforms.net/forms/embed/144242473.js';
+    script.defer = true;
+    document.body.appendChild(script);
+
+    return () => {
+      // keep script for SPA navigation; no cleanup to avoid reloading on route change
+    };
   }, []);
 
   const plans = [
@@ -143,7 +161,7 @@ const Pricing = () => {
             {/* Data Volume Slider */}
             <div className="bg-card rounded-lg p-8 border">
               <h3 className="text-lg font-semibold mb-6 text-center text-foreground">
-                Data Volume: {currentDataVolume.label}
+                {t.pages.pricing.dataVolume} {currentDataVolume.label}
               </h3>
               
               <div className="space-y-6">
@@ -174,7 +192,7 @@ const Pricing = () => {
         {/* Pricing Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {plans.map((plan) => (
-            <Card key={plan.name} className={`relative ${plan.popular ? 'border-primary glow-primary' : ''}`}>
+            <Card key={plan.name} className={`relative flex flex-col ${plan.popular ? 'border-primary glow-primary' : ''}`}>
               {plan.popular && (
                 <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
                   <Badge variant="default" className="gradient-primary text-white">
@@ -202,11 +220,11 @@ const Pricing = () => {
                 </CardDescription>
               </CardHeader>
               
-              <CardContent className="space-y-6">
-                <div className="space-y-4">
+              <CardContent className="flex flex-col flex-grow">
+                <div className="space-y-4 flex-grow">
                   {/* Feature Category */}
                   <div>
-                    <h4 className="font-semibold text-foreground mb-2">Feature</h4>
+                    <h4 className="font-semibold text-foreground mb-2">{t.pages.pricing.categories.feature}</h4>
                     <ul className="space-y-2">
                       {plan.features.map((feature, index) => (
                         <li key={index} className="flex items-start text-foreground text-sm">
@@ -219,7 +237,7 @@ const Pricing = () => {
 
                   {/* Service Category */}
                   <div>
-                    <h4 className="font-semibold text-foreground mb-2">Service</h4>
+                    <h4 className="font-semibold text-foreground mb-2">{t.pages.pricing.categories.service}</h4>
                     <ul className="space-y-2">
                       {plan.services.map((service, index) => (
                         <li key={index} className="flex items-start text-foreground text-sm">
@@ -233,7 +251,7 @@ const Pricing = () => {
                   {/* LLM + AI Category - only show if there are items */}
                   {plan.llmAi.length > 0 && (
                     <div>
-                      <h4 className="font-semibold text-foreground mb-2">LLM + AI</h4>
+                      <h4 className="font-semibold text-foreground mb-2">{t.pages.pricing.categories.llmAi}</h4>
                       <ul className="space-y-2">
                         {plan.llmAi.map((item, index) => (
                           <li key={index} className="flex items-start text-foreground text-sm">
@@ -246,45 +264,100 @@ const Pricing = () => {
                   )}
                 </div>
                 
-                {(plan.name === t.pages.pricing.plans.pro.name || plan.name === t.pages.pricing.plans.excellence.name) && (
-                  <div className="flex items-center gap-3 border rounded-md p-3">
-                    <Checkbox
-                      id={`private-llm-${plan.name}`}
-                      checked={plan.name === t.pages.pricing.plans.pro.name ? privateLLMPro : privateLLMExcellence}
-                      onCheckedChange={(checked) => {
-                        if (plan.name === t.pages.pricing.plans.pro.name) {
-                          setPrivateLLMPro(!!checked);
-                        } else {
-                          setPrivateLLMExcellence(!!checked);
-                        }
-                      }}
-                    />
-                    <label htmlFor={`private-llm-${plan.name}`} className="text-sm text-foreground">
-                      Private LLM Hosting durch uns
-                    </label>
-                  </div>
-                )}
+                <div className="mt-6 space-y-4">
+                  {(plan.name === t.pages.pricing.plans.pro.name || plan.name === t.pages.pricing.plans.excellence.name) && (
+                    <div className="flex items-center gap-3 border rounded-md p-3">
+                      <Checkbox
+                        id={`private-llm-${plan.name}`}
+                        checked={plan.name === t.pages.pricing.plans.pro.name ? privateLLMPro : privateLLMExcellence}
+                        onCheckedChange={(checked) => {
+                          if (plan.name === t.pages.pricing.plans.pro.name) {
+                            setPrivateLLMPro(!!checked);
+                          } else {
+                            setPrivateLLMExcellence(!!checked);
+                          }
+                        }}
+                      />
+                      <label htmlFor={`private-llm-${plan.name}`} className="text-sm text-foreground">
+                        {t.pages.pricing.privateLLMHosting}
+                      </label>
+                    </div>
+                  )}
 
-                 <div className="space-y-3 pt-4">
                   <Button 
                     variant={plan.ctaVariant}
                     className={`w-full ${plan.popular ? 'gradient-primary glow-primary hover:opacity-90 text-white' : 'border-border text-foreground hover:bg-secondary hover:text-foreground'}`}
                     size="lg"
+                    onClick={() => {
+                      // Scroll to HubSpot form
+                      const formElement = document.getElementById('hubspot-contact-form');
+                      if (formElement) {
+                        formElement.scrollIntoView({ behavior: 'smooth' });
+                      }
+                    }}
                   >
-                    {plan.cta}
+                    {t.pages.pricing.contactUs}
                   </Button>
-                  
-                  <div className="text-center">
-                    <button className="text-sm text-primary hover:underline">
-                      {t.pages.pricing.viewAllFeatures}
-                    </button>
-                  </div>
                 </div>
               </CardContent>
             </Card>
           ))}
         </div>
 
+        {/* FAQ Section */}
+        <div className="max-w-4xl mx-auto mt-16">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4 text-foreground">
+              {t.pages.pricing.faq.title}
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              {t.pages.pricing.faq.subtitle}
+            </p>
+          </div>
+
+          <Accordion type="single" collapsible className="w-full">
+            {t.pages.pricing.faq.items.map((item, index) => (
+              <AccordionItem key={index} value={`item-${index}`} className="border rounded-lg mb-2">
+                <AccordionTrigger className="px-6 py-4 text-left font-medium text-foreground hover:no-underline">
+                  {item.question}
+                </AccordionTrigger>
+                <AccordionContent className="px-6 pb-4 text-muted-foreground">
+                  {item.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+
+        {/* Contact Form Section */}
+        <div className="max-w-4xl mx-auto mt-16">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4 text-foreground">
+              {t.pages.contact.title}
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              {t.pages.contact.subtitle}
+            </p>
+          </div>
+
+          <div className="bg-card rounded-2xl border border-border shadow-sm p-8 sm:p-12">
+            {/* HubSpot Form Container */}
+            <div className="w-full">
+              <div 
+                className="hubspot-form-container"
+                id="hubspot-contact-form"
+                style={{ minHeight: '400px' }}
+              >
+                <div
+                  className="hs-form-frame"
+                  data-region="eu1"
+                  data-form-id="8e77caaf-8841-462e-b0bb-0ef0082e0c48"
+                  data-portal-id="144242473"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
 
         {/* Footer Note */}
         <div className="text-center mt-12 text-muted-foreground">
