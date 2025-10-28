@@ -72,6 +72,16 @@ describe('Route Presence Tests', () => {
     expect(document.body).toBeInTheDocument()
   })
 
+  test('renders terms of service page', () => {
+    renderApp('/terms')
+    expect(document.body).toBeInTheDocument()
+  })
+
+  test('renders privacy policy page', () => {
+    renderApp('/privacy')
+    expect(document.body).toBeInTheDocument()
+  })
+
   test('renders 404 page for unknown routes', () => {
     const { getByText } = renderApp('/unknown-route')
     expect(getByText('404')).toBeInTheDocument()

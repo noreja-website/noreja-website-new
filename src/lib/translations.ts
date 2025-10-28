@@ -81,29 +81,52 @@ export interface Translations {
       title: string;
       subtitle: string;
       teamSize: string;
+      dataVolume: string;
       users: string;
       user: string;
       mostPopular: string;
       month: string;
+      onRequest: string;
       viewAllFeatures: string;
+      contactUs: string;
       footerNote: string;
+      categories: {
+        feature: string;
+        service: string;
+        llmAi: string;
+      };
+      privateLLMHosting: string;
+      faq: {
+        title: string;
+        subtitle: string;
+        items: Array<{
+          question: string;
+          answer: string;
+        }>;
+      };
       plans: {
-        starter: {
+        core: {
           name: string;
           description: string;
           features: string[];
+          services: string[];
+          llmAi: string[];
           cta: string;
         };
         pro: {
           name: string;
           description: string;
           features: string[];
+          services: string[];
+          llmAi: string[];
           cta: string;
         };
-        enterprise: {
+        excellence: {
           name: string;
           description: string;
           features: string[];
+          services: string[];
+          llmAi: string[];
           cta: string;
         };
         };
