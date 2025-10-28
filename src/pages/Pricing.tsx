@@ -359,10 +359,6 @@ const Pricing = () => {
           </div>
         </div>
 
-        {/* Footer Note */}
-        <div className="text-center mt-12 text-muted-foreground">
-          <p>{t.pages.pricing.footerNote}</p>
-        </div>
       </div>
     </div>
   );

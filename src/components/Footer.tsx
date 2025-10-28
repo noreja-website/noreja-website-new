@@ -11,7 +11,8 @@ export function Footer() {
 
   const footerNavigation = [
     { name: t.navigation.team, href: "/team" },
-    { name: t.navigation.downloads, href: "/downloads" }
+    { name: t.navigation.downloads, href: "/downloads" },
+    { name: t.navigation.events, href: "/events" }
   ];
 
   const legalLinks = [

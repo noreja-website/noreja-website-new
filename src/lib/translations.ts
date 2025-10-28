@@ -499,7 +499,7 @@ export const translations: Record<Language, Translations> = {
       },
       pricing: {
         title: "Simple, Transparent Pricing",
-        subtitle: "Choose the plan that fits your team size and needs. All plans include a 14-day free trial.",
+        subtitle: "Choose the plan that fits your team size and needs.",
         teamSize: "Team Size:",
         dataVolume: "Data Volume:",
         users: "users",
@@ -1008,7 +1008,7 @@ export const translations: Record<Language, Translations> = {
       },
       pricing: {
         title: "Einfache, transparente Preise",
-        subtitle: "Wähle den Plan, der zu deiner Teamgröße und deinen Bedürfnissen passt. Alle Pläne beinhalten eine 14-tägige kostenlose Testversion.",
+        subtitle: "Wähle den Plan, der zu deiner Teamgröße und deinen Bedürfnissen passt.",
         teamSize: "Teamgröße:",
         dataVolume: "Datenvolumen:",
         users: "Benutzer",
