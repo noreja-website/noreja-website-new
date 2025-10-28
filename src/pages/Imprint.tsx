@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { MarkdownBlock } from "@/components/MarkdownBlock";
 import { useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { Button } from "@/components/ui/button";
+import { FileText, ExternalLink } from "lucide-react";
 
 const impressumContentDE = `
 **Letztes Update:** 22.11.2023
@@ -174,6 +176,39 @@ export default function Imprint() {
               content={impressumContent}
               className="text-foreground"
             />
+          </motion.div>
+        </div>
+      </section>
+
+      {/* AGB Button Section */}
+      <section className="pb-20">
+        <div className="w-full max-w-4xl mx-auto px-4 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center"
+          >
+            <div className="bg-card/30 border border-border/40 rounded-lg p-8">
+              <h3 className="text-xl font-semibold mb-4 text-foreground">
+                {language === 'de' ? 'Allgemeine Geschäftsbedingungen' : 'Terms and Conditions'}
+              </h3>
+              <p className="text-muted-foreground mb-6">
+                {language === 'de' 
+                  ? 'Für detaillierte Informationen zu unseren Geschäftsbedingungen laden Sie bitte das vollständige Dokument herunter.'
+                  : 'For detailed information about our terms and conditions, please download the complete document.'
+                }
+              </p>
+              <Button
+                onClick={() => window.open('https://144242473.fs1.hubspotusercontent-eu1.net/hubfs/144242473/Noreja%20AGB%20V3.pdf', '_blank')}
+                className="inline-flex items-center gap-2 bg-noreja-main hover:bg-noreja-main/90 text-white"
+              >
+                <FileText className="w-4 h-4" />
+                {language === 'de' ? 'AGB herunterladen' : 'Download Terms & Conditions'}
+                <ExternalLink className="w-4 h-4" />
+              </Button>
+            </div>
           </motion.div>
         </div>
       </section>
