@@ -18,14 +18,18 @@ export function Footer() {
   const legalLinks = [
     { name: t.footer.legal.imprint, href: "/imprint", external: false },
     { name: t.footer.legal.privacy, href: "/privacy", external: false },
-    { name: t.footer.legal.trustCenter, href: "https://app.kertos.io/trust-center/norejaintelligencegmbh", external: true },
-    { name: t.footer.legal.terms, href: "/terms", external: false }
+    { name: t.footer.legal.trustCenter, href: "https://app.kertos.io/trust-center/norejaintelligencegmbh", external: true }
+  ];
+
+  const contactLinks = [
+    { name: t.footer.contact.contactForm, href: siteConfig.hubspot.contactForm, external: true },
+    { name: t.footer.contact.bookAppointment, href: siteConfig.hubspot.appointmentBooking, external: true }
   ];
 
   return (
     <footer className="border-t border-border/40 bg-card/30 backdrop-blur-sm">
       <div className="container mx-auto px-4 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
           {/* Brand */}
           <div className="md:col-span-1">
             <Link to="/" className="flex items-center mb-4">
@@ -109,6 +113,24 @@ export function Footer() {
                     {item.name}
                   </Link>
                 )
+              ))}
+            </div>
+          </div>
+
+          {/* Contact */}
+          <div className="md:col-span-1">
+            <h3 className="font-semibold mb-4">Contact</h3>
+            <div className="flex flex-col space-y-2">
+              {contactLinks.map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-primary transition-fast text-sm"
+                >
+                  {item.name}
+                </a>
               ))}
             </div>
           </div>

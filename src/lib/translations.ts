@@ -436,6 +436,10 @@ export interface Translations {
       terms: string;
       trustCenter: string;
     };
+    contact: {
+      contactForm: string;
+      bookAppointment: string;
+    };
   };
   buttons: {
     contactUs: string;
@@ -946,6 +950,10 @@ export const translations: Record<Language, Translations> = {
         privacy: "Privacy Policy",
         terms: "Terms of Service",
         trustCenter: "Trust Center"
+      },
+      contact: {
+        contactForm: "Contact Form",
+        bookAppointment: "Book Appointment"
       }
     },
     buttons: {
@@ -1455,6 +1463,10 @@ export const translations: Record<Language, Translations> = {
         privacy: "Datenschutz",
         terms: "Nutzungsbedingungen",
         trustCenter: "Trust Center"
+      },
+      contact: {
+        contactForm: "Kontaktformular",
+        bookAppointment: "Termin vereinbaren"
       }
     },
     buttons: {

@@ -15,6 +15,10 @@ export const siteConfig = {
     twitter: "https://twitter.com/noreja",
     linkedin: "https://linkedin.com/company/noreja",
     github: "https://github.com/noreja"
+  },
+  hubspot: {
+    contactForm: "https://share.hsforms.com/YOUR_CONTACT_FORM_ID",
+    appointmentBooking: "https://calendly.com/noreja/meeting"
   }
 };
 
