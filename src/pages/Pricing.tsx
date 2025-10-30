@@ -7,54 +7,57 @@ import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
-const teamSizeLabels = [
-  { value: 0, label: "0", users: 1 },
-  { value: 1, label: "10", users: 10 },
-  { value: 2, label: "25", users: 25 },
-  { value: 3, label: "50", users: 50 },
-  { value: 4, label: "100", users: 100 },
-  { value: 5, label: "200", users: 200 },
-  { value: 6, label: "500+", users: 500 }
+// --- Factors: Fill these in as needed ---
+const dataAmountLabels = [
+  { value: 0, label: "15", volume: 15, factor: 1.6 }, // Factor for 15
+  { value: 1, label: "35", volume: 35, factor: 2.4 }, // Factor for 35
+  { value: 2, label: "85", volume: 85, factor: 2.8 }, // Factor for 85
+  { value: 3, label: "150", volume: 150, factor: 3.2 }, // Factor for 150
+  { value: 4, label: "300", volume: 300, factor: "let's talk" }, // Factor for 300
 ];
 
-const dataVolumeLabels = [
-  { value: 0, label: "1GB", volume: 1 },
-  { value: 1, label: "10GB", volume: 10 },
-  { value: 2, label: "100GB", volume: 100 },
-  { value: 3, label: "1TB", volume: 1000 },
-  { value: 4, label: "10TB", volume: 10000 },
-  { value: 5, label: "100TB+", volume: 100000 }
+const perspectivesLabels = [
+  { value: 0, label: "10", count: 10, factor: 1.4 }, // Factor for 10
+  { value: 1, label: "20", count: 20, factor: 1.6 }, // Factor for 20
+  { value: 2, label: "35", count: 35, factor: 1.9 }, // Factor for 35
+  { value: 3, label: "50", count: 50, factor: 2.1 }, // Factor for 50
+  { value: 4, label: "85", count: 85, factor: "let's talk" }, // Factor for 85
 ];
 
-// Placeholder pricing logic - replace with real pricing calculations
-const calculatePricing = (teamSizeIndex: number, dataVolumeIndex: number) => {
-  const baseUsers = teamSizeLabels[teamSizeIndex].users;
-  const baseVolume = dataVolumeLabels[dataVolumeIndex].volume;
-  
-  // Simple scaling formula - customize as needed
-  const starterBase = 29;
-  const proBase = 79;
-  const enterpriseBase = 199;
-  
-  const multiplier = Math.max(1, baseUsers / 10);
-  const volumeMultiplier = Math.max(1, baseVolume / 10);
-  
+// New pricing logic using base price and factors
+const calculatePricing = (perspectivesIndex: number, dataAmountIndex: number) => {
+  const factorPerspectives = perspectivesLabels[perspectivesIndex].factor ?? 1;
+  const factorDataAmount = dataAmountLabels[dataAmountIndex].factor ?? 1;
+  // Base prices
+  const coreBase = 8600;
+  const proBase = 13200;
+  const excellenceBase = 20600;
+
+  // If either factor is not a number ("let's talk"), return onRequest
+  if (typeof factorPerspectives !== 'number' || typeof factorDataAmount !== 'number') {
+    return {
+      starter: 'onRequest',
+      pro: 'onRequest',
+      enterprise: 'onRequest'
+    };
+  }
+
   return {
-    starter: Math.round(starterBase * multiplier * volumeMultiplier * 0.8),
-    pro: Math.round(proBase * multiplier * volumeMultiplier * 0.9),
-    enterprise: Math.round(enterpriseBase * multiplier * volumeMultiplier)
+    starter: Math.round(coreBase * factorPerspectives * factorDataAmount),
+    pro: Math.round(proBase * factorPerspectives * factorDataAmount),
+    enterprise: Math.round(excellenceBase * factorPerspectives * factorDataAmount)
   };
 };
 
 const Pricing = () => {
   const { t } = useLanguage();
-  const [teamSizeIndex, setTeamSizeIndex] = useState(1); // Default to 10 users
-  const [dataVolumeIndex, setDataVolumeIndex] = useState(1); // Default to 10GB
+  const [perspectivesIndex, setPerspectivesIndex] = useState(0); // Default to 10
+  const [dataAmountIndex, setDataAmountIndex] = useState(0); // Default to 15
   const [privateLLMPro, setPrivateLLMPro] = useState(false);
   const [privateLLMExcellence, setPrivateLLMExcellence] = useState(false);
-  const currentTeamSize = teamSizeLabels[teamSizeIndex];
-  const currentDataVolume = dataVolumeLabels[dataVolumeIndex];
-  const pricing = calculatePricing(teamSizeIndex, dataVolumeIndex);
+  const currentPerspectives = perspectivesLabels[perspectivesIndex];
+  const currentDataAmount = dataAmountLabels[dataAmountIndex];
+  const pricing = calculatePricing(perspectivesIndex, dataAmountIndex);
 
   // Scroll to top when component mounts
   useEffect(() => {
@@ -129,27 +132,26 @@ const Pricing = () => {
         {/* Pricing Sliders */}
         <div className="max-w-6xl mx-auto mb-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Team Size Slider */}
+            {/* Data Amount Slider - LEFT */}
             <div className="bg-card rounded-lg p-8 border">
               <h3 className="text-lg font-semibold mb-6 text-center text-foreground">
-                {t.pages.pricing.teamSize} {currentTeamSize.label} {currentTeamSize.users > 1 ? t.pages.pricing.users : t.pages.pricing.user}
+                {t.pages.pricing.dataAmount ?? t.pages.pricing.dataVolume}
               </h3>
               
               <div className="space-y-6">
-                <div className="px-3">
+                <div className="px-2">
                   <Slider
-                    value={[teamSizeIndex]}
-                    onValueChange={(value) => setTeamSizeIndex(value[0])}
-                    max={6}
+                    value={[dataAmountIndex]}
+                    onValueChange={(value) => setDataAmountIndex(value[0])}
+                    max={4}
                     min={0}
                     step={1}
                     className="w-full"
                   />
                 </div>
-                
-                {/* Labels Team Size*/}
+                {/* Labels Data Amount */}
                 <div className="flex justify-between text-sm text-muted-foreground px-3 w-full">
-                  {teamSizeLabels.map((label) => (
+                  {dataAmountLabels.map((label) => (
                     <span key={label.value} className="text-center flex-[0_0_5%]">
                       {label.label}
                     </span>
@@ -157,28 +159,25 @@ const Pricing = () => {
                 </div>
               </div>
             </div>
-            
-            {/* Data Volume Slider */}
+            {/* Perspectives Slider - RIGHT */}
             <div className="bg-card rounded-lg p-8 border">
               <h3 className="text-lg font-semibold mb-6 text-center text-foreground">
-                {t.pages.pricing.dataVolume} {currentDataVolume.label}
+                {t.pages.pricing.perspectives ?? t.pages.pricing.teamSize}
               </h3>
-              
               <div className="space-y-6">
-                <div className="px-2">
+                <div className="px-3">
                   <Slider
-                    value={[dataVolumeIndex]}
-                    onValueChange={(value) => setDataVolumeIndex(value[0])}
-                    max={5}
+                    value={[perspectivesIndex]}
+                    onValueChange={(value) => setPerspectivesIndex(value[0])}
+                    max={4}
                     min={0}
                     step={1}
                     className="w-full"
                   />
                 </div>
-                
-                {/* Labels Data Volume */}
+                {/* Labels Perspectives */}
                 <div className="flex justify-between text-sm text-muted-foreground px-3 w-full">
-                  {dataVolumeLabels.map((label) => (
+                  {perspectivesLabels.map((label) => (
                     <span key={label.value} className="text-center flex-[0_0_5%]">
                       {label.label}
                     </span>
@@ -207,13 +206,19 @@ const Pricing = () => {
                 </CardTitle>
                 <div className="mt-4">
                   <span className="text-4xl font-bold text-foreground">
-                    {plan.name === t.pages.pricing.plans.pro.name && privateLLMPro
+                    {(typeof plan.price === 'string' && plan.price === 'onRequest') ||
+                    (plan.name === t.pages.pricing.plans.pro.name && privateLLMPro) ||
+                    (plan.name === t.pages.pricing.plans.excellence.name && privateLLMExcellence)
                       ? t.pages.pricing.onRequest
-                      : plan.name === t.pages.pricing.plans.excellence.name && privateLLMExcellence
-                        ? t.pages.pricing.onRequest
-                        : `$${plan.price}`}
+                      : `$${plan.price}`}
                   </span>
-                  <span className="text-muted-foreground">{t.pages.pricing.month}</span>
+                  { !(
+                    (typeof plan.price === 'string' && plan.price === 'onRequest') ||
+                    (plan.name === t.pages.pricing.plans.pro.name && privateLLMPro) ||
+                    (plan.name === t.pages.pricing.plans.excellence.name && privateLLMExcellence)
+                  ) && (
+                    <span className="text-muted-foreground">{t.pages.pricing.month}</span>
+                  )}
                 </div>
                 <CardDescription className="text-base mt-2">
                   {plan.description}

@@ -82,6 +82,8 @@ export interface Translations {
       subtitle: string;
       teamSize: string;
       dataVolume: string;
+      dataAmount?: string;
+      perspectives?: string;
       users: string;
       user: string;
       mostPopular: string;
@@ -529,11 +531,13 @@ export const translations: Record<Language, Translations> = {
         subtitle: "Choose the plan that fits your team size and needs.",
         teamSize: "Team Size:",
         dataVolume: "Data Volume:",
+        dataAmount: "Data amount",
+        perspectives: "Perspectives",
         users: "users",
         user: "user",
         mostPopular: "Most Popular",
         month: "/month",
-        onRequest: "on request",
+        onRequest: "let’s talk",
         viewAllFeatures: "View all features",
         contactUs: "Contact us",
         footerNote: "All plans include 14-day free trial • No setup fees • Cancel anytime",
@@ -1042,11 +1046,13 @@ export const translations: Record<Language, Translations> = {
         subtitle: "Wähle den Plan, der zu deiner Teamgröße und deinen Bedürfnissen passt.",
         teamSize: "Teamgröße:",
         dataVolume: "Datenvolumen:",
+        dataAmount: "Datenmenge",
+        perspectives: "Perspektiven",
         users: "Benutzer",
         user: "Benutzer",
         mostPopular: "Am beliebtesten",
         month: "/Monat",
-        onRequest: "auf anfrage",
+        onRequest: "Auf Anfrage",
         viewAllFeatures: "Alle Features anzeigen",
         contactUs: "Kontakt aufnehmen",
         footerNote: "Alle Pläne beinhalten 14-tägige kostenlose Testversion • Keine Einrichtungsgebühren • Jederzeit kündbar",
