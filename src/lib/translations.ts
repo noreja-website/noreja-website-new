@@ -1452,7 +1452,7 @@ export const translations: Record<Language, Translations> = {
     footer: {
       description: "Wir stärken Unternehmen mit innovativen Technologielösungen für nachhaltiges Wachstum und digitale Transformation.",
       copyright: "Alle Rechte vorbehalten.",
-      builtWith: "Erstellt mit moderner Technologie",
+      builtWith: "Erstellt mit KI 🤖 und Kaffee ☕️",
       links: {
         imprint: "Impressum",
         privacy: "Datenschutz",

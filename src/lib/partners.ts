@@ -150,5 +150,17 @@ export const partners: Partner[] = [
     quote: "Process Mining ist ein Schlüsselfaktor, um strategische Transformationen nicht nur erfolgreich umzusetzen, sondern auch nachhaltig messbar zu machen. Noreja Process Intelligence schafft dabei die notwendige Transparenz, um Fortschritte klar zu quantifizieren und Organisationen nachhaltig leistungsfähiger zu gestalten.",
     quoteAuthor: "Christoph Blum, Principal",
     linkedin: "https://www.linkedin.com/in/christoph-blum/"
+  },
+  {
+    id: "11",
+    name: "Gordana McNamara",
+    description: "Independent advisor and strategic consultant specializing in go-to-market strategies and business transformation.",
+    logoUrl: "",
+    personPhotoUrl: getImagePath(partnerFaceImages, "gordana_mcnamara.jpg"),
+    website: "",
+    category: "Advisory",
+    quote: "Noreja steht für die nächste Generation von Prozessintelligenz. Es ist eine der wenigen Plattformen, die wirklich die Lücke zwischen Daten, Entscheidungen und Wirkung schließt. Durch den Verzicht auf komplexe Logdaten macht Noreja Prozessoptimierung endlich für jedes Unternehmen zugänglich: schnell, intuitiv und erkenntnisgetrieben. Was Noreja wirklich auszeichnet, sind die KI-basierten Kausal-Analysen, die sofort aufzeigen, warum Daten vom Ziel abweichen, und Teams befähigen, mit Klarheit und Geschwindigkeit zu handeln. Für mich ist Noreja nicht nur ein weiteres Process Mining Tool, sondern ein Katalysator dafür, wie moderne Unternehmen lernen, sich anpassen und wachsen.",
+    quoteAuthor: "Gordana McNamara, Interims CCO/CRO I Go-to-market Advisor I Noreja Advisory Board Member",
+    linkedin: "https://www.linkedin.com/in/gordana-mcnamara/"
   }
 ];

@@ -138,11 +138,17 @@ export function PartnerPhotosGrid() {
                     {/* Partner Details */}
                     <div className="flex-1 text-center lg:text-left">
                       <div className="mb-6">
-                        <img
-                          src={selectedPartner.logoUrl}
-                          alt={selectedPartner.name}
-                          className="h-12 mx-auto lg:mx-0 mb-4 object-contain"
-                        />
+                        {selectedPartner.logoUrl && (
+                          <img
+                            src={selectedPartner.logoUrl}
+                            alt={selectedPartner.name}
+                            className="h-12 mx-auto lg:mx-0 mb-4 object-contain"
+                            onError={(e) => {
+                              const target = e.currentTarget as HTMLImageElement;
+                              target.style.display = 'none';
+                            }}
+                          />
+                        )}
                       </div>
                       
                       <blockquote className="text-xl lg:text-2xl text-white font-medium mb-8 leading-relaxed whitespace-pre-line">
@@ -159,12 +165,14 @@ export function PartnerPhotosGrid() {
                       </div>
 
                       <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                        <Button asChild variant="outline" className="border-gray-600 hover:bg-gray-800 text-white hover:text-white">
-                          <a href={selectedPartner.website} target="_blank" rel="noopener noreferrer">
-                            Visit Website
-                            <ExternalLink className="ml-2 h-4 w-4" />
-                          </a>
-                        </Button>
+                        {selectedPartner.website && (
+                          <Button asChild variant="outline" className="border-gray-600 hover:bg-gray-800 text-white hover:text-white">
+                            <a href={selectedPartner.website} target="_blank" rel="noopener noreferrer">
+                              Visit Website
+                              <ExternalLink className="ml-2 h-4 w-4" />
+                            </a>
+                          </Button>
+                        )}
                         {selectedPartner.linkedin && (
                           <Button asChild variant="outline" className="border-blue-400 hover:bg-blue-900/30 text-blue-400 hover:text-blue-300">
                             <a href={selectedPartner.linkedin} target="_blank" rel="noopener noreferrer">

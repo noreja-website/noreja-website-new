@@ -56,91 +56,130 @@ export default function Partners() {
           </motion.div>
 
           {/* Partners Grid with Scroll Reveal */}
-          <div className="space-y-12">
-            {partners.map((partner, index) => (
-              <motion.div
-                key={partner.id}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50, y: 20 }}
-                whileInView={{ opacity: 1, x: 0, y: 0 }}
-                transition={{ 
-                  duration: 0.8, 
-                  delay: index * 0.2,
-                  ease: "easeOut"
-                }}
-                viewport={{ once: true, margin: "-50px" }}
-                className={`flex flex-col ${
-                  index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
-                } items-center gap-12`}
-              >
-                {/* Partner Logo */}
-                <div className="flex-shrink-0">
+          <div className="space-y-16">
+            {(() => {
+              // Group partners into rows of 3
+              const rows = [];
+              for (let i = 0; i < partners.length; i += 3) {
+                rows.push(partners.slice(i, i + 3));
+              }
+              
+              return rows.map((rowPartners, rowIndex) => {
+                const isLastRow = rowIndex === rows.length - 1;
+                const partnersInRow = rowPartners.length;
+                
+                return (
                   <motion.div
-                    initial={{ scale: 0.8, opacity: 0 }}
-                    whileInView={{ scale: 1, opacity: 1 }}
-                    transition={{ 
-                      duration: 0.6, 
-                      delay: index * 0.2 + 0.3,
-                      ease: "easeOut"
-                    }}
-                    viewport={{ once: true }}
-                    className="w-40 h-40 lg:w-48 lg:h-48 bg-gradient-to-br from-noreja-main/10 to-noreja-main/5 rounded-2xl p-8 flex items-center justify-center group hover:shadow-2xl hover:shadow-noreja-main/20 transition-all duration-300"
-                  >
-                    <img
-                      src={partner.logoUrl}
-                      alt={`${partner.name} logo`}
-                      className="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-300"
-                      loading="lazy"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.style.display = 'none';
-                        const parent = target.parentElement;
-                        if (parent) {
-                          parent.innerHTML = `<div class="text-4xl lg:text-5xl font-bold text-noreja-main">${partner.name.split(' ').map(n => n[0]).join('')}</div>`;
-                        }
-                      }}
-                    />
-                  </motion.div>
-                </div>
-
-                {/* Partner Details */}
-                <div className="flex-1 text-center lg:text-left">
-                  <motion.div
+                    key={rowIndex}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ 
-                      duration: 0.6, 
-                      delay: index * 0.2 + 0.4,
+                      duration: 0.8, 
+                      delay: rowIndex * 0.3,
                       ease: "easeOut"
                     }}
-                    viewport={{ once: true }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    className="w-full"
                   >
-                    <Badge 
-                      variant="secondary" 
-                      className="mb-4 text-noreja-main border-noreja-main/20"
-                    >
-                      {partner.category}
-                    </Badge>
-                    
-                    <h3 className="text-2xl lg:text-3xl font-bold mb-4 text-foreground group-hover:text-noreja-main transition-colors">
-                      {partner.name}
-                    </h3>
-                    
-                    <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                      {partner.description}
-                    </p>
-                    
-                    <Button
-                      variant="outline"
-                      className="group hover:bg-noreja-main hover:border-noreja-main hover:text-white transition-all"
-                      onClick={() => window.open(partner.website, '_blank')}
-                    >
-                      {t.pages.partners.visitWebsite}
-                      <ExternalLink className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                    </Button>
+                    <div className={
+                      partnersInRow === 1 
+                        ? "relative w-full flex justify-center" 
+                        : partnersInRow === 2 
+                        ? "grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto"
+                        : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                    }>
+                      {rowPartners.map((partner, partnerIndex) => (
+                        <motion.div
+                          key={partner.id}
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          transition={{ 
+                            duration: 0.6, 
+                            delay: rowIndex * 0.3 + partnerIndex * 0.2,
+                            ease: "easeOut"
+                          }}
+                          viewport={{ once: true }}
+                          className={`flex flex-col items-center text-center space-y-6 ${
+                            partnersInRow === 1 ? 'max-w-sm' : ''
+                          }`}
+                        >
+                        {/* Partner Logo */}
+                        <motion.div
+                          initial={{ scale: 0.8, opacity: 0 }}
+                          whileInView={{ scale: 1, opacity: 1 }}
+                          transition={{ 
+                            duration: 0.6, 
+                            delay: rowIndex * 0.3 + partnerIndex * 0.2 + 0.2,
+                            ease: "easeOut"
+                          }}
+                          viewport={{ once: true }}
+                          className="w-32 h-32 lg:w-40 lg:h-40 bg-gradient-to-br from-noreja-main/10 to-noreja-main/5 rounded-2xl p-6 flex items-center justify-center group hover:shadow-2xl hover:shadow-noreja-main/20 transition-all duration-300"
+                        >
+                          <img
+                            src={partner.logoUrl}
+                            alt={`${partner.name} logo`}
+                            className="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-300"
+                            loading="lazy"
+                            onError={(e) => {
+                              const target = e.target as HTMLImageElement;
+                              target.style.display = 'none';
+                              const parent = target.parentElement;
+                              if (parent) {
+                                parent.innerHTML = `<div class="text-3xl lg:text-4xl font-bold text-noreja-main">${partner.name.split(' ').map(n => n[0]).join('')}</div>`;
+                              }
+                            }}
+                          />
+                        </motion.div>
+
+                        {/* Partner Details */}
+                        <div className="space-y-4">
+                          <Badge 
+                            variant="secondary" 
+                            className="text-noreja-main border-noreja-main/20"
+                          >
+                            {partner.category}
+                          </Badge>
+                          
+                          <h3 className="text-xl lg:text-2xl font-bold text-foreground group-hover:text-noreja-main transition-colors">
+                            {partner.name}
+                          </h3>
+                          
+                          <p className="text-muted-foreground leading-relaxed">
+                            {partner.description}
+                          </p>
+                          
+                          <div className="flex gap-3 justify-center">
+                            {partner.website && (
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                className="group hover:bg-noreja-main hover:border-noreja-main hover:text-white transition-all"
+                                onClick={() => window.open(partner.website, '_blank')}
+                              >
+                                {t.pages.partners.visitWebsite}
+                                <ExternalLink className="w-3 h-3 ml-2 group-hover:translate-x-1 transition-transform" />
+                              </Button>
+                            )}
+                            {partner.linkedin && (
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                className="group hover:bg-noreja-main hover:border-noreja-main hover:text-white transition-all"
+                                onClick={() => window.open(partner.linkedin, '_blank')}
+                              >
+                                LinkedIn
+                                <ExternalLink className="w-3 h-3 ml-2 group-hover:translate-x-1 transition-transform" />
+                              </Button>
+                            )}
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
+                    </div>
                   </motion.div>
-                </div>
-              </motion.div>
-            ))}
+                );
+              });
+            })()}
           </div>
 
           {/* Partnership CTA */}
