@@ -88,6 +88,7 @@ export interface Translations {
       user: string;
       mostPopular: string;
       month: string;
+      year: string;
       onRequest: string;
       viewAllFeatures: string;
       contactUs: string;
@@ -452,7 +453,7 @@ export const translations: Record<Language, Translations> = {
   en: {
     navigation: {
       home: "Home",
-      functionalities: "Functionalities",
+      functionalities: "Platform",
       successStories: "Success Stories",
       partners: "Partners",
       pricing: "Pricing",
@@ -537,7 +538,8 @@ export const translations: Record<Language, Translations> = {
         user: "user",
         mostPopular: "Most Popular",
         month: "/month",
-        onRequest: "let’s talk",
+        year: " /year",
+        onRequest: "let's talk",
         viewAllFeatures: "View all features",
         contactUs: "Contact us",
         footerNote: "All plans include 14-day free trial • No setup fees • Cancel anytime",
@@ -546,7 +548,7 @@ export const translations: Record<Language, Translations> = {
           service: "Service",
           llmAi: "LLM + AI"
         },
-        privateLLMHosting: "Private LLM Hosting by us",
+        privateLLMHosting: "Private LLM Hosting by Noreja",
         faq: {
           title: "Frequently Asked Questions",
           subtitle: "Find answers to common questions about our pricing and plans",
@@ -668,9 +670,9 @@ export const translations: Record<Language, Translations> = {
             ],
             services: [
               "Data-Onboarding Workshop (4x p.a.)",
-              "Connect Source",
-              "Set up entities",
-              "Support during dimension build-up",
+              "  Connect Source",
+              "  Set up entities",
+              "  Support during dimension build-up",
               "Process Optimization Workshop (2x p.a.)",
               "Context-Collection Workshop (1x p.a.)",
               "Process-Strategy Workshop with Partner Company (1x p.a.)",
@@ -1003,8 +1005,8 @@ export const translations: Record<Language, Translations> = {
   de: {
     navigation: {
       home: "Startseite",
-      functionalities: "Funktionen",
-      successStories: "Erfolgsgeschichten",
+      functionalities: "Plattform",
+      successStories: "Success Stories",
       partners: "Partner",
       pricing: "Preise",
       blog: "Blog",
@@ -1061,7 +1063,7 @@ export const translations: Record<Language, Translations> = {
       },
       successStories: {
         title: "Kunden",
-        titleHighlight: "Erfolgsgeschichten",
+        titleHighlight: "Success Stories",
         subtitle: "Entdecke, wie führende Organisationen verschiedener Branchen ihre Abläufe transformiert und bemerkenswerte Ergebnisse mit unserer Plattform erzielt haben.",
         readCaseStudy: "Fallstudie lesen"
       },
@@ -1088,6 +1090,7 @@ export const translations: Record<Language, Translations> = {
         user: "Benutzer",
         mostPopular: "Am beliebtesten",
         month: "/Monat",
+        year: " /Jahr",
         onRequest: "Auf Anfrage",
         viewAllFeatures: "Alle Features anzeigen",
         contactUs: "Kontakt aufnehmen",
@@ -1097,7 +1100,7 @@ export const translations: Record<Language, Translations> = {
           service: "Service",
           llmAi: "LLM + AI"
         },
-        privateLLMHosting: "Privates LLM Hosting durch uns",
+        privateLLMHosting: "Privates LLM Hosting by Noreja",
         faq: {
           title: "Häufig gestellte Fragen",
           subtitle: "Finde Antworten auf häufige Fragen zu unseren Preisen und Plänen",
@@ -1175,7 +1178,7 @@ export const translations: Record<Language, Translations> = {
         plans: {
           core: {
             name: "Core",
-            description: "Grundlegende Features für den Einstieg",
+            description: "Mit den Kernfeatures des Causal Process Minings und initialen Support bei der Datenanbindung.",
             features: [
               "Dashboard",
               "Analyzer",
@@ -1194,7 +1197,7 @@ export const translations: Record<Language, Translations> = {
           },
           pro: {
             name: "Pro",
-            description: "Erweiterte Features für wachsende Teams",
+            description: "Mit fortgeschrittenen KI-Features durch Minerva-AI und durchgehendem Support in der Discovery",
             features: [
               "all from CORE",
               "Contextualizer",
@@ -1219,7 +1222,7 @@ export const translations: Record<Language, Translations> = {
           },
           excellence: {
             name: "Excellence",
-            description: "Vollständige Lösung für Enterprise-Bedürfnisse",
+            description: "Für hochkomplexes Reasoning inkl. Multi-LLM-Option und intensiver Begleitung bei der Value-Realization",
             features: [
               "all from PRO",
               "Workbench",
@@ -1227,9 +1230,9 @@ export const translations: Record<Language, Translations> = {
             ],
             services: [
               "Data-Onboarding Workshop (4x p.a.)",
-              "Connect Source",
-              "Set up entities",
-              "Support during dimension build-up",
+              "  Connect Source",
+              "  Set up entities",
+              "  Support during dimension build-up",
               "Process Optimization Workshop (2x p.a.)",
               "Context-Collection Workshop (1x p.a.)",
               "Process-Strategy Workshop with Partner Company (1x p.a.)",

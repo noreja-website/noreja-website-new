@@ -24,6 +24,14 @@ const perspectivesLabels = [
   { value: 4, label: "85", count: 85, factor: "let's talk" }, // Factor for 85
 ];
 
+// Helper function to format numbers with dot as thousand separator
+const formatPrice = (price: number | string): string => {
+  if (typeof price === 'string') {
+    return price;
+  }
+  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+};
+
 // New pricing logic using base price and factors
 const calculatePricing = (perspectivesIndex: number, dataAmountIndex: number) => {
   const factorPerspectives = perspectivesLabels[perspectivesIndex].factor ?? 1;
@@ -210,14 +218,14 @@ const Pricing = () => {
                     (plan.name === t.pages.pricing.plans.pro.name && privateLLMPro) ||
                     (plan.name === t.pages.pricing.plans.excellence.name && privateLLMExcellence)
                       ? t.pages.pricing.onRequest
-                      : `$${plan.price}`}
+                      : `${formatPrice(plan.price)} €`}
                   </span>
                   { !(
                     (typeof plan.price === 'string' && plan.price === 'onRequest') ||
                     (plan.name === t.pages.pricing.plans.pro.name && privateLLMPro) ||
                     (plan.name === t.pages.pricing.plans.excellence.name && privateLLMExcellence)
                   ) && (
-                    <span className="text-muted-foreground">{t.pages.pricing.month}</span>
+                    <span className="text-muted-foreground">{t.pages.pricing.year}</span>
                   )}
                 </div>
                 <CardDescription className="text-base mt-2">
@@ -244,12 +252,16 @@ const Pricing = () => {
                   <div>
                     <h4 className="font-semibold text-foreground mb-2">{t.pages.pricing.categories.service}</h4>
                     <ul className="space-y-2">
-                      {plan.services.map((service, index) => (
-                        <li key={index} className="flex items-start text-foreground text-sm">
-                          <span className="mr-2 mt-1 text-primary">•</span>
-                          <span>{service}</span>
-                        </li>
-                      ))}
+                      {plan.services.map((service, index) => {
+                        const isIndented = service.startsWith('  ');
+                        const displayText = isIndented ? service.trimStart() : service;
+                        return (
+                          <li key={index} className={`flex items-start text-foreground text-sm ${isIndented ? 'pl-6' : ''}`}>
+                            <span className="mr-2 mt-1 text-primary">•</span>
+                            <span>{displayText}</span>
+                          </li>
+                        );
+                      })}
                     </ul>
                   </div>
 
