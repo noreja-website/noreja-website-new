@@ -574,6 +574,42 @@ export const translations: Record<Language, Translations> = {
             {
               question: "Is there a setup fee?",
               answer: "No, there are no setup fees for any of our plans. You only pay the monthly subscription fee."
+            },
+            {
+              question: "Where is my data hosted?",
+              answer: "The data is hosted at Amazon AWS in Frankfurt. Due to complete tenant separation, hosting can also be done in other cloud regions or on-premises upon request. However, on-premises hosting incurs additional costs."
+            },
+            {
+              question: "How does Noreja handle data protection and IT security?",
+              answer: "Noreja is ISO27001 certified and places great emphasis on data security. Our Trust Center can be found in the footer of this website, where all information can be viewed."
+            },
+            {
+              question: "What does private LLM hosting look like?",
+              answer: "Private LLM hosting is implemented by operating your own fully isolated environment at any cloud provider (e.g., Amazon AWS). Noreja sets up any LLM (e.g., Mistral, Deepseek, Gemma, Quen3, etc.) that only the customer can access."
+            },
+            {
+              question: "Are there partner companies that can support me in using Noreja?",
+              answer: "Yes, Noreja has numerous partners among consultancies, system integrators, or universities who can provide services with and for Noreja Process Intelligence as needed. You can find more information in the main menu under Partners."
+            },
+            {
+              question: "Is there documentation and training available alongside the license for knowledge transfer?",
+              answer: "Yes, the Noreja platform has its own AI-powered documentation that can be accessed. In addition, we offer regular 1:1 tool training sessions throughout the license period, so that over time, every detail of the solution can be understood."
+            },
+            {
+              question: "How do I know which package (e.g., regarding data volume) I should choose?",
+              answer: "We are happy to determine the exact requirements together in a conversation. Our Proof-Of-Value provides an optimal basis for decision-making, the results of which enable a good assessment of the required data volume and service needs."
+            },
+            {
+              question: "Is there an initial setup fee?",
+              answer: "Generally, there is no general setup fee. Data connectivity can also be done independently or as part of the included Data-Onboarding Workshops. However, it often makes sense to get support during initial setup to efficiently and error-free connect source systems. This can be done by Noreja itself or one of our partners."
+            },
+            {
+              question: "Can additional costs arise for used LLM tokens?",
+              answer: "Generally, LLM tokens are included for all Power-Users. If there is a need for an increased number of \"reading\" or \"consuming\" users, we must pass on the costs. In this case, we will explicitly contact you."
+            },
+            {
+              question: "What are Power-Users and how do they differ from regular users?",
+              answer: "We define Power-Users as users who have rights to Builder, Manager, Analyzer, and other admin functions on the Noreja platform. Excluded here are read-only users of the Dashboard or Minerva-AI."
             }
           ]
         },
@@ -1067,28 +1103,72 @@ export const translations: Record<Language, Translations> = {
           subtitle: "Finde Antworten auf häufige Fragen zu unseren Preisen und Plänen",
           items: [
             {
-              question: "Was ist in der kostenlosen Testversion enthalten?",
-              answer: "Die 14-tägige kostenlose Testversion beinhaltet vollen Zugang zu allen Features deines gewählten Plans. Keine Kreditkarte erforderlich."
+              question: "Bietet Noreja einen Proof-Of-Value an, um die Technologie kennenzulernen?",
+              answer: "Ja, 85% der Kunden starten mit einem initialen Proof-Of-Value, welchen Noreja zu einem sehr günstigen Fixpreis anbietet. Dabei wird sich i.d.R. auf einen Teilprozessfokussiert, den Noreja innerhalb von 3 bis 4 Wochen anbindet, importiert, analysiert und erste Optimierungspotenziale aufdeckt. Nach dem Proof-Of-Value sind 60% der Datenanbindung bereits erledigt, sodass anschließend in wenigen Tagen eine Operationalisierung stattfinden kann."
             },
             {
-              question: "Kann ich meinen Plan später ändern?",
-              answer: "Ja, du kannst deinen Plan jederzeit upgraden oder downgraden. Änderungen treten sofort in Kraft und die Abrechnung erfolgt anteilig."
+              question: "Brauche ich dedizierte Process Mining Experten, um Noreja nutzen zu können?",
+              answer: "Nein. Es werden keine expliziten Process Mining Experten benötigt, um Noreja nutzen zu können. Eine Besonderheit hierbei ist, dass Noreja keine Event-Logs verwendet, sodass keine aufwendigen Datentransformationen nötig sind, die bei herkömmlichen Lösungen häufig 80% der Zeit in Anspruch nehmen."
             },
             {
-              question: "Was ist privates LLM-Hosting?",
-              answer: "Privates LLM-Hosting bedeutet, dass wir deine eigene dedizierte Sprachmodell-Instanz hosten und verwalten, was vollständige Datenschutz und Anpassung an deine spezifischen Bedürfnisse gewährleistet."
+              question: "Wie funktioniert der Herauf- oder Herabstufung in andere Lizenzpakete?",
+              answer: "Prinzipiell werden Jahreslizenzen in bestimmten Preispaketkombinationen abgeschlossen. Eine Herabstufung in kleinere Preiskategorien ist im Anschluss an das Lizenzjahr möglich. Besteht der Bedarf in höhere Preiskategorien aufzusteigen – z.B., weil mehr Daten importiert werden sollen, so kann dies jederzeit geschehen. Allerdings werden niemals automatisch und ohne Rücksprache Preise erhöht. Dies geschieht immer im Dialog mit dem Kunden."
             },
             {
-              question: "Bietet ihr maßgeschneiderte Enterprise-Lösungen?",
-              answer: "Ja, unser Excellence-Plan beinhaltet benutzerdefinierte Integrationen und wir können maßgeschneiderte Lösungen für große Organisationen mit spezifischen Anforderungen erstellen."
+              question: "Was passiert, wenn ich das Limit in einem Paket überschreite?",
+              answer: "Sollte die Kapazität der Datenmenge oder der benötigten Dimensionen nicht ausreichen kann entweder proaktiv mit der Noreja Kontakt aufgenommen werden, oder aber die Noreja meldet sich nach überschreiten der Grenzwerte und sucht das Gespräch."
             },
             {
-              question: "Welchen Support bietet ihr?",
-              answer: "Der Support variiert je nach Plan: Core beinhaltet E-Mail-Support, Pro beinhaltet Prioritäts-Support und Excellence beinhaltet dedizierten Support mit wöchentlichen Sessions."
+              question: "Wie funktioniert die Lizenzverlängerung?",
+              answer: "Der Lizenzvertrag wird auf Jahresbasis abgeschlossen. Laut abgeschlossenem Vertrag verlängert sich die Lizenz dabei automatisch, wenn nicht rechtzeitig gekündigt wird; Allerdings wird auch hier niemals eine stillschweigende Verlängerung durchgeführt, ohne vorab mit dem Kunden über die Verlängerung zu sprechen."
             },
             {
-              question: "Gibt es eine Einrichtungsgebühr?",
-              answer: "Nein, es gibt keine Einrichtungsgebühren für unsere Pläne. Du zahlst nur die monatliche Abonnementgebühr."
+              question: "Wie kann ich den Lizenzvertrag kündigen?",
+              answer: "Der Lizenzvertrag kann mit einer Frist von einem Monat zum Vertragsende jederzeit gekündigt werden."
+            },
+            {
+              question: "Was genau ist im Basispaket enthalten und wie laufen die inkludierten Workshops ab?",
+              answer: "Das Basispaket beinhaltet Features, Service-Leistungen und KI-Komponenten. Unter Features versteht man konkrete Software-Bestandteile, die ein Anwender auf der Plattform nutzen kann. Die Service-Leistungen inkludieren mehrere Workshops (Tagesworkshop à 8h), die Vor-Ort beim Kunden mit ein bis zwei Noreja-Experten durchgeführt werden (Reisekosten inkludiert). Zudem werden (Bi-)Weekly Online-Sessions eingeplant, in welchen die Kunden Unterstützung bei der Nutzung der Plattform aber auch der Identifizierung neuer Use Cases erhalten."
+            },
+            {
+              question: "Kann ich die Noreja auch für zusätzliche bzw. begleitende Beratung buchen?",
+              answer: "Ja, jedes Paket enthält eine Tagesrate, die genutzt werden kann, um zusätzliche Beratung, die über die inkludierten Workshops und regelmäßigen Sessions hinausgehen, zu buchen. Die Rate unterscheidet sich zwischen den Basispaketen."
+            },
+            {
+              question: "Wo werden meine Daten gehostet?",
+              answer: "Die Daten werden bei der Amazon AWS in Frankfurt gehostet. Aufgrund vollständiger Mandanten-Trennung kann auf Wunsch aber auch in anderen Cloud-Regionen oder On-Prem gehostet werden. Bei On-Prem entstehen allerdings Zusatzaufwände."
+            },
+            {
+              question: "Wie geht Noreja mit Datenschutz und IT-Securit um?",
+              answer: "Die Noreja ist ISO27001 zertifiziert und legt großen Wert auf Datensicherheit. Im Footer dieser Webseite befindet sich unser Trust Center, wo alle Informationen eingesehen werden können."
+            },
+            {
+              question: "Wie kann ich mir das private LLM-Hosting vorstellen?",
+              answer: "Das private LLM-Hosting erfolgt durch den Betrieb einer eigenen und vollständig isolierten Umgebung bei einem beliebigen Cloud-Anbieter (z.B. Amazon AWS). Die Noreja setzt dabei ein beliebiges LLM (z.B. Mistral, Deepseek, Gemma, Quen3, etc.) auf, auf welches ausschließlich der Kunde Zugriff erhält."
+            },
+            {
+              question: "Gibt es auch Partnerunternehmen, die mich bei der Nutzung von Noreja begleiten können?",
+              answer: "Ja, Noreja hat zahlreiche Partner bei Beratungen, Systemintegratoren oder Universitäten, die bei Bedarf Services am und mit Noreja Process Intelligence begleiten können. Mehr dazu gibt es im Hauptmenü unter Partner."
+            },
+            {
+              question: "Gibt es Dokumentation und Schulungsangebote parallel zur Lizenz für den Wissenstransfer?",
+              answer: "Ja, die Noreja-Plattform hat eine eigene KI-gestützte Dokumentation, auf die zugegriffen werden kann. Zudem bieten wir im Zuge der Lizenzperiode auch regelmäßige 1:1 Tool-Schulungen an, sodass mit der Zeit jeder Detail der Lösung durchdrungen werden kann."
+            },
+            {
+              question: "Woher weiß ich, welches Paket (z.B. in Bezug auf die Datenmenge) ich wählen muss?",
+              answer: "Den genauen Bedarf ermitteln wir gerne gemeinsam in einem Gespräch. Eine optimale Entscheidungsgrundlage bietet hierfür unser Proof-Of-Value, dessen Ergebnis eine gute Einschätzung zur benötigter Datenmenge und zum Servicebedarf ermöglicht."
+            },
+            {
+              question: "Gibt es eine initiale Setup-Fee?",
+              answer: "Grundsätzlich gibt es keine generelle Setup-Fee. Die Datenanbindung kann auch eigenständig bzw. im Zuge der inkludierten Data-Onboarding Workshops stattfinden. Häufig macht es aber Sinn, sich beim initialen Setup Unterstützung zu holen, um Quellsysteme effizient und fehlerfrei anzubinden. Dies kann durch die Noreja selbst oder einen unserer Partner erfolgen."
+            },
+            {
+              question: "Können für genutzte LLM-Token zusätzliche Kosten entstehen?",
+              answer: "Grundsätzlich sind die LLM-Token für alle Power-User inkludiert. Sollte es den Bedarf nach einer erhöhten Anzahl an „lesenden“ bzw. „konsumierenden“ Nutzern geben, müssen wir die Kosten weiterreichen. In diesem Fall sprechen wir dich explizit an."
+            },
+            {
+              question: "Was sind Power-User und wie unterscheiden sie sich von herkömmlichen Nutzern?",
+              answer: "Als Power-User bezeichnen wir einen Anwender, der auf der Noreja-Plattform Rechte zum Builder, Manager, Analyzer sowie den weiteren Admin-Funktionen hat. Ausgenommen sind hier lesende Nutzer des Dashboards oder Minerva-AI."
             }
           ]
         },
