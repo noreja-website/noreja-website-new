@@ -9,11 +9,11 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 
 // --- Factors: Fill these in as needed ---
 const dataAmountLabels = [
-  { value: 0, label: "15", volume: 15, factor: 1.6 }, // Factor for 15
-  { value: 1, label: "35", volume: 35, factor: 2.4 }, // Factor for 35
-  { value: 2, label: "85", volume: 85, factor: 2.8 }, // Factor for 85
-  { value: 3, label: "150", volume: 150, factor: 3.2 }, // Factor for 150
-  { value: 4, label: "300", volume: 300, factor: "let's talk" }, // Factor for 300
+  { value: 0, label: "15 Mio.", volume: 15, factor: 1.6 }, // Factor for 15
+  { value: 1, label: "35 Mio.", volume: 35, factor: 2.4 }, // Factor for 35
+  { value: 2, label: "85 Mio.", volume: 85, factor: 2.8 }, // Factor for 85
+  { value: 3, label: "150 Mio.", volume: 150, factor: 3.2 }, // Factor for 150
+  { value: 4, label: "300 Mio.", volume: 300, factor: "let's talk" }, // Factor for 300
 ];
 
 const perspectivesLabels = [
@@ -239,12 +239,15 @@ const Pricing = () => {
                   <div>
                     <h4 className="font-semibold text-foreground mb-2">{t.pages.pricing.categories.feature}</h4>
                     <ul className="space-y-2">
-                      {plan.features.map((feature, index) => (
-                        <li key={index} className="flex items-start text-foreground text-sm">
-                          <span className="mr-2 mt-1 text-primary">•</span>
-                          <span>{feature}</span>
-                        </li>
-                      ))}
+                      {plan.features.map((feature, index) => {
+                        const isBold = feature.toLowerCase().startsWith('all from');
+                        return (
+                          <li key={index} className="flex items-start text-foreground text-sm">
+                            <span className="mr-2 mt-1 text-primary">•</span>
+                            <span className={isBold ? 'font-bold' : ''}>{feature}</span>
+                          </li>
+                        );
+                      })}
                     </ul>
                   </div>
 
@@ -270,12 +273,15 @@ const Pricing = () => {
                     <div>
                       <h4 className="font-semibold text-foreground mb-2">{t.pages.pricing.categories.llmAi}</h4>
                       <ul className="space-y-2">
-                        {plan.llmAi.map((item, index) => (
-                          <li key={index} className="flex items-start text-foreground text-sm">
-                            <span className="mr-2 mt-1 text-primary">•</span>
-                            <span>{item}</span>
-                          </li>
-                        ))}
+                        {plan.llmAi.map((item, index) => {
+                          const isBold = item.toLowerCase().startsWith('all from');
+                          return (
+                            <li key={index} className="flex items-start text-foreground text-sm">
+                              <span className="mr-2 mt-1 text-primary">•</span>
+                              <span className={isBold ? 'font-bold' : ''}>{item}</span>
+                            </li>
+                          );
+                        })}
                       </ul>
                     </div>
                   )}
