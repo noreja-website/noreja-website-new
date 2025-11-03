@@ -93,6 +93,7 @@ export interface Translations {
       viewAllFeatures: string;
       contactUs: string;
       footerNote: string;
+      statisticsNote: string;
       categories: {
         feature: string;
         service: string;
@@ -111,6 +112,10 @@ export interface Translations {
         core: {
           name: string;
           description: string;
+          statistics?: {
+            costDriverPercent: string;
+            ftePercent: string;
+          };
           features: string[];
           services: string[];
           llmAi: string[];
@@ -119,6 +124,10 @@ export interface Translations {
         pro: {
           name: string;
           description: string;
+          statistics?: {
+            costDriverPercent: string;
+            ftePercent: string;
+          };
           features: string[];
           services: string[];
           llmAi: string[];
@@ -127,6 +136,10 @@ export interface Translations {
         excellence: {
           name: string;
           description: string;
+          statistics?: {
+            costDriverPercent: string;
+            ftePercent: string;
+          };
           features: string[];
           services: string[];
           llmAi: string[];
@@ -543,6 +556,7 @@ export const translations: Record<Language, Translations> = {
         viewAllFeatures: "View all features",
         contactUs: "Contact us",
         footerNote: "All plans include 14-day free trial • No setup fees • Cancel anytime",
+        statisticsNote: "*Average values based on completed client projects. Actual results may vary depending on process maturity, company size, and industry.",
         categories: {
           feature: "Feature",
           service: "Service",
@@ -618,7 +632,11 @@ export const translations: Record<Language, Translations> = {
         plans: {
           core: {
             name: "Core",
-            description: "Essential features to get started",
+            description: "With the core features of Causal Process Mining and initial support for data connectivity",
+            statistics: {
+              costDriverPercent: "25%",
+              ftePercent: "19%"
+            },
             features: [
               "Dashboard",
               "Analyzer", 
@@ -637,7 +655,11 @@ export const translations: Record<Language, Translations> = {
           },
           pro: {
             name: "Pro",
-            description: "Advanced features for growing teams",
+            description: "With advanced AI features through Minerva-AI and continuous support in discovery",
+            statistics: {
+              costDriverPercent: "39%",
+              ftePercent: "26%"
+            },
             features: [
               "all from CORE",
               "Contextualizer",
@@ -662,7 +684,11 @@ export const translations: Record<Language, Translations> = {
           },
           excellence: {
             name: "Excellence",
-            description: "Complete solution for enterprise needs",
+            description: "For highly complex reasoning incl. Multi-LLM option and intensive support for value realization",
+            statistics: {
+              costDriverPercent: "44%",
+              ftePercent: "32%"
+            },
             features: [
               "all from PRO",
               "Workbench",
@@ -1095,6 +1121,7 @@ export const translations: Record<Language, Translations> = {
         viewAllFeatures: "Alle Features anzeigen",
         contactUs: "Kontakt aufnehmen",
         footerNote: "Alle Pläne beinhalten 14-tägige kostenlose Testversion • Keine Einrichtungsgebühren • Jederzeit kündbar",
+        statisticsNote: "*Durchschnittswerte aus realisierten Kundenprojekten. Abweichungen sind abhängig von Prozessreife, Unternehmensgröße und Branche möglich.",
         categories: {
           feature: "Feature",
           service: "Service",
@@ -1107,7 +1134,7 @@ export const translations: Record<Language, Translations> = {
           items: [
             {
               question: "Bietet Noreja einen Proof-Of-Value an, um die Technologie kennenzulernen?",
-              answer: "Ja, 85% der Kunden starten mit einem initialen Proof-Of-Value, welchen Noreja zu einem sehr günstigen Fixpreis anbietet. Dabei wird sich i.d.R. auf einen Teilprozessfokussiert, den Noreja innerhalb von 3 bis 4 Wochen anbindet, importiert, analysiert und erste Optimierungspotenziale aufdeckt. Nach dem Proof-Of-Value sind 60% der Datenanbindung bereits erledigt, sodass anschließend in wenigen Tagen eine Operationalisierung stattfinden kann."
+              answer: "Ja, 85% der Kunden starten mit einem initialen Proof-Of-Value, welchen Noreja zu einem sehr günstigen Fixpreis anbietet. Dabei wird sich i.d.R. auf einen Teilprozess fokussiert, den Noreja innerhalb von 3 bis 4 Wochen anbindet, importiert, analysiert und erste Optimierungspotenziale aufdeckt. Nach dem Proof-Of-Value sind 60% der Datenanbindung bereits erledigt, sodass anschließend in wenigen Tagen eine Operationalisierung stattfinden kann."
             },
             {
               question: "Brauche ich dedizierte Process Mining Experten, um Noreja nutzen zu können?",
@@ -1142,7 +1169,7 @@ export const translations: Record<Language, Translations> = {
               answer: "Die Daten werden bei der Amazon AWS in Frankfurt gehostet. Aufgrund vollständiger Mandanten-Trennung kann auf Wunsch aber auch in anderen Cloud-Regionen oder On-Prem gehostet werden. Bei On-Prem entstehen allerdings Zusatzaufwände."
             },
             {
-              question: "Wie geht Noreja mit Datenschutz und IT-Securit um?",
+              question: "Wie geht Noreja mit Datenschutz und IT-Security um?",
               answer: "Die Noreja ist ISO27001 zertifiziert und legt großen Wert auf Datensicherheit. Im Footer dieser Webseite befindet sich unser Trust Center, wo alle Informationen eingesehen werden können."
             },
             {
@@ -1179,6 +1206,10 @@ export const translations: Record<Language, Translations> = {
           core: {
             name: "Core",
             description: "Mit den Kernfeatures des Causal Process Minings und initialen Support bei der Datenanbindung.",
+            statistics: {
+              costDriverPercent: "25%",
+              ftePercent: "19%"
+            },
             features: [
               "Dashboard",
               "Analyzer",
@@ -1187,10 +1218,10 @@ export const translations: Record<Language, Translations> = {
             ],
             services: [
               "Data-Onboarding Workshop (2x p.a.)",
-              "Connect Source",
-              "Set up entities",
-              "Bi-Weekly Value-Support Session (45 mins)",
-              "Rate for on-top support: 1.250€ per day"
+              "Quelle verbinden",
+              "Entitäten einrichten",
+              "14-tägige Value-Support Session (45 Min.)",
+              "Tagessatz für zusätzlichen Support: 1.250€ pro Tag"
             ],
             llmAi: [],
             cta: "Kostenlose Testversion starten"
@@ -1198,50 +1229,58 @@ export const translations: Record<Language, Translations> = {
           pro: {
             name: "Pro",
             description: "Mit fortgeschrittenen KI-Features durch Minerva-AI und durchgehendem Support in der Discovery",
+            statistics: {
+              costDriverPercent: "39%",
+              ftePercent: "26%"
+            },
             features: [
-              "all from CORE",
+              "alles aus CORE",
               "Contextualizer",
               "Issue Manager",
               "Macro Builder"
             ],
             services: [
               "Data-Onboarding Workshop (3x p.a.)",
-              "Connect Source",
-              "Set up entities",
-              "Support during dimension build-up",
-              "Process Optimization Workshop (1x p.a.)",
-              "Context-Collection Workshop (1x p.a.)",
-              "Bi-Weekly Value-Support Session (90 mins)",
-              "Rate for on-top support: 950€ per day"
+              "Quelle verbinden",
+              "Entitäten einrichten",
+              "Unterstützung beim Dimensionsaufbau",
+              "Prozessoptimierungs-Workshop (1x p.a.)",
+              "Kontext-Erfassungs-Workshop (1x p.a.)",
+              "14-tägige Value-Support Session (90 Min.)",
+              "Tagessatz für zusätzlichen Support: 950€ pro Tag"
             ],
             llmAi: [
               "Minerva-AI",
-              "(Single) LLM"
+              "(Einzel-) LLM"
             ],
             cta: "Kostenlose Testversion starten"
           },
           excellence: {
             name: "Excellence",
             description: "Für hochkomplexes Reasoning inkl. Multi-LLM-Option und intensiver Begleitung bei der Value-Realization",
+            statistics: {
+              costDriverPercent: "44%",
+              ftePercent: "32%"
+            },
             features: [
-              "all from PRO",
+              "alles aus PRO",
               "Workbench",
               "Context Manager"
             ],
             services: [
               "Data-Onboarding Workshop (4x p.a.)",
-              "  Connect Source",
-              "  Set up entities",
-              "  Support during dimension build-up",
-              "Process Optimization Workshop (2x p.a.)",
-              "Context-Collection Workshop (1x p.a.)",
-              "Process-Strategy Workshop with Partner Company (1x p.a.)",
-              "Weekly Value-Support Session (60 mins)",
-              "Customer-specific KPIs/Agent development (2x p.a.)",
-              "Rate for on-top support: 850€ per day"
+              "  Quelle verbinden",
+              "  Entitäten einrichten",
+              "  Unterstützung beim Dimensionsaufbau",
+              "Prozessoptimierungs-Workshop (2x p.a.)",
+              "Kontext-Erfassungs-Workshop (1x p.a.)",
+              "Prozess-Strategie-Workshop mit Partnerunternehmen (1x p.a.)",
+              "Wöchentliche Value-Support Session (60 Min.)",
+              "Kunden-spezifische KPIs/Agent-Entwicklung (2x p.a.)",
+              "Tagessatz für zusätzlichen Support: 850€ pro Tag"
             ],
             llmAi: [
-              "all from PRO",
+              "alles aus PRO",
               "Multi-LLM"
             ],
             cta: "Kontakt aufnehmen"

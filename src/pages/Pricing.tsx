@@ -6,22 +6,23 @@ import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { AnimatedGradientBox } from "@/components/AnimatedGradientBox";
 
 // --- Factors: Fill these in as needed ---
 const dataAmountLabels = [
   { value: 0, label: "15 Mio.", volume: 15, factor: 1.6 }, // Factor for 15
-  { value: 1, label: "35 Mio.", volume: 35, factor: 2.4 }, // Factor for 35
-  { value: 2, label: "85 Mio.", volume: 85, factor: 2.8 }, // Factor for 85
-  { value: 3, label: "150 Mio.", volume: 150, factor: 3.2 }, // Factor for 150
-  { value: 4, label: "300 Mio.", volume: 300, factor: "let's talk" }, // Factor for 300
+  { value: 1, label: "35 Mio.", volume: 30, factor: 2.4 }, // Factor for 35
+  { value: 2, label: "85 Mio.", volume: 80, factor: 3.0 }, // Factor for 85
+  { value: 3, label: "150 Mio.", volume: 250, factor: 3.5 }, // Factor for 150
+  { value: 4, label: "300 Mio.", volume: ">250", factor: "let's talk" }, // Factor for 300
 ];
 
 const perspectivesLabels = [
-  { value: 0, label: "10", count: 10, factor: 1.4 }, // Factor for 10
-  { value: 1, label: "20", count: 20, factor: 1.6 }, // Factor for 20
-  { value: 2, label: "35", count: 35, factor: 1.9 }, // Factor for 35
-  { value: 3, label: "50", count: 50, factor: 2.1 }, // Factor for 50
-  { value: 4, label: "85", count: 85, factor: "let's talk" }, // Factor for 85
+  { value: 0, label: "10", count: 8, factor: 1.4 }, // Factor for 10
+  { value: 1, label: "20", count: 16, factor: 1.7 }, // Factor for 20
+  { value: 2, label: "35", count: 40, factor: 1.9 }, // Factor for 35
+  { value: 3, label: "50", count: 100, factor: 2.1 }, // Factor for 50
+  { value: 4, label: "85", count: ">100", factor: "let's talk" }, // Factor for 85
 ];
 
 // Helper function to format numbers with dot as thousand separator
@@ -94,6 +95,7 @@ const Pricing = () => {
       name: t.pages.pricing.plans.core.name,
       price: pricing.starter,
       description: t.pages.pricing.plans.core.description,
+      statistics: t.pages.pricing.plans.core.statistics,
       features: t.pages.pricing.plans.core.features,
       services: t.pages.pricing.plans.core.services,
       llmAi: t.pages.pricing.plans.core.llmAi,
@@ -104,6 +106,7 @@ const Pricing = () => {
       name: t.pages.pricing.plans.pro.name,
       price: pricing.pro,
       description: t.pages.pricing.plans.pro.description,
+      statistics: t.pages.pricing.plans.pro.statistics,
       features: t.pages.pricing.plans.pro.features,
       services: t.pages.pricing.plans.pro.services,
       llmAi: t.pages.pricing.plans.pro.llmAi,
@@ -115,6 +118,7 @@ const Pricing = () => {
       name: t.pages.pricing.plans.excellence.name,
       price: pricing.enterprise,
       description: t.pages.pricing.plans.excellence.description,
+      statistics: t.pages.pricing.plans.excellence.statistics,
       features: t.pages.pricing.plans.excellence.features,
       services: t.pages.pricing.plans.excellence.services,
       llmAi: t.pages.pricing.plans.excellence.llmAi,
@@ -197,9 +201,9 @@ const Pricing = () => {
         </div>
 
         {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-start">
           {plans.map((plan) => (
-            <Card key={plan.name} className={`relative flex flex-col ${plan.popular ? 'border-primary glow-primary' : ''}`}>
+            <Card key={plan.name} className={`relative flex flex-col h-full ${plan.popular ? 'border-primary glow-primary' : ''}`}>
               {plan.popular && (
                 <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
                   <Badge variant="default" className="gradient-primary text-white">
@@ -208,7 +212,7 @@ const Pricing = () => {
                 </div>
               )}
               
-              <CardHeader className="text-center">
+              <CardHeader className="text-center pb-4 h-[200px] flex flex-col justify-center">
                 <CardTitle className="text-2xl font-bold text-foreground">
                   {plan.name}
                 </CardTitle>
@@ -233,14 +237,15 @@ const Pricing = () => {
                 </CardDescription>
               </CardHeader>
               
-              <CardContent className="flex flex-col flex-grow">
-                <div className="space-y-4 flex-grow">
-                  {/* Feature Category */}
-                  <div>
-                    <h4 className="font-semibold text-foreground mb-2">{t.pages.pricing.categories.feature}</h4>
+              <CardContent className="flex flex-col flex-grow pt-0 min-h-0">
+                {/* Top section - Feature and Service - allows flexible growth */}
+                <div className="flex-grow flex flex-col">
+                  {/* Feature Category - fixed height to ensure Service alignment */}
+                  <div className="mb-10 h-[140px]">
+                    <h4 className="font-semibold text-foreground mb-4 text-base leading-tight">{t.pages.pricing.categories.feature}</h4>
                     <ul className="space-y-2">
                       {plan.features.map((feature, index) => {
-                        const isBold = feature.toLowerCase().startsWith('all from');
+                        const isBold = feature.toLowerCase().startsWith('all from') || feature.toLowerCase().startsWith('alles aus');
                         return (
                           <li key={index} className="flex items-start text-foreground text-sm">
                             <span className="mr-2 mt-1 text-primary">•</span>
@@ -251,9 +256,9 @@ const Pricing = () => {
                     </ul>
                   </div>
 
-                  {/* Service Category */}
-                  <div>
-                    <h4 className="font-semibold text-foreground mb-2">{t.pages.pricing.categories.service}</h4>
+                  {/* Service Category - min height to ensure alignment, but allow growth */}
+                  <div className="mb-10 min-h-[380px]">
+                    <h4 className="font-semibold text-foreground mb-4 text-base leading-tight">{t.pages.pricing.categories.service}</h4>
                     <ul className="space-y-2">
                       {plan.services.map((service, index) => {
                         const isIndented = service.startsWith('  ');
@@ -267,65 +272,90 @@ const Pricing = () => {
                       })}
                     </ul>
                   </div>
-
-                  {/* LLM + AI Category - only show if there are items */}
-                  {plan.llmAi.length > 0 && (
-                    <div>
-                      <h4 className="font-semibold text-foreground mb-2">{t.pages.pricing.categories.llmAi}</h4>
-                      <ul className="space-y-2">
-                        {plan.llmAi.map((item, index) => {
-                          const isBold = item.toLowerCase().startsWith('all from');
-                          return (
-                            <li key={index} className="flex items-start text-foreground text-sm">
-                              <span className="mr-2 mt-1 text-primary">•</span>
-                              <span className={isBold ? 'font-bold' : ''}>{item}</span>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    </div>
-                  )}
                 </div>
-                
-                <div className="mt-6 space-y-4">
-                  {(plan.name === t.pages.pricing.plans.pro.name || plan.name === t.pages.pricing.plans.excellence.name) && (
-                    <div className="flex items-center gap-3 border rounded-md p-3">
-                      <Checkbox
-                        id={`private-llm-${plan.name}`}
-                        checked={plan.name === t.pages.pricing.plans.pro.name ? privateLLMPro : privateLLMExcellence}
-                        onCheckedChange={(checked) => {
-                          if (plan.name === t.pages.pricing.plans.pro.name) {
-                            setPrivateLLMPro(!!checked);
-                          } else {
-                            setPrivateLLMExcellence(!!checked);
-                          }
-                        }}
-                      />
-                      <label htmlFor={`private-llm-${plan.name}`} className="text-sm text-foreground">
-                        {t.pages.pricing.privateLLMHosting}
-                      </label>
-                    </div>
-                  )}
 
-                  <Button 
-                    variant={plan.ctaVariant}
-                    className={`w-full ${plan.popular ? 'gradient-primary glow-primary hover:opacity-90 text-white' : 'border-border text-foreground hover:bg-secondary hover:text-foreground'}`}
-                    size="lg"
-                    onClick={() => {
-                      // Scroll to HubSpot form
-                      const formElement = document.getElementById('hubspot-contact-form');
-                      if (formElement) {
-                        formElement.scrollIntoView({ behavior: 'smooth' });
-                      }
-                    }}
-                  >
-                    {t.pages.pricing.contactUs}
-                  </Button>
+                {/* Bottom section - LLM + AI and Statistics/Button - aligned from bottom */}
+                <div className="flex flex-col">
+                  {/* LLM + AI Category - only show for Pro and Excellence, but reserve space for Core */}
+                  {/* Fixed height to ensure horizontal alignment across all cards */}
+                  <div className="mb-10 h-[180px] flex flex-col">
+                    {plan.name !== t.pages.pricing.plans.core.name ? (
+                      <>
+                        <h4 className="font-semibold text-foreground mb-4 text-base leading-tight ml-0">{t.pages.pricing.categories.llmAi}</h4>
+                        {plan.llmAi.length > 0 && (
+                          <ul className="space-y-2 mb-4">
+                            {plan.llmAi.map((item, index) => {
+                              const isBold = item.toLowerCase().startsWith('all from') || item.toLowerCase().startsWith('alles aus');
+                              return (
+                                <li key={index} className="flex items-start text-foreground text-sm">
+                                  <span className="mr-2 mt-1 text-primary flex-shrink-0 w-2">•</span>
+                                  <span className={isBold ? 'font-bold' : ''}>{item}</span>
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        )}
+                        <div className="flex items-center gap-3 border rounded-md p-3">
+                          <Checkbox
+                            id={`private-llm-${plan.name}`}
+                            checked={plan.name === t.pages.pricing.plans.pro.name ? privateLLMPro : privateLLMExcellence}
+                            onCheckedChange={(checked) => {
+                              if (plan.name === t.pages.pricing.plans.pro.name) {
+                                setPrivateLLMPro(!!checked);
+                              } else {
+                                setPrivateLLMExcellence(!!checked);
+                              }
+                            }}
+                          />
+                          <label htmlFor={`private-llm-${plan.name}`} className="text-sm text-foreground">
+                            {t.pages.pricing.privateLLMHosting}
+                          </label>
+                        </div>
+                      </>
+                    ) : null}
+                  </div>
+                  
+                  <div className="space-y-4">
+                    {/* Statistics Box / ROI Box */}
+                    {plan.statistics && (
+                      <div className="px-0 pb-0 flex items-center">
+                        <AnimatedGradientBox
+                          costDriverPercent={plan.statistics.costDriverPercent}
+                          ftePercent={plan.statistics.ftePercent}
+                          className="w-full"
+                        />
+                      </div>
+                    )}
+
+                    <Button 
+                      variant={plan.ctaVariant}
+                      className={`w-full ${plan.popular ? 'gradient-primary glow-primary hover:opacity-90 text-white' : 'border-border text-foreground hover:bg-secondary hover:text-foreground'}`}
+                      size="lg"
+                      onClick={() => {
+                        // Scroll to HubSpot form
+                        const formElement = document.getElementById('hubspot-contact-form');
+                        if (formElement) {
+                          formElement.scrollIntoView({ behavior: 'smooth' });
+                        }
+                      }}
+                    >
+                      {t.pages.pricing.contactUs}
+                    </Button>
+                  </div>
                 </div>
               </CardContent>
             </Card>
           ))}
         </div>
+
+        {/* Statistics Explanation Note */}
+        {t.pages.pricing.statisticsNote && (
+          <div className="max-w-6xl mx-auto mt-4 text-center">
+            <p className="text-xs text-muted-foreground">
+              {t.pages.pricing.statisticsNote}
+            </p>
+          </div>
+        )}
 
         {/* FAQ Section */}
         <div className="max-w-4xl mx-auto mt-16">

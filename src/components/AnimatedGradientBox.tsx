@@ -1,0 +1,144 @@
+import React, { useMemo } from 'react';
+import { useLanguage } from '@/contexts/LanguageContext';
+
+interface AnimatedGradientBoxProps {
+  costDriverPercent: string;
+  ftePercent: string;
+  className?: string;
+}
+
+export function AnimatedGradientBox({ 
+  costDriverPercent, 
+  ftePercent, 
+  className = "" 
+}: AnimatedGradientBoxProps) {
+  const { language } = useLanguage();
+  
+  // Generate unique animation values for each box instance
+  const particles = useMemo(() => {
+    return Array.from({ length: 6 }).map((_, i) => ({
+      id: i,
+      width: 3 + Math.random() * 3,
+      height: 3 + Math.random() * 3,
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      duration: 4 + Math.random() * 3,
+      delay: Math.random() * 2,
+      translateX: (Math.random() * 15 - 7.5),
+      translateY: (Math.random() * 15 - 7.5),
+    }));
+  }, []);
+
+  return (
+    <div 
+      className={`relative overflow-hidden rounded-xl p-4 border border-border/50 flex flex-col ${className}`}
+      style={{
+        background: `
+          linear-gradient(135deg, hsl(var(--card)) 0%, hsl(var(--noreja-main) / 0.15) 50%, hsl(var(--card)) 100%),
+          radial-gradient(ellipse 600px 400px at 50% 50%, hsl(var(--noreja-secondary) / 0.12) 0%, transparent 60%),
+          radial-gradient(ellipse 500px 350px at 30% 70%, hsl(var(--noreja-tertiary) / 0.10) 0%, transparent 60%)
+        `,
+        backgroundSize: '200% 200%, 100% 100%, 100% 100%',
+        animation: 'gradientShift 12s ease infinite',
+      }}
+    >
+      {/* Animated gradient overlay for subtle pulsing effect */}
+      <div 
+        className="absolute inset-0"
+        style={{
+          background: `
+            radial-gradient(circle at 30% 50%, hsl(var(--noreja-main) / 0.08) 0%, transparent 50%),
+            radial-gradient(circle at 70% 50%, hsl(var(--noreja-tertiary) / 0.06) 0%, transparent 50%)
+          `,
+          animation: 'pulseGlow 6s ease-in-out infinite',
+        }}
+      />
+      
+      {/* Subtle animated particles */}
+      <div className="absolute inset-0 overflow-hidden">
+        {particles.map((particle) => (
+          <div
+            key={particle.id}
+            className="absolute rounded-full"
+            style={{
+              width: `${particle.width}px`,
+              height: `${particle.height}px`,
+              left: `${particle.left}%`,
+              top: `${particle.top}%`,
+              background: 'hsl(var(--noreja-tertiary) / 0.2)',
+              boxShadow: '0 0 8px hsl(var(--noreja-tertiary) / 0.3)',
+              animation: `float-${particle.id} ${particle.duration}s ease-in-out infinite`,
+              animationDelay: `${particle.delay}s`,
+            }}
+          />
+        ))}
+      </div>
+      
+      {/* Content */}
+      <div className="relative z-10 flex flex-col justify-center items-center h-full text-center px-2">
+        {language === 'de' ? (
+          <>
+            <p className="text-sm leading-tight text-foreground mb-1">
+              Entdecke ca. <span className="font-semibold">{costDriverPercent}</span> der versteckten
+            </p>
+            <p className="text-sm leading-tight text-foreground mb-1">
+              Kostentreiber in deinen Prozessen. Spare ca.
+            </p>
+            <p className="text-sm leading-tight text-foreground">
+              <span className="font-semibold">{ftePercent}</span> der FTE für die Prozessanalyse.*
+            </p>
+          </>
+        ) : (
+          <>
+            <p className="text-sm leading-tight text-foreground mb-1">
+              Uncover ca. <span className="font-semibold">{costDriverPercent}</span> of hidden
+            </p>
+            <p className="text-sm leading-tight text-foreground mb-1">
+              cost drivers in your processes. Save ca.
+            </p>
+            <p className="text-sm leading-tight text-foreground">
+              <span className="font-semibold">{ftePercent}</span> of FTE for process analysis.*
+            </p>
+          </>
+        )}
+      </div>
+
+      <style>{`
+        @keyframes gradientShift {
+          0% {
+            background-position: 0% 50%, 50% 50%, 50% 50%;
+          }
+          50% {
+            background-position: 100% 50%, 50% 50%, 50% 50%;
+          }
+          100% {
+            background-position: 0% 50%, 50% 50%, 50% 50%;
+          }
+        }
+        
+        @keyframes pulseGlow {
+          0%, 100% {
+            opacity: 0.7;
+          }
+          50% {
+            opacity: 1;
+          }
+        }
+        
+        ${particles.map((particle) => `
+          @keyframes float-${particle.id} {
+            0%, 100% {
+              transform: translate(0, 0) scale(1);
+              opacity: 0.15;
+            }
+            50% {
+              transform: translate(${particle.translateX}px, ${particle.translateY}px) scale(1.3);
+              opacity: 0.35;
+            }
+          }
+        `).join('')}
+      `}</style>
+    </div>
+  );
+}
+
