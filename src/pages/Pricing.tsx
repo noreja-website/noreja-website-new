@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
-import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -67,6 +66,7 @@ const Pricing = () => {
   const [dataAmountIndex, setDataAmountIndex] = useState(0); // Default to 15
   const [privateLLMPro, setPrivateLLMPro] = useState(false);
   const [privateLLMExcellence, setPrivateLLMExcellence] = useState(false);
+  const [selectedPlanIndex, setSelectedPlanIndex] = useState(1); // Default to middle package (Pro)
   const currentPerspectives = perspectivesLabels[perspectivesIndex];
   const currentDataAmount = dataAmountLabels[dataAmountIndex];
   const pricing = calculatePricing(perspectivesIndex, dataAmountIndex);
@@ -114,8 +114,7 @@ const Pricing = () => {
       services: t.pages.pricing.plans.pro.services,
       llmAi: t.pages.pricing.plans.pro.llmAi,
       cta: t.pages.pricing.plans.pro.cta,
-      ctaVariant: "default" as const,
-      popular: true
+      ctaVariant: "default" as const
     },
     {
       name: t.pages.pricing.plans.excellence.name,
@@ -244,16 +243,19 @@ const Pricing = () => {
           </div>
 
           {/* Pricing Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-start">
-            {plans.map((plan) => (
-              <Card key={plan.name} className={`relative flex flex-col h-full ${plan.popular ? 'border-primary glow-primary' : ''}`}>
-                {plan.popular && (
-                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                    <Badge variant="default" className="gradient-primary text-white">
-                      {t.pages.pricing.mostPopular}
-                    </Badge>
-                  </div>
-                )}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-start relative">
+            {plans.map((plan, index) => {
+              const isSelected = selectedPlanIndex === index;
+              return (
+              <Card 
+                key={plan.name} 
+                className={`relative flex flex-col h-full cursor-pointer transition-all duration-300 ease-out ${
+                  isSelected 
+                    ? 'border-primary glow-primary scale-105 z-20' 
+                    : 'scale-100 z-10 opacity-70 hover:opacity-85'
+                }`}
+                onClick={() => setSelectedPlanIndex(index)}
+              >
                 
                 <CardHeader className="text-center pb-4 h-[200px] flex flex-col justify-center">
                   <CardTitle className="text-2xl font-bold text-foreground">
@@ -338,7 +340,10 @@ const Pricing = () => {
                               })}
                             </ul>
                           )}
-                          <div className="flex items-center gap-3 border rounded-md p-3">
+                          <div 
+                            className="flex items-center gap-3 border rounded-md p-3"
+                            onClick={(e) => e.stopPropagation()}
+                          >
                             <Checkbox
                               id={`private-llm-${plan.name}`}
                               checked={plan.name === t.pages.pricing.plans.pro.name ? privateLLMPro : privateLLMExcellence}
@@ -372,9 +377,10 @@ const Pricing = () => {
 
                       <Button 
                         variant={plan.ctaVariant}
-                        className={`w-full ${plan.popular ? 'gradient-primary glow-primary hover:opacity-90 text-white' : 'border-border text-foreground hover:bg-secondary hover:text-foreground'}`}
+                        className={`w-full ${isSelected ? 'gradient-primary glow-primary hover:opacity-90 text-white' : 'border-border text-foreground hover:bg-secondary hover:text-foreground'}`}
                         size="lg"
-                        onClick={() => {
+                        onClick={(e) => {
+                          e.stopPropagation(); // Prevent card selection when clicking button
                           // Scroll to HubSpot form
                           const formElement = document.getElementById('hubspot-contact-form');
                           if (formElement) {
@@ -388,7 +394,8 @@ const Pricing = () => {
                   </div>
                 </CardContent>
               </Card>
-            ))}
+              );
+            })}
           </div>
 
           {/* Statistics Explanation Note */}
