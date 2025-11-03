@@ -84,6 +84,8 @@ export interface Translations {
       dataVolume: string;
       dataAmount?: string;
       perspectives?: string;
+      dataAmountTooltip?: string;
+      perspectivesTooltip?: string;
       users: string;
       user: string;
       mostPopular: string;
@@ -547,6 +549,8 @@ export const translations: Record<Language, Translations> = {
         dataVolume: "Data Volume:",
         dataAmount: "Data amount",
         perspectives: "Perspectives",
+        dataAmountTooltip: "Select the approximate volume of data records you'll be processing. This helps us calculate the optimal pricing for your use case.",
+        perspectivesTooltip: "Choose the number of different analytical perspectives or dimensions you need. Each perspective represents a unique way of analyzing your process data.",
         users: "users",
         user: "user",
         mostPopular: "Most Popular",
@@ -1112,6 +1116,8 @@ export const translations: Record<Language, Translations> = {
         dataVolume: "Datenvolumen:",
         dataAmount: "Datenmenge",
         perspectives: "Perspektiven",
+        dataAmountTooltip: "Wähle das ungefähre Volumen der Daten, die du verarbeiten wirst. Dies hilft uns, den optimalen Preis für deinen Anwendungsfall zu berechnen.",
+        perspectivesTooltip: "Wähle die Anzahl der verschiedenen analytischen Perspektiven oder Dimensionen, die du benötigst. Jede Perspektive stellt eine einzigartige Art dar, deine Prozessdaten zu analysieren.",
         users: "Benutzer",
         user: "Benutzer",
         mostPopular: "Am beliebtesten",

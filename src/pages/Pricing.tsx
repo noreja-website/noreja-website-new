@@ -6,6 +6,8 @@ import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Info } from "lucide-react";
 import { AnimatedGradientBox } from "@/components/AnimatedGradientBox";
 import { AnimatedGridBackground } from "@/components/AnimatedGridBackground";
 
@@ -151,9 +153,27 @@ const Pricing = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* Data Amount Slider - LEFT */}
               <div className="bg-card rounded-lg p-8 border">
-                <h3 className="text-lg font-semibold mb-6 text-center text-foreground">
-                  {t.pages.pricing.dataAmount ?? t.pages.pricing.dataVolume}
-                </h3>
+                <div className="flex items-center justify-center gap-2 mb-6">
+                  <h3 className="text-lg font-semibold text-foreground">
+                    {t.pages.pricing.dataAmount ?? t.pages.pricing.dataVolume}
+                  </h3>
+                  {t.pages.pricing.dataAmountTooltip && (
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <button
+                          type="button"
+                          className="inline-flex items-center justify-center rounded-full hover:bg-muted transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                          aria-label="Information about data amount"
+                        >
+                          <Info className="h-4 w-4 text-muted-foreground hover:text-foreground" />
+                        </button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto max-w-xs p-3" side="top" align="center">
+                        <p className="text-sm leading-relaxed">{t.pages.pricing.dataAmountTooltip}</p>
+                      </PopoverContent>
+                    </Popover>
+                  )}
+                </div>
                 
                 <div className="space-y-6">
                   <div className="px-2">
@@ -178,9 +198,27 @@ const Pricing = () => {
               </div>
               {/* Perspectives Slider - RIGHT */}
               <div className="bg-card rounded-lg p-8 border">
-                <h3 className="text-lg font-semibold mb-6 text-center text-foreground">
-                  {t.pages.pricing.perspectives ?? t.pages.pricing.teamSize}
-                </h3>
+                <div className="flex items-center justify-center gap-2 mb-6">
+                  <h3 className="text-lg font-semibold text-foreground">
+                    {t.pages.pricing.perspectives ?? t.pages.pricing.teamSize}
+                  </h3>
+                  {t.pages.pricing.perspectivesTooltip && (
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <button
+                          type="button"
+                          className="inline-flex items-center justify-center rounded-full hover:bg-muted transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                          aria-label="Information about perspectives"
+                        >
+                          <Info className="h-4 w-4 text-muted-foreground hover:text-foreground" />
+                        </button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto max-w-xs p-3" side="top" align="center">
+                        <p className="text-sm leading-relaxed">{t.pages.pricing.perspectivesTooltip}</p>
+                      </PopoverContent>
+                    </Popover>
+                  )}
+                </div>
                 <div className="space-y-6">
                   <div className="px-3">
                     <Slider
