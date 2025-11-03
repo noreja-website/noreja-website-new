@@ -644,10 +644,10 @@ export const translations: Record<Language, Translations> = {
               "Knowledge Base"
             ],
             services: [
-              "Data-Onboarding Workshop (2x p.a.)",
+              "Data Onboarding Workshop (2x p.a.)",
               "Connect Source",
               "Set up entities",
-              "Bi-Weekly Value-Support Session (45 mins)",
+              "Biweekly Value-Support Session (45 mins)",
               "Rate for on-top support: 1.250€ per day"
             ],
             llmAi: [],
@@ -667,13 +667,13 @@ export const translations: Record<Language, Translations> = {
               "Macro Builder"
             ],
             services: [
-              "Data-Onboarding Workshop (3x p.a.)",
+              "Data Onboarding Workshop (3x p.a.)",
               "Connect Source",
               "Set up entities",
               "Support during dimension build-up",
               "Process Optimization Workshop (1x p.a.)",
-              "Context-Collection Workshop (1x p.a.)",
-              "Bi-Weekly Value-Support Session (90 mins)",
+              "Context Collection Workshop (1x p.a.)",
+              "Biweekly Value-Support Session (90 mins)",
               "Rate for on-top support: 950€ per day"
             ],
             llmAi: [
@@ -695,16 +695,16 @@ export const translations: Record<Language, Translations> = {
               "Context Manager"
             ],
             services: [
-              "Data-Onboarding Workshop (4x p.a.)",
+              "Data Onboarding Workshop (4x p.a.)",
               "  Connect Source",
               "  Set up entities",
               "  Support during dimension build-up",
               "Process Optimization Workshop (2x p.a.)",
-              "Context-Collection Workshop (1x p.a.)",
-              "Process-Strategy Workshop with Partner Company (1x p.a.)",
+              "Context Collection Workshop (1x p.a.)",
+              "Process Strategy Workshop with Partner Company (1x p.a.)",
               "Weekly Value-Support Session (60 mins)",
-              "Customer-specific KPIs/Agent development (2x p.a.)",
-              "Rate for on-top support: 850€ per day"
+              "Customer specific KPIs/Agent development (2x p.a.)",
+              "Rate for on top support: 850€ per day"
             ],
             llmAi: [
               "all from PRO",
