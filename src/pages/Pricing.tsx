@@ -249,6 +249,20 @@ const Pricing = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-start relative py-4">
             {plans.map((plan, index) => {
               const isSelected = selectedPlanIndex === index;
+              
+              // Extract user count from plan.users (e.g., "3 Power-User" -> 3)
+              const userCountMatch = plan.users?.match(/^(\d+)/);
+              const userCount = userCountMatch ? parseInt(userCountMatch[1], 10) : 1;
+              
+              // Calculate per month per user price
+              const isOnRequest = (typeof plan.price === 'string' && plan.price === 'onRequest') ||
+                                   (plan.name === t.pages.pricing.plans.pro.name && privateLLMPro) ||
+                                   (plan.name === t.pages.pricing.plans.excellence.name && privateLLMExcellence);
+              
+              const annualPrice = isOnRequest ? null : (plan.price as number);
+              const perMonthPerUser = annualPrice ? Math.round(annualPrice / 12 / userCount) : null;
+              const fullAnnualPrice = annualPrice ? annualPrice : null;
+              
               return (
               <Card 
                 key={plan.name} 
@@ -266,18 +280,39 @@ const Pricing = () => {
                   </CardTitle>
                   <div className="mt-4">
                     <span className="text-4xl font-bold text-foreground">
-                      {(typeof plan.price === 'string' && plan.price === 'onRequest') ||
-                      (plan.name === t.pages.pricing.plans.pro.name && privateLLMPro) ||
-                      (plan.name === t.pages.pricing.plans.excellence.name && privateLLMExcellence)
+                      {isOnRequest 
                         ? t.pages.pricing.onRequest
-                        : `${formatPrice(plan.price)} €`}
+                        : perMonthPerUser !== null 
+                          ? `${formatPrice(perMonthPerUser)} €`
+                          : t.pages.pricing.onRequest}
                     </span>
-                    { !(
-                      (typeof plan.price === 'string' && plan.price === 'onRequest') ||
-                      (plan.name === t.pages.pricing.plans.pro.name && privateLLMPro) ||
-                      (plan.name === t.pages.pricing.plans.excellence.name && privateLLMExcellence)
-                    ) && (
-                      <span className="text-muted-foreground">{t.pages.pricing.year}</span>
+                  </div>
+                  <div className="mt-2 flex items-center justify-center gap-1">
+                    {!isOnRequest && perMonthPerUser !== null && (
+                      <>
+                        <span className="text-muted-foreground text-sm">
+                          {t.pages.pricing.perMonthAndUser}
+                        </span>
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <button
+                              type="button"
+                              className="inline-flex items-center justify-center rounded-full hover:bg-muted transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                              aria-label="Full price information"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <Info className="h-3.5 w-3.5 text-muted-foreground hover:text-foreground" />
+                            </button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-auto p-3" side="top" align="center">
+                            <div className="text-sm">
+                              <p className="text-foreground">
+                                {t.pages.pricing.annualCostTooltip} {formatPrice(fullAnnualPrice!)} €
+                              </p>
+                            </div>
+                          </PopoverContent>
+                        </Popover>
+                      </>
                     )}
                   </div>
                   <CardDescription className="text-base mt-2">
@@ -318,7 +353,7 @@ const Pricing = () => {
                     )}
 
                     {/* Service Category - min height to ensure alignment, but allow growth */}
-                    <div className="mb-10 min-h-[380px]">
+                    <div className="mb-0 min-h-[380px]">
                       <h4 className="font-semibold text-foreground mb-4 text-base leading-tight">{t.pages.pricing.categories.service}</h4>
                       <ul className="space-y-2">
                         {plan.services.map((service, index) => {
@@ -336,7 +371,7 @@ const Pricing = () => {
                   </div>
 
                   {/* Bottom section - LLM + AI and Statistics/Button - aligned from bottom */}
-                  <div className="flex flex-col">
+                  <div className="flex flex-col -mt-2">
                     {/* LLM + AI Category - only show for Pro and Excellence, but reserve space for Core */}
                     {/* Fixed height to ensure horizontal alignment across all cards */}
                     <div className="mb-10 h-[180px] flex flex-col">

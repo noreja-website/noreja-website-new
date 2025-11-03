@@ -90,6 +90,8 @@ export interface Translations {
       user: string;
       mostPopular: string;
       month: string;
+      perMonthAndUser: string;
+      annualCostTooltip: string;
       year: string;
       onRequest: string;
       viewAllFeatures: string;
@@ -558,7 +560,9 @@ export const translations: Record<Language, Translations> = {
         users: "users",
         user: "user",
         mostPopular: "Most Popular",
-        month: "/month",
+        month: "/ month",
+        perMonthAndUser: "per month and user",
+        annualCostTooltip: "Calculated total costs per year",
         year: " /year",
         onRequest: "let's talk",
         viewAllFeatures: "View all features",
@@ -1119,9 +1123,11 @@ export const translations: Record<Language, Translations> = {
         dataAmountTooltip: "Wähle das ungefähre Volumen der Daten, die du verarbeiten wirst. Dies hilft uns, den optimalen Preis für deinen Anwendungsfall zu berechnen.",
         perspectivesTooltip: "Wähle die Anzahl der verschiedenen analytischen Perspektiven oder Dimensionen, die du benötigst. Jede Perspektive stellt eine einzigartige Art dar, deine Prozessdaten zu analysieren.",
         users: "Benutzer",
-        user: "Benutzer",
+        user: "Nutzer",
         mostPopular: "Am beliebtesten",
-        month: "/Monat",
+        month: "/ Monat",
+        perMonthAndUser: "pro Monat und Nutzer",
+        annualCostTooltip: "Berechnete Gesamtkosten pro Jahr",
         year: " /Jahr",
         onRequest: "Auf Anfrage",
         viewAllFeatures: "Alle Features anzeigen",
