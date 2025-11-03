@@ -543,8 +543,8 @@ export const translations: Record<Language, Translations> = {
         partnerSubtitle: "Join our ecosystem of innovative partners and unlock new opportunities for growth, collaboration, and shared success."
       },
       pricing: {
-        title: "Simple, Transparent Pricing",
-        subtitle: "Choose the plan that fits your team size and needs.",
+        title: "Transparent Pricing, Clear Solutions",
+        subtitle: "Choose the package that suits your needs. We'll help you choose – quickly and transparently.",
         teamSize: "Team Size:",
         dataVolume: "Data Volume:",
         dataAmount: "Data amount",
@@ -649,8 +649,6 @@ export const translations: Record<Language, Translations> = {
             ],
             services: [
               "Data Onboarding Workshop (2x p.a.)",
-              "Connect Source",
-              "Set up entities",
               "Biweekly Value-Support Session (45 mins)",
               "Rate for on-top support: 1.250€ per day"
             ],
@@ -672,9 +670,6 @@ export const translations: Record<Language, Translations> = {
             ],
             services: [
               "Data Onboarding Workshop (3x p.a.)",
-              "Connect Source",
-              "Set up entities",
-              "Support during dimension build-up",
               "Process Optimization Workshop (1x p.a.)",
               "Context Collection Workshop (1x p.a.)",
               "Biweekly Value-Support Session (90 mins)",
@@ -700,9 +695,6 @@ export const translations: Record<Language, Translations> = {
             ],
             services: [
               "Data Onboarding Workshop (4x p.a.)",
-              "  Connect Source",
-              "  Set up entities",
-              "  Support during dimension build-up",
               "Process Optimization Workshop (2x p.a.)",
               "Context Collection Workshop (1x p.a.)",
               "Process Strategy Workshop with Partner Company (1x p.a.)",
@@ -1110,8 +1102,8 @@ export const translations: Record<Language, Translations> = {
         partnerSubtitle: "Tritt unserem Ökosystem innovativer Partner bei und erschließe neue Möglichkeiten für Wachstum, Zusammenarbeit und gemeinsamen Erfolg."
       },
       pricing: {
-        title: "Einfache, transparente Preise",
-        subtitle: "Wähle den Plan, der zu deiner Teamgröße und deinen Bedürfnissen passt.",
+        title: "Transparente Preise, klare Lösungen",
+        subtitle: "Wähle das Paket, das zu deinen Bedürfnissen passt. Wir helfen dir bei der Auswahl – schnell und transparent.",
         teamSize: "Teamgröße:",
         dataVolume: "Datenvolumen:",
         dataAmount: "Datenmenge",
@@ -1224,8 +1216,6 @@ export const translations: Record<Language, Translations> = {
             ],
             services: [
               "Data-Onboarding Workshop (2x p.a.)",
-              "Quelle verbinden",
-              "Entitäten einrichten",
               "14-tägige Value-Support Session (45 Min.)",
               "Tagessatz für zusätzlichen Support: 1.250€ pro Tag"
             ],
@@ -1247,9 +1237,6 @@ export const translations: Record<Language, Translations> = {
             ],
             services: [
               "Data-Onboarding Workshop (3x p.a.)",
-              "Quelle verbinden",
-              "Entitäten einrichten",
-              "Unterstützung beim Dimensionsaufbau",
               "Prozessoptimierungs-Workshop (1x p.a.)",
               "Kontext-Erfassungs-Workshop (1x p.a.)",
               "14-tägige Value-Support Session (90 Min.)",
@@ -1275,9 +1262,6 @@ export const translations: Record<Language, Translations> = {
             ],
             services: [
               "Data-Onboarding Workshop (4x p.a.)",
-              "  Quelle verbinden",
-              "  Entitäten einrichten",
-              "  Unterstützung beim Dimensionsaufbau",
               "Prozessoptimierungs-Workshop (2x p.a.)",
               "Kontext-Erfassungs-Workshop (1x p.a.)",
               "Prozess-Strategie-Workshop mit Partnerunternehmen (1x p.a.)",
