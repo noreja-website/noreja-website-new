@@ -96,11 +96,12 @@ export interface Translations {
       contactUs: string;
       footerNote: string;
       statisticsNote: string;
-      categories: {
-        feature: string;
-        service: string;
-        llmAi: string;
-      };
+        categories: {
+          feature: string;
+          users: string;
+          service: string;
+          llmAi: string;
+        };
       privateLLMHosting: string;
       faq: {
         title: string;
@@ -119,6 +120,7 @@ export interface Translations {
             ftePercent: string;
           };
           features: string[];
+          users?: string;
           services: string[];
           llmAi: string[];
           cta: string;
@@ -131,6 +133,7 @@ export interface Translations {
             ftePercent: string;
           };
           features: string[];
+          users?: string;
           services: string[];
           llmAi: string[];
           cta: string;
@@ -143,6 +146,7 @@ export interface Translations {
             ftePercent: string;
           };
           features: string[];
+          users?: string;
           services: string[];
           llmAi: string[];
           cta: string;
@@ -563,6 +567,7 @@ export const translations: Record<Language, Translations> = {
         statisticsNote: "*Average values based on completed client projects. Actual results may vary depending on process maturity, company size, and industry.",
         categories: {
           feature: "Feature",
+          users: "Users",
           service: "Service",
           llmAi: "LLM + AI"
         },
@@ -647,6 +652,7 @@ export const translations: Record<Language, Translations> = {
               "Builder",
               "Knowledge Base"
             ],
+            users: "3 Power Users",
             services: [
               "Data Onboarding Workshop (2x p.a.)",
               "Biweekly Value-Support Session (45 mins)",
@@ -668,6 +674,7 @@ export const translations: Record<Language, Translations> = {
               "Issue Manager",
               "Macro Builder"
             ],
+            users: "6 Power Users",
             services: [
               "Data Onboarding Workshop (3x p.a.)",
               "Process Optimization Workshop (1x p.a.)",
@@ -693,6 +700,7 @@ export const translations: Record<Language, Translations> = {
               "Workbench",
               "Context Manager"
             ],
+            users: "10 Power Users",
             services: [
               "Data Onboarding Workshop (4x p.a.)",
               "Process Optimization Workshop (2x p.a.)",
@@ -1122,6 +1130,7 @@ export const translations: Record<Language, Translations> = {
         statisticsNote: "*Durchschnittswerte aus realisierten Kundenprojekten. Abweichungen sind abhängig von Prozessreife, Unternehmensgröße und Branche möglich.",
         categories: {
           feature: "Feature",
+          users: "Nutzer",
           service: "Service",
           llmAi: "LLM + AI"
         },
@@ -1214,6 +1223,7 @@ export const translations: Record<Language, Translations> = {
               "Builder", 
               "Knowledge Base"
             ],
+            users: "3 Power-User",
             services: [
               "Data-Onboarding Workshop (2x p.a.)",
               "14-tägige Value-Support Session (45 Min.)",
@@ -1235,6 +1245,7 @@ export const translations: Record<Language, Translations> = {
               "Issue Manager",
               "Macro Builder"
             ],
+            users: "6 Power-User",
             services: [
               "Data-Onboarding Workshop (3x p.a.)",
               "Prozessoptimierungs-Workshop (1x p.a.)",
@@ -1260,6 +1271,7 @@ export const translations: Record<Language, Translations> = {
               "Workbench",
               "Context Manager"
             ],
+            users: "10 Power-User",
             services: [
               "Data-Onboarding Workshop (4x p.a.)",
               "Prozessoptimierungs-Workshop (2x p.a.)",

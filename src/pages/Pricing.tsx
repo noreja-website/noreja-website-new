@@ -100,6 +100,7 @@ const Pricing = () => {
       description: t.pages.pricing.plans.core.description,
       statistics: t.pages.pricing.plans.core.statistics,
       features: t.pages.pricing.plans.core.features,
+      users: t.pages.pricing.plans.core.users,
       services: t.pages.pricing.plans.core.services,
       llmAi: t.pages.pricing.plans.core.llmAi,
       cta: t.pages.pricing.plans.core.cta,
@@ -111,6 +112,7 @@ const Pricing = () => {
       description: t.pages.pricing.plans.pro.description,
       statistics: t.pages.pricing.plans.pro.statistics,
       features: t.pages.pricing.plans.pro.features,
+      users: t.pages.pricing.plans.pro.users,
       services: t.pages.pricing.plans.pro.services,
       llmAi: t.pages.pricing.plans.pro.llmAi,
       cta: t.pages.pricing.plans.pro.cta,
@@ -122,6 +124,7 @@ const Pricing = () => {
       description: t.pages.pricing.plans.excellence.description,
       statistics: t.pages.pricing.plans.excellence.statistics,
       features: t.pages.pricing.plans.excellence.features,
+      users: t.pages.pricing.plans.excellence.users,
       services: t.pages.pricing.plans.excellence.services,
       llmAi: t.pages.pricing.plans.excellence.llmAi,
       cta: t.pages.pricing.plans.excellence.cta,
@@ -243,7 +246,7 @@ const Pricing = () => {
           </div>
 
           {/* Pricing Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-start relative">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-start relative py-4">
             {plans.map((plan, index) => {
               const isSelected = selectedPlanIndex === index;
               return (
@@ -292,14 +295,27 @@ const Pricing = () => {
                         {plan.features.map((feature, index) => {
                           const isBold = feature.toLowerCase().startsWith('all from') || feature.toLowerCase().startsWith('alles aus');
                           return (
-                            <li key={index} className="flex items-start text-foreground text-sm">
-                              <span className="mr-2 mt-1 text-primary">•</span>
+                            <li key={index} className="flex text-foreground text-sm">
+                              <span className="mr-2 text-primary flex-shrink-0 leading-none mt-[0.1em]">•</span>
                               <span className={isBold ? 'font-bold' : ''}>{feature}</span>
                             </li>
                           );
                         })}
                       </ul>
                     </div>
+
+                    {/* Users Category - between features and services */}
+                    {plan.users && (
+                      <div className="mb-10">
+                        <h4 className="font-semibold text-foreground mb-4 text-base leading-tight">{t.pages.pricing.categories.users}</h4>
+                        <ul className="space-y-2">
+                          <li className="flex text-foreground text-sm">
+                            <span className="mr-2 text-primary flex-shrink-0 leading-none mt-[0.1em]">•</span>
+                            <span>{plan.users}</span>
+                          </li>
+                        </ul>
+                      </div>
+                    )}
 
                     {/* Service Category - min height to ensure alignment, but allow growth */}
                     <div className="mb-10 min-h-[380px]">
@@ -309,8 +325,8 @@ const Pricing = () => {
                           const isIndented = service.startsWith('  ');
                           const displayText = isIndented ? service.trimStart() : service;
                           return (
-                            <li key={index} className={`flex items-start text-foreground text-sm ${isIndented ? 'pl-6' : ''}`}>
-                              <span className="mr-2 mt-1 text-primary">•</span>
+                            <li key={index} className={`flex text-foreground text-sm ${isIndented ? 'pl-6' : ''}`}>
+                              <span className="mr-2 text-primary flex-shrink-0 leading-none mt-[0.1em]">•</span>
                               <span>{displayText}</span>
                             </li>
                           );
@@ -332,8 +348,8 @@ const Pricing = () => {
                               {plan.llmAi.map((item, index) => {
                                 const isBold = item.toLowerCase().startsWith('all from') || item.toLowerCase().startsWith('alles aus');
                                 return (
-                                  <li key={index} className="flex items-start text-foreground text-sm">
-                                    <span className="mr-2 mt-1 text-primary flex-shrink-0 w-2">•</span>
+                                  <li key={index} className="flex text-foreground text-sm">
+                                    <span className="mr-2 text-primary flex-shrink-0 leading-none mt-[0.1em]">•</span>
                                     <span className={isBold ? 'font-bold' : ''}>{item}</span>
                                   </li>
                                 );
@@ -400,7 +416,7 @@ const Pricing = () => {
 
           {/* Statistics Explanation Note */}
           {t.pages.pricing.statisticsNote && (
-            <div className="max-w-6xl mx-auto mt-4 text-center">
+            <div className="max-w-6xl mx-auto mt-12 text-center">
               <p className="text-xs text-muted-foreground">
                 {t.pages.pricing.statisticsNote}
               </p>
