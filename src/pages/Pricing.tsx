@@ -457,7 +457,7 @@ const Pricing = () => {
                       )}
 
                       <Button 
-                        variant={plan.ctaVariant}
+                        variant={isSelected ? "default" : "outline"}
                         className={`w-full ${isSelected ? 'gradient-primary glow-primary hover:opacity-90 text-white' : 'border-border text-foreground hover:bg-secondary hover:text-foreground'}`}
                         size="lg"
                         onClick={(e) => {

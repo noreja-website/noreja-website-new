@@ -9,7 +9,7 @@ export function IntegratedHeroSection() {
   const { t } = useLanguage();
   
   // Typing animation for words
-  const rotatingWords = ["Transparent", "Understandable", "Self-Improving", "Compliant"];
+  const rotatingWords = ["Transparent", "Understandable", "Efficient", "Compliant"];
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
   const [isTyping, setIsTyping] = useState(true);

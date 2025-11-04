@@ -1326,7 +1326,7 @@ export const translations: Record<Language, Translations> = {
       }
     },
     functionalities: {
-      title: "Eine Plattfform -",
+      title: "Eine Plattform -",
       titleHighlight: "fünf Wege zur Process Intelligence",
       subtitle: "Von automatischer Analyse bis KI-gestützter Ursachenforschung – alles, was du brauchst, um Prozesse selbstverbessernd zu machen.",
       exploreFeatures: "Alle Features erkunden",
