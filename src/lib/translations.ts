@@ -103,6 +103,7 @@ export interface Translations {
           users: string;
           service: string;
           llmAi: string;
+          supportRate: string;
         };
       privateLLMHosting: string;
       faq: {
@@ -573,7 +574,8 @@ export const translations: Record<Language, Translations> = {
           feature: "Feature",
           users: "Users",
           service: "Service",
-          llmAi: "LLM + AI"
+          llmAi: "LLM + AI",
+          supportRate: "Support Rate"
         },
         privateLLMHosting: "Private LLM Hosting by Noreja",
         faq: {
@@ -1138,7 +1140,8 @@ export const translations: Record<Language, Translations> = {
           feature: "Feature",
           users: "Nutzer",
           service: "Service",
-          llmAi: "LLM + AI"
+          llmAi: "LLM + AI",
+          supportRate: "Tagessatz"
         },
         privateLLMHosting: "Privates LLM Hosting by Noreja",
         faq: {

@@ -356,18 +356,48 @@ const Pricing = () => {
                     <div className="mb-0 min-h-[380px]">
                       <h4 className="font-semibold text-foreground mb-4 text-base leading-tight">{t.pages.pricing.categories.service}</h4>
                       <ul className="space-y-2">
-                        {plan.services.map((service, index) => {
-                          const isIndented = service.startsWith('  ');
-                          const displayText = isIndented ? service.trimStart() : service;
-                          return (
-                            <li key={index} className={`flex text-foreground text-sm ${isIndented ? 'pl-6' : ''}`}>
-                              <span className="mr-2 text-primary flex-shrink-0 leading-none mt-[0.1em]">•</span>
-                              <span>{displayText}</span>
-                            </li>
-                          );
-                        })}
+                        {plan.services
+                          .filter(service => {
+                            // Filter out the rate service items
+                            const lowerService = service.toLowerCase();
+                            return !lowerService.includes('rate for') && 
+                                   !lowerService.includes('tagessatz') &&
+                                   !lowerService.includes('rate for on');
+                          })
+                          .map((service, index) => {
+                            const isIndented = service.startsWith('  ');
+                            const displayText = isIndented ? service.trimStart() : service;
+                            return (
+                              <li key={index} className={`flex text-foreground text-sm ${isIndented ? 'pl-6' : ''}`}>
+                                <span className="mr-2 text-primary flex-shrink-0 leading-none mt-[0.1em]">•</span>
+                                <span>{displayText}</span>
+                              </li>
+                            );
+                          })}
                       </ul>
                     </div>
+
+                    {/* Support Rate Category - shows the on-top support rate */}
+                    {(() => {
+                      const rateService = plan.services.find(service => {
+                        const lowerService = service.toLowerCase();
+                        return lowerService.includes('rate for') || 
+                               lowerService.includes('tagessatz') ||
+                               lowerService.includes('rate for on');
+                      });
+                      
+                      return rateService ? (
+                        <div className="mb-10 -mt-2">
+                          <h4 className="font-semibold text-foreground mb-4 text-base leading-tight">{t.pages.pricing.categories.supportRate}</h4>
+                          <ul className="space-y-2">
+                            <li className="flex text-foreground text-sm">
+                              <span className="mr-2 text-primary flex-shrink-0 leading-none mt-[0.1em]">•</span>
+                              <span>{rateService}</span>
+                            </li>
+                          </ul>
+                        </div>
+                      ) : null;
+                    })()}
                   </div>
 
                   {/* Bottom section - LLM + AI and Statistics/Button - aligned from bottom */}
