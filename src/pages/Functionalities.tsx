@@ -92,7 +92,42 @@ const Functionalities = () => {
           <div className="space-y-32 lg:space-y-40">
             {features.map((feature, index) => {
               const Icon = feature.icon;
-              const isEven = index % 2 === 0;
+              
+              // Varied layout patterns for more organic feel
+              const layouts = [
+                { 
+                  imageOrder: 1, 
+                  imageSize: "h-[450px] lg:h-[550px]", 
+                  gridCols: "lg:grid-cols-[1.2fr_1fr]",
+                  imageOffset: ""
+                },
+                { 
+                  imageOrder: 2, 
+                  imageSize: "h-[400px] lg:h-[600px]", 
+                  gridCols: "lg:grid-cols-[1fr_1.2fr]",
+                  imageOffset: "lg:mt-8"
+                },
+                { 
+                  imageOrder: 1, 
+                  imageSize: "h-[500px] lg:h-[500px]", 
+                  gridCols: "lg:grid-cols-2",
+                  imageOffset: ""
+                },
+                { 
+                  imageOrder: 2, 
+                  imageSize: "h-[450px] lg:h-[550px]", 
+                  gridCols: "lg:grid-cols-[1.1fr_0.9fr]",
+                  imageOffset: "lg:-mt-8"
+                },
+                { 
+                  imageOrder: 1, 
+                  imageSize: "h-[400px] lg:h-[580px]", 
+                  gridCols: "lg:grid-cols-[0.9fr_1.1fr]",
+                  imageOffset: "lg:mt-12"
+                }
+              ];
+              
+              const layout = layouts[index % layouts.length];
               
               return (
                 <motion.section
@@ -104,10 +139,10 @@ const Functionalities = () => {
                   viewport={{ once: true }}
                   className="scroll-mt-24"
                 >
-                  <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+                  <div className={`grid ${layout.gridCols} gap-8 lg:gap-12 items-start`}>
                     {/* Image Section */}
-                    <div className={isEven ? "lg:order-1" : "lg:order-2"}>
-                      <div className="relative w-full h-[400px] lg:h-[500px] rounded-2xl overflow-hidden border border-border/50 shadow-lg group">
+                    <div className={`${layout.imageOrder === 1 ? "lg:order-1" : "lg:order-2"} ${layout.imageOffset}`}>
+                      <div className={`relative w-full ${layout.imageSize} rounded-2xl overflow-hidden border border-border/50 shadow-lg group`}>
                         {/* Placeholder for image - replace with actual image when available */}
                         {feature.imagePath ? (
                           <>
@@ -138,7 +173,7 @@ const Functionalities = () => {
                     </div>
 
                     {/* Text Section */}
-                    <div className={isEven ? "lg:order-2" : "lg:order-1"}>
+                    <div className={`${layout.imageOrder === 1 ? "lg:order-2" : "lg:order-1"}`}>
                       <div className="space-y-6 lg:py-4">
                         <div className="flex items-center gap-4 mb-6">
                           <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center border border-primary/20 flex-shrink-0">
