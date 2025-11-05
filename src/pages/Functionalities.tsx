@@ -1,8 +1,239 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { HubSpotBlogTeaser } from "@/components/HubSpotBlogTeaser";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { useEffect } from "react";
-import { LayoutDashboard, Search, Brain, Wrench, Code } from "lucide-react";
+import { useEffect, useRef } from "react";
+import { LayoutDashboard, Search, Brain, Wrench, Code, LucideIcon } from "lucide-react";
+
+// Feature Section Component with advanced scroll animations
+interface FeatureSectionProps {
+  feature: {
+    id: string;
+    icon: LucideIcon;
+    title: string;
+    description: string;
+    imagePath: string | null;
+  };
+  Icon: LucideIcon;
+  layout: {
+    imageOrder: number;
+    imageSize: string;
+    gridCols: string;
+    imageOffset: string;
+  };
+  index: number;
+  animationStyle: {
+    imageInitial: any;
+    imageAnimate: any;
+    textInitial: any;
+    textAnimate: any;
+    iconInitial: any;
+    iconAnimate: any;
+    titleInitial: any;
+    titleAnimate: any;
+    descInitial: any;
+    descAnimate: any;
+  };
+}
+
+const FeatureSection = ({ feature, Icon, layout, index, animationStyle }: FeatureSectionProps) => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const imageRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
+  
+  // Use scroll-based animations for parallax effect
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+  
+  // Parallax transforms for image
+  const imageY = useTransform(scrollYProgress, [0, 1], [0, -50]);
+  const imageOpacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0.8]);
+  const imageScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.9, 1, 0.95]);
+  
+  // Parallax transforms for text
+  const textY = useTransform(scrollYProgress, [0, 1], [0, 30]);
+  
+  // In-view detection for triggering animations
+  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const imageInView = useInView(imageRef, { once: true, margin: "-50px" });
+  const textInView = useInView(textRef, { once: true, margin: "-50px" });
+  
+  // Animation variants with staggered delays
+  const imageVariants = {
+    initial: animationStyle.imageInitial,
+    animate: imageInView ? animationStyle.imageAnimate : animationStyle.imageInitial,
+  };
+  
+  const textVariants = {
+    initial: animationStyle.textInitial,
+    animate: textInView ? animationStyle.textAnimate : animationStyle.textInitial,
+  };
+  
+  const iconVariants = {
+    initial: animationStyle.iconInitial,
+    animate: isInView ? animationStyle.iconAnimate : animationStyle.iconInitial,
+  };
+  
+  const titleVariants = {
+    initial: animationStyle.titleInitial,
+    animate: textInView ? animationStyle.titleAnimate : animationStyle.titleInitial,
+  };
+  
+  const descVariants = {
+    initial: animationStyle.descInitial,
+    animate: textInView ? animationStyle.descAnimate : animationStyle.descInitial,
+  };
+  
+  // Transition configurations
+  const imageTransition = {
+    duration: 0.8,
+    ease: [0.16, 1, 0.3, 1] as [number, number, number, number], // Custom easing for smooth motion
+    delay: index * 0.1,
+  };
+  
+  const textTransition = {
+    duration: 0.8,
+    ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+    delay: index * 0.1 + 0.2,
+  };
+  
+  const iconTransition = {
+    duration: 0.6,
+    ease: [0.34, 1.56, 0.64, 1] as [number, number, number, number], // Bounce effect
+    delay: index * 0.1 + 0.3,
+  };
+  
+  const titleTransition = {
+    duration: 0.6,
+    ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+    delay: index * 0.1 + 0.4,
+  };
+  
+  const descTransition = {
+    duration: 0.6,
+    ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+    delay: index * 0.1 + 0.5,
+  };
+
+  return (
+    <motion.section
+      ref={sectionRef}
+      id={feature.id}
+      className="scroll-mt-24"
+      initial={{ opacity: 0 }}
+      animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+      transition={{ duration: 0.3 }}
+    >
+      <div className={`grid ${layout.gridCols} gap-8 lg:gap-12 items-start`}>
+        {/* Image Section with Parallax */}
+        <motion.div
+          ref={imageRef}
+          className={`${layout.imageOrder === 1 ? "lg:order-1" : "lg:order-2"} ${layout.imageOffset}`}
+          style={{ y: imageY, opacity: imageOpacity, scale: imageScale }}
+        >
+          <motion.div
+            className={`relative w-full ${layout.imageSize} rounded-2xl overflow-hidden border border-border/50 shadow-lg group`}
+            variants={imageVariants}
+            initial="initial"
+            animate="animate"
+            transition={imageTransition}
+            style={{
+              transformStyle: "preserve-3d",
+              perspective: "1000px",
+            }}
+          >
+            {/* Placeholder for image - replace with actual image when available */}
+            {feature.imagePath ? (
+              <>
+                {/* Gradient background - only visible with images */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-primary/10 to-secondary/30" />
+                <motion.img
+                  src={feature.imagePath}
+                  alt={feature.title}
+                  className="relative z-10 w-full h-full object-cover opacity-80 group-hover:opacity-90 transition-all duration-500"
+                  whileHover={{ scale: 1.05 }}
+                />
+                {/* Gradient overlay that blends with image */}
+                <div className="absolute inset-0 z-20 bg-gradient-to-br from-primary/30 via-transparent to-secondary/40 pointer-events-none" />
+                <div className="absolute inset-0 z-20 bg-gradient-to-t from-background/30 via-transparent to-transparent pointer-events-none" />
+              </>
+            ) : (
+              <div className="relative z-10 w-full h-full flex items-center justify-center bg-background">
+                <motion.div
+                  className="text-center space-y-4"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={imageInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 + 0.6 }}
+                >
+                  <motion.div
+                    className="w-24 h-24 bg-primary/20 rounded-full flex items-center justify-center mx-auto group-hover:bg-primary/30 transition-colors"
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <Icon className="w-12 h-12 text-noreja-tertiary" />
+                  </motion.div>
+                  <p className="text-sm text-muted-foreground px-4">
+                    Image placeholder for {feature.title}
+                  </p>
+                </motion.div>
+              </div>
+            )}
+          </motion.div>
+        </motion.div>
+
+        {/* Text Section with Staggered Animations */}
+        <motion.div
+          ref={textRef}
+          className={`${layout.imageOrder === 1 ? "lg:order-2" : "lg:order-1"}`}
+          style={{ y: textY }}
+          variants={textVariants}
+          initial="initial"
+          animate="animate"
+          transition={textTransition}
+        >
+          <div className="space-y-6 lg:py-4">
+            <motion.div
+              className="flex items-center gap-4 mb-6"
+              initial={{ opacity: 0 }}
+              animate={textInView ? { opacity: 1 } : { opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <motion.div
+                className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center border border-primary/20 flex-shrink-0"
+                variants={iconVariants}
+                initial="initial"
+                animate="animate"
+                transition={iconTransition}
+                whileHover={{ scale: 1.1, rotate: 5, boxShadow: "0 0 20px hsl(var(--noreja-tertiary) / 0.3)" }}
+              >
+                <Icon className="w-8 h-8 text-noreja-tertiary" />
+              </motion.div>
+              <motion.h2
+                className="text-3xl lg:text-4xl font-bold text-foreground"
+                variants={titleVariants}
+                initial="initial"
+                animate="animate"
+                transition={titleTransition}
+              >
+                {feature.title}
+              </motion.h2>
+            </motion.div>
+            <motion.p
+              className="text-lg lg:text-xl text-muted-foreground leading-relaxed"
+              variants={descVariants}
+              initial="initial"
+              animate="animate"
+              transition={descTransition}
+            >
+              {feature.description}
+            </motion.p>
+          </div>
+        </motion.div>
+      </div>
+    </motion.section>
+  );
+};
 
 const Functionalities = () => {
   const { t } = useLanguage();
@@ -129,67 +360,86 @@ const Functionalities = () => {
               
               const layout = layouts[index % layouts.length];
               
+              // Different animation styles for each section
+              const animationStyles = [
+                {
+                  // Section 1: Slide from left with scale
+                  imageInitial: { opacity: 0, x: -100, scale: 0.8, rotateY: -15 },
+                  imageAnimate: { opacity: 1, x: 0, scale: 1, rotateY: 0 },
+                  textInitial: { opacity: 0, x: 50, scale: 0.95 },
+                  textAnimate: { opacity: 1, x: 0, scale: 1 },
+                  iconInitial: { opacity: 0, scale: 0, rotate: -180 },
+                  iconAnimate: { opacity: 1, scale: 1, rotate: 0 },
+                  titleInitial: { opacity: 0, y: 20 },
+                  titleAnimate: { opacity: 1, y: 0 },
+                  descInitial: { opacity: 0, y: 20 },
+                  descAnimate: { opacity: 1, y: 0 },
+                },
+                {
+                  // Section 2: Slide from right with parallax
+                  imageInitial: { opacity: 0, x: 100, scale: 0.9, rotateY: 15 },
+                  imageAnimate: { opacity: 1, x: 0, scale: 1, rotateY: 0 },
+                  textInitial: { opacity: 0, x: -50, scale: 0.95 },
+                  textAnimate: { opacity: 1, x: 0, scale: 1 },
+                  iconInitial: { opacity: 0, scale: 0, rotate: 180 },
+                  iconAnimate: { opacity: 1, scale: 1, rotate: 0 },
+                  titleInitial: { opacity: 0, y: 20 },
+                  titleAnimate: { opacity: 1, y: 0 },
+                  descInitial: { opacity: 0, y: 20 },
+                  descAnimate: { opacity: 1, y: 0 },
+                },
+                {
+                  // Section 3: Fade with scale
+                  imageInitial: { opacity: 0, scale: 0.7, y: 50 },
+                  imageAnimate: { opacity: 1, scale: 1, y: 0 },
+                  textInitial: { opacity: 0, scale: 0.95 },
+                  textAnimate: { opacity: 1, scale: 1 },
+                  iconInitial: { opacity: 0, scale: 0, rotate: 360 },
+                  iconAnimate: { opacity: 1, scale: 1, rotate: 0 },
+                  titleInitial: { opacity: 0, y: 30 },
+                  titleAnimate: { opacity: 1, y: 0 },
+                  descInitial: { opacity: 0, y: 30 },
+                  descAnimate: { opacity: 1, y: 0 },
+                },
+                {
+                  // Section 4: Slide up with 3D rotation
+                  imageInitial: { opacity: 0, y: 100, rotateX: -20, scale: 0.85 },
+                  imageAnimate: { opacity: 1, y: 0, rotateX: 0, scale: 1 },
+                  textInitial: { opacity: 0, y: -50, scale: 0.95 },
+                  textAnimate: { opacity: 1, y: 0, scale: 1 },
+                  iconInitial: { opacity: 0, scale: 0, rotate: -90 },
+                  iconAnimate: { opacity: 1, scale: 1, rotate: 0 },
+                  titleInitial: { opacity: 0, y: -20, scale: 0.9 },
+                  titleAnimate: { opacity: 1, y: 0, scale: 1 },
+                  descInitial: { opacity: 0, y: -20, scale: 0.9 },
+                  descAnimate: { opacity: 1, y: 0, scale: 1 },
+                },
+                {
+                  // Section 5: Diagonal slide with perspective
+                  imageInitial: { opacity: 0, x: -80, y: 80, scale: 0.8, rotateZ: -5 },
+                  imageAnimate: { opacity: 1, x: 0, y: 0, scale: 1, rotateZ: 0 },
+                  textInitial: { opacity: 0, x: 80, y: -80, scale: 0.95 },
+                  textAnimate: { opacity: 1, x: 0, y: 0, scale: 1 },
+                  iconInitial: { opacity: 0, scale: 0, rotate: 90 },
+                  iconAnimate: { opacity: 1, scale: 1, rotate: 0 },
+                  titleInitial: { opacity: 0, x: 30, y: 20 },
+                  titleAnimate: { opacity: 1, x: 0, y: 0 },
+                  descInitial: { opacity: 0, x: 30, y: 20 },
+                  descAnimate: { opacity: 1, x: 0, y: 0 },
+                },
+              ];
+              
+              const animStyle = animationStyles[index % animationStyles.length];
+              
               return (
-                <motion.section
+                <FeatureSection
                   key={feature.id}
-                  id={feature.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="scroll-mt-24"
-                >
-                  <div className={`grid ${layout.gridCols} gap-8 lg:gap-12 items-start`}>
-                    {/* Image Section */}
-                    <div className={`${layout.imageOrder === 1 ? "lg:order-1" : "lg:order-2"} ${layout.imageOffset}`}>
-                      <div className={`relative w-full ${layout.imageSize} rounded-2xl overflow-hidden border border-border/50 shadow-lg group`}>
-                        {/* Placeholder for image - replace with actual image when available */}
-                        {feature.imagePath ? (
-                          <>
-                            {/* Gradient background - only visible with images */}
-                            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-primary/10 to-secondary/30" />
-                            <img
-                              src={feature.imagePath}
-                              alt={feature.title}
-                              className="relative z-10 w-full h-full object-cover opacity-80 group-hover:opacity-90 group-hover:scale-105 transition-all duration-500"
-                            />
-                            {/* Gradient overlay that blends with image */}
-                            <div className="absolute inset-0 z-20 bg-gradient-to-br from-primary/30 via-transparent to-secondary/40 pointer-events-none" />
-                            <div className="absolute inset-0 z-20 bg-gradient-to-t from-background/30 via-transparent to-transparent pointer-events-none" />
-                          </>
-                        ) : (
-                          <div className="relative z-10 w-full h-full flex items-center justify-center bg-background">
-                            <div className="text-center space-y-4">
-                              <div className="w-24 h-24 bg-primary/20 rounded-full flex items-center justify-center mx-auto group-hover:bg-primary/30 transition-colors">
-                                <Icon className="w-12 h-12 text-noreja-tertiary" />
-                              </div>
-                              <p className="text-sm text-muted-foreground px-4">
-                                Image placeholder for {feature.title}
-                              </p>
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Text Section */}
-                    <div className={`${layout.imageOrder === 1 ? "lg:order-2" : "lg:order-1"}`}>
-                      <div className="space-y-6 lg:py-4">
-                        <div className="flex items-center gap-4 mb-6">
-                          <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center border border-primary/20 flex-shrink-0">
-                            <Icon className="w-8 h-8 text-noreja-tertiary" />
-                          </div>
-                          <h2 className="text-3xl lg:text-4xl font-bold text-foreground">
-                            {feature.title}
-                          </h2>
-                        </div>
-                        <p className="text-lg lg:text-xl text-muted-foreground leading-relaxed">
-                          {feature.description}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </motion.section>
+                  feature={feature}
+                  Icon={Icon}
+                  layout={layout}
+                  index={index}
+                  animationStyle={animStyle}
+                />
               );
             })}
           </div>
