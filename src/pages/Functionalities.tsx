@@ -1,9 +1,8 @@
 import { motion } from "framer-motion";
-import { SchematicCanvas } from "@/components/SchematicCanvas";
-import { FunctionalitiesNav } from "@/components/FunctionalitiesNav";
 import { HubSpotBlogTeaser } from "@/components/HubSpotBlogTeaser";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useEffect } from "react";
+import { LayoutDashboard, Search, Brain, Wrench, Code } from "lucide-react";
 
 const Functionalities = () => {
   const { t } = useLanguage();
@@ -13,137 +12,185 @@ const Functionalities = () => {
     window.scrollTo(0, 0);
   }, []);
   
-  const capabilities = [
-    {
-      id: "data-collection",
-      title: t.pages.functionalities.capabilities.dataCollection.title,
-      description: t.pages.functionalities.capabilities.dataCollection.description,
-      schematicTitle: t.pages.functionalities.capabilities.dataCollection.schematicTitle,
-      schematicDesc: t.pages.functionalities.capabilities.dataCollection.schematicDesc
-    },
-    {
-      id: "ai-processing",
-      title: t.pages.functionalities.capabilities.aiProcessing.title,
-      description: t.pages.functionalities.capabilities.aiProcessing.description,
-      schematicTitle: t.pages.functionalities.capabilities.aiProcessing.schematicTitle,
-      schematicDesc: t.pages.functionalities.capabilities.aiProcessing.schematicDesc
-    },
-    {
-      id: "analytics-insights",
-      title: t.pages.functionalities.capabilities.analyticsInsights.title,
-      description: t.pages.functionalities.capabilities.analyticsInsights.description,
-      schematicTitle: t.pages.functionalities.capabilities.analyticsInsights.schematicTitle,
-      schematicDesc: t.pages.functionalities.capabilities.analyticsInsights.schematicDesc
-    },
-    {
-      id: "automation",
-      title: t.pages.functionalities.capabilities.automation.title,
-      description: t.pages.functionalities.capabilities.automation.description,
-      schematicTitle: t.pages.functionalities.capabilities.automation.schematicTitle,
-      schematicDesc: t.pages.functionalities.capabilities.automation.schematicDesc
-    },
-    {
-      id: "integration",
-      title: t.pages.functionalities.capabilities.integration.title,
-      description: t.pages.functionalities.capabilities.integration.description,
-      schematicTitle: t.pages.functionalities.capabilities.integration.schematicTitle,
-      schematicDesc: t.pages.functionalities.capabilities.integration.schematicDesc
-    },
+  const features = [
     {
       id: "security",
-      title: t.pages.functionalities.capabilities.security.title,
-      description: t.pages.functionalities.capabilities.security.description,
-      schematicTitle: t.pages.functionalities.capabilities.security.schematicTitle,
-      schematicDesc: t.pages.functionalities.capabilities.security.schematicDesc
+      icon: LayoutDashboard,
+      title: t.functionalities.features.security.title,
+      description: t.functionalities.features.security.description,
+      imagePath: null // Placeholder for image path
+    },
+    {
+      id: "data-integration",
+      icon: Search,
+      title: t.functionalities.features.dataIntegration.title,
+      description: t.functionalities.features.dataIntegration.description,
+      imagePath: null // Placeholder for image path
+    },
+    {
+      id: "ai-analytics",
+      icon: Brain,
+      title: t.functionalities.features.aiAnalytics.title,
+      description: t.functionalities.features.aiAnalytics.description,
+      imagePath: null // Placeholder for image path
+    },
+    {
+      id: "real-time",
+      icon: Wrench,
+      title: t.functionalities.features.realTime.title,
+      description: t.functionalities.features.realTime.description,
+      imagePath: null // Placeholder for image path
+    },
+    {
+      id: "workbench",
+      icon: Code,
+      title: t.functionalities.features.workbench.title,
+      description: t.functionalities.features.workbench.description,
+      imagePath: null // Placeholder for image path
     }
   ];
 
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="relative py-20 lg:py-24">
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-16"
-          >
-            <h1 className="text-4xl lg:text-6xl font-bold mb-6 text-foreground">
-              {t.pages.functionalities.title} <span className="text-noreja-main">{t.pages.functionalities.titleHighlight}</span>
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              {t.pages.functionalities.subtitle}
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      <div className="relative">
+        <section className="relative py-20 lg:py-24">
+          <div className="relative z-10 w-full max-w-7xl mx-auto px-4 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-center mb-16"
+            >
+              <h1 className="text-4xl lg:text-6xl font-bold mb-6 text-foreground">
+                {t.functionalities.title}{" "}
+                <span className="bg-gradient-primary bg-clip-text text-transparent">
+                  {t.functionalities.titleHighlight}
+                </span>
+              </h1>
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+                {t.functionalities.subtitle}
+              </p>
+            </motion.div>
+          </div>
+        </section>
+      </div>
 
-      {/* Main Content with Navigation */}
-      <div className="relative w-full max-w-7xl mx-auto px-4 lg:px-8 pb-20">
-        <div className="flex gap-8">
-          {/* Navigation Sidebar */}
-          <aside className="hidden lg:block w-64 flex-shrink-0">
-            <FunctionalitiesNav />
-          </aside>
+      {/* Features Section with Gradient Background */}
+      <div className="relative" style={{
+        background: `
+          linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--noreja-main) / 0.14) 50%, hsl(var(--background)) 100%),
+          radial-gradient(ellipse 1000px 800px at 50% 50%, hsl(var(--noreja-secondary) / 0.10) 0%, transparent 60%)
+        `
+      }}>
+        {/* Gradient fade from previous section */}
+        <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background to-transparent pointer-events-none z-0" />
+        {/* Gradient fade to next section */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-background pointer-events-none z-0" />
+        
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 lg:px-8 py-20">
+          <div className="space-y-32 lg:space-y-40">
+            {features.map((feature, index) => {
+              const Icon = feature.icon;
+              const isEven = index % 2 === 0;
+              
+              return (
+                <motion.section
+                  key={feature.id}
+                  id={feature.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="scroll-mt-24"
+                >
+                  <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+                    {/* Image Section */}
+                    <div className={isEven ? "lg:order-1" : "lg:order-2"}>
+                      <div className="relative w-full h-[400px] lg:h-[500px] rounded-2xl overflow-hidden border border-border/50 shadow-lg group">
+                        {/* Placeholder for image - replace with actual image when available */}
+                        {feature.imagePath ? (
+                          <>
+                            {/* Gradient background - only visible with images */}
+                            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-primary/10 to-secondary/30" />
+                            <img
+                              src={feature.imagePath}
+                              alt={feature.title}
+                              className="relative z-10 w-full h-full object-cover opacity-80 group-hover:opacity-90 group-hover:scale-105 transition-all duration-500"
+                            />
+                            {/* Gradient overlay that blends with image */}
+                            <div className="absolute inset-0 z-20 bg-gradient-to-br from-primary/30 via-transparent to-secondary/40 pointer-events-none" />
+                            <div className="absolute inset-0 z-20 bg-gradient-to-t from-background/30 via-transparent to-transparent pointer-events-none" />
+                          </>
+                        ) : (
+                          <div className="relative z-10 w-full h-full flex items-center justify-center bg-background">
+                            <div className="text-center space-y-4">
+                              <div className="w-24 h-24 bg-primary/20 rounded-full flex items-center justify-center mx-auto group-hover:bg-primary/30 transition-colors">
+                                <Icon className="w-12 h-12 text-noreja-tertiary" />
+                              </div>
+                              <p className="text-sm text-muted-foreground px-4">
+                                Image placeholder for {feature.title}
+                              </p>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
 
-          {/* Main Content */}
-          <main className="flex-1 space-y-20">
-            {capabilities.map((capability, index) => (
-              <motion.section
-                key={capability.id}
-                id={capability.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="scroll-mt-24"
-              >
-                <div className="grid lg:grid-cols-2 gap-12 items-center">
-                  <div className={index % 2 === 0 ? "lg:order-1" : "lg:order-2"}>
-                    <h2 className="text-3xl lg:text-4xl font-bold mb-6 text-foreground">
-                      {capability.title}
-                    </h2>
-                    <p className="text-lg text-muted-foreground leading-relaxed">
-                      {capability.description}
-                    </p>
+                    {/* Text Section */}
+                    <div className={isEven ? "lg:order-2" : "lg:order-1"}>
+                      <div className="space-y-6 lg:py-4">
+                        <div className="flex items-center gap-4 mb-6">
+                          <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center border border-primary/20 flex-shrink-0">
+                            <Icon className="w-8 h-8 text-noreja-tertiary" />
+                          </div>
+                          <h2 className="text-3xl lg:text-4xl font-bold text-foreground">
+                            {feature.title}
+                          </h2>
+                        </div>
+                        <p className="text-lg lg:text-xl text-muted-foreground leading-relaxed">
+                          {feature.description}
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                  
-                  <div className={index % 2 === 0 ? "lg:order-2" : "lg:order-1"}>
-                    <SchematicCanvas 
-                      title={capability.schematicTitle}
-                      description={capability.schematicDesc}
-                      className="w-full"
-                    />
-                  </div>
-                </div>
-              </motion.section>
-            ))}
-          </main>
+                </motion.section>
+              );
+            })}
+          </div>
         </div>
       </div>
 
       {/* Blog Teasers Section */}
-      <section className="py-20 bg-muted/30">
-        <div className="w-full max-w-7xl mx-auto px-4 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl lg:text-4xl font-bold mb-4 text-foreground">
-              {t.pages.functionalities.learnMore}
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              {t.pages.functionalities.learnMoreSubtitle}
-            </p>
-          </motion.div>
-          
-          <HubSpotBlogTeaser />
-        </div>
-      </section>
+      <div className="relative" style={{
+        background: `
+          linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--noreja-main) / 0.16) 40%, hsl(var(--noreja-secondary) / 0.15) 80%, hsl(var(--background)) 100%),
+          radial-gradient(ellipse 1000px 700px at 70% 20%, hsl(var(--noreja-secondary) / 0.14) 0%, transparent 60%)
+        `
+      }}>
+        {/* Gradient fade from previous section */}
+        <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background to-transparent pointer-events-none z-0" />
+        <section className="relative z-10 py-20">
+          <div className="w-full max-w-7xl mx-auto px-4 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-3xl lg:text-4xl font-bold mb-4 text-foreground">
+                {t.pages.functionalities.learnMore}
+              </h2>
+              <p className="text-lg text-muted-foreground">
+                {t.pages.functionalities.learnMoreSubtitle}
+              </p>
+            </motion.div>
+            
+            <HubSpotBlogTeaser />
+          </div>
+        </section>
+      </div>
     </div>
   );
 };
