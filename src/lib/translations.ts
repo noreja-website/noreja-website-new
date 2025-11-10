@@ -581,7 +581,7 @@ export const translations: Record<Language, Translations> = {
           users: "Users",
           service: "Service",
           llmAi: "LLM + AI",
-          supportRate: "Support Rate"
+          supportRate: "Additional"
         },
         privateLLMHosting: "Private LLM Hosting by Noreja",
         faq: {
@@ -1150,7 +1150,7 @@ export const translations: Record<Language, Translations> = {
           users: "Nutzer",
           service: "Service",
           llmAi: "LLM + AI",
-          supportRate: "Tagessatz"
+          supportRate: "Zusatz"
         },
         privateLLMHosting: "Privates LLM Hosting by Noreja",
         faq: {

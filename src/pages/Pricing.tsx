@@ -62,24 +62,20 @@ const calculatePricing = (perspectivesIndex: number, dataAmountIndex: number) =>
 
 const Pricing = () => {
   const { t } = useLanguage();
+  const extractPowerUserCount = (usersText?: string | string[]) => {
+    if (!usersText) return 1;
+    const text = Array.isArray(usersText) ? usersText.join(" ") : usersText;
+    const match = text.match(/(\d+)/);
+    return match ? Math.max(1, parseInt(match[1], 10)) : 1;
+  };
   const [perspectivesIndex, setPerspectivesIndex] = useState(0); // Default to 10
   const [dataAmountIndex, setDataAmountIndex] = useState(0); // Default to 15
   const [privateLLMPro, setPrivateLLMPro] = useState(false);
   const [privateLLMExcellence, setPrivateLLMExcellence] = useState(false);
   const [selectedPlanIndex, setSelectedPlanIndex] = useState(1); // Default to middle package (Pro)
-  const [extraPowerUsers, setExtraPowerUsers] = useState<[number, number, number]>([0, 0, 0]);
   const currentPerspectives = perspectivesLabels[perspectivesIndex];
   const currentDataAmount = dataAmountLabels[dataAmountIndex];
   const pricing = calculatePricing(perspectivesIndex, dataAmountIndex);
-  const extraPowerUserPrices = [100, 80, 50];
-
-  const handleExtraPowerUsersChange = (planIndex: number, delta: number) => {
-    setExtraPowerUsers(prev => {
-      const next = [...prev] as [number, number, number];
-      next[planIndex] = Math.max(0, next[planIndex] + delta);
-      return next;
-    });
-  };
 
   // Scroll to top when component mounts
   useEffect(() => {
@@ -103,6 +99,7 @@ const Pricing = () => {
     };
   }, []);
 
+  const extraPowerUserPrices = [120, 90, 70];
   const plans = [
     {
       name: t.pages.pricing.plans.core.name,
@@ -261,8 +258,8 @@ const Pricing = () => {
               const isSelected = selectedPlanIndex === index;
               
               // Extract user count from plan.users (e.g., "3 Power-User" -> 3)
-              const extraPowerUsersCount = extraPowerUsers[index];
               const extraPowerUserMonthlyPrice = extraPowerUserPrices[index];
+              const baseIncludedPowerUsers = extractPowerUserCount(plan.users);
               
               // Calculate per month per user price
               const isOnRequest = (typeof plan.price === 'string' && plan.price === 'onRequest') ||
@@ -271,11 +268,11 @@ const Pricing = () => {
               
               const baseAnnualPrice = isOnRequest ? null : (plan.price as number);
               const baseMonthlyPrice = baseAnnualPrice !== null ? baseAnnualPrice / 12 : null;
-              const monthlyPrice = baseMonthlyPrice !== null
-                ? baseMonthlyPrice + (extraPowerUsersCount * extraPowerUserMonthlyPrice)
+              const perUserMonthlyPrice = baseMonthlyPrice !== null
+                ? baseMonthlyPrice / baseIncludedPowerUsers
                 : null;
-              const perMonthPerUser = monthlyPrice !== null ? Math.round(monthlyPrice) : null;
-              const fullAnnualPrice = monthlyPrice !== null ? Math.round(monthlyPrice * 12) : null;
+              const roundedPerUserMonthlyPrice = perUserMonthlyPrice !== null ? Math.round(perUserMonthlyPrice) : null;
+              const fullAnnualPrice = perUserMonthlyPrice !== null ? Math.round(perUserMonthlyPrice * 12) : null;
               
               return (
               <Card 
@@ -296,13 +293,13 @@ const Pricing = () => {
                     <span className="text-4xl font-bold text-foreground">
                       {isOnRequest 
                         ? t.pages.pricing.onRequest
-                        : perMonthPerUser !== null 
-                          ? `${formatPrice(perMonthPerUser)} €`
+                        : roundedPerUserMonthlyPrice !== null 
+                          ? `${formatPrice(roundedPerUserMonthlyPrice)} €`
                           : t.pages.pricing.onRequest}
                     </span>
                   </div>
                   <div className="mt-2 flex items-center justify-center gap-1">
-                    {!isOnRequest && perMonthPerUser !== null && (
+                    {!isOnRequest && roundedPerUserMonthlyPrice !== null && (
                       <>
                         <span className="text-muted-foreground text-sm">
                           {t.pages.pricing.perMonthAndUser}
@@ -320,7 +317,7 @@ const Pricing = () => {
                           </PopoverTrigger>
                           <PopoverContent className="w-auto p-3" side="top" align="center">
                             <div className="text-sm">
-                              <p className="text-foreground">
+                              <p className="text-foreground mb-1">
                                 {t.pages.pricing.annualCostTooltip} {formatPrice(fullAnnualPrice!)} €
                               </p>
                             </div>
@@ -338,7 +335,7 @@ const Pricing = () => {
                   {/* Top section - Feature and Service - allows flexible growth */}
                   <div className="flex-grow flex flex-col">
                     {/* Feature Category - fixed height to ensure Service alignment */}
-                    <div className="mb-10 h-[140px]">
+                    <div className="mb-8 h-[140px]">
                       <h4 className="font-semibold text-foreground mb-4 text-base leading-tight">{t.pages.pricing.categories.feature}</h4>
                       <ul className="space-y-2">
                         {plan.features.map((feature, index) => {
@@ -359,7 +356,7 @@ const Pricing = () => {
 
                     {/* Users Category - between features and services */}
                     {plan.users && (
-                      <div className="mb-10">
+                      <div className="mb-8">
                         <div className="flex items-center gap-2 mb-4">
                           <h4 className="font-semibold text-foreground text-base leading-tight">
                             {t.pages.pricing.categories.users}
@@ -406,39 +403,11 @@ const Pricing = () => {
                             </span>
                           </li>
                         </ul>
-                        <div
-                          className="mt-3 flex items-center gap-3"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <span className="text-sm text-muted-foreground">
-                            {t.pages.pricing.additionalPowerUsersLabel}:
-                          </span>
-                          <div className="flex items-center gap-2">
-                            <button
-                              type="button"
-                              className="h-8 w-8 flex items-center justify-center rounded-md border border-border text-sm font-medium text-foreground hover:bg-muted transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                              onClick={() => handleExtraPowerUsersChange(index, -1)}
-                              disabled={extraPowerUsersCount === 0}
-                            >
-                              −
-                            </button>
-                            <span className="w-8 text-center text-sm font-medium text-foreground">
-                              {extraPowerUsersCount}
-                            </span>
-                            <button
-                              type="button"
-                              className="h-8 w-8 flex items-center justify-center rounded-md border border-border text-sm font-medium text-foreground hover:bg-muted transition-colors"
-                              onClick={() => handleExtraPowerUsersChange(index, 1)}
-                            >
-                              +
-                            </button>
-                          </div>
-                        </div>
                       </div>
                     )}
 
                     {/* LLM + AI Category - only show for Pro and Excellence, but reserve space for Core */}
-                    <div className="mb-10 h-[180px] flex flex-col">
+                    <div className="mb-8 h-[160px] flex flex-col">
                       {plan.name !== t.pages.pricing.plans.core.name ? (
                         <>
                           <h4 className="font-semibold text-foreground mb-4 text-base leading-tight ml-0">{t.pages.pricing.categories.llmAi}</h4>
@@ -483,7 +452,7 @@ const Pricing = () => {
                     </div>
 
                     {/* Service Category - min height to ensure alignment, but allow growth */}
-                    <div className="mb-0 min-h-[380px]">
+                    <div className="mb-8 min-h-[300px]">
                       <h4 className="font-semibold text-foreground mb-4 text-base leading-tight">{t.pages.pricing.categories.service}</h4>
                       <ul className="space-y-2">
                         {plan.services
@@ -517,7 +486,7 @@ const Pricing = () => {
                       });
                       
                       return rateService ? (
-                        <div className="mb-10 -mt-2">
+                        <div className="mb-8">
                           <h4 className="font-semibold text-foreground mb-4 text-base leading-tight">{t.pages.pricing.categories.supportRate}</h4>
                           <ul className="space-y-2">
                             <li className="flex text-foreground text-sm">
