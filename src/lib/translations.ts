@@ -453,6 +453,11 @@ export interface Translations {
     description: string;
     copyright: string;
     builtWith: string;
+    sections: {
+      resources: string;
+      legal: string;
+      contact: string;
+    };
     links: {
       imprint: string;
       privacy: string;
@@ -1021,9 +1026,14 @@ export const translations: Record<Language, Translations> = {
       scheduleDemo: "Schedule Demo"
     },
     footer: {
-      description: "Empowering businesses with innovative technology solutions for sustainable growth and digital transformation.",
+      description: "Noreja Generative Process Intelligence - Elevating Process Knowledge with the Power of GenAI.",
       copyright: "All rights reserved.",
-      builtWith: "Built with modern technology",
+      builtWith: "Built with AI 🤖 and Coffee ☕️",
+      sections: {
+        resources: "Resources",
+        legal: "Legal",
+        contact: "Contact"
+      },
       links: {
         imprint: "Imprint",
         privacy: "Privacy Policy",
@@ -1133,7 +1143,7 @@ export const translations: Record<Language, Translations> = {
         usersTooltip: "Power-User sind vollständig lizenzierte Editoren. Lesende Nutzer können zusätzlich ergänzt werden.",
         users: "Benutzer",
         user: "Nutzer",
-        extraPowerUserPrice: "Preis für extra Power-User: {value}€ pro Monat",
+        extraPowerUserPrice: "Extra User auf Anfrage zubuchbar",
         additionalPowerUsersLabel: "Zusätzliche Power-User",
         mostPopular: "Am beliebtesten",
         month: "/ Monat",
@@ -1598,9 +1608,14 @@ export const translations: Record<Language, Translations> = {
       scheduleDemo: "Demo vereinbaren"
     },
     footer: {
-      description: "Wir stärken Unternehmen mit innovativen Technologielösungen für nachhaltiges Wachstum und digitale Transformation.",
+      description: "Noreja Generative Process Intelligence - Elevating Process Knowledge with the Power of GenAI.",
       copyright: "Alle Rechte vorbehalten.",
       builtWith: "Erstellt mit KI 🤖 und Kaffee ☕️",
+      sections: {
+        resources: "Ressourcen",
+        legal: "Rechtliches",
+        contact: "Kontakt"
+      },
       links: {
         imprint: "Impressum",
         privacy: "Datenschutz",

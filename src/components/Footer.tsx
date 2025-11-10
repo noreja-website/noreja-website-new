@@ -75,7 +75,7 @@ export function Footer() {
 
           {/* Navigation */}
           <div className="md:col-span-2">
-            <h3 className="font-semibold mb-4">Resources</h3>
+            <h3 className="font-semibold mb-4">{t.footer.sections.resources}</h3>
             <div className="grid grid-cols-2 gap-4">
               {footerNavigation.map((item) => (
                 <Link
@@ -91,7 +91,7 @@ export function Footer() {
 
           {/* Legal */}
           <div className="md:col-span-1">
-            <h3 className="font-semibold mb-4">Legal</h3>
+            <h3 className="font-semibold mb-4">{t.footer.sections.legal}</h3>
             <div className="flex flex-col space-y-2">
               {legalLinks.map((item) => (
                 item.external ? (
@@ -119,7 +119,7 @@ export function Footer() {
 
           {/* Contact */}
           <div className="md:col-span-1">
-            <h3 className="font-semibold mb-4">Contact</h3>
+            <h3 className="font-semibold mb-4">{t.footer.sections.contact}</h3>
             <div className="flex flex-col space-y-2">
               {contactLinks.map((item) => (
                 <a
