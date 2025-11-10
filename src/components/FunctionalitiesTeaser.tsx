@@ -45,13 +45,13 @@ export function FunctionalitiesTeaser() {
   ];
 
   return (
-    <section ref={ref} className="py-20">
+    <section ref={ref} className="py-20 overflow-hidden">
       <div className="container mx-auto px-4 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 32 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 32 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-16 overflow-hidden"
         >
           <h2 className="text-4xl font-bold mb-6">
             {t.functionalities.title}{" "}
@@ -71,7 +71,7 @@ export function FunctionalitiesTeaser() {
         </motion.div>
 
         {/* Mobile: Carousel */}
-        <div className="lg:hidden">
+        <div className="lg:hidden overflow-hidden">
           <Carousel
             opts={{
               align: "start",
@@ -85,13 +85,13 @@ export function FunctionalitiesTeaser() {
                 return (
                   <CarouselItem key={feature.title}>
                     <motion.div
-                      initial={{ opacity: 0, y: 50 }}
-                      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+                      initial={{ opacity: 0, y: 32 }}
+                      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 32 }}
                       transition={{ 
                         duration: 0.6,
                         delay: index * 0.1 + 0.3
                       }}
-                      className="text-center group p-6"
+                      className="text-center group p-6 overflow-hidden"
                     >
                       <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
                         <Icon className="w-8 h-8 text-noreja-tertiary" />
@@ -117,13 +117,13 @@ export function FunctionalitiesTeaser() {
               return (
                 <motion.div
                   key={feature.title}
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+                  initial={{ opacity: 0, y: 32 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 32 }}
                   transition={{ 
                     duration: 0.6,
                     delay: index * 0.1 + 0.3
                   }}
-                  className="text-center group flex-1 max-w-xs"
+                  className="text-center group flex-1 max-w-xs overflow-hidden"
                 >
                   <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
                     <Icon className="w-8 h-8 text-noreja-tertiary" />
@@ -142,13 +142,13 @@ export function FunctionalitiesTeaser() {
               return (
                 <motion.div
                   key={feature.title}
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+                  initial={{ opacity: 0, y: 32 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 32 }}
                   transition={{ 
                     duration: 0.6,
                     delay: (index + 3) * 0.1 + 0.3
                   }}
-                  className="text-center group flex-1 max-w-xs"
+                  className="text-center group flex-1 max-w-xs overflow-hidden"
                 >
                   <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
                     <Icon className="w-8 h-8 text-noreja-tertiary" />

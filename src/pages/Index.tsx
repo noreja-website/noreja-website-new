@@ -20,7 +20,7 @@ const Index = () => {
   return (
     <>
       {/* Sections with animated grid background */}
-      <div className="relative">
+      <div className="relative overflow-hidden">
         <AnimatedGridBackground key="animated-grid-v2" />
         <IntegratedHeroSection />
         <LogoBanner />
@@ -33,7 +33,7 @@ const Index = () => {
       </div>
       
       {/* USPsShowcase with gradient background */}
-      <div className="relative" style={{
+      <div className="relative overflow-hidden" style={{
         background: `
           linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--noreja-main) / 0.14) 50%, hsl(var(--background)) 100%),
           radial-gradient(ellipse 1000px 800px at 50% 50%, hsl(var(--noreja-secondary) / 0.10) 0%, transparent 60%)
@@ -49,7 +49,7 @@ const Index = () => {
       </div>
       
       {/* PartnerPhotosGrid with animated grid background */}
-      <div className="relative">
+      <div className="relative overflow-hidden">
         <AnimatedGridBackground key="animated-grid-partners" />
         {/* Gradient fade from previous section */}
         <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background to-transparent pointer-events-none z-0" />
@@ -61,7 +61,7 @@ const Index = () => {
       </div>
       
       {/* FunctionalitiesTeaser with gradient background */}
-      <div className="relative" style={{
+      <div className="relative overflow-hidden" style={{
         background: `
           linear-gradient(45deg, hsl(var(--background)) 0%, hsl(var(--noreja-secondary) / 0.12) 30%, hsl(var(--background)) 100%),
           radial-gradient(ellipse 1200px 900px at 30% 70%, hsl(var(--noreja-main) / 0.08) 0%, transparent 60%)
@@ -78,7 +78,7 @@ const Index = () => {
       </div>
       
       {/* IntegrationsShowcase with animated grid background */}
-      <div className="relative">
+      <div className="relative overflow-hidden">
         <AnimatedGridBackground key="animated-grid-integrations" />
         {/* Gradient fade from previous section */}
         <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-background to-transparent pointer-events-none z-0" />
@@ -90,7 +90,7 @@ const Index = () => {
       </div>
       
       {/* Blog and CTA section with gradient background */}
-      <div className="relative" style={{
+      <div className="relative overflow-hidden" style={{
         background: `
           linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--noreja-main) / 0.16) 40%, hsl(var(--noreja-secondary) / 0.15) 80%, hsl(var(--background)) 100%),
           radial-gradient(ellipse 1000px 700px at 70% 20%, hsl(var(--noreja-secondary) / 0.14) 0%, transparent 60%)

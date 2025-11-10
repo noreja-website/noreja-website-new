@@ -64,7 +64,7 @@ export function IntegratedHeroSection() {
       </div>
 
       {/* Main Hero Content */}
-      <div className="relative z-10 container mx-auto px-4 lg:px-8 text-center flex-1 flex flex-col justify-center py-8 md:py-0 w-full max-w-full">
+      <div className="relative z-10 container mx-auto px-4 lg:px-8 text-center flex-1 flex flex-col justify-center py-8 md:py-0 w-full max-w-full overflow-hidden">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -87,7 +87,7 @@ export function IntegratedHeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 lg:mb-6 leading-[1.1] lg:leading-[1.2] flex flex-col lg:flex-row items-center lg:items-baseline justify-center lg:justify-start gap-2 sm:gap-4 lg:gap-4 py-2 lg:py-4 px-4 lg:px-6 w-full max-w-full"
+            className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 lg:mb-6 leading-[1.1] lg:leading-[1.2] flex flex-col lg:flex-row items-center lg:items-baseline justify-center lg:justify-start gap-2 sm:gap-4 lg:gap-4 py-2 lg:py-4 px-4 lg:px-6 w-full max-w-full lg:ml-12 xl:ml-16"
           >
             <span className="lg:whitespace-nowrap">Make Processes</span>
             <motion.span

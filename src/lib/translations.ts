@@ -86,8 +86,11 @@ export interface Translations {
       perspectives?: string;
       dataAmountTooltip?: string;
       perspectivesTooltip?: string;
+      usersTooltip?: string;
       users: string;
       user: string;
+      extraPowerUserPrice: string;
+      additionalPowerUsersLabel: string;
       mostPopular: string;
       month: string;
       perMonthAndUser: string;
@@ -558,8 +561,11 @@ export const translations: Record<Language, Translations> = {
         perspectives: "Perspectives",
         dataAmountTooltip: "Select the approximate volume of data records you'll be processing. This helps us calculate the optimal pricing for your use case.",
         perspectivesTooltip: "Choose the number of different analytical perspectives or dimensions you need. Each perspective represents a unique way of analyzing your process data.",
+        usersTooltip: "Power Users are fully licensed editors. Reading users can be added as noted below.",
         users: "users",
         user: "user",
+        extraPowerUserPrice: "Price for extra power user: {value}€ per month",
+        additionalPowerUsersLabel: "Additional power users",
         mostPopular: "Most Popular",
         month: "/ month",
         perMonthAndUser: "per month and user",
@@ -1124,8 +1130,11 @@ export const translations: Record<Language, Translations> = {
         perspectives: "Perspektiven",
         dataAmountTooltip: "Wähle das ungefähre Volumen der Daten, die du verarbeiten wirst. Dies hilft uns, den optimalen Preis für deinen Anwendungsfall zu berechnen.",
         perspectivesTooltip: "Wähle die Anzahl der verschiedenen analytischen Perspektiven oder Dimensionen, die du benötigst. Jede Perspektive stellt eine einzigartige Art dar, deine Prozessdaten zu analysieren.",
+        usersTooltip: "Power-User sind vollständig lizenzierte Editoren. Lesende Nutzer können zusätzlich ergänzt werden.",
         users: "Benutzer",
         user: "Nutzer",
+        extraPowerUserPrice: "Preis für extra Power-User: {value}€ pro Monat",
+        additionalPowerUsersLabel: "Zusätzliche Power-User",
         mostPopular: "Am beliebtesten",
         month: "/ Monat",
         perMonthAndUser: "pro Monat und Nutzer",

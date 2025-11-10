@@ -33,13 +33,13 @@ export function PartnerPhotosGrid() {
   };
 
   return (
-    <section ref={ref} className="py-32">
-      <div className="container mx-auto px-4 lg:px-8">
+    <section ref={ref} className="py-32 overflow-hidden">
+      <div className="container mx-auto px-4 lg:px-8 overflow-hidden">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 32 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 32 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-16 overflow-hidden"
         >
           <h2 className="text-4xl font-bold mb-6">
             {t.partners.title}{" "}
@@ -54,18 +54,18 @@ export function PartnerPhotosGrid() {
 
         {/* Partner Photos Grid */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto py-8"
+          className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto py-8 overflow-hidden"
         >
           {gridPartners.map((partner, index) => (
             <motion.div
               key={partner.id}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.6, delay: 0.1 * index }}
-              className="group cursor-pointer"
+              className="group cursor-pointer overflow-hidden"
               onClick={() => openModal(partner)}
             >
               <div className="relative overflow-hidden rounded-xl bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105">
@@ -89,13 +89,13 @@ export function PartnerPhotosGrid() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+              className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-hidden"
               onClick={closeModal}
             >
               <motion.div
-                initial={{ opacity: 0, scale: 0.8, y: 50 }}
+                initial={{ opacity: 0, scale: 0.94, y: 32 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.8, y: 50 }}
+                exit={{ opacity: 0, scale: 0.94, y: 32 }}
                 transition={{ duration: 0.3 }}
                 className="bg-gray-900 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
                 onClick={(e) => e.stopPropagation()}

@@ -5,14 +5,14 @@ export function PlaceholderImageSection() {
   const { t } = useLanguage();
 
   return (
-    <section className="py-20">
+    <section className="py-20 overflow-hidden">
       <div className="container mx-auto px-4 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center max-w-4xl mx-auto"
+          className="text-center max-w-4xl mx-auto overflow-hidden"
         >
           {/* Placeholder for image */}
           <div className="relative mb-8">

@@ -91,24 +91,24 @@ export function USPsShowcase() {
   const getCardAnimation = (cardIndex: number) => {
     const animations = {
       0: { // Top left card (aiAnalytics)
-        initial: { opacity: 0, scale: 0.8, x: -200, y: -100 },
-        animate: { opacity: 1, scale: 1.1, x: 0, y: 0 },
-        exit: { opacity: 0, scale: 0.8, x: -200, y: -100 }
+        initial: { opacity: 0, scale: 0.93, x: -40, y: -20 },
+        animate: { opacity: 1, scale: 1, x: 0, y: 0 },
+        exit: { opacity: 0, scale: 0.93, x: -40, y: -20 }
       },
       1: { // Top right card (dataIntegration)
-        initial: { opacity: 0, scale: 0.8, x: 200, y: -100 },
-        animate: { opacity: 1, scale: 1.1, x: 0, y: 0 },
-        exit: { opacity: 0, scale: 0.8, x: 200, y: -100 }
+        initial: { opacity: 0, scale: 0.93, x: 40, y: -20 },
+        animate: { opacity: 1, scale: 1, x: 0, y: 0 },
+        exit: { opacity: 0, scale: 0.93, x: 40, y: -20 }
       },
       2: { // Bottom left card (security)
-        initial: { opacity: 0, scale: 0.8, x: -200, y: 100 },
-        animate: { opacity: 1, scale: 1.1, x: 0, y: 0 },
-        exit: { opacity: 0, scale: 0.8, x: -200, y: 100 }
+        initial: { opacity: 0, scale: 0.93, x: -40, y: 20 },
+        animate: { opacity: 1, scale: 1, x: 0, y: 0 },
+        exit: { opacity: 0, scale: 0.93, x: -40, y: 20 }
       },
       3: { // Bottom right card (realTime)
-        initial: { opacity: 0, scale: 0.8, x: 200, y: 100 },
-        animate: { opacity: 1, scale: 1.1, x: 0, y: 0 },
-        exit: { opacity: 0, scale: 0.8, x: 200, y: 100 }
+        initial: { opacity: 0, scale: 0.93, x: 40, y: 20 },
+        animate: { opacity: 1, scale: 1, x: 0, y: 0 },
+        exit: { opacity: 0, scale: 0.93, x: 40, y: 20 }
       }
     };
     
@@ -119,10 +119,10 @@ export function USPsShowcase() {
     <section ref={ref} className="py-20 overflow-hidden">
       <div className="container mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 32 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 32 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-16 overflow-hidden"
         >
           <h2 className="text-4xl font-bold mb-6">
             {t.usps.title}{" "}
@@ -140,7 +140,7 @@ export function USPsShowcase() {
           </Link>
         </motion.div>
 
-        <div className="relative max-w-6xl mx-auto">
+        <div className="relative max-w-6xl mx-auto overflow-hidden">
           {/* Background overlay when a card is selected */}
           {selectedCard !== null && (
             <motion.div 
@@ -158,7 +158,7 @@ export function USPsShowcase() {
             <AnimatePresence>
               {selectedCard !== null && (
                 <motion.div 
-                  className="absolute inset-0 z-50 flex items-center justify-center"
+                  className="absolute inset-0 z-50 flex items-center justify-center overflow-hidden"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}

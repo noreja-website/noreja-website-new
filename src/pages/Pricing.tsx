@@ -67,9 +67,19 @@ const Pricing = () => {
   const [privateLLMPro, setPrivateLLMPro] = useState(false);
   const [privateLLMExcellence, setPrivateLLMExcellence] = useState(false);
   const [selectedPlanIndex, setSelectedPlanIndex] = useState(1); // Default to middle package (Pro)
+  const [extraPowerUsers, setExtraPowerUsers] = useState<[number, number, number]>([0, 0, 0]);
   const currentPerspectives = perspectivesLabels[perspectivesIndex];
   const currentDataAmount = dataAmountLabels[dataAmountIndex];
   const pricing = calculatePricing(perspectivesIndex, dataAmountIndex);
+  const extraPowerUserPrices = [100, 80, 50];
+
+  const handleExtraPowerUsersChange = (planIndex: number, delta: number) => {
+    setExtraPowerUsers(prev => {
+      const next = [...prev] as [number, number, number];
+      next[planIndex] = Math.max(0, next[planIndex] + delta);
+      return next;
+    });
+  };
 
   // Scroll to top when component mounts
   useEffect(() => {
@@ -251,17 +261,21 @@ const Pricing = () => {
               const isSelected = selectedPlanIndex === index;
               
               // Extract user count from plan.users (e.g., "3 Power-User" -> 3)
-              const userCountMatch = plan.users?.match(/^(\d+)/);
-              const userCount = userCountMatch ? parseInt(userCountMatch[1], 10) : 1;
+              const extraPowerUsersCount = extraPowerUsers[index];
+              const extraPowerUserMonthlyPrice = extraPowerUserPrices[index];
               
               // Calculate per month per user price
               const isOnRequest = (typeof plan.price === 'string' && plan.price === 'onRequest') ||
                                    (plan.name === t.pages.pricing.plans.pro.name && privateLLMPro) ||
                                    (plan.name === t.pages.pricing.plans.excellence.name && privateLLMExcellence);
               
-              const annualPrice = isOnRequest ? null : (plan.price as number);
-              const perMonthPerUser = annualPrice ? Math.round(annualPrice / 12 / userCount) : null;
-              const fullAnnualPrice = annualPrice ? annualPrice : null;
+              const baseAnnualPrice = isOnRequest ? null : (plan.price as number);
+              const baseMonthlyPrice = baseAnnualPrice !== null ? baseAnnualPrice / 12 : null;
+              const monthlyPrice = baseMonthlyPrice !== null
+                ? baseMonthlyPrice + (extraPowerUsersCount * extraPowerUserMonthlyPrice)
+                : null;
+              const perMonthPerUser = monthlyPrice !== null ? Math.round(monthlyPrice) : null;
+              const fullAnnualPrice = monthlyPrice !== null ? Math.round(monthlyPrice * 12) : null;
               
               return (
               <Card 
@@ -328,11 +342,15 @@ const Pricing = () => {
                       <h4 className="font-semibold text-foreground mb-4 text-base leading-tight">{t.pages.pricing.categories.feature}</h4>
                       <ul className="space-y-2">
                         {plan.features.map((feature, index) => {
-                          const isBold = feature.toLowerCase().startsWith('all from') || feature.toLowerCase().startsWith('alles aus');
+                          const normalizedFeature = feature.toLowerCase();
+                          const isItalic = normalizedFeature === 'alles aus core' ||
+                                            normalizedFeature === 'alles aus pro' ||
+                                            normalizedFeature === 'all from core' ||
+                                            normalizedFeature === 'all from pro';
                           return (
                             <li key={index} className="flex text-foreground text-sm">
                               <span className="mr-2 text-primary flex-shrink-0 leading-none mt-[0.1em]">•</span>
-                              <span className={isBold ? 'font-bold' : ''}>{feature}</span>
+                              <span className={isItalic ? 'italic' : ''}>{feature}</span>
                             </li>
                           );
                         })}
@@ -342,15 +360,127 @@ const Pricing = () => {
                     {/* Users Category - between features and services */}
                     {plan.users && (
                       <div className="mb-10">
-                        <h4 className="font-semibold text-foreground mb-4 text-base leading-tight">{t.pages.pricing.categories.users}</h4>
+                        <div className="flex items-center gap-2 mb-4">
+                          <h4 className="font-semibold text-foreground text-base leading-tight">
+                            {t.pages.pricing.categories.users}
+                          </h4>
+                          {t.pages.pricing.usersTooltip && (
+                            <Popover>
+                              <PopoverTrigger asChild>
+                                <button
+                                  type="button"
+                                  className="inline-flex items-center justify-center rounded-full hover:bg-muted transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                                  aria-label="Information about users"
+                                  onClick={(e) => e.stopPropagation()}
+                                >
+                                  <Info className="h-4 w-4 text-muted-foreground hover:text-foreground" />
+                                </button>
+                              </PopoverTrigger>
+                              <PopoverContent className="w-auto max-w-xs p-3" side="top" align="center">
+                                <p className="text-sm leading-relaxed">{t.pages.pricing.usersTooltip}</p>
+                              </PopoverContent>
+                            </Popover>
+                          )}
+                        </div>
                         <ul className="space-y-2">
                           <li className="flex text-foreground text-sm">
                             <span className="mr-2 text-primary flex-shrink-0 leading-none mt-[0.1em]">•</span>
                             <span>{plan.users}</span>
                           </li>
+                          <li className="flex text-foreground text-sm">
+                            <span className="mr-2 text-primary flex-shrink-0 leading-none mt-[0.1em]">•</span>
+                            <span>{t.pages.pricing.extraPowerUserPrice.replace('{value}', extraPowerUserMonthlyPrice.toString())}</span>
+                          </li>
+                          <li className="flex text-foreground text-sm">
+                            <span className="mr-2 text-primary flex-shrink-0 leading-none mt-[0.1em]">•</span>
+                            <span>
+                              {(() => {
+                                if (plan.name === t.pages.pricing.plans.core.name) {
+                                  return '20 lesende Nutzer';
+                                }
+                                if (plan.name === t.pages.pricing.plans.pro.name) {
+                                  return '50 lesende Nutzer';
+                                }
+                                return '100 lesende Nutzer';
+                              })()}
+                            </span>
+                          </li>
                         </ul>
+                        <div
+                          className="mt-3 flex items-center gap-3"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <span className="text-sm text-muted-foreground">
+                            {t.pages.pricing.additionalPowerUsersLabel}:
+                          </span>
+                          <div className="flex items-center gap-2">
+                            <button
+                              type="button"
+                              className="h-8 w-8 flex items-center justify-center rounded-md border border-border text-sm font-medium text-foreground hover:bg-muted transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                              onClick={() => handleExtraPowerUsersChange(index, -1)}
+                              disabled={extraPowerUsersCount === 0}
+                            >
+                              −
+                            </button>
+                            <span className="w-8 text-center text-sm font-medium text-foreground">
+                              {extraPowerUsersCount}
+                            </span>
+                            <button
+                              type="button"
+                              className="h-8 w-8 flex items-center justify-center rounded-md border border-border text-sm font-medium text-foreground hover:bg-muted transition-colors"
+                              onClick={() => handleExtraPowerUsersChange(index, 1)}
+                            >
+                              +
+                            </button>
+                          </div>
+                        </div>
                       </div>
                     )}
+
+                    {/* LLM + AI Category - only show for Pro and Excellence, but reserve space for Core */}
+                    <div className="mb-10 h-[180px] flex flex-col">
+                      {plan.name !== t.pages.pricing.plans.core.name ? (
+                        <>
+                          <h4 className="font-semibold text-foreground mb-4 text-base leading-tight ml-0">{t.pages.pricing.categories.llmAi}</h4>
+                          {plan.llmAi.length > 0 && (
+                            <ul className="space-y-2 mb-4">
+                              {plan.llmAi.map((item, index) => {
+                                const normalizedItem = item.toLowerCase();
+                                const isItalic = normalizedItem === 'alles aus core' ||
+                                                  normalizedItem === 'alles aus pro' ||
+                                                  normalizedItem === 'all from core' ||
+                                                  normalizedItem === 'all from pro';
+                                return (
+                                  <li key={index} className="flex text-foreground text-sm">
+                                    <span className="mr-2 text-primary flex-shrink-0 leading-none mt-[0.1em]">•</span>
+                                    <span className={isItalic ? 'italic' : ''}>{item}</span>
+                                  </li>
+                                );
+                              })}
+                            </ul>
+                          )}
+                          <div 
+                            className="flex items-center gap-3 border rounded-md p-3"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <Checkbox
+                              id={`private-llm-${plan.name}`}
+                              checked={plan.name === t.pages.pricing.plans.pro.name ? privateLLMPro : privateLLMExcellence}
+                              onCheckedChange={(checked) => {
+                                if (plan.name === t.pages.pricing.plans.pro.name) {
+                                  setPrivateLLMPro(!!checked);
+                                } else {
+                                  setPrivateLLMExcellence(!!checked);
+                                }
+                              }}
+                            />
+                            <label htmlFor={`private-llm-${plan.name}`} className="text-sm text-foreground">
+                              {t.pages.pricing.privateLLMHosting}
+                            </label>
+                          </div>
+                        </>
+                      ) : null}
+                    </div>
 
                     {/* Service Category - min height to ensure alignment, but allow growth */}
                     <div className="mb-0 min-h-[380px]">
@@ -402,48 +532,6 @@ const Pricing = () => {
 
                   {/* Bottom section - LLM + AI and Statistics/Button - aligned from bottom */}
                   <div className="flex flex-col -mt-2">
-                    {/* LLM + AI Category - only show for Pro and Excellence, but reserve space for Core */}
-                    {/* Fixed height to ensure horizontal alignment across all cards */}
-                    <div className="mb-10 h-[180px] flex flex-col">
-                      {plan.name !== t.pages.pricing.plans.core.name ? (
-                        <>
-                          <h4 className="font-semibold text-foreground mb-4 text-base leading-tight ml-0">{t.pages.pricing.categories.llmAi}</h4>
-                          {plan.llmAi.length > 0 && (
-                            <ul className="space-y-2 mb-4">
-                              {plan.llmAi.map((item, index) => {
-                                const isBold = item.toLowerCase().startsWith('all from') || item.toLowerCase().startsWith('alles aus');
-                                return (
-                                  <li key={index} className="flex text-foreground text-sm">
-                                    <span className="mr-2 text-primary flex-shrink-0 leading-none mt-[0.1em]">•</span>
-                                    <span className={isBold ? 'font-bold' : ''}>{item}</span>
-                                  </li>
-                                );
-                              })}
-                            </ul>
-                          )}
-                          <div 
-                            className="flex items-center gap-3 border rounded-md p-3"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            <Checkbox
-                              id={`private-llm-${plan.name}`}
-                              checked={plan.name === t.pages.pricing.plans.pro.name ? privateLLMPro : privateLLMExcellence}
-                              onCheckedChange={(checked) => {
-                                if (plan.name === t.pages.pricing.plans.pro.name) {
-                                  setPrivateLLMPro(!!checked);
-                                } else {
-                                  setPrivateLLMExcellence(!!checked);
-                                }
-                              }}
-                            />
-                            <label htmlFor={`private-llm-${plan.name}`} className="text-sm text-foreground">
-                              {t.pages.pricing.privateLLMHosting}
-                            </label>
-                          </div>
-                        </>
-                      ) : null}
-                    </div>
-                    
                     <div className="space-y-4">
                       {/* Statistics Box / ROI Box */}
                       {plan.statistics && (

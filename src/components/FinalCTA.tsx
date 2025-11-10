@@ -12,16 +12,16 @@ export function FinalCTA() {
   return (
     <section ref={ref} className="py-20 relative overflow-hidden">
 
-      <div className="relative z-0 container mx-auto px-4 lg:px-8 text-center">
+      <div className="relative z-0 container mx-auto px-4 lg:px-8 text-center overflow-hidden">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 32 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 32 }}
           transition={{ duration: 0.8 }}
-          className="max-w-4xl mx-auto"
+          className="max-w-4xl mx-auto overflow-hidden"
         >
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
             transition={{ delay: 0.2, duration: 0.6 }}
             className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8"
           >
@@ -30,8 +30,8 @@ export function FinalCTA() {
           </motion.div>
 
           <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 24 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
             transition={{ delay: 0.4, duration: 0.8 }}
             className="text-4xl md:text-6xl font-bold mb-6 leading-tight"
           >
@@ -42,8 +42,8 @@ export function FinalCTA() {
           </motion.h2>
 
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 24 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
             transition={{ delay: 0.6, duration: 0.8 }}
             className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto"
           >
@@ -51,10 +51,10 @@ export function FinalCTA() {
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 24 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
             transition={{ delay: 0.8, duration: 0.8 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
+            className="flex flex-col sm:flex-row gap-4 justify-center overflow-hidden"
           >
             <Button size="lg" className="gradient-primary glow-primary group">
               {t.finalCta.startJourney}
