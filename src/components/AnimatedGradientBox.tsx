@@ -12,7 +12,44 @@ export function AnimatedGradientBox({
   ftePercent, 
   className = "" 
 }: AnimatedGradientBoxProps) {
-  const { language } = useLanguage();
+  const { t, language } = useLanguage();
+  const fallbackLines =
+    language === 'de'
+      ? [
+          'Entdecke ca. {costDriverPercent} der versteckten Kostentreiber in deinen Prozessen.',
+          'Spare ca.',
+          '{ftePercent} der FTE für die Prozessanalyse.*',
+        ]
+      : [
+          'Discover approx. {costDriverPercent} of hidden cost drivers in your processes.',
+          'Save approx.',
+          '{ftePercent} of FTE for process analysis.*',
+        ];
+  const statisticsLines = (t.pages.pricing.statisticsBox?.lines ?? fallbackLines);
+  const renderLine = (line: string, lineIndex: number) => {
+    const parts = line.split(/(\{costDriverPercent\}|\{ftePercent\})/g);
+    return (
+      <p key={lineIndex} className="text-inherit">
+        {parts.map((part, partIndex) => {
+          if (part === '{costDriverPercent}') {
+            return (
+              <span key={partIndex} className="font-semibold">
+                {costDriverPercent}
+              </span>
+            );
+          }
+          if (part === '{ftePercent}') {
+            return (
+              <span key={partIndex} className="font-semibold">
+                {ftePercent}
+              </span>
+            );
+          }
+          return <React.Fragment key={partIndex}>{part}</React.Fragment>;
+        })}
+      </p>
+    );
+  };
   
   // Generate unique animation values for each box instance
   const particles = useMemo(() => {
@@ -76,31 +113,9 @@ export function AnimatedGradientBox({
       
       {/* Content */}
       <div className="relative z-10 flex flex-col justify-center items-center h-full text-center px-2">
-        {language === 'de' ? (
-          <>
-            <p className="text-sm leading-tight text-foreground mb-1">
-              Entdecke ca. <span className="font-semibold">{costDriverPercent}</span> der versteckten
-            </p>
-            <p className="text-sm leading-tight text-foreground mb-1">
-              Kostentreiber in deinen Prozessen. Spare ca.
-            </p>
-            <p className="text-sm leading-tight text-foreground">
-              <span className="font-semibold">{ftePercent}</span> der FTE für die Prozessanalyse.*
-            </p>
-          </>
-        ) : (
-          <>
-            <p className="text-sm leading-tight text-foreground mb-1">
-              Uncover ca. <span className="font-semibold">{costDriverPercent}</span> of hidden
-            </p>
-            <p className="text-sm leading-tight text-foreground mb-1">
-              cost drivers in your processes. Save ca.
-            </p>
-            <p className="text-sm leading-tight text-foreground">
-              <span className="font-semibold">{ftePercent}</span> of FTE for process analysis.*
-            </p>
-          </>
-        )}
+        <div className="flex flex-col items-center text-center text-[13px] sm:text-sm leading-tight text-foreground space-y-1">
+          {statisticsLines.map((line, index) => renderLine(line, index))}
+        </div>
       </div>
 
       <style>{`

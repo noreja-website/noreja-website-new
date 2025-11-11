@@ -4,6 +4,12 @@ const partnerLogoImages = import.meta.glob<{ default: string }>(
   { eager: true }
 );
 
+// Dynamically import all white partner logos
+const partnerLogoImagesWhite = import.meta.glob<{ default: string }>(
+  '../assets/partners/partners_white/*.{png,jpg,jpeg,svg,webp}',
+  { eager: true }
+);
+
 // Dynamically import all partner face photos
 const partnerFaceImages = import.meta.glob<{ default: string }>(
   '../assets/partnerFaces/*.{png,jpg,jpeg}',
@@ -23,6 +29,7 @@ export interface Partner {
   name: string;
   description: string;
   logoUrl: string;
+  logoUrlWhite?: string;
   personPhotoUrl?: string;
   website: string;
   category: string;
@@ -37,6 +44,7 @@ export const partners: Partner[] = [
     name: "Aptean",
     description: "Strategic cloud infrastructure partnership powering enterprise-scale solutions.",
     logoUrl: getImagePath(partnerLogoImages, "aptean_logo.svg"),
+    logoUrlWhite: getImagePath(partnerLogoImagesWhite, "aptean_white.png"),
     personPhotoUrl: getImagePath(partnerFaceImages, "markus_neumayr_locker_aptean.jpg"),
     website: "https://www.aptean.com/en-US",
     category: "Technology",
@@ -49,6 +57,7 @@ export const partners: Partner[] = [
     name: "Miragon",
     description: "CRM integration specialist delivering seamless customer relationship management.",
     logoUrl: getImagePath(partnerLogoImages, "miragon_logo.svg"),
+    logoUrlWhite: getImagePath(partnerLogoImagesWhite, "miragon_white.png"),
     personPhotoUrl: getImagePath(partnerFaceImages, "thomas_heinrichs_miragon.jpeg"),
     website: "https://salesforce.com",
     category: "Software",
@@ -73,6 +82,7 @@ export const partners: Partner[] = [
     name: "Waits",
     description: "AI and machine learning innovation partner for next-generation applications.",
     logoUrl: getImagePath(partnerLogoImages, "waits_logo.svg"),
+    logoUrlWhite: getImagePath(partnerLogoImagesWhite, "waits_white.png"),
     personPhotoUrl: getImagePath(partnerFaceImages, "christian_waits.png"),
     website: "https://www.waits-gmbh.de/",
     category: "Consulting",
@@ -85,6 +95,7 @@ export const partners: Partner[] = [
     name: "Nexigo",
     description: "Enterprise resource planning integration for comprehensive business management.",
     logoUrl: getImagePath(partnerLogoImages, "nexigo_logo.png"),
+    logoUrlWhite: getImagePath(partnerLogoImagesWhite, "nexigo_white.png"),
     personPhotoUrl: getImagePath(partnerFaceImages, "marcel_schober_nexigo.jpeg"),
     website: "https://nexigo.io/",
     category: "Consulting",
@@ -97,6 +108,7 @@ export const partners: Partner[] = [
     name: "BOC",
     description: "Database excellence and enterprise software solutions for mission-critical systems.",
     logoUrl: "TODO",
+    logoUrlWhite: getImagePath(partnerLogoImagesWhite, "BOC-logo-white.png"),
     website: "https://www.boc-group.com/de/adonis/solution/process-mining/",
     category: "Database",
     quote: "TODO.",
@@ -108,6 +120,7 @@ export const partners: Partner[] = [
     name: "Vienesse Consulting",
     description: "Advanced analytics and AI consulting for digital transformation initiatives.",
     logoUrl: getImagePath(partnerLogoImages, "vienesse_logo.png"),
+    logoUrlWhite: getImagePath(partnerLogoImagesWhite, "vienesse_logo_white.svg"),
     personPhotoUrl: getImagePath(partnerFaceImages, "robin_lange_vienesse.jpeg"),
     website: "https://vienesse-consulting.com/",
     category: "Consulting",
@@ -120,6 +133,7 @@ export const partners: Partner[] = [
     name: "Schleswiger Versicherungen",
     description: "Workflow automation platform integration for streamlined business processes.",
     logoUrl: getImagePath(partnerLogoImages, "schleswiger_logo.svg"),
+    logoUrlWhite: getImagePath(partnerLogoImagesWhite, "schleswiger_white.png"),
     personPhotoUrl: getImagePath(partnerFaceImages, "stefan_best_schleswiger.jpeg"),
     website: "https://schleswiger.de/",
     category: "Insurance",
@@ -132,6 +146,7 @@ export const partners: Partner[] = [
     name: "Novofactum GmbH",
     description: "Workflow automation platform integration for streamlined business processes.",
     logoUrl: getImagePath(partnerLogoImages, "novofactum_logo.png"),
+    logoUrlWhite: getImagePath(partnerLogoImagesWhite, "novofactum_white.png"),
     personPhotoUrl: getImagePath(partnerFaceImages, "christian_riffner_novofactum.jpeg"),
     website: "https://www.novofactum.de/",
     category: "Consulting",
@@ -144,6 +159,7 @@ export const partners: Partner[] = [
     name: "Fortlane Partners Consulting GmbH",
     description: "Workflow automation platform integration for streamlined business processes.",
     logoUrl: getImagePath(partnerLogoImages, "fortlane_logo.png"),
+    logoUrlWhite: getImagePath(partnerLogoImagesWhite, "fortlane_white.png"),
     personPhotoUrl: getImagePath(partnerFaceImages, "Christoph_Blum_fortlane.png"),
     website: "https://www.fortlane.com/de",
     category: "Consulting",

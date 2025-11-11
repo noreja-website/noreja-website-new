@@ -116,7 +116,7 @@ export default function Partners() {
                           className="w-32 h-32 lg:w-40 lg:h-40 bg-gradient-to-br from-noreja-main/10 to-noreja-main/5 rounded-2xl p-6 flex items-center justify-center group hover:shadow-2xl hover:shadow-noreja-main/20 transition-all duration-300"
                         >
                           <img
-                            src={partner.logoUrl}
+                            src={partner.logoUrlWhite || partner.logoUrl}
                             alt={`${partner.name} logo`}
                             className="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-300"
                             loading="lazy"

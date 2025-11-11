@@ -80,7 +80,7 @@ export function PartnersTeaser() {
                 title={partner.name}
               >
                 <img
-                  src={partner.logoUrl}
+                  src={partner.logoUrlWhite || partner.logoUrl}
                   alt={partner.name}
                   className="max-h-full max-w-full object-contain"
                   loading="lazy"
@@ -117,7 +117,11 @@ export function PartnersTeaser() {
                     <div className="flex-shrink-0">
                       <div className="w-40 h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 bg-white/90 rounded-xl shadow-lg flex items-center justify-center p-4 overflow-hidden">
                         <img
-                          src={galleryPartners[currentIndex].personPhotoUrl || galleryPartners[currentIndex].logoUrl}
+                          src={
+                            galleryPartners[currentIndex].personPhotoUrl ||
+                            galleryPartners[currentIndex].logoUrlWhite ||
+                            galleryPartners[currentIndex].logoUrl
+                          }
                           alt={galleryPartners[currentIndex].quoteAuthor || galleryPartners[currentIndex].name}
                           className="w-full h-full object-cover rounded-lg"
                           loading="lazy"

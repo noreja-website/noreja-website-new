@@ -101,6 +101,9 @@ export interface Translations {
       contactUs: string;
       footerNote: string;
       statisticsNote: string;
+      statisticsBox: {
+        lines: string[];
+      };
         categories: {
           feature: string;
           users: string;
@@ -581,6 +584,11 @@ export const translations: Record<Language, Translations> = {
         contactUs: "Contact us",
         footerNote: "All plans include 14-day free trial • No setup fees • Cancel anytime",
         statisticsNote: "*Average values based on completed client projects. Actual results may vary depending on process maturity, company size, and industry.",
+        statisticsBox: {
+          lines: [
+            "Discover approx. {costDriverPercent} of hidden cost drivers in your processes. Save approx. {ftePercent} of FTE for process analysis.*"
+          ]
+        },
         categories: {
           feature: "Feature",
           users: "Users",
@@ -1155,6 +1163,11 @@ export const translations: Record<Language, Translations> = {
         contactUs: "Kontakt aufnehmen",
         footerNote: "Alle Pläne beinhalten 14-tägige kostenlose Testversion • Keine Einrichtungsgebühren • Jederzeit kündbar",
         statisticsNote: "*Durchschnittswerte aus realisierten Kundenprojekten. Abweichungen sind abhängig von Prozessreife, Unternehmensgröße und Branche möglich.",
+        statisticsBox: {
+          lines: [
+            "Entdecke ca. {costDriverPercent} der versteckten Kostentreiber in deinen Prozessen. Spare ca. {ftePercent} der FTE für die Prozessanalyse.*"
+          ]
+        },
         categories: {
           feature: "Feature",
           users: "Nutzer",
