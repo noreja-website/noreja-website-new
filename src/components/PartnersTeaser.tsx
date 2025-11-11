@@ -14,7 +14,7 @@ export function PartnersTeaser() {
   const [isHovered, setIsHovered] = useState(false);
 
   // Get all partners with quotes for the gallery
-  const galleryPartners = partners.filter(partner => partner.quote);
+  const galleryPartners = partners.filter((partner) => partner.isPartner && partner.quote);
 
   // Auto-rotate functionality - works globally across all partners
   useEffect(() => {

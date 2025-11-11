@@ -24,12 +24,16 @@ const getImagePath = (images: Record<string, { default: string }>, filename: str
   return entry ? entry[1].default : '';
 };
 
+export type PartnerLogoSize = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
+
 export interface Partner {
   id: string;
   name: string;
   description: string;
+  isPartner: boolean;
   logoUrl: string;
   logoUrlWhite?: string;
+  logoSize: PartnerLogoSize;
   personPhotoUrl?: string;
   website: string;
   category: string;
@@ -43,8 +47,10 @@ export const partners: Partner[] = [
     id: "1",
     name: "Aptean",
     description: "Strategic cloud infrastructure partnership powering enterprise-scale solutions.",
+    isPartner: true,
     logoUrl: getImagePath(partnerLogoImages, "aptean_logo.svg"),
     logoUrlWhite: getImagePath(partnerLogoImagesWhite, "aptean_white.png"),
+    logoSize: 'medium',
     personPhotoUrl: getImagePath(partnerFaceImages, "markus_neumayr_locker_aptean.jpg"),
     website: "https://www.aptean.com/en-US",
     category: "Technology",
@@ -56,8 +62,10 @@ export const partners: Partner[] = [
     id: "2",
     name: "Miragon",
     description: "CRM integration specialist delivering seamless customer relationship management.",
+    isPartner: true,
     logoUrl: getImagePath(partnerLogoImages, "miragon_logo.svg"),
     logoUrlWhite: getImagePath(partnerLogoImagesWhite, "miragon_white.png"),
+    logoSize: 'medium',
     personPhotoUrl: getImagePath(partnerFaceImages, "thomas_heinrichs_miragon.jpeg"),
     website: "https://salesforce.com",
     category: "Software",
@@ -69,7 +77,9 @@ export const partners: Partner[] = [
     id: "3",
     name: "Changeenablers Ltd.",
     description: "Leading cloud provider enabling scalable and reliable infrastructure solutions.",
+    isPartner: true,
     logoUrl: getImagePath(partnerLogoImages, "changeenablers_logo.png"),
+    logoSize: 'small',
     personPhotoUrl: getImagePath(partnerFaceImages, "niyi_changeenablers.jpg"),
     website: "https://changeenablers.net/ce_home.html",
     category: "Consulting",
@@ -81,8 +91,10 @@ export const partners: Partner[] = [
     id: "4",
     name: "Waits",
     description: "AI and machine learning innovation partner for next-generation applications.",
+    isPartner: true,
     logoUrl: getImagePath(partnerLogoImages, "waits_logo.svg"),
     logoUrlWhite: getImagePath(partnerLogoImagesWhite, "waits_white.png"),
+    logoSize: 'medium',
     personPhotoUrl: getImagePath(partnerFaceImages, "christian_waits.png"),
     website: "https://www.waits-gmbh.de/",
     category: "Consulting",
@@ -94,8 +106,10 @@ export const partners: Partner[] = [
     id: "5",
     name: "Nexigo",
     description: "Enterprise resource planning integration for comprehensive business management.",
+    isPartner: true,
     logoUrl: getImagePath(partnerLogoImages, "nexigo_logo.png"),
     logoUrlWhite: getImagePath(partnerLogoImagesWhite, "nexigo_white.png"),
+    logoSize: 'medium',
     personPhotoUrl: getImagePath(partnerFaceImages, "marcel_schober_nexigo.jpeg"),
     website: "https://nexigo.io/",
     category: "Consulting",
@@ -107,8 +121,10 @@ export const partners: Partner[] = [
     id: "6",
     name: "BOC",
     description: "Database excellence and enterprise software solutions for mission-critical systems.",
-    logoUrl: "TODO",
+    isPartner: true,
+    logoUrl: getImagePath(partnerLogoImagesWhite, "BOC-logo-white.png"),
     logoUrlWhite: getImagePath(partnerLogoImagesWhite, "BOC-logo-white.png"),
+    logoSize: 'xsmall',
     website: "https://www.boc-group.com/de/adonis/solution/process-mining/",
     category: "Database",
     quote: "TODO.",
@@ -119,8 +135,10 @@ export const partners: Partner[] = [
     id: "7",
     name: "Vienesse Consulting",
     description: "Advanced analytics and AI consulting for digital transformation initiatives.",
+    isPartner: true,
     logoUrl: getImagePath(partnerLogoImages, "vienesse_logo.png"),
     logoUrlWhite: getImagePath(partnerLogoImagesWhite, "vienesse_logo_white.svg"),
+    logoSize: 'medium',
     personPhotoUrl: getImagePath(partnerFaceImages, "robin_lange_vienesse.jpeg"),
     website: "https://vienesse-consulting.com/",
     category: "Consulting",
@@ -132,8 +150,10 @@ export const partners: Partner[] = [
     id: "8",
     name: "Schleswiger Versicherungen",
     description: "Workflow automation platform integration for streamlined business processes.",
+    isPartner: false,
     logoUrl: getImagePath(partnerLogoImages, "schleswiger_logo.svg"),
     logoUrlWhite: getImagePath(partnerLogoImagesWhite, "schleswiger_white.png"),
+    logoSize: 'medium',
     personPhotoUrl: getImagePath(partnerFaceImages, "stefan_best_schleswiger.jpeg"),
     website: "https://schleswiger.de/",
     category: "Insurance",
@@ -145,8 +165,10 @@ export const partners: Partner[] = [
     id: "9",
     name: "Novofactum GmbH",
     description: "Workflow automation platform integration for streamlined business processes.",
+    isPartner: true,
     logoUrl: getImagePath(partnerLogoImages, "novofactum_logo.png"),
     logoUrlWhite: getImagePath(partnerLogoImagesWhite, "novofactum_white.png"),
+    logoSize: 'xlarge',
     personPhotoUrl: getImagePath(partnerFaceImages, "christian_riffner_novofactum.jpeg"),
     website: "https://www.novofactum.de/",
     category: "Consulting",
@@ -158,8 +180,10 @@ export const partners: Partner[] = [
     id: "10",
     name: "Fortlane Partners Consulting GmbH",
     description: "Workflow automation platform integration for streamlined business processes.",
+    isPartner: true,
     logoUrl: getImagePath(partnerLogoImages, "fortlane_logo.png"),
     logoUrlWhite: getImagePath(partnerLogoImagesWhite, "fortlane_white.png"),
+    logoSize: 'xlarge',
     personPhotoUrl: getImagePath(partnerFaceImages, "Christoph_Blum_fortlane.png"),
     website: "https://www.fortlane.com/de",
     category: "Consulting",
@@ -171,7 +195,9 @@ export const partners: Partner[] = [
     id: "11",
     name: "Gordana McNamara",
     description: "Independent advisor and strategic consultant specializing in go-to-market strategies and business transformation.",
+    isPartner: false,
     logoUrl: "",
+    logoSize: 'medium',
     personPhotoUrl: getImagePath(partnerFaceImages, "gordana_mcnamara.jpg"),
     website: "",
     category: "Advisory",

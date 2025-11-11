@@ -1490,10 +1490,10 @@ export const translations: Record<Language, Translations> = {
         }
       },
     },
-    partners: {
-      title: "Gemeinsam",
-      titleHighlight: "Prozesse neu denken",
-      subtitle: "Unsere Partner teilen unsere Vision von intelligenter Prozessanalyse.\n\nDatengetrieben, offen und auf Wirkung ausgerichtet.",
+      partners: {
+        title: "Unsere",
+        titleHighlight: "Partner",
+        subtitle: "Unsere Partner teilen unsere Vision von intelligenter Prozessanalyse.\n\nDatengetrieben, offen und auf Wirkung ausgerichtet.",
       viewAll: "Alle Partner anzeigen",
       viewAllPartners: "Alle Partner anzeigen",
       stats: {

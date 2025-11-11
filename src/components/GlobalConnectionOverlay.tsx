@@ -29,6 +29,10 @@ interface GlobalConnectionOverlayProps {
 }
 
 export function GlobalConnectionOverlay({ connections }: GlobalConnectionOverlayProps) {
+  if (connections.length === 0) {
+    return null;
+  }
+
   const svgRef = useRef<SVGSVGElement>(null);
   const [nodePositions, setNodePositions] = useState<Map<string, NodePosition>>(new Map());
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
