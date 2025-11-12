@@ -394,6 +394,10 @@ export interface Translations {
       resource: string;
       resources: string;
       clickToDownload: string;
+      access: {
+        free: string;
+        locked: string;
+      };
       noResourcesFound: string;
       noResourcesDescription: string;
       needAdditionalResources: string;
@@ -466,6 +470,7 @@ export interface Translations {
       resources: string;
       legal: string;
       contact: string;
+      referralProgram: string;
     };
     links: {
       imprint: string;
@@ -779,7 +784,7 @@ export const translations: Record<Language, Translations> = {
         bookCallButton: "Book a Call",
         responseNote: "We typically respond within 24 hours.",
         formLoading: "Loading contact form…",
-        formError: "We couldn’t load the contact form. Please reload the page or reach us at hello@noreja.com."
+        formError: "We couldn't load the contact form. Please reload the page or reach us at hello@noreja.com."
       }
     },
     hero: {
@@ -1000,6 +1005,10 @@ export const translations: Record<Language, Translations> = {
       resource: "resource",
       resources: "resources",
       clickToDownload: "Click on any resource below to download after completing a quick form.",
+      access: {
+        free: "Free Download",
+        locked: "Email Required",
+      },
       noResourcesFound: "No resources found",
       noResourcesDescription: "No downloads available for the selected category.",
       needAdditionalResources: "Need Additional Resources?",
@@ -1071,7 +1080,8 @@ export const translations: Record<Language, Translations> = {
       sections: {
         resources: "Resources",
         legal: "Legal",
-        contact: "Contact"
+        contact: "Contact",
+        referralProgram: "Referral Program"
       },
       links: {
         imprint: "Imprint",
@@ -1296,7 +1306,7 @@ export const translations: Record<Language, Translations> = {
             },
             {
               question: "Können für genutzte LLM-Token zusätzliche Kosten entstehen?",
-              answer: "Grundsätzlich sind die LLM-Token für alle Power-User inkludiert. Sollte es den Bedarf nach einer erhöhten Anzahl an „lesenden“ bzw. „konsumierenden“ Nutzern geben, müssen wir die Kosten weiterreichen. In diesem Fall sprechen wir dich explizit an."
+              answer: "Grundsätzlich sind die LLM-Token für alle Power-User inkludiert. Sollte es den Bedarf nach einer erhöhten Anzahl an lesenden bzw. konsumierenden Nutzern geben, müssen wir die Kosten weiterreichen. In diesem Fall sprechen wir dich explizit an."
             },
             {
               question: "Was sind Power-User und wie unterscheiden sie sich von herkömmlichen Nutzern?",
@@ -1612,6 +1622,10 @@ export const translations: Record<Language, Translations> = {
       resource: "Ressource",
       resources: "Ressourcen",
       clickToDownload: "Klicke auf eine Ressource unten, um sie nach dem Ausfüllen eines kurzen Formulars herunterzuladen.",
+      access: {
+        free: "Direkter Download",
+        locked: "E-Mail erforderlich",
+      },
       noResourcesFound: "Keine Ressourcen gefunden",
       noResourcesDescription: "Keine Downloads für die ausgewählte Kategorie verfügbar.",
       needAdditionalResources: "Benötigst du zusätzliche Ressourcen?",
@@ -1683,11 +1697,12 @@ export const translations: Record<Language, Translations> = {
       sections: {
         resources: "Ressourcen",
         legal: "Rechtliches",
-        contact: "Kontakt"
+        contact: "Kontakt",
+        referralProgram: "Referral-Programm"
       },
       links: {
         imprint: "Impressum",
-        privacy: "Datenschutz",
+        privacy: "Datenschutzerklärung",
         terms: "Nutzungsbedingungen",
       },
       legal: {
@@ -1698,7 +1713,7 @@ export const translations: Record<Language, Translations> = {
       },
       contact: {
         contactForm: "Kontaktformular",
-        bookAppointment: "Termin vereinbaren"
+        bookAppointment: "Termin buchen"
       }
     },
     buttons: {

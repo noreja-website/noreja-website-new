@@ -9,10 +9,11 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
   const { t } = useLanguage();
 
-  const footerNavigation = [
-    { name: t.navigation.team, href: "/team" },
-    { name: t.navigation.downloads, href: "/downloads" },
-    { name: t.navigation.events, href: "/events" }
+  const resourcesLinks = [
+    { name: t.navigation.team, href: "/team", external: false },
+    { name: t.navigation.downloads, href: "/downloads", external: false },
+    { name: t.navigation.events, href: "/events", external: false },
+    { name: t.footer.sections.referralProgram, href: siteConfig.links.referralProgram, external: true }
   ];
 
   const legalLinks = [
@@ -77,14 +78,26 @@ export function Footer() {
           <div className="md:col-span-2">
             <h3 className="font-semibold mb-4">{t.footer.sections.resources}</h3>
             <div className="grid grid-cols-2 gap-4">
-              {footerNavigation.map((item) => (
-                <Link
-                  key={item.href}
-                  to={item.href}
-                  className="text-muted-foreground hover:text-primary transition-fast text-sm"
-                >
-                  {item.name}
-                </Link>
+              {resourcesLinks.map((item) => (
+                item.external ? (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-primary transition-fast text-sm"
+                  >
+                    {item.name}
+                  </a>
+                ) : (
+                  <Link
+                    key={item.href}
+                    to={item.href}
+                    className="text-muted-foreground hover:text-primary transition-fast text-sm"
+                  >
+                    {item.name}
+                  </Link>
+                )
               ))}
             </div>
           </div>

@@ -20,6 +20,8 @@ interface DownloadGateProps {
   onSuccess?: () => void;
   className?: string;
   variant?: "default" | "card";
+  requiresForm?: boolean;
+  accessLabel?: string;
 }
 
 interface DownloadGateInlineProps extends Omit<DownloadGateProps, "variant"> {
@@ -102,7 +104,9 @@ export const DownloadGate: React.FC<DownloadGateProps> = ({
   formGuid = config.hubspot.defaultFormGuid,
   onSuccess,
   className = "",
-  variant = "default"
+  variant = "default",
+  requiresForm = true,
+  accessLabel
 }) => {
   const { t } = useLanguage();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -113,6 +117,11 @@ export const DownloadGate: React.FC<DownloadGateProps> = ({
   const formTargetId = `hubspot-form-${Math.random().toString(36).substr(2, 9)}`;
 
   const handleDownloadClick = async () => {
+    if (!requiresForm) {
+      handleDirectDownload();
+      return;
+    }
+
     if (isUserValidated()) {
       // User already validated, download directly
       handleDirectDownload();
@@ -173,9 +182,19 @@ export const DownloadGate: React.FC<DownloadGateProps> = ({
           <CardHeader>
             <div className="flex items-start justify-between">
               <div className="flex-1">
-                <CardTitle className="text-lg font-semibold mb-2 group-hover:text-noreja-main transition-colors">
-                  {title}
-                </CardTitle>
+                <div className="flex items-center gap-2 mb-2">
+                  <CardTitle className="text-lg font-semibold group-hover:text-noreja-main transition-colors flex-1">
+                    {title}
+                  </CardTitle>
+                  {accessLabel && (
+                    <Badge
+                      variant={requiresForm ? "outline" : "secondary"}
+                      className={`text-xs ${requiresForm ? "border-noreja-main/40 text-muted-foreground" : "bg-noreja-main text-white"}`}
+                    >
+                      {accessLabel}
+                    </Badge>
+                  )}
+                </div>
                 <p className="text-muted-foreground text-sm leading-relaxed">
                   {description}
                 </p>
@@ -213,36 +232,38 @@ export const DownloadGate: React.FC<DownloadGateProps> = ({
           </CardContent>
         </Card>
 
-        <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-          <DialogContent className="max-w-md">
-            <DialogHeader>
-              <DialogTitle className="flex items-center">
-                <Download className="w-5 h-5 mr-2 text-noreja-main" />
-                Download {title}
-              </DialogTitle>
-            </DialogHeader>
-            <div className="py-4">
-              <p className="text-muted-foreground mb-6">
-                {t.downloadGate.fillForm}
-              </p>
-              
-              {isFormLoading ? (
-                <div className="flex items-center justify-center py-8">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-noreja-main"></div>
-                </div>
-              ) : (
-                <div id={formTargetId} className="hubspot-form-container"></div>
-              )}
-              
-              {/* TODO: HubSpot Form Integration
-                  1. Replace formPortalId and formGuid with your actual HubSpot values
-                  2. Update the region in createHubSpotForm if needed (default: "na1")
-                  3. Test the form submission and download flow
-                  4. Customize form styling in your HubSpot account if needed
-              */}
-            </div>
-          </DialogContent>
-        </Dialog>
+        {requiresForm && (
+          <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+            <DialogContent className="max-w-md">
+              <DialogHeader>
+                <DialogTitle className="flex items-center">
+                  <Download className="w-5 h-5 mr-2 text-noreja-main" />
+                  Download {title}
+                </DialogTitle>
+              </DialogHeader>
+              <div className="py-4">
+                <p className="text-muted-foreground mb-6">
+                  {t.downloadGate.fillForm}
+                </p>
+                
+                {isFormLoading ? (
+                  <div className="flex items-center justify-center py-8">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-noreja-main"></div>
+                  </div>
+                ) : (
+                  <div id={formTargetId} className="hubspot-form-container"></div>
+                )}
+                
+                {/* TODO: HubSpot Form Integration
+                    1. Replace formPortalId and formGuid with your actual HubSpot values
+                    2. Update the region in createHubSpotForm if needed (default: "na1")
+                    3. Test the form submission and download flow
+                    4. Customize form styling in your HubSpot account if needed
+                */}
+              </div>
+            </DialogContent>
+          </Dialog>
+        )}
       </>
     );
   }
@@ -263,29 +284,31 @@ export const DownloadGate: React.FC<DownloadGateProps> = ({
         {isDownloading ? t.downloadGate.downloaded : t.downloadGate.download}
       </Button>
 
-      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="max-w-md">
-          <DialogHeader>
-            <DialogTitle className="flex items-center">
-              <Download className="w-5 h-5 mr-2 text-noreja-main" />
-              Download {title}
-            </DialogTitle>
-          </DialogHeader>
-          <div className="py-4">
-            <p className="text-muted-foreground mb-6">
-              {t.downloadGate.fillForm}
-            </p>
-            
-            {isFormLoading ? (
-              <div className="flex items-center justify-center py-8">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-noreja-main"></div>
-              </div>
-            ) : (
-              <div id={formTargetId} className="hubspot-form-container"></div>
-            )}
-          </div>
-        </DialogContent>
-      </Dialog>
+      {requiresForm && (
+        <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle className="flex items-center">
+                <Download className="w-5 h-5 mr-2 text-noreja-main" />
+                Download {title}
+              </DialogTitle>
+            </DialogHeader>
+            <div className="py-4">
+              <p className="text-muted-foreground mb-6">
+                {t.downloadGate.fillForm}
+              </p>
+              
+              {isFormLoading ? (
+                <div className="flex items-center justify-center py-8">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-noreja-main"></div>
+                </div>
+              ) : (
+                <div id={formTargetId} className="hubspot-form-container"></div>
+              )}
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
     </div>
   );
 };
@@ -301,7 +324,8 @@ export const DownloadGateInline: React.FC<DownloadGateInlineProps> = ({
   onSuccess,
   className = "",
   buttonText,
-  buttonVariant = "outline"
+  buttonVariant = "outline",
+  requiresForm = true
 }) => {
   const { t } = useLanguage();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -314,6 +338,11 @@ export const DownloadGateInline: React.FC<DownloadGateInlineProps> = ({
   const formTargetId = `hubspot-form-inline-${Math.random().toString(36).substr(2, 9)}`;
 
   const handleDownloadClick = async () => {
+    if (!requiresForm) {
+      handleDirectDownload();
+      return;
+    }
+
     if (isUserValidated()) {
       handleDirectDownload();
       return;
@@ -374,40 +403,42 @@ export const DownloadGateInline: React.FC<DownloadGateInlineProps> = ({
         {isDownloading ? t.downloadGate.downloaded : defaultButtonText}
       </Button>
 
-      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="max-w-md">
-          <DialogHeader>
-            <DialogTitle className="flex items-center">
-              <Download className="w-5 h-5 mr-2 text-noreja-main" />
-              Download {title}
-            </DialogTitle>
-          </DialogHeader>
-          <div className="py-4">
-            <div className="mb-4">
-              <h4 className="font-semibold mb-2">{title}</h4>
-              <p className="text-sm text-muted-foreground">{description}</p>
-              {(fileType || fileSize) && (
-                <div className="flex gap-2 mt-2">
-                  {fileType && <Badge variant="secondary" className="text-xs">{fileType}</Badge>}
-                  {fileSize && <Badge variant="outline" className="text-xs">{fileSize}</Badge>}
+      {requiresForm && (
+        <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle className="flex items-center">
+                <Download className="w-5 h-5 mr-2 text-noreja-main" />
+                Download {title}
+              </DialogTitle>
+            </DialogHeader>
+            <div className="py-4">
+              <div className="mb-4">
+                <h4 className="font-semibold mb-2">{title}</h4>
+                <p className="text-sm text-muted-foreground">{description}</p>
+                {(fileType || fileSize) && (
+                  <div className="flex gap-2 mt-2">
+                    {fileType && <Badge variant="secondary" className="text-xs">{fileType}</Badge>}
+                    {fileSize && <Badge variant="outline" className="text-xs">{fileSize}</Badge>}
+                  </div>
+                )}
+              </div>
+              
+              <p className="text-muted-foreground mb-6">
+                {t.downloadGate.fillForm}
+              </p>
+              
+              {isFormLoading ? (
+                <div className="flex items-center justify-center py-8">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-noreja-main"></div>
                 </div>
+              ) : (
+                <div id={formTargetId} className="hubspot-form-container"></div>
               )}
             </div>
-            
-            <p className="text-muted-foreground mb-6">
-              {t.downloadGate.fillForm}
-            </p>
-            
-            {isFormLoading ? (
-              <div className="flex items-center justify-center py-8">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-noreja-main"></div>
-              </div>
-            ) : (
-              <div id={formTargetId} className="hubspot-form-container"></div>
-            )}
-          </div>
-        </DialogContent>
-      </Dialog>
+          </DialogContent>
+        </Dialog>
+      )}
     </>
   );
 };

@@ -14,7 +14,8 @@ export const siteConfig = {
     blog: BLOG_SUBDOMAIN_URL,
     twitter: "https://twitter.com/noreja",
     linkedin: "https://linkedin.com/company/noreja",
-    github: "https://github.com/noreja"
+    github: "https://github.com/noreja",
+    referralProgram: "https://144242473.fs1.hubspotusercontent-eu1.net/hubfs/144242473/Noreja%20Referral%20Program%20DE.pdf"
   },
   hubspot: {
     contactForm: "https://share.hsforms.com/YOUR_CONTACT_FORM_ID",

@@ -123,6 +123,8 @@ export default function Downloads() {
                   fileType={asset.fileType}
                   formGuid={asset.formGuid} // Use asset-specific form if provided
                   variant="card"
+                  requiresForm={asset.access === "locked"}
+                  accessLabel={asset.access === "locked" ? t.downloads.access.locked : t.downloads.access.free}
                   onSuccess={() => {
                     console.log(`Downloaded: ${asset.title}`);
                   }}
