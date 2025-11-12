@@ -44,7 +44,7 @@ export default function Partners() {
     .concat(partnersByCategory.uncategorized?.length ? ['uncategorized'] : []);
 
   const baseLogoWrapperClass =
-    "w-44 h-44 md:w-52 md:h-52 rounded-2xl bg-gradient-to-br from-noreja-main/10 to-noreja-main/5 flex items-center justify-center p-6 md:p-8";
+    "w-32 h-32 md:w-40 md:h-40 lg:w-44 lg:h-44 rounded-2xl bg-gradient-to-br from-noreja-main/10 to-noreja-main/5 flex items-center justify-center p-5 md:p-6";
 
   const logoImageClasses: Record<PartnerLogoSize, string> = {
     small: "max-h-22 md:max-h-26 max-w-[6rem] md:max-w-[7.5rem]",
@@ -108,7 +108,7 @@ export default function Partners() {
                       <div className="flex-1 h-px bg-border/40" />
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                       {partnersInCategory.map((partner, index) => {
                         const size: PartnerLogoSize =
                           partner.logoSize && logoImageClasses[partner.logoSize]
@@ -128,7 +128,7 @@ export default function Partners() {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
                             viewport={{ once: true, margin: "-60px" }}
-                            className="group relative flex flex-col gap-8 rounded-3xl border border-border/40 bg-background/80 p-10 shadow-lg shadow-noreja-main/5 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-noreja-main/15"
+                            className="group relative flex flex-col gap-6 rounded-3xl border border-border/40 bg-background/80 p-8 shadow-lg shadow-noreja-main/5 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-noreja-main/15"
                           >
                             <div className="flex justify-center">
                               <div className={baseLogoWrapperClass}>

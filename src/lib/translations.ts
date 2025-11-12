@@ -581,7 +581,11 @@ export const translations: Record<Language, Translations> = {
           "8": "Workflow automation platform integration for streamlined business processes.",
           "9": "Salesforce and workflow automation experts delivering data-driven process excellence.",
           "10": "Strategic consulting partner aligning automation initiatives with measurable transformation.",
-          "11": "Independent advisor and strategic consultant specializing in go-to-market strategies and business transformation."
+          "11": "Independent advisor and strategic consultant specializing in go-to-market strategies and business transformation.",
+          "12": "Independent advisor and strategic consultant specializing in go-to-market strategies and business transformation.",
+          "13": "Independent advisor and strategic consultant specializing in go-to-market strategies and business transformation.",
+          "14": "Independent advisor and strategic consultant specializing in go-to-market strategies and business transformation.",
+          "15": "Independent advisor and strategic consultant specializing in go-to-market strategies and business transformation."
         },
         partnerCategories: {
           technology: "Technology",
@@ -1192,7 +1196,11 @@ export const translations: Record<Language, Translations> = {
           "8": "Integrationspartner für Workflow-Automatisierung und schlanke Geschäftsprozesse.",
           "9": "Salesforce- und Workflow-Experten, die datengetriebene Prozessexzellenz ermöglichen.",
           "10": "Strategie- und Beratungspartner, der Automatisierungsinitiativen mit operativer Transformation verbindet.",
-          "11": "Unabhängige Beraterin und Strategin für Go-to-Market und Business-Transformation."
+          "11": "Unabhängige Beraterin und Strategin für Go-to-Market und Business-Transformation.",
+          "12": "Unabhängige Beraterin und Strategin für Go-to-Market und Business-Transformation.",
+          "13": "Unabhängige Beraterin und Strategin für Go-to-Market und Business-Transformation.",
+          "14": "Unabhängige Beraterin und Strategin für Go-to-Market und Business-Transformation.",
+          "15": "“Nährboden” ist der Name das Start-up-Programms von BRANDL & TALOS, zu dem auch Noreja gehört. BRANDL & TALOS ist eine der führenden Rechtsberatungen in Österreich mit einem breiten Spektrum an Fähigkeiten. Für Start-ups fungieren sie als Sparringspartner für die unterschiedlichsten Herausforderungen auf dem Wachstumspfad – seien es Finanzierungsinitiativen, Hilfe beim Marktzugang, M&A, Aufnahme von Venture Capital, die Suche nach Geschäftspartnern oder ein erfolgreicher Exit."
         },
         partnerCategories: {
           technology: "Technologie",
