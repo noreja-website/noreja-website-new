@@ -172,6 +172,8 @@ export interface Translations {
         bookCallText: string;
         bookCallButton: string;
         responseNote: string;
+        formLoading: string;
+        formError: string;
       };
     };
   hero: {
@@ -775,7 +777,9 @@ export const translations: Record<Language, Translations> = {
         subtitle: "We'd love to hear from you. Reach out to our team for questions, collaborations, or product demos.",
         bookCallText: "Prefer to book a call directly?",
         bookCallButton: "Book a Call",
-        responseNote: "We typically respond within 24 hours."
+        responseNote: "We typically respond within 24 hours.",
+        formLoading: "Loading contact form…",
+        formError: "We couldn’t load the contact form. Please reload the page or reach us at hello@noreja.com."
       }
     },
     hero: {
@@ -1385,7 +1389,9 @@ export const translations: Record<Language, Translations> = {
         subtitle: "Wir freuen uns auf deine Nachricht. Kontaktiere unser Team für Fragen, Kooperationen oder Produktdemos.",
         bookCallText: "Lieber direkt einen Termin buchen?",
         bookCallButton: "Termin buchen",
-        responseNote: "Wir antworten in der Regel innerhalb von 24 Stunden."
+        responseNote: "Wir antworten in der Regel innerhalb von 24 Stunden.",
+        formLoading: "Kontaktformular wird geladen…",
+        formError: "Das Kontaktformular konnte nicht geladen werden. Bitte lade die Seite neu oder schreibe uns an hello@noreja.com."
       }
     },
     hero: {

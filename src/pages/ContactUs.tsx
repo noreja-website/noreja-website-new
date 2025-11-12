@@ -1,10 +1,13 @@
 import { useLanguage } from "@/contexts/LanguageContext";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
 
 const ContactUs = () => {
   const { t } = useLanguage();
+
+  const [formLoaded, setFormLoaded] = useState(false);
+  const [formError, setFormError] = useState(false);
 
   // Scroll to top when component mounts
   useEffect(() => {
@@ -13,18 +16,113 @@ const ContactUs = () => {
 
   // Load HubSpot embed script once and let it initialize the form container
   useEffect(() => {
-    const existing = document.querySelector(
-      'script[src="https://js-eu1.hsforms.net/forms/embed/144242473.js"]'
-    ) as HTMLScriptElement | null;
-    if (existing) return;
+    let isMounted = true;
+    const formContainerId = "hubspot-contact-form";
+    const scriptSrc = "https://js-eu1.hsforms.net/forms/embed/v2.js";
+    let observer: MutationObserver | null = null;
 
-    const script = document.createElement('script');
-    script.src = 'https://js-eu1.hsforms.net/forms/embed/144242473.js';
-    script.defer = true;
-    document.body.appendChild(script);
+    setFormLoaded(false);
+    setFormError(false);
+
+    const renderForm = () => {
+      const hbspt = (window as unknown as { hbspt?: any }).hbspt;
+      const container = document.getElementById(formContainerId);
+
+      if (!hbspt?.forms?.create || !container) {
+        if (isMounted) {
+          setFormError(true);
+        }
+        return;
+      }
+
+      container.innerHTML = "";
+      if (isMounted) {
+        setFormError(false);
+        setFormLoaded(false);
+      }
+
+      observer?.disconnect();
+      observer = new MutationObserver(() => {
+        if (!isMounted) {
+          observer?.disconnect();
+          return;
+        }
+        if (container.childElementCount > 0) {
+          setFormLoaded(true);
+          observer?.disconnect();
+        }
+      });
+      observer.observe(container, { childList: true });
+
+      hbspt.forms.create({
+        region: "eu1",
+        portalId: "144242473",
+        formId: "8e77caaf-8841-462e-b0bb-0ef0082e0c48",
+        target: `#${formContainerId}`,
+        onFormReady: () => {
+          if (isMounted) {
+            setFormLoaded(true);
+          }
+        },
+        onFormSubmit: () => {
+          if (isMounted) {
+            setFormLoaded(true);
+          }
+        },
+        onFormError: () => {
+          if (isMounted) {
+            setFormError(true);
+          }
+        },
+      });
+    };
+
+    const loadHubSpotScript = () =>
+      new Promise<void>((resolve, reject) => {
+        const hbspt = (window as unknown as { hbspt?: any }).hbspt;
+        if (hbspt?.forms?.create) {
+          resolve();
+          return;
+        }
+
+        let script = document.querySelector<HTMLScriptElement>(
+          `script[src="${scriptSrc}"]`
+        );
+
+        const handleLoad = () => resolve();
+        const handleError = () =>
+          reject(new Error("Failed to load HubSpot form script"));
+
+        if (script) {
+          script.addEventListener("load", handleLoad, { once: true });
+          script.addEventListener("error", handleError, { once: true });
+          return;
+        }
+
+        script = document.createElement("script");
+        script.src = scriptSrc;
+        script.async = true;
+        script.defer = true;
+        script.addEventListener("load", handleLoad, { once: true });
+        script.addEventListener("error", handleError, { once: true });
+        document.head.appendChild(script);
+      });
+
+    loadHubSpotScript()
+      .then(() => {
+        if (isMounted) {
+          renderForm();
+        }
+      })
+      .catch(() => {
+        if (isMounted) {
+          setFormError(true);
+        }
+      });
 
     return () => {
-      // keep script for SPA navigation; no cleanup to avoid reloading on route change
+      isMounted = false;
+      observer?.disconnect();
     };
   }, []);
 
@@ -48,17 +146,21 @@ const ContactUs = () => {
           <div className="bg-card rounded-2xl border border-border shadow-sm p-8 sm:p-12">
             {/* HubSpot Form Container */}
             <div className="w-full">
-              <div 
-                className="hubspot-form-container"
-                id="hubspot-contact-form"
-                style={{ minHeight: '400px' }}
+              <div
+                className="hubspot-form-container flex flex-col items-center justify-center space-y-4"
+                style={{ minHeight: "400px" }}
               >
-                <div
-                  className="hs-form-frame"
-                  data-region="eu1"
-                  data-form-id="8e77caaf-8841-462e-b0bb-0ef0082e0c48"
-                  data-portal-id="144242473"
-                />
+                {!formLoaded && !formError && (
+                  <p className="text-muted-foreground text-center" aria-live="polite">
+                    {t.pages.contact.formLoading}
+                  </p>
+                )}
+                {formError && (
+                  <p className="text-destructive text-center">
+                    {t.pages.contact.formError}
+                  </p>
+                )}
+                <div className="w-full" id="hubspot-contact-form" />
               </div>
             </div>
           </div>
