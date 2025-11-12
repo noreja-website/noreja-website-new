@@ -587,10 +587,12 @@ export const translations: Record<Language, Translations> = {
           technology: "Technology",
           software: "Software",
           consulting: "Consulting",
-          database: "Database",
           insurance: "Insurance",
           advisory: "Advisory",
           industry: "Industry",
+          academic: "Academic",
+          legal: "Legal",
+          incubator: "Incubator",
           uncategorized: "Other Partners"
         }
       },
@@ -1196,10 +1198,12 @@ export const translations: Record<Language, Translations> = {
           technology: "Technologie",
           software: "Software",
           consulting: "Beratung",
-          database: "Datenbank",
           insurance: "Versicherung",
           advisory: "Advisory",
           industry: "Industrie",
+          academic: "Akademisch",
+          legal: "Rechtlich",
+          incubator: "Inkubator",
           uncategorized: "Weitere Partner"
         }
       },

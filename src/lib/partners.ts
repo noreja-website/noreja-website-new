@@ -32,8 +32,10 @@ export type PartnerCategory =
   | 'technology'
   | 'software'
   | 'consulting'
-  | 'database'
+  | 'legal'
+  | 'academic'
   | 'insurance'
+  | 'incubator'
   | 'advisory'
   | 'industry';
 
@@ -226,11 +228,11 @@ export const partners: Partner[] = [
     name: "PwC",
     isPartner: true,
     partnerType: 'businessWithoutQuote',
-    logoUrl: getImagePath(partnerLogoImages, "pwc_logo.png"),
+    logoUrl: getImagePath(partnerLogoImagesWhite, "pwc_logo-white.png"),
     logoSize: 'medium',
     personPhotoUrl: "",
     website: "",
-    category: null,
+    category: "incubator",
     quote: "",
     quoteAuthor: "",
     linkedin: "",
@@ -244,7 +246,7 @@ export const partners: Partner[] = [
     logoSize: 'medium',
     personPhotoUrl: "",
     website: "",
-    category: null,
+    category: "academic",
     quote: "",
     quoteAuthor: "",
     linkedin: "",
@@ -258,7 +260,7 @@ export const partners: Partner[] = [
     logoSize: 'medium',
     personPhotoUrl: "",
     website: "",
-    category: null,
+    category: "academic",
     quote: "",
     quoteAuthor: "",
     linkedin: "",
@@ -272,7 +274,7 @@ export const partners: Partner[] = [
     logoSize: 'medium',
     personPhotoUrl: "",
     website: "",
-    category: null,
+    category: "legal",
     quote: "",
     quoteAuthor: "",
     linkedin: "",

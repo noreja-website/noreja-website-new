@@ -32,8 +32,14 @@ export default function Partners() {
     {}
   );
 
-  const categoryKeys = Object.keys(categoryLabels) as Array<keyof typeof categoryLabels>;
-  const categoryOrder = categoryKeys
+  const allCategoryKeys = Array.from(
+    new Set([
+      ...Object.keys(categoryLabels),
+      ...Object.keys(partnersByCategory),
+    ])
+  );
+
+  const categoryOrder = allCategoryKeys
     .filter((category) => category !== 'uncategorized' && partnersByCategory[category]?.length)
     .concat(partnersByCategory.uncategorized?.length ? ['uncategorized'] : []);
 
@@ -89,7 +95,8 @@ export default function Partners() {
                 const partnersInCategory = partnersByCategory[category as string] ?? [];
                 if (!partnersInCategory.length) return null;
 
-                const categoryLabel = categoryLabels[category];
+                const categoryLabel =
+                  categoryLabels[category as keyof typeof categoryLabels] ?? category;
                 const isUncategorizedGroup = category === 'uncategorized';
 
                 return (
