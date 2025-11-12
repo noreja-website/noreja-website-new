@@ -15,7 +15,11 @@ export default function Partners() {
     window.scrollTo(0, 0);
   }, []);
 
-  const partnerList = partners.filter((partner) => partner.isPartner);
+  const partnerList = partners.filter(
+    (partner) =>
+      partner.partnerType === 'businessWithQuote' ||
+      partner.partnerType === 'businessWithoutQuote'
+  );
   const partnerDescriptions = t.pages.partners.partnerDescriptions;
   const categoryLabels = t.pages.partners.partnerCategories;
 

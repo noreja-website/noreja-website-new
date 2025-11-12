@@ -14,7 +14,12 @@ export function PartnerPhotosGrid() {
 
   // Get all partners with photos and quotes for the grid, randomized on every reload
   const gridPartners = useMemo(() => {
-    const partnersWithPhotos = partners.filter((partner) => partner.isPartner && partner.personPhotoUrl && partner.quote);
+    const partnersWithPhotos = partners.filter(
+      (partner) =>
+        (partner.partnerType === 'businessWithQuote' || partner.partnerType === 'advisorWithQuote') &&
+        partner.personPhotoUrl &&
+        partner.quote
+    );
     // Fisher-Yates shuffle algorithm
     const shuffled = [...partnersWithPhotos];
     for (let i = shuffled.length - 1; i > 0; i--) {

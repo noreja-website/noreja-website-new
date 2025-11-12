@@ -37,10 +37,16 @@ export type PartnerCategory =
   | 'advisory'
   | 'industry';
 
+export type PartnerType =
+  | 'businessWithQuote'
+  | 'businessWithoutQuote'
+  | 'advisorWithQuote';
+
 export interface Partner {
   id: string;
   name: string;
   isPartner: boolean;
+  partnerType: PartnerType;
   logoUrl: string;
   logoUrlWhite?: string;
   logoSize: PartnerLogoSize;
@@ -57,6 +63,7 @@ export const partners: Partner[] = [
     id: "1",
     name: "Aptean",
     isPartner: true,
+    partnerType: 'businessWithQuote',
     logoUrl: getImagePath(partnerLogoImages, "aptean_logo.svg"),
     logoUrlWhite: getImagePath(partnerLogoImagesWhite, "aptean_white.png"),
     logoSize: 'medium',
@@ -71,6 +78,7 @@ export const partners: Partner[] = [
     id: "2",
     name: "Miragon",
     isPartner: true,
+    partnerType: 'businessWithQuote',
     logoUrl: getImagePath(partnerLogoImages, "miragon_logo.svg"),
     logoUrlWhite: getImagePath(partnerLogoImagesWhite, "miragon_white.png"),
     logoSize: 'medium',
@@ -85,6 +93,7 @@ export const partners: Partner[] = [
     id: "3",
     name: "Changeenablers Ltd.",
     isPartner: true,
+    partnerType: 'businessWithQuote',
     logoUrl: getImagePath(partnerLogoImages, "changeenablers_logo.png"),
     logoSize: 'small',
     personPhotoUrl: getImagePath(partnerFaceImages, "niyi_changeenablers.jpg"),
@@ -98,6 +107,7 @@ export const partners: Partner[] = [
     id: "4",
     name: "Waits",
     isPartner: true,
+    partnerType: 'businessWithQuote',
     logoUrl: getImagePath(partnerLogoImages, "waits_logo.svg"),
     logoUrlWhite: getImagePath(partnerLogoImagesWhite, "waits_white.png"),
     logoSize: 'medium',
@@ -112,6 +122,7 @@ export const partners: Partner[] = [
     id: "5",
     name: "Nexigo",
     isPartner: true,
+    partnerType: 'businessWithQuote',
     logoUrl: getImagePath(partnerLogoImages, "nexigo_logo.png"),
     logoUrlWhite: getImagePath(partnerLogoImagesWhite, "nexigo_white.png"),
     logoSize: 'medium',
@@ -126,6 +137,7 @@ export const partners: Partner[] = [
     id: "6",
     name: "BOC",
     isPartner: true,
+    partnerType: 'businessWithQuote',
     logoUrl: getImagePath(partnerLogoImagesWhite, "BOC-logo-white.png"),
     logoUrlWhite: getImagePath(partnerLogoImagesWhite, "BOC-logo-white.png"),
     logoSize: 'xsmall',
@@ -139,6 +151,7 @@ export const partners: Partner[] = [
     id: "7",
     name: "Vienesse Consulting",
     isPartner: true,
+    partnerType: 'businessWithQuote',
     logoUrl: getImagePath(partnerLogoImages, "vienesse_logo.png"),
     logoUrlWhite: getImagePath(partnerLogoImagesWhite, "vienesse_logo_white.svg"),
     logoSize: 'medium',
@@ -153,6 +166,7 @@ export const partners: Partner[] = [
     id: "8",
     name: "Schleswiger Versicherungen",
     isPartner: false,
+    partnerType: 'advisorWithQuote',
     logoUrl: getImagePath(partnerLogoImages, "schleswiger_logo.svg"),
     logoUrlWhite: getImagePath(partnerLogoImagesWhite, "schleswiger_white.png"),
     logoSize: 'medium',
@@ -167,6 +181,7 @@ export const partners: Partner[] = [
     id: "9",
     name: "Novofactum GmbH",
     isPartner: true,
+    partnerType: 'businessWithQuote',
     logoUrl: getImagePath(partnerLogoImages, "novofactum_logo.png"),
     logoUrlWhite: getImagePath(partnerLogoImagesWhite, "novofactum_white.png"),
     logoSize: 'xlarge',
@@ -181,6 +196,7 @@ export const partners: Partner[] = [
     id: "10",
     name: "Fortlane Partners Consulting GmbH",
     isPartner: true,
+    partnerType: 'businessWithQuote',
     logoUrl: getImagePath(partnerLogoImages, "fortlane_logo.png"),
     logoUrlWhite: getImagePath(partnerLogoImagesWhite, "fortlane_white.png"),
     logoSize: 'xlarge',
@@ -195,6 +211,7 @@ export const partners: Partner[] = [
     id: "11",
     name: "Gordana McNamara",
     isPartner: false,
+    partnerType: 'advisorWithQuote',
     logoUrl: "",
     logoSize: 'medium',
     personPhotoUrl: getImagePath(partnerFaceImages, "gordana_mcnamara.jpg"),
@@ -203,5 +220,61 @@ export const partners: Partner[] = [
     quote: "Noreja steht für die nächste Generation von Prozessintelligenz. Es ist eine der wenigen Plattformen, die wirklich die Lücke zwischen Daten, Entscheidungen und Wirkung schließt. Durch den Verzicht auf komplexe Logdaten macht Noreja Prozessoptimierung endlich für jedes Unternehmen zugänglich: schnell, intuitiv und erkenntnisgetrieben. Was Noreja wirklich auszeichnet, sind die KI-basierten Kausal-Analysen, die sofort aufzeigen, warum Daten vom Ziel abweichen, und Teams befähigen, mit Klarheit und Geschwindigkeit zu handeln. Für mich ist Noreja nicht nur ein weiteres Process Mining Tool, sondern ein Katalysator dafür, wie moderne Unternehmen lernen, sich anpassen und wachsen.",
     quoteAuthor: "Gordana McNamara, Interims CCO/CRO I Go-to-market Advisor I Noreja Advisory Board Member",
     linkedin: "https://www.linkedin.com/in/gordana-mcnamara/"
-  }
+  },
+  {
+    id: "12",
+    name: "PwC",
+    isPartner: true,
+    partnerType: 'businessWithoutQuote',
+    logoUrl: getImagePath(partnerLogoImages, "pwc_logo.png"),
+    logoSize: 'medium',
+    personPhotoUrl: "",
+    website: "",
+    category: null,
+    quote: "",
+    quoteAuthor: "",
+    linkedin: "",
+  },
+  {
+    id: "13",
+    name: "Humboldt-Universität zu Berlin",
+    isPartner: true,
+    partnerType: 'businessWithoutQuote',
+    logoUrl: getImagePath(partnerLogoImages, "humboldt_logo.png"),
+    logoSize: 'medium',
+    personPhotoUrl: "",
+    website: "",
+    category: null,
+    quote: "",
+    quoteAuthor: "",
+    linkedin: "",
+  },
+  {
+    id: "14",
+    name: "Wirtschaftsuniversität Wien",
+    isPartner: true,
+    partnerType: 'businessWithoutQuote',
+    logoUrl: getImagePath(partnerLogoImagesWhite, "wu_logo_white.png"),
+    logoSize: 'medium',
+    personPhotoUrl: "",
+    website: "",
+    category: null,
+    quote: "",
+    quoteAuthor: "",
+    linkedin: "",
+  },
+  {
+    id: "15",
+    name: "Nährboden",
+    isPartner: true,
+    partnerType: 'businessWithoutQuote',
+    logoUrl: getImagePath(partnerLogoImages, "naehrboden_logo.png"),
+    logoSize: 'medium',
+    personPhotoUrl: "",
+    website: "",
+    category: null,
+    quote: "",
+    quoteAuthor: "",
+    linkedin: "",
+  },
 ];
