@@ -29,10 +29,6 @@ interface GlobalConnectionOverlayProps {
 }
 
 export function GlobalConnectionOverlay({ connections }: GlobalConnectionOverlayProps) {
-  if (connections.length === 0) {
-    return null;
-  }
-
   const svgRef = useRef<SVGSVGElement>(null);
   const [nodePositions, setNodePositions] = useState<Map<string, NodePosition>>(new Map());
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
@@ -64,10 +60,25 @@ export function GlobalConnectionOverlay({ connections }: GlobalConnectionOverlay
       
       setNodePositions(positions);
       
-      // Update SVG dimensions to cover the entire document
+      // Update SVG dimensions to cover the entire document without triggering overflow
+      const html = document.documentElement;
+      const body = document.body;
+
+      const width = Math.max(
+        html ? html.clientWidth : 0,
+        body ? body.clientWidth : 0,
+        0
+      );
+
+      const height = Math.max(
+        html ? html.scrollHeight : 0,
+        body ? body.scrollHeight : 0,
+        window.innerHeight || 0
+      );
+
       setDimensions({
-        width: Math.max(document.documentElement.scrollWidth, window.innerWidth),
-        height: Math.max(document.documentElement.scrollHeight, window.innerHeight)
+        width,
+        height
       });
     };
 
@@ -185,8 +196,15 @@ export function GlobalConnectionOverlay({ connections }: GlobalConnectionOverlay
     return 0.5 + (index * 0.3);
   };
 
+  if (connections.length === 0) {
+    return null;
+  }
+
   return (
-    <div className="absolute inset-0 pointer-events-none z-0" style={{ height: dimensions.height }}>
+    <div
+      className="absolute inset-0 pointer-events-none z-0"
+      style={{ height: dimensions.height }}
+    >
       <svg
         ref={svgRef}
         width={dimensions.width}

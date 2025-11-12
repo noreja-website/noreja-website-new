@@ -1,3 +1,5 @@
+import type { PartnerCategory } from "./partners";
+
 export type Language = 'en' | 'de';
 
 export interface Translations {
@@ -76,6 +78,8 @@ export interface Translations {
       partnerWithUs: string;
       learnMore: string;
       partnerSubtitle: string;
+      partnerDescriptions: Record<string, string>;
+      partnerCategories: Record<PartnerCategory, string> & { uncategorized: string };
     };
     pricing: {
       title: string;
@@ -558,7 +562,30 @@ export const translations: Record<Language, Translations> = {
         becomePartner: "Become a Partner",
         partnerWithUs: "Partner With Us",
         learnMore: "Learn More",
-        partnerSubtitle: "Join our ecosystem of innovative partners and unlock new opportunities for growth, collaboration, and shared success."
+        partnerSubtitle: "Join our ecosystem of innovative partners and unlock new opportunities for growth, collaboration, and shared success.",
+        partnerDescriptions: {
+          "1": "Strategic cloud infrastructure partnership powering enterprise-scale solutions.",
+          "2": "CRM integration specialist delivering seamless customer relationship management.",
+          "3": "Leading cloud provider enabling scalable and reliable infrastructure solutions.",
+          "4": "AI and machine learning innovation partner for next-generation applications.",
+          "5": "Enterprise resource planning integration for comprehensive business management.",
+          "6": "Database excellence and enterprise software solutions for mission-critical systems.",
+          "7": "Advanced analytics and AI consulting for digital transformation initiatives.",
+          "8": "Workflow automation platform integration for streamlined business processes.",
+          "9": "Salesforce and workflow automation experts delivering data-driven process excellence.",
+          "10": "Strategic consulting partner aligning automation initiatives with measurable transformation.",
+          "11": "Independent advisor and strategic consultant specializing in go-to-market strategies and business transformation."
+        },
+        partnerCategories: {
+          technology: "Technology",
+          software: "Software",
+          consulting: "Consulting",
+          database: "Database",
+          insurance: "Insurance",
+          advisory: "Advisory",
+          industry: "Industry",
+          uncategorized: "Other Partners"
+        }
       },
       pricing: {
         title: "Transparent Pricing, Clear Solutions",
@@ -1137,7 +1164,30 @@ export const translations: Record<Language, Translations> = {
         becomePartner: "Partner werden",
         partnerWithUs: "Partner werden",
         learnMore: "Mehr erfahren",
-        partnerSubtitle: "Tritt unserem Ökosystem innovativer Partner bei und erschließe neue Möglichkeiten für Wachstum, Zusammenarbeit und gemeinsamen Erfolg."
+        partnerSubtitle: "Tritt unserem Ökosystem innovativer Partner bei und erschließe neue Möglichkeiten für Wachstum, Zusammenarbeit und gemeinsamen Erfolg.",
+        partnerDescriptions: {
+          "1": "Strategische Cloud-Infrastruktur-Partnerschaft für Lösungen im Enterprise-Maßstab.",
+          "2": "CRM-Integrationsspezialist, der nahtloses Kundenbeziehungsmanagement ermöglicht.",
+          "3": "Führender Cloud-Anbieter, der skalierbare und zuverlässige Infrastrukturlösungen liefert.",
+          "4": "KI- und Machine-Learning-Innovationspartner für Anwendungen der nächsten Generation.",
+          "5": "ERP-Integrationspartner für ganzheitliches Unternehmensmanagement.",
+          "6": "Datenbank-Exzellenz und Enterprise-Softwarelösungen für geschäftskritische Systeme.",
+          "7": "Beratung für Advanced Analytics und KI, die digitale Transformation vorantreibt.",
+          "8": "Integrationspartner für Workflow-Automatisierung und schlanke Geschäftsprozesse.",
+          "9": "Salesforce- und Workflow-Experten, die datengetriebene Prozessexzellenz ermöglichen.",
+          "10": "Strategie- und Beratungspartner, der Automatisierungsinitiativen mit operativer Transformation verbindet.",
+          "11": "Unabhängige Beraterin und Strategin für Go-to-Market und Business-Transformation."
+        },
+        partnerCategories: {
+          technology: "Technologie",
+          software: "Software",
+          consulting: "Beratung",
+          database: "Datenbank",
+          insurance: "Versicherung",
+          advisory: "Advisory",
+          industry: "Industrie",
+          uncategorized: "Weitere Partner"
+        }
       },
       pricing: {
         title: "Transparente Preise, klare Lösungen",
@@ -1490,10 +1540,10 @@ export const translations: Record<Language, Translations> = {
         }
       },
     },
-      partners: {
-        title: "Unsere",
-        titleHighlight: "Partner",
-        subtitle: "Unsere Partner teilen unsere Vision von intelligenter Prozessanalyse.\n\nDatengetrieben, offen und auf Wirkung ausgerichtet.",
+    partners: {
+      title: "Gemeinsam",
+      titleHighlight: "Prozesse neu denken",
+      subtitle: "Unsere Partner teilen unsere Vision von intelligenter Prozessanalyse.\n\nDatengetrieben, offen und auf Wirkung ausgerichtet.",
       viewAll: "Alle Partner anzeigen",
       viewAllPartners: "Alle Partner anzeigen",
       stats: {

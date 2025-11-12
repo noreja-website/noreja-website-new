@@ -4,7 +4,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { partners, type PartnerLogoSize } from "@/lib/partners";
+import { partners, type PartnerCategory, type PartnerLogoSize } from "@/lib/partners";
 import { useEffect } from "react";
 
 export default function Partners() {
@@ -16,17 +16,27 @@ export default function Partners() {
   }, []);
 
   const partnerList = partners.filter((partner) => partner.isPartner);
+  const partnerDescriptions = t.pages.partners.partnerDescriptions;
+  const categoryLabels = t.pages.partners.partnerCategories;
 
-  const logoWrapperClasses: Record<PartnerLogoSize, string> = {
-    xsmall: "w-28 h-28 md:w-32 md:h-32 p-3 md:p-4",
-    small: "w-36 h-36 md:w-44 md:h-44 p-4 md:p-5",
-    medium: "w-44 h-44 md:w-52 md:h-52 p-6 md:p-7",
-    large: "w-52 h-52 md:w-60 md:h-60 p-7 md:p-8",
-    xlarge: "w-60 h-60 md:w-72 md:h-72 p-8 md:p-10",
-  };
+  const partnersByCategory = partnerList.reduce<Record<string, typeof partnerList>>(
+    (acc, partner) => {
+      const categoryKey = partner.category ?? 'uncategorized';
+      (acc[categoryKey] ??= []).push(partner);
+      return acc;
+    },
+    {}
+  );
+
+  const categoryKeys = Object.keys(categoryLabels) as Array<keyof typeof categoryLabels>;
+  const categoryOrder = categoryKeys
+    .filter((category) => category !== 'uncategorized' && partnersByCategory[category]?.length)
+    .concat(partnersByCategory.uncategorized?.length ? ['uncategorized'] : []);
+
+  const baseLogoWrapperClass =
+    "w-44 h-44 md:w-52 md:h-52 rounded-2xl bg-gradient-to-br from-noreja-main/10 to-noreja-main/5 flex items-center justify-center p-6 md:p-8";
 
   const logoImageClasses: Record<PartnerLogoSize, string> = {
-    xsmall: "max-h-16 md:max-h-20 max-w-[4.5rem] md:max-w-[5.5rem]",
     small: "max-h-22 md:max-h-26 max-w-[6rem] md:max-w-[7.5rem]",
     medium: "max-h-28 md:max-h-36 max-w-[8.5rem] md:max-w-[11rem]",
     large: "max-h-32 md:max-h-40 max-w-[10rem] md:max-w-[13rem]",
@@ -70,79 +80,102 @@ export default function Partners() {
         {/* Partners Grid */}
         <section className="pb-24">
           <div className="w-full max-w-6xl mx-auto px-4 lg:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-              {partnerList.map((partner, index) => {
-                const size: PartnerLogoSize =
-                  partner.logoSize && logoImageClasses[partner.logoSize]
-                    ? partner.logoSize
-                    : "medium";
+            <div className="space-y-16">
+              {categoryOrder.map((category) => {
+                const partnersInCategory = partnersByCategory[category as string] ?? [];
+                if (!partnersInCategory.length) return null;
 
-                const logoSrc =
-                  partner.id === "5"
-                    ? partner.logoUrlWhite || partner.logoUrl || ""
-                    : partner.logoUrl || partner.logoUrlWhite || "";
+                const categoryLabel = categoryLabels[category];
+                const isUncategorizedGroup = category === 'uncategorized';
 
                 return (
-                  <motion.div
-                    key={partner.id}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
-                    viewport={{ once: true, margin: "-60px" }}
-                    className="group relative flex flex-col gap-8 rounded-3xl border border-border/40 bg-background/80 p-10 shadow-lg shadow-noreja-main/5 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-noreja-main/15"
-                  >
-                  <div className="flex justify-center items-center min-h-[15rem] md:min-h-[18rem]">
-                    <div
-                      className={`${logoWrapperClasses[size]} rounded-2xl bg-gradient-to-br from-noreja-main/10 to-noreja-main/5 flex items-center justify-center`}
-                    >
-                      <img
-                        src={logoSrc}
-                        alt={`${partner.name} logo`}
-                        className={`${logoImageClasses[size]} w-full object-contain`}
-                        loading="lazy"
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.style.display = "none";
-                          const parent = target.parentElement;
-                          if (parent) {
-                            parent.innerHTML = `<div class="text-3xl lg:text-4xl font-bold text-noreja-main">${partner.name
-                              .split(" ")
-                              .map((n) => n[0])
-                              .join("")}</div>`;
-                          }
-                        }}
-                      />
+                  <div key={category} className="space-y-10">
+                    <div className="flex items-center gap-4">
+                      <h2 className="text-2xl font-semibold text-foreground">
+                        {categoryLabel}
+                      </h2>
+                      <div className="flex-1 h-px bg-border/40" />
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                      {partnersInCategory.map((partner, index) => {
+                        const size: PartnerLogoSize =
+                          partner.logoSize && logoImageClasses[partner.logoSize]
+                            ? partner.logoSize
+                            : "medium";
+
+                        const logoSrc =
+                          partner.id === "5"
+                            ? partner.logoUrlWhite || partner.logoUrl || ""
+                            : partner.logoUrl || partner.logoUrlWhite || "";
+                        const description = partnerDescriptions?.[partner.id] ?? "";
+
+                        return (
+                          <motion.div
+                            key={partner.id}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
+                            viewport={{ once: true, margin: "-60px" }}
+                            className="group relative flex flex-col gap-8 rounded-3xl border border-border/40 bg-background/80 p-10 shadow-lg shadow-noreja-main/5 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-noreja-main/15"
+                          >
+                            <div className="flex justify-center">
+                              <div className={baseLogoWrapperClass}>
+                                <img
+                                  src={logoSrc}
+                                  alt={`${partner.name} logo`}
+                                  className={`${logoImageClasses[size]} w-full object-contain`}
+                                  loading="lazy"
+                                  onError={(e) => {
+                                    const target = e.target as HTMLImageElement;
+                                    target.style.display = "none";
+                                    const parent = target.parentElement;
+                                    if (parent) {
+                                      parent.innerHTML = `<div class="text-3xl lg:text-4xl font-bold text-noreja-main">${partner.name
+                                        .split(" ")
+                                        .map((n) => n[0])
+                                        .join("")}</div>`;
+                                    }
+                                  }}
+                                />
+                              </div>
+                            </div>
+
+                            <div className="space-y-5 text-center">
+                              {!isUncategorizedGroup && (
+                                <Badge
+                                  variant="secondary"
+                                  className="mx-auto text-noreja-main border-noreja-main/20"
+                                >
+                                  {categoryLabel ?? partner.category ?? ""}
+                                </Badge>
+                              )}
+
+                              <h3 className="text-2xl font-bold text-foreground">
+                                {partner.name}
+                              </h3>
+
+                              <p className="text-base leading-relaxed text-muted-foreground">
+                                {description}
+                              </p>
+
+                              {partner.website && (
+                                <Button
+                                  variant="outline"
+                                  size="lg"
+                                  className="mx-auto w-fit group/btn hover:bg-noreja-main hover:border-noreja-main hover:text-white transition-all"
+                                  onClick={() => window.open(partner.website, "_blank")}
+                                >
+                                  {t.pages.partners.visitWebsite}
+                                  <ExternalLink className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                                </Button>
+                              )}
+                            </div>
+                          </motion.div>
+                        );
+                      })}
                     </div>
                   </div>
-                  <div className="space-y-5 text-center flex-1 flex flex-col items-center">
-                    <Badge
-                      variant="secondary"
-                      className="mx-auto text-noreja-main border-noreja-main/20"
-                    >
-                      {partner.category}
-                    </Badge>
-
-                    <h3 className="text-2xl font-bold text-foreground">
-                      {partner.name}
-                    </h3>
-
-                    <p className="text-base leading-relaxed text-muted-foreground">
-                      {partner.description}
-                    </p>
-
-                    {partner.website && (
-                      <Button
-                        variant="outline"
-                        size="lg"
-                        className="mx-auto w-fit group/btn hover:bg-noreja-main hover:border-noreja-main hover:text-white transition-all"
-                        onClick={() => window.open(partner.website, "_blank")}
-                      >
-                        {t.pages.partners.visitWebsite}
-                        <ExternalLink className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
-                      </Button>
-                    )}
-                  </div>
-                  </motion.div>
                 );
               })}
             </div>
@@ -170,13 +203,6 @@ export default function Partners() {
                       className="bg-noreja-main hover:bg-noreja-main/90 text-white px-8"
                     >
                       {t.pages.partners.partnerWithUs}
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="lg"
-                      className="border-noreja-main/30 hover:bg-noreja-main/10 px-8"
-                    >
-                      {t.pages.partners.learnMore}
                     </Button>
                   </div>
                 </CardContent>
