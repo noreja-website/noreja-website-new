@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { partners, type PartnerCategory, type PartnerLogoSize } from "@/lib/partners";
 import { useEffect, useState } from "react";
+import { HubSpotContactForm } from "@/components/HubSpotContactForm";
 
 export default function Partners() {
   const { t } = useLanguage();
@@ -60,6 +61,7 @@ export default function Partners() {
 
 
   const logoImageClasses: Record<PartnerLogoSize, string> = {
+    xsmall: "max-h-16 md:max-h-20 max-w-[4.5rem] md:max-w-[5.5rem]",
     small: "max-h-22 md:max-h-26 max-w-[6rem] md:max-w-[7.5rem]",
     medium: "max-h-28 md:max-h-36 max-w-[8.5rem] md:max-w-[11rem]",
     large: "max-h-32 md:max-h-40 max-w-[10rem] md:max-w-[13rem]",
@@ -262,13 +264,14 @@ export default function Partners() {
                   </p>
                 </CardHeader>
                 <CardContent className="text-center">
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <Button
-                      size="lg"
-                      className="bg-noreja-main hover:bg-noreja-main/90 text-white px-8"
-                    >
-                      {t.pages.partners.partnerWithUs}
-                    </Button>
+                  <div className="max-w-3xl mx-auto">
+                    <HubSpotContactForm
+                      wrapperClassName="w-full"
+                      contentClassName="rounded-2xl border border-border/60 bg-background/95 px-6 py-10 shadow-sm space-y-6"
+                      loadingMessage={t.pages.contact.formLoading}
+                      errorMessage={t.pages.contact.formError}
+                      minHeight="0"
+                    />
                   </div>
                 </CardContent>
               </Card>
