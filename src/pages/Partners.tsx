@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { partners, type PartnerCategory, type PartnerLogoSize } from "@/lib/partners";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Partners() {
   const { t } = useLanguage();
@@ -45,6 +45,19 @@ export default function Partners() {
 
   const baseLogoWrapperClass =
     "w-32 h-32 md:w-40 md:h-40 lg:w-44 lg:h-44 rounded-2xl bg-gradient-to-br from-noreja-main/10 to-noreja-main/5 flex items-center justify-center p-5 md:p-6";
+  const [flippedCardId, setFlippedCardId] = useState<string | null>(null);
+
+  const toggleCard = (partnerId: string) => {
+    setFlippedCardId((current) => (current === partnerId ? null : partnerId));
+  };
+
+  const handleKeyToggle = (event: React.KeyboardEvent<HTMLDivElement>, partnerId: string) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      toggleCard(partnerId);
+    }
+  };
+
 
   const logoImageClasses: Record<PartnerLogoSize, string> = {
     small: "max-h-22 md:max-h-26 max-w-[6rem] md:max-w-[7.5rem]",
@@ -121,6 +134,8 @@ export default function Partners() {
                             : partner.logoUrl || partner.logoUrlWhite || "";
                         const description = partnerDescriptions?.[partner.id] ?? "";
 
+                        const isFlipped = flippedCardId === partner.id;
+
                         return (
                           <motion.div
                             key={partner.id}
@@ -128,59 +143,98 @@ export default function Partners() {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
                             viewport={{ once: true, margin: "-60px" }}
-                            className="group relative flex flex-col gap-6 rounded-3xl border border-border/40 bg-background/80 p-8 shadow-lg shadow-noreja-main/5 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-noreja-main/15"
+                            className="group relative cursor-pointer h-full"
+                            onClick={() => toggleCard(partner.id)}
+                            onKeyDown={(event) => handleKeyToggle(event, partner.id)}
+                            role="button"
+                            tabIndex={0}
+                            aria-pressed={isFlipped}
                           >
-                            <div className="flex justify-center">
-                              <div className={baseLogoWrapperClass}>
-                                <img
-                                  src={logoSrc}
-                                  alt={`${partner.name} logo`}
-                                  className={`${logoImageClasses[size]} w-full object-contain`}
-                                  loading="lazy"
-                                  onError={(e) => {
-                                    const target = e.target as HTMLImageElement;
-                                    target.style.display = "none";
-                                    const parent = target.parentElement;
-                                    if (parent) {
-                                      parent.innerHTML = `<div class="text-3xl lg:text-4xl font-bold text-noreja-main">${partner.name
-                                        .split(" ")
-                                        .map((n) => n[0])
-                                        .join("")}</div>`;
-                                    }
-                                  }}
-                                />
+                            <div className="relative h-full min-h-[360px] md:min-h-[380px]">
+                              <div
+                                className={`relative h-full transform transition-transform duration-500 [transform-style:preserve-3d] ${
+                                  isFlipped ? "[transform:rotateY(180deg)]" : ""
+                                }`}
+                              >
+                                <div className="absolute inset-0 flex h-full flex-col justify-between gap-6 rounded-3xl border border-border/40 bg-background/80 p-8 shadow-lg shadow-noreja-main/5 backdrop-blur-sm transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-noreja-main/15 [backface-visibility:hidden]">
+                                  <div className="flex justify-center">
+                                    <div className={baseLogoWrapperClass}>
+                                      <img
+                                        src={logoSrc}
+                                        alt={`${partner.name} logo`}
+                                        className={`${logoImageClasses[size]} w-full object-contain`}
+                                        loading="lazy"
+                                        onError={(e) => {
+                                          const target = e.target as HTMLImageElement;
+                                          target.style.display = "none";
+                                          const parent = target.parentElement;
+                                          if (parent) {
+                                            parent.innerHTML = `<div class="text-3xl lg:text-4xl font-bold text-noreja-main">${partner.name
+                                              .split(" ")
+                                              .map((n) => n[0])
+                                              .join("")}</div>`;
+                                          }
+                                        }}
+                                      />
+                                    </div>
+                                  </div>
+
+                                  <div className="space-y-3 text-center">
+                                    {!isUncategorizedGroup && (
+                                      <Badge
+                                        variant="secondary"
+                                        className="mx-auto text-noreja-main border-noreja-main/20"
+                                      >
+                                        {categoryLabel ?? partner.category ?? ""}
+                                      </Badge>
+                                    )}
+
+                                    <h3 className="text-2xl font-bold text-foreground">
+                                      {partner.name}
+                                    </h3>
+
+                                    <p className="text-xs text-muted-foreground">
+                                      {t.pages.partners.learnMore}
+                                    </p>
+                                  </div>
+                                </div>
+
+                                <div className="absolute inset-0 flex h-full flex-col justify-between rounded-3xl border border-border/40 bg-background/95 p-7 shadow-lg shadow-noreja-main/5 backdrop-blur-sm transition-all duration-300 [transform:rotateY(180deg)] [backface-visibility:hidden]">
+                                  <div className="space-y-3 text-center">
+                                    {!isUncategorizedGroup && (
+                                      <Badge
+                                        variant="secondary"
+                                        className="mx-auto text-noreja-main border-noreja-main/20 text-[11px] px-3 py-1"
+                                      >
+                                        {categoryLabel ?? partner.category ?? ""}
+                                      </Badge>
+                                    )}
+
+                                    <h3 className="text-lg font-semibold text-foreground">
+                                      {partner.name}
+                                    </h3>
+
+                                    <p className="text-[13px] leading-relaxed text-muted-foreground">
+                                      {description}
+                                    </p>
+                                  </div>
+
+                                  {partner.website && (
+                                    <Button
+                                      variant="outline"
+                                      size="sm"
+                                      className="mx-auto w-fit group/btn hover:bg-noreja-main hover:border-noreja-main hover:text-white transition-all text-sm"
+                                      onClick={(event) => {
+                                        event.stopPropagation();
+                                        window.open(partner.website, "_blank");
+                                      }}
+                                    >
+                                      {t.pages.partners.visitWebsite}
+                                      <ExternalLink className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                                    </Button>
+                                  )}
+                                </div>
                               </div>
-                            </div>
-
-                            <div className="space-y-5 text-center">
-                              {!isUncategorizedGroup && (
-                                <Badge
-                                  variant="secondary"
-                                  className="mx-auto text-noreja-main border-noreja-main/20"
-                                >
-                                  {categoryLabel ?? partner.category ?? ""}
-                                </Badge>
-                              )}
-
-                              <h3 className="text-2xl font-bold text-foreground">
-                                {partner.name}
-                              </h3>
-
-                              <p className="text-base leading-relaxed text-muted-foreground">
-                                {description}
-                              </p>
-
-                              {partner.website && (
-                                <Button
-                                  variant="outline"
-                                  size="lg"
-                                  className="mx-auto w-fit group/btn hover:bg-noreja-main hover:border-noreja-main hover:text-white transition-all"
-                                  onClick={() => window.open(partner.website, "_blank")}
-                                >
-                                  {t.pages.partners.visitWebsite}
-                                  <ExternalLink className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
-                                </Button>
-                              )}
                             </div>
                           </motion.div>
                         );
