@@ -183,7 +183,7 @@ export const partners: Partner[] = [
     id: "9",
     name: "Novofactum GmbH",
     isPartner: true,
-    partnerType: 'businessWithQuote',
+    partnerType: 'advisorWithQuote',
     logoUrl: getImagePath(partnerLogoImages, "novofactum_logo.png"),
     logoUrlWhite: getImagePath(partnerLogoImagesWhite, "novofactum_white.png"),
     logoSize: 'xlarge',
