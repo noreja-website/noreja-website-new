@@ -45,7 +45,7 @@ export default function Partners() {
     .concat(partnersByCategory.uncategorized?.length ? ['uncategorized'] : []);
 
   const baseLogoWrapperClass =
-    "w-32 h-32 md:w-40 md:h-40 lg:w-44 lg:h-44 rounded-2xl bg-gradient-to-br from-noreja-main/10 to-noreja-main/5 flex items-center justify-center p-5 md:p-6";
+    "w-40 h-32 md:w-48 md:h-40 lg:w-56 lg:h-44 rounded-2xl bg-gradient-to-br from-noreja-main/10 to-noreja-main/5 flex items-center justify-center p-5 md:p-6";
   const [flippedCardId, setFlippedCardId] = useState<string | null>(null);
 
   const toggleCard = (partnerId: string) => {
@@ -64,8 +64,8 @@ export default function Partners() {
     xsmall: "max-h-16 md:max-h-20 max-w-[4.5rem] md:max-w-[5.5rem]",
     small: "max-h-22 md:max-h-26 max-w-[6rem] md:max-w-[7.5rem]",
     medium: "max-h-28 md:max-h-36 max-w-[8.5rem] md:max-w-[11rem]",
-    large: "max-h-32 md:max-h-40 max-w-[10rem] md:max-w-[13rem]",
-    xlarge: "max-h-[32rem] md:max-h-[36rem] max-w-[40rem] md:max-w-[60rem]",
+    large: "max-h-32 md:max-h-40 lg:max-h-44 max-w-[10rem] md:max-w-[13rem] lg:max-w-[14rem]",
+    xlarge: "max-h-20 md:max-h-24 lg:max-h-28 max-w-[12rem] md:max-w-[16rem] lg:max-w-[18rem]",
   };
 
   const gradientStyle = {

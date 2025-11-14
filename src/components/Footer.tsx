@@ -22,10 +22,17 @@ export function Footer() {
     { name: t.footer.legal.trustCenter, href: "https://app.kertos.io/trust-center/norejaintelligencegmbh", external: true }
   ];
 
-  const contactLinks = [
-    { name: t.footer.contact.contactForm, href: siteConfig.hubspot.contactForm, external: true },
-    { name: t.footer.contact.bookAppointment, href: siteConfig.hubspot.appointmentBooking, external: true }
-  ];
+  const contactFormLink = {
+    name: t.footer.contact.contactForm,
+    href: siteConfig.hubspot.contactForm,
+    external: true
+  };
+  
+  const bookAppointmentLink = {
+    name: t.footer.contact.bookAppointment,
+    href: siteConfig.hubspot.appointmentBooking,
+    external: true
+  };
 
   return (
     <footer className="border-t border-border/40 bg-card/30 backdrop-blur-sm">
@@ -134,17 +141,28 @@ export function Footer() {
           <div className="md:col-span-1">
             <h3 className="font-semibold mb-4">{t.footer.sections.contact}</h3>
             <div className="flex flex-col space-y-2">
-              {contactLinks.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-primary transition-fast text-sm"
-                >
-                  {item.name}
-                </a>
-              ))}
+              <a
+                href={contactFormLink.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-primary transition-fast text-sm"
+              >
+                {contactFormLink.name}
+              </a>
+              <a
+                href={bookAppointmentLink.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-bold hover:opacity-80 transition-opacity"
+                style={{
+                  background: 'linear-gradient(to right, hsl(var(--noreja-main)), hsl(var(--noreja-secondary)))',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text'
+                }}
+              >
+                {bookAppointmentLink.name}
+              </a>
             </div>
           </div>
         </div>

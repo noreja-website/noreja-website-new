@@ -19,7 +19,7 @@ export const siteConfig = {
   },
   hubspot: {
     contactForm: "https://share.hsforms.com/YOUR_CONTACT_FORM_ID",
-    appointmentBooking: "https://calendly.com/noreja/meeting"
+    appointmentBooking: "https://meetings-eu1.hubspot.com/schulaxshan"
   }
 };
 
