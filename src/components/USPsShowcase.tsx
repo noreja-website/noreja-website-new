@@ -124,9 +124,9 @@ export function USPsShowcase() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16 overflow-hidden"
         >
-          <h2 className="text-4xl font-bold mb-6">
-            {t.usps.title}{" "}
-            <span className="bg-gradient-primary bg-clip-text text-transparent">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 leading-tight">
+            <span className="whitespace-nowrap">{t.usps.title}</span>{" "}
+            <span className="bg-gradient-primary bg-clip-text text-transparent whitespace-nowrap">
               {t.usps.highlight}
             </span>
           </h2>

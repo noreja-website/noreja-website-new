@@ -132,8 +132,18 @@ export default function BlogCategory() {
 
   const categoryInfo = getCategoryInfo();
 
+  const gradientStyle = {
+    background: `
+      linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--noreja-main) / 0.16) 40%, hsl(var(--noreja-secondary) / 0.15) 80%, hsl(var(--background)) 100%),
+      radial-gradient(ellipse 1000px 700px at 70% 20%, hsl(var(--noreja-secondary) / 0.14) 0%, transparent 60%)
+    `
+  } as const;
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen relative overflow-hidden" style={gradientStyle}>
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-noreja-main/5 to-transparent pointer-events-none" />
+      
+      <div className="relative z-10">
       {/* Header */}
       <section className="relative py-20 lg:py-24">
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 lg:px-8">
@@ -254,6 +264,7 @@ export default function BlogCategory() {
           </motion.div>
         </div>
       </section>
+      </div>
     </div>
   );
 }

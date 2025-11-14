@@ -130,9 +130,9 @@ export const IntegrationsShowcase: React.FC<IntegrationsShowcaseProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           {/* Left: Text Content */}
           <div className="max-w-xl pt-20 relative z-0">
-            <h2 className="text-4xl font-bold mb-6">
-              {t.integrations.title}{" "}
-              <span className="bg-gradient-primary bg-clip-text text-transparent">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 leading-tight">
+              <span className="whitespace-nowrap">{t.integrations.title}</span>{" "}
+              <span className="bg-gradient-primary bg-clip-text text-transparent whitespace-nowrap">
                 {t.integrations.titleHighlight}
               </span>
             </h2>

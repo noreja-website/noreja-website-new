@@ -12,8 +12,18 @@ const ContactUs = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  const gradientStyle = {
+    background: `
+      linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--noreja-main) / 0.16) 40%, hsl(var(--noreja-secondary) / 0.15) 80%, hsl(var(--background)) 100%),
+      radial-gradient(ellipse 1000px 700px at 70% 20%, hsl(var(--noreja-secondary) / 0.14) 0%, transparent 60%)
+    `
+  } as const;
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen relative overflow-hidden" style={gradientStyle}>
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-noreja-main/5 to-transparent pointer-events-none" />
+      
+      <div className="relative z-10">
       {/* Header Section */}
       <section className="relative pt-24 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
@@ -65,6 +75,7 @@ const ContactUs = () => {
           </p>
         </div>
       </section>
+      </div>
     </div>
   );
 };

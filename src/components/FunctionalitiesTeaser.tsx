@@ -53,9 +53,9 @@ export function FunctionalitiesTeaser() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16 overflow-hidden"
         >
-          <h2 className="text-4xl font-bold mb-6">
-            {t.functionalities.title}{" "}
-            <span className="bg-gradient-primary bg-clip-text text-transparent">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 leading-tight">
+            <span className="whitespace-nowrap">{t.functionalities.title}</span>{" "}
+            <span className="bg-gradient-primary bg-clip-text text-transparent whitespace-nowrap">
               {t.functionalities.titleHighlight}
             </span>
           </h2>
