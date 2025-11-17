@@ -115,7 +115,7 @@ export function AnimatedHeading({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.4, duration: 0.8 }}
-      className={`${sizeClass} font-bold mb-4 lg:mb-6 leading-[1.1] lg:leading-[1.2] flex flex-col lg:flex-row items-center lg:items-baseline justify-center lg:justify-start gap-2 sm:gap-4 lg:gap-4 ${className}`}
+      className={`${sizeClass} font-bold mb-4 lg:mb-6 leading-[1.1] lg:leading-[1.2] flex flex-col lg:flex-row items-center justify-center gap-2 sm:gap-4 lg:gap-4 text-center ${className}`}
     >
       <span className="lg:whitespace-nowrap">{fixedText}</span>
       <motion.span
