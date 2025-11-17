@@ -27,12 +27,12 @@ export default function Blog() {
   // Language-specific heading texts
   const headingTexts = {
     en: {
-      fixedText: "Our Blog",
-      rotatingWords: ["PLACEHOLDER_1", "PLACEHOLDER_2", "PLACEHOLDER_3"]
+      fixedText: "Read Articles That",
+      rotatingWords: ["Matter", "Solve Problems", "Go Deeper", "Add Value"]
     },
     de: {
-      fixedText: "Unser Blog",
-      rotatingWords: ["PLACEHOLDER_1", "PLACEHOLDER_2", "PLACEHOLDER_3"]
+      fixedText: "Lese Artikel, die",
+      rotatingWords: ["relevant sind", "Probleme lösen", "tiefer gehen", "Mehrwert bieten"]
     }
   };
 

@@ -20,12 +20,12 @@ const SuccessStories = () => {
   // Language-specific heading texts
   const headingTexts = {
     en: {
-      fixedText: "Success Stories",
-      rotatingWords: ["PLACEHOLDER_1", "PLACEHOLDER_2", "PLACEHOLDER_3"]
+      fixedText: "Our Clients Achieve",
+      rotatingWords: ["Success", "Efficiency", "Impact", "Growth"]
     },
     de: {
-      fixedText: "Erfolgsgeschichten",
-      rotatingWords: ["PLACEHOLDER_1", "PLACEHOLDER_2", "PLACEHOLDER_3"]
+      fixedText: "Erfolge, die",
+      rotatingWords: ["überzeugen", "bewegen", "skalieren", "Zukunft formen"]
     }
   };
 

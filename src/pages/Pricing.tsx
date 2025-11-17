@@ -67,12 +67,12 @@ const Pricing = () => {
   // Language-specific heading texts
   const headingTexts = {
     en: {
-      fixedText: "Pricing",
-      rotatingWords: ["PLACEHOLDER_1", "PLACEHOLDER_2", "PLACEHOLDER_3"]
+      fixedText: "Choose A Plan That",
+      rotatingWords: ["Fits", "Growths", "Delivers"]
     },
     de: {
-      fixedText: "Preise",
-      rotatingWords: ["PLACEHOLDER_1", "PLACEHOLDER_2", "PLACEHOLDER_3"]
+      fixedText: "Wähle einen Plan, der",
+      rotatingWords: ["passt", "mitwächst", "liefert"]
     }
   };
 

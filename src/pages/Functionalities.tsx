@@ -242,12 +242,12 @@ const Functionalities = () => {
   // Language-specific heading texts
   const headingTexts = {
     en: {
-      fixedText: "Platform",
-      rotatingWords: ["PLACEHOLDER_1", "PLACEHOLDER_2", "PLACEHOLDER_3"]
+      fixedText: "Discover The",
+      rotatingWords: ["Dashboard", "Analyzer", "Workbench", "Builder", "Minerva AI"]
     },
     de: {
-      fixedText: "Plattform",
-      rotatingWords: ["PLACEHOLDER_1", "PLACEHOLDER_2", "PLACEHOLDER_3"]
+      fixedText: "Entdecke",
+      rotatingWords: ["das Dashboard", "den Analyzer", "die Workbench", "den Builder", "Minerva AI"]
     }
   };
 
