@@ -9,6 +9,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Info } from "lucide-react";
 import { AnimatedGradientBox } from "@/components/AnimatedGradientBox";
 import { AnimatedGridBackground } from "@/components/AnimatedGridBackground";
+import { AnimatedHeading } from "@/components/AnimatedHeading";
 
 // --- Factors: Fill these in as needed ---
 const dataAmountLabels = [
@@ -61,7 +62,22 @@ const calculatePricing = (perspectivesIndex: number, dataAmountIndex: number) =>
 };
 
 const Pricing = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  
+  // Language-specific heading texts
+  const headingTexts = {
+    en: {
+      fixedText: "Pricing",
+      rotatingWords: ["PLACEHOLDER_1", "PLACEHOLDER_2", "PLACEHOLDER_3"]
+    },
+    de: {
+      fixedText: "Preise",
+      rotatingWords: ["PLACEHOLDER_1", "PLACEHOLDER_2", "PLACEHOLDER_3"]
+    }
+  };
+
+  const currentHeading = headingTexts[language];
+
   const extractPowerUserCount = (usersText?: string | string[]) => {
     if (!usersText) return 1;
     const text = Array.isArray(usersText) ? usersText.join(" ") : usersText;
@@ -149,9 +165,12 @@ const Pricing = () => {
         <div className="container mx-auto px-4 py-16 relative z-10">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold mb-4 text-foreground">
-              {t.pages.pricing.title}
-            </h1>
+            <AnimatedHeading 
+              fixedText={currentHeading.fixedText}
+              rotatingWords={currentHeading.rotatingWords}
+              size="md"
+              className="text-foreground mb-4"
+            />
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               {t.pages.pricing.subtitle}
             </p>

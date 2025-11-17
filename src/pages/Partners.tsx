@@ -7,9 +7,24 @@ import { Button } from "@/components/ui/button";
 import { partners, type PartnerCategory, type PartnerLogoSize } from "@/lib/partners";
 import { useEffect, useState } from "react";
 import { HubSpotContactForm } from "@/components/HubSpotContactForm";
+import { AnimatedHeading } from "@/components/AnimatedHeading";
 
 export default function Partners() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+
+  // Language-specific heading texts
+  const headingTexts = {
+    en: {
+      fixedText: "Our Partners",
+      rotatingWords: ["PLACEHOLDER_1", "PLACEHOLDER_2", "PLACEHOLDER_3"]
+    },
+    de: {
+      fixedText: "Unsere Partner",
+      rotatingWords: ["PLACEHOLDER_1", "PLACEHOLDER_2", "PLACEHOLDER_3"]
+    }
+  };
+
+  const currentHeading = headingTexts[language];
 
   // Scroll to top when component mounts
   useEffect(() => {
@@ -89,12 +104,12 @@ export default function Partners() {
               transition={{ duration: 0.8 }}
               className="text-center space-y-6"
             >
-              <h1 className="text-4xl lg:text-6xl font-bold text-foreground">
-                {t.pages.partners.title}
-                <span className="block text-noreja-main">
-                  {t.pages.partners.titleHighlight}
-                </span>
-              </h1>
+              <AnimatedHeading 
+                fixedText={currentHeading.fixedText}
+                rotatingWords={currentHeading.rotatingWords}
+                size="lg"
+                className="text-foreground"
+              />
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
                 {t.pages.partners.subtitle}
               </p>

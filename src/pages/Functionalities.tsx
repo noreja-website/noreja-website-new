@@ -3,6 +3,7 @@ import { HubSpotBlogTeaser } from "@/components/HubSpotBlogTeaser";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useEffect, useRef } from "react";
 import { LayoutDashboard, Search, Brain, Wrench, Code, LucideIcon } from "lucide-react";
+import { AnimatedHeading } from "@/components/AnimatedHeading";
 
 // Feature Section Component with advanced scroll animations
 interface FeatureSectionProps {
@@ -236,7 +237,21 @@ const FeatureSection = ({ feature, Icon, layout, index, animationStyle }: Featur
 };
 
 const Functionalities = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+
+  // Language-specific heading texts
+  const headingTexts = {
+    en: {
+      fixedText: "Platform",
+      rotatingWords: ["PLACEHOLDER_1", "PLACEHOLDER_2", "PLACEHOLDER_3"]
+    },
+    de: {
+      fixedText: "Plattform",
+      rotatingWords: ["PLACEHOLDER_1", "PLACEHOLDER_2", "PLACEHOLDER_3"]
+    }
+  };
+
+  const currentHeading = headingTexts[language];
 
   // Scroll to top when component mounts
   useEffect(() => {
@@ -293,12 +308,12 @@ const Functionalities = () => {
               transition={{ duration: 0.8 }}
               className="text-center mb-16"
             >
-              <h1 className="text-4xl lg:text-6xl font-bold mb-6 text-foreground">
-                {t.functionalities.title}{" "}
-                <span className="bg-gradient-primary bg-clip-text text-transparent">
-                  {t.functionalities.titleHighlight}
-                </span>
-              </h1>
+              <AnimatedHeading 
+                fixedText={currentHeading.fixedText}
+                rotatingWords={currentHeading.rotatingWords}
+                size="lg"
+                className="text-foreground mb-6"
+              />
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
                 {t.functionalities.subtitle}
               </p>

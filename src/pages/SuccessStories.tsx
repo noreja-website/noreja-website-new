@@ -8,13 +8,28 @@ import { HubSpotBlogTeaser } from "@/components/HubSpotBlogTeaser";
 import { successStories } from "@/lib/successStories";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from "@/components/ui/carousel";
 import { useEffect, useState } from "react";
+import { AnimatedHeading } from "@/components/AnimatedHeading";
 
 const SuccessStories = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+
+  // Language-specific heading texts
+  const headingTexts = {
+    en: {
+      fixedText: "Success Stories",
+      rotatingWords: ["PLACEHOLDER_1", "PLACEHOLDER_2", "PLACEHOLDER_3"]
+    },
+    de: {
+      fixedText: "Erfolgsgeschichten",
+      rotatingWords: ["PLACEHOLDER_1", "PLACEHOLDER_2", "PLACEHOLDER_3"]
+    }
+  };
+
+  const currentHeading = headingTexts[language];
 
   // Scroll to top when component mounts
   useEffect(() => {
@@ -73,9 +88,12 @@ const SuccessStories = () => {
             transition={{ duration: 0.8 }}
             className="text-center mb-16"
           >
-            <h1 className="text-4xl lg:text-6xl font-bold mb-6 text-foreground">
-              {t.pages.successStories.title} <span className="text-noreja-main">{t.pages.successStories.titleHighlight}</span>
-            </h1>
+            <AnimatedHeading 
+              fixedText={currentHeading.fixedText}
+              rotatingWords={currentHeading.rotatingWords}
+              size="lg"
+              className="text-foreground mb-6"
+            />
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               {t.pages.successStories.subtitle}
             </p>

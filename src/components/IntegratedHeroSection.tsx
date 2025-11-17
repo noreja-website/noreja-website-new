@@ -3,57 +3,13 @@ import { ArrowRight, Zap, Shield, Rocket, Database } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import graphThreeNodes from "@/assets/graph_three_nodes.png";
-import { useState, useEffect } from "react";
+import { AnimatedHeading } from "@/components/AnimatedHeading";
 
 export function IntegratedHeroSection() {
   const { t } = useLanguage();
   
   // Typing animation for words
   const rotatingWords = ["Transparent", "Understandable", "Efficient", "Compliant"];
-  const [currentWordIndex, setCurrentWordIndex] = useState(0);
-  const [displayedText, setDisplayedText] = useState("");
-  const [isTyping, setIsTyping] = useState(true);
-  const [showCursor, setShowCursor] = useState(true);
-
-  useEffect(() => {
-    const currentWord = rotatingWords[currentWordIndex];
-    
-    if (isTyping) {
-      // Typing effect
-      if (displayedText.length < currentWord.length) {
-        const timer = setTimeout(() => {
-          setDisplayedText(currentWord.slice(0, displayedText.length + 1));
-        }, 100);
-        return () => clearTimeout(timer);
-      } else {
-        // Finished typing, wait then start erasing
-        const timer = setTimeout(() => {
-          setIsTyping(false);
-        }, 1500);
-        return () => clearTimeout(timer);
-      }
-    } else {
-      // Erasing effect
-      if (displayedText.length > 0) {
-        const timer = setTimeout(() => {
-          setDisplayedText(displayedText.slice(0, -1));
-        }, 50);
-        return () => clearTimeout(timer);
-      } else {
-        // Finished erasing, move to next word
-        setIsTyping(true);
-        setCurrentWordIndex((prev) => (prev + 1) % rotatingWords.length);
-      }
-    }
-  }, [displayedText, isTyping, currentWordIndex]);
-
-  // Cursor blinking effect
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setShowCursor((prev) => !prev);
-    }, 500);
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <section className="relative pt-20 md:pt-32 pb-0 flex flex-col justify-center items-center overflow-hidden w-full max-w-full">
@@ -83,23 +39,13 @@ export function IntegratedHeroSection() {
           </motion.div>
 
           {/* Main Heading */}
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-            className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 lg:mb-6 leading-[1.1] lg:leading-[1.2] flex flex-col lg:flex-row items-center lg:items-baseline justify-center lg:justify-start gap-2 sm:gap-4 lg:gap-4 py-2 lg:py-4 px-4 lg:px-6 w-full max-w-full lg:ml-12 xl:ml-16"
-          >
-            <span className="lg:whitespace-nowrap">Make Processes</span>
-            <motion.span
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-              className="bg-gradient-primary bg-clip-text text-transparent lg:whitespace-nowrap leading-[1.1] lg:leading-[1.2]"
-            >
-              {displayedText}
-              <span className={`inline-block ml-1 ${showCursor ? 'opacity-100' : 'opacity-0'}`} style={{ fontSize: '1em', lineHeight: '0.1', color: 'transparent', background: 'linear-gradient(135deg, #452BE9, #4569E7)', backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>_</span>
-            </motion.span>
-          </motion.h1>
+          <div className="py-2 lg:py-4 px-4 lg:px-6 w-full max-w-full lg:ml-12 xl:ml-16">
+            <AnimatedHeading 
+              fixedText="Make Processes"
+              rotatingWords={rotatingWords}
+              size="lg"
+            />
+          </div>
 
           {/* Subtitle */}
           <motion.p
