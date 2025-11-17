@@ -272,7 +272,7 @@ const Pricing = () => {
                 ? baseMonthlyPrice / baseIncludedPowerUsers
                 : null;
               const roundedPerUserMonthlyPrice = perUserMonthlyPrice !== null ? Math.round(perUserMonthlyPrice) : null;
-              const fullAnnualPrice = perUserMonthlyPrice !== null ? Math.round(perUserMonthlyPrice * 12) : null;
+              const fullAnnualPrice = baseAnnualPrice !== null ? Math.round(baseAnnualPrice) : null;
               
               return (
               <Card 
@@ -310,12 +310,15 @@ const Pricing = () => {
                               type="button"
                               className="inline-flex items-center justify-center rounded-full hover:bg-muted transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
                               aria-label="Full price information"
-                              onClick={(e) => e.stopPropagation()}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setSelectedPlanIndex(index);
+                              }}
                             >
                               <Info className="h-3.5 w-3.5 text-muted-foreground hover:text-foreground" />
                             </button>
                           </PopoverTrigger>
-                          <PopoverContent className="w-auto p-3" side="top" align="center">
+                          <PopoverContent className="w-auto p-3 -ml-8" side="bottom" align="end">
                             <div className="text-sm">
                               <p className="text-foreground mb-1">
                                 {t.pages.pricing.annualCostTooltip} {formatPrice(fullAnnualPrice!)} €
@@ -441,6 +444,7 @@ const Pricing = () => {
                                 } else {
                                   setPrivateLLMExcellence(!!checked);
                                 }
+                                setSelectedPlanIndex(index);
                               }}
                             />
                             <label htmlFor={`private-llm-${plan.name}`} className="text-sm text-foreground">
