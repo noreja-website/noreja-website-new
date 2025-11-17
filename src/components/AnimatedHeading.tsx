@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 interface AnimatedHeadingProps {
   fixedText: string;
@@ -25,6 +25,8 @@ export function AnimatedHeading({
   const [displayedText, setDisplayedText] = useState("");
   const [isTyping, setIsTyping] = useState(true);
   const [showCursor, setShowCursor] = useState(true);
+  const [minWidth, setMinWidth] = useState<number | undefined>(undefined);
+  const measureRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     const currentWord = rotatingWords[currentWordIndex];
@@ -66,6 +68,46 @@ export function AnimatedHeading({
     return () => clearInterval(interval);
   }, []);
 
+  // Measure the longest word to calculate min-width for preventing layout shifts
+  useEffect(() => {
+    const measureWidth = () => {
+      if (!measureRef.current || rotatingWords.length === 0) return;
+
+      // Find the longest word
+      const longestWord = rotatingWords.reduce((longest, word) => 
+        word.length > longest.length ? word : longest
+      , rotatingWords[0]);
+
+      // Temporarily set the longest word to measure its width
+      // The measureRef span already has the correct styling matching the animated text
+      const originalText = measureRef.current.textContent;
+      measureRef.current.textContent = longestWord + '_'; // Include cursor space
+      
+      // Force a reflow to ensure accurate measurement
+      void measureRef.current.offsetWidth;
+      
+      // Get the width
+      const width = measureRef.current.offsetWidth;
+      
+      // Restore original text (empty for measurement span)
+      measureRef.current.textContent = '';
+      
+      // Set the min-width
+      setMinWidth(width);
+    };
+
+    // Measure after a short delay to ensure DOM is ready
+    const timeoutId = setTimeout(measureWidth, 100);
+
+    // Also measure on window resize to handle responsive changes
+    window.addEventListener('resize', measureWidth);
+
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener('resize', measureWidth);
+    };
+  }, [rotatingWords, size]);
+
   const sizeClass = sizeClasses[size];
 
   return (
@@ -80,7 +122,11 @@ export function AnimatedHeading({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3 }}
-        className="bg-gradient-primary bg-clip-text text-transparent lg:whitespace-nowrap leading-[1.1] lg:leading-[1.2]"
+        className="bg-gradient-primary bg-clip-text text-transparent lg:whitespace-nowrap leading-[1.1] lg:leading-[1.2] text-left"
+        style={{
+          minWidth: minWidth ? `${minWidth}px` : undefined,
+          display: 'inline-block'
+        }}
       >
         {displayedText}
         <span 
@@ -98,6 +144,12 @@ export function AnimatedHeading({
           _
         </span>
       </motion.span>
+      {/* Hidden span for measuring longest word */}
+      <span
+        ref={measureRef}
+        className={`${sizeClass} font-bold bg-gradient-primary bg-clip-text text-transparent absolute opacity-0 pointer-events-none whitespace-nowrap -z-10 leading-[1.1] lg:leading-[1.2]`}
+        aria-hidden="true"
+      />
     </motion.h1>
   );
 }

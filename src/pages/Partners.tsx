@@ -107,7 +107,7 @@ export default function Partners() {
               <AnimatedHeading 
                 fixedText={currentHeading.fixedText}
                 rotatingWords={currentHeading.rotatingWords}
-                size="lg"
+                size="md"
                 className="text-foreground"
               />
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto">

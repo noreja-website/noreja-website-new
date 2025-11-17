@@ -206,7 +206,7 @@ export default function Blog() {
             <AnimatedHeading 
               fixedText={currentHeading.fixedText}
               rotatingWords={currentHeading.rotatingWords}
-              size="lg"
+              size="md"
               className="text-foreground mb-6"
             />
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-12">

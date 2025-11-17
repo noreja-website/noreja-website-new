@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { ExternalLink, TrendingUp } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { HubSpotBlogTeaser } from "@/components/HubSpotBlogTeaser";
@@ -91,7 +91,7 @@ const SuccessStories = () => {
             <AnimatedHeading 
               fixedText={currentHeading.fixedText}
               rotatingWords={currentHeading.rotatingWords}
-              size="lg"
+              size="md"
               className="text-foreground mb-6"
             />
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -141,9 +141,9 @@ const SuccessStories = () => {
                           
                           {/* Company Info */}
                           <div className="space-y-3">
-                            <CardTitle className="text-2xl font-bold group-hover:text-noreja-main transition-colors text-center">
+                            <h2 className="text-2xl font-bold group-hover:text-noreja-main transition-colors text-center">
                               {story.companyName}
-                            </CardTitle>
+                            </h2>
                             <div className="flex flex-wrap gap-2 justify-center">
                               <Badge variant="secondary" className="text-sm px-3 py-1">
                                 {story.industry}
