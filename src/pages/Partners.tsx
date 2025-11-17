@@ -15,12 +15,12 @@ export default function Partners() {
   // Language-specific heading texts
   const headingTexts = {
     en: {
-      fixedText: "Our Partners",
-      rotatingWords: ["PLACEHOLDER_1", "PLACEHOLDER_2", "PLACEHOLDER_3"]
+      fixedText: "Partnerships That",
+      rotatingWords: ["Last", "Grow", "Innovate", "Impact"]
     },
     de: {
-      fixedText: "Unsere Partner",
-      rotatingWords: ["PLACEHOLDER_1", "PLACEHOLDER_2", "PLACEHOLDER_3"]
+      fixedText: "Partnerschaften, die",
+      rotatingWords: ["bestehen", "wachsen", "innovieren", "Wirkung zeigen"]
     }
   };
 
