@@ -342,6 +342,7 @@ export interface Translations {
   };
   blog: {
     title: string;
+    titleHighlight: string;
     subtitle: string;
     latestPosts: string;
     readMore: string;
@@ -959,6 +960,7 @@ export const translations: Record<Language, Translations> = {
     },
     blog: {
       title: "Our Blog",
+      titleHighlight: "Latest Insights",
       subtitle: "Dive into practical analyses, industry knowledge and innovations around Process Intelligence, directly from our expert team.",
       latestPosts: "Latest Posts",
       readMore: "Read More",
@@ -1437,8 +1439,8 @@ export const translations: Record<Language, Translations> = {
     },
     functionalities: {
       title: "Eine Plattform -",
-      titleHighlight: "fünf Wege zur Process Intelligence",
-      subtitle: "Von automatischer Analyse bis KI-gestützter Ursachenforschung – alles, was du brauchst, um Prozesse selbstverbessernd zu machen.",
+      titleHighlight: "mit KI-gestützer Process Intelligence",
+      subtitle: "Mit unserer Plattform erhältst du alle Prozessdaten, Analysen und Insights an einem zentralen Ort. KI unterstützt dich dabei, Abläufe zu verstehen, Engpässe aufzudecken und schneller bessere Entscheidungen zu treffen.",
       exploreFeatures: "Alle Features erkunden",
       dataCollection: {
         title: "Datenerfassung",
@@ -1488,9 +1490,9 @@ export const translations: Record<Language, Translations> = {
       }
     },
     usps: {
-      title: "Der neue Standard für ",
-      highlight: "Process Intelligence",
-      subtitle: "Von automatischer Analyse bis KI-gestützter Ursachenforschung – alles, was du brauchst, um Prozesse selbstverbessernd zu machen.",
+      title: "Vier Stärken -",
+      highlight: "ein klarer Vorteil",
+      subtitle: "Leistungsmerkmale geben dir volle Transparenz, höhere Effizienz und mehr Kontrolle über deine Prozesse. Entdecke die vier Kernbereiche, die für dich den entscheidenden Unterschied machen.",
       tapToLearnMore: "Tippen, um mehr zu erfahren",
       features: {
         connectionSpeed: {
@@ -1513,9 +1515,9 @@ export const translations: Record<Language, Translations> = {
     },
     integrations: {
       badge: "Integrationen",
-      title: "Einfach verbinden.",
-      titleHighlight: "Sofort starten.",
-      subtitle: "Noreja fügt sich nahtlos in deine bestehende Systemlandschaft ein. Flexibel, sicher und ohne zusätzliche Integrationsaufwände.",
+      title: "Flexible Anbindung -",
+      titleHighlight: "grenzenlose Datenintegration",
+      subtitle: "Dank zahlreicher Connectoren bindest du Daten aus verschiedensten Quellsystemen im Handumdrehen an. So schaffst du dir eine durchgängige und verlässliche Basis für deine Prozessanalysen. Noreja bindet quasi alle bekannten relationalen Datenbanktechnologien an. Zudem können Daten über gängige REST-APIs angebunden werden. Einzelnen Datenquellen können anschließend miteinander verbunden werden, um ganze Ende-zu-Ende Prozessketten abbilden zu können.",
       discoverIntegrations: "Integrationen entdecken"
     },
     process: {
@@ -1569,9 +1571,9 @@ export const translations: Record<Language, Translations> = {
       },
     },
     partners: {
-      title: "Gemeinsam",
-      titleHighlight: "Prozesse neu denken",
-      subtitle: "Unsere Partner teilen unsere Vision von intelligenter Prozessanalyse.\n\nDatengetrieben, offen und auf Wirkung ausgerichtet.",
+      title: "Echte Einblicke -",
+      titleHighlight: "Stimmen aus der Praxis",
+      subtitle: "Unsere Kunden und Partner berichten, wie sie mit Process Intelligence echte Verbesserungen erzielen. Lass dich von ihren Erfahrungen und Erfolgen inspirieren.",
       viewAll: "Alle Partner anzeigen",
       viewAllPartners: "Alle Partner anzeigen",
       stats: {
@@ -1581,8 +1583,9 @@ export const translations: Record<Language, Translations> = {
       }
     },
     blog: {
-      title: "Unser Blog",
-      subtitle: "Tauche ein in praxisnahe Analysen, Branchenwissen und Innovationen rund um Process Intelligence, direkt von unserem Expertenteam.",
+      title: "Relevante Themen -",
+      titleHighlight: "kompakt aufbereitet",
+      subtitle: "In unserem Blog findest du Best Practices, Trends und fundierte Einblicke rund um modernes Prozessmanagement. Bleib auf dem neuesten Stand und vertiefe dein Wissen.",
       latestPosts: "Neueste Beiträge",
       readMore: "Mehr lesen",
       openBlog: "Blog öffnen",

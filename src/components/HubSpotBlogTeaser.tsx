@@ -161,7 +161,10 @@ export function HubSpotBlogTeaser({ maxItems = 3 }: HubSpotBlogTeaserProps) {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8 md:mb-12">
           <h2 id="blog-teaser-heading" className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 md:mb-4 px-4">
-            {t.blog.title}
+            <span className="whitespace-nowrap">{t.blog.title}</span>{" "}
+            <span className="bg-gradient-primary bg-clip-text text-transparent whitespace-nowrap">
+              {t.blog.titleHighlight}
+            </span>
           </h2>
           <p className="text-muted-foreground text-sm sm:text-base max-w-2xl mx-auto px-4">
             {t.blog.subtitle}
