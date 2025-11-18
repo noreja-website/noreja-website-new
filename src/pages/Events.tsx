@@ -203,8 +203,7 @@ const Events = () => {
             transition={{ duration: 0.6 }}
           >
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              {t.events.title}{" "}
-              <span className="text-primary">{t.events.titleHighlight}</span>
+              {t.navigation.events}
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
               {t.events.subtitle}

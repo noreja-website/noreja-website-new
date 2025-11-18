@@ -128,7 +128,7 @@ With the application of the GDPR 2018, webmasters are obliged to follow the basi
 
 
 export default function Imprint() {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   
   // Scroll to top when component mounts
   useEffect(() => {
@@ -136,7 +136,7 @@ export default function Imprint() {
   }, []);
 
   const impressumContent = language === 'de' ? impressumContentDE : impressumContentEN;
-  const title = language === 'de' ? 'Impressum' : 'Imprint';
+  const title = t.footer.legal.imprint;
   const subtitle = language === 'de' 
     ? 'Offenlegung gemäß § 25 Mediengesetz (MedienG) & Information gemäß § 5 E-Commerce-Gesetz (ECG)'
     : 'Disclosure according to § 25 Media Act (MedienG) & Information according to § 5 E-Commerce Act (ECG)';
@@ -163,7 +163,7 @@ export default function Imprint() {
             className="text-center mb-16"
           >
             <h1 className="text-4xl lg:text-6xl font-bold mb-6 text-foreground">
-              <span className="text-noreja-main">{title}</span>
+              {title}
             </h1>
             <p className="text-xl text-muted-foreground">
               {subtitle}

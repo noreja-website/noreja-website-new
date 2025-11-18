@@ -65,9 +65,9 @@ export function Header() {
     {/* name: "Startseite 2", href: "/startseite-2" },
     { name: "Startseite 3", href: "/startseite-3" */},
     { name: t.navigation.functionalities, href: "/functionalities" },
+    { name: t.navigation.pricing, href: "/pricing" },
     { name: t.navigation.successStories, href: "/success-stories" },
     { name: t.navigation.partners, href: "/partners" },
-    { name: t.navigation.pricing, href: "/pricing" },
     { name: t.navigation.blog, href: "/blog" }
   ];
 

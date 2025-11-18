@@ -24,8 +24,8 @@ export function Footer() {
 
   const contactFormLink = {
     name: t.footer.contact.contactForm,
-    href: siteConfig.hubspot.contactForm,
-    external: true
+    href: "/contact",
+    external: false
   };
   
   const bookAppointmentLink = {
@@ -141,14 +141,23 @@ export function Footer() {
           <div className="md:col-span-1">
             <h3 className="font-semibold mb-4">{t.footer.sections.contact}</h3>
             <div className="flex flex-col space-y-2">
-              <a
-                href={contactFormLink.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary transition-fast text-sm"
-              >
-                {contactFormLink.name}
-              </a>
+              {contactFormLink.external ? (
+                <a
+                  href={contactFormLink.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-primary transition-fast text-sm"
+                >
+                  {contactFormLink.name}
+                </a>
+              ) : (
+                <Link
+                  to={contactFormLink.href}
+                  className="text-muted-foreground hover:text-primary transition-fast text-sm"
+                >
+                  {contactFormLink.name}
+                </Link>
+              )}
               <a
                 href={bookAppointmentLink.href}
                 target="_blank"

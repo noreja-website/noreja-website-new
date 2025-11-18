@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Shield } from "lucide-react";
 import { MarkdownBlock } from "@/components/MarkdownBlock";
 import { useEffect } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const privacyContent = `# Datenschutzerklärung
 
@@ -281,6 +282,8 @@ export default function PrivacyPolicy() {
     window.scrollTo(0, 0);
   }, []);
 
+  const { t } = useLanguage();
+
   const gradientStyle = {
     background: `
       linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--noreja-main) / 0.16) 40%, hsl(var(--noreja-secondary) / 0.15) 80%, hsl(var(--background)) 100%),
@@ -303,7 +306,7 @@ export default function PrivacyPolicy() {
             className="text-center mb-16"
           >
             <h1 className="text-4xl lg:text-6xl font-bold mb-6 text-foreground">
-              Datenschutz<span className="text-noreja-main">erklärung</span>
+              {t.footer.legal.privacy}
             </h1>
             <p className="text-xl text-muted-foreground">
               Informationen zum Schutz Ihrer personenbezogenen Daten
