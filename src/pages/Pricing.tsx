@@ -337,10 +337,11 @@ const Pricing = () => {
                               <Info className="h-3.5 w-3.5 text-muted-foreground hover:text-foreground" />
                             </button>
                           </PopoverTrigger>
-                          <PopoverContent className="w-auto p-3 -ml-8" side="bottom" align="end">
-                            <div className="text-sm">
+                          <PopoverContent className="w-auto p-3" side="bottom" align="center">
+                            <div className="text-sm text-center">
                               <p className="text-foreground mb-1">
-                                {t.pages.pricing.annualCostTooltip} {formatPrice(fullAnnualPrice!)} €
+                                {t.pages.pricing.annualCostTooltip}<br />
+                                {formatPrice(fullAnnualPrice!)} €
                               </p>
                             </div>
                           </PopoverContent>
