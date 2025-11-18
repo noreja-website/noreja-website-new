@@ -814,9 +814,9 @@ export const translations: Record<Language, Translations> = {
       }
     },
     functionalities: {
-      title: "Powerful",
-      titleHighlight: "Functionalities",
-      subtitle: "Discover the comprehensive suite of tools and features designed to transform your business operations.",
+      title: "One platform –",
+      titleHighlight: "with AI-powered Process Intelligence",
+      subtitle: "Our platform unifies every process data point, analysis, and insight in one place. AI helps you understand workflows, uncover bottlenecks, and make better decisions faster.",
       exploreFeatures: "Explore All Features",
       dataCollection: {
         title: "Data Collection",
@@ -866,9 +866,9 @@ export const translations: Record<Language, Translations> = {
       }
     },
     usps: {
-      title: "The New Standard for ",
-      highlight: "Process Intelligence",
-      subtitle: "From automatic analysis to AI-supported root cause research, everything you need to make processes self-improving.",
+      title: "Four strengths –",
+      highlight: "one clear advantage",
+      subtitle: "These capabilities give you full transparency, greater efficiency, and more control over your processes. Discover the four core areas that make the decisive difference.",
       tapToLearnMore: "Tap to learn more",
       features: {
         connectionSpeed: {
@@ -891,9 +891,9 @@ export const translations: Record<Language, Translations> = {
     },
     integrations: {
       badge: "Integrations",
-      title: "Simply connect.",
-      titleHighlight: "Start immediately.",
-      subtitle: "Noreja integrates seamlessly into your existing system landscape. Flexible, secure and without additional integration efforts.",
+      title: "Flexible connectivity –",
+      titleHighlight: "limitless data integration",
+      subtitle: "With numerous connectors you can link data from diverse source systems in no time. This creates an end-to-end, reliable foundation for your process analyses. Noreja connects virtually every well-known relational database technology and can also ingest data via common REST APIs. Individual data sources can then be combined to map entire end-to-end process chains.",
       discoverIntegrations: "Discover integrations"
     },
     process: {
@@ -947,9 +947,9 @@ export const translations: Record<Language, Translations> = {
       },
     },
     partners: {
-      title: "Trusted by",
-      titleHighlight: "Industry Leaders",
-      subtitle: "Join a growing ecosystem of innovative companies and organizations that trust our solutions.",
+      title: "Real insights –",
+      titleHighlight: "voices from the field",
+      subtitle: "Our customers and partners share how they achieve tangible improvements with Process Intelligence. Let their experiences and successes inspire you.",
       viewAll: "View All Partners",
       viewAllPartners: "View All Partners",
       stats: {
@@ -959,9 +959,9 @@ export const translations: Record<Language, Translations> = {
       }
     },
     blog: {
-      title: "Our Blog",
-      titleHighlight: "Latest Insights",
-      subtitle: "Dive into practical analyses, industry knowledge and innovations around Process Intelligence, directly from our expert team.",
+      title: "Relevant topics –",
+      titleHighlight: "curated for you",
+      subtitle: "Our blog shares best practices, trends, and well-founded insights on modern process management. Stay up to date and deepen your expertise.",
       latestPosts: "Latest Posts",
       readMore: "Read More",
       openBlog: "Open Blog",
@@ -996,7 +996,7 @@ export const translations: Record<Language, Translations> = {
       latestFrom: "Latest from",
       subscribeRss: "Subscribe to RSS",
       subscribeNewsletter: "Subscribe to Newsletter",
-      whatYouFind: "What You'll Find",
+      whatYouFind: "Explore our content organized by category",
       latestPostsPreview: "Latest Posts Preview",
       getGlimpse: "Get a glimpse of our recent content",
       newsletterCta: {
