@@ -29,6 +29,13 @@ export function PartnerPhotosGrid() {
     return shuffled;
   }, []);
 
+  const getPartnerLogo = (partner: typeof partners[number]) => {
+    if (partner.preferOriginalLogo) {
+      return partner.logoUrl || partner.logoUrlWhite || "";
+    }
+    return partner.logoUrlWhite || partner.logoUrl || "";
+  };
+
   const openModal = (partner: typeof partners[0]) => {
     setSelectedPartner(partner);
   };
@@ -143,9 +150,9 @@ export function PartnerPhotosGrid() {
                     {/* Partner Details */}
                     <div className="flex-1 text-center lg:text-left">
                       <div className="mb-6">
-                        {(selectedPartner.logoUrlWhite || selectedPartner.logoUrl) && (
+                        {getPartnerLogo(selectedPartner) && (
                           <img
-                            src={selectedPartner.logoUrlWhite || selectedPartner.logoUrl}
+                            src={getPartnerLogo(selectedPartner)}
                             alt={selectedPartner.name}
                             className="h-12 mx-auto lg:mx-0 mb-4 object-contain"
                             onError={(e) => {

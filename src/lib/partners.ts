@@ -16,6 +16,18 @@ const partnerFaceImages = import.meta.glob<{ default: string }>(
   { eager: true }
 );
 
+// Dynamically import all customer logos
+const customersLogoImages = import.meta.glob<{ default: string }>(
+  '../assets/customers/*.{png,jpg,jpeg,svg,webp}',
+  { eager: true }
+);
+
+// Dynamically import all other logos
+const otherLogosImages = import.meta.glob<{ default: string }>(
+  '../assets/other_logos/*.{png,jpg,jpeg,svg,webp}',
+  { eager: true }
+);
+
 // Helper function to get image path from imports
 const getImagePath = (
   images: Record<string, { default: string }>,
@@ -58,7 +70,12 @@ export interface Partner {
   quote?: string;
   quoteAuthor?: string;
   linkedin?: string;
+  /**
+   * Force the colored/original logo variant on light backgrounds even when a white version exists.
+   */
+  preferOriginalLogo?: boolean;
 }
+
 
 export const partners: Partner[] = [
   {
@@ -89,7 +106,8 @@ export const partners: Partner[] = [
     category: "technology",
     quote: "Die Partnerschaft zwischen Miragon und Noreja ist für mich etwas Besonderes.\n\nDie Zusammenarbeit ist auf Augenhöhe, Kommunikation und Verständnis sind außergewöhnlich.\n\nDas Produkt ist technisch ausgereift, bietet einen frischen Ansatz im Process Mining und ist dabei auch erschwinglich. Dadurch können wir unser Automatisierungswissen ideal mit dem Knowhow von Noreja verbinden und so Kunden über den gesamten BPM Lifecycle hinweg ganzheitlich beraten und echten Mehrwert schaffen.",
     quoteAuthor: "Thomas Heinrichs, Growth & Smart Automation Lead",
-    linkedin: "https://www.linkedin.com/in/thomas-heinrichs-907b0015a/"
+    linkedin: "https://www.linkedin.com/in/thomas-heinrichs-907b0015a/",
+    preferOriginalLogo: true
   },
   {
     id: "3",
@@ -220,7 +238,7 @@ export const partners: Partner[] = [
     website: "",
     category: null,
     quote: "Noreja steht für die nächste Generation von Prozessintelligenz. Es ist eine der wenigen Plattformen, die wirklich die Lücke zwischen Daten, Entscheidungen und Wirkung schließt. Durch den Verzicht auf komplexe Logdaten macht Noreja Prozessoptimierung endlich für jedes Unternehmen zugänglich: schnell, intuitiv und erkenntnisgetrieben. Was Noreja wirklich auszeichnet, sind die KI-basierten Kausal-Analysen, die sofort aufzeigen, warum Daten vom Ziel abweichen, und Teams befähigen, mit Klarheit und Geschwindigkeit zu handeln. Für mich ist Noreja nicht nur ein weiteres Process Mining Tool, sondern ein Katalysator dafür, wie moderne Unternehmen lernen, sich anpassen und wachsen.",
-    quoteAuthor: "Gordana McNamara, Interims CCO/CRO I Go-to-market Advisor I Noreja Advisory Board Member",
+    quoteAuthor: "Gordana McNamara, Interims CCO/CRO | Go-to-market Advisor | Noreja Advisory Board Member",
     linkedin: "https://www.linkedin.com/in/gordana-mcnamara/"
   },
   {
@@ -279,4 +297,32 @@ export const partners: Partner[] = [
     quoteAuthor: "",
     linkedin: "",
   },
+  {
+    id: "16",
+    name: "Julius Zorn GmbH",
+    isPartner: false,
+    partnerType: 'advisorWithQuote',
+    logoUrl: getImagePath(customersLogoImages, "juzo_logo_white.png"),
+    logoSize: 'medium',
+    personPhotoUrl: getImagePath(partnerFaceImages, "florian_lindermayr_juzo.jpeg"),
+    website: "",
+    category: null,
+    quote: "Im Proof of Value mit Noreja konnten wir innerhalb weniger Wochen und mit minimalem Aufwand wertvolle Einblicke in unseren Fertigungsprozess sowie das angrenzende Auftragsmanagement auf Basis unseres Oxaion-ERPs gewinnen. Die strukturierte Analyse schuf Transparenz zu Durchlaufzeiten, Prozessstrukturen und potenziellen Verstößen. Im anschließenden Workshop haben wir einige Anwendungsfälle für weitergehende Optimierungen identifiziert, die wir nun weiter evaluieren.",
+    quoteAuthor: "Florian Lindermayr, Assistant to the CEO",
+    linkedin: "https://www.linkedin.com/in/florian-lindermayr-96a36a1ba/"
+  },
+  {
+    id: "17",
+    name: "Zalando",
+    isPartner: false,
+    partnerType: 'advisorWithQuote',
+    logoUrl: getImagePath(otherLogosImages, "zalando_wordmark_white_RGB.png"),
+    logoSize: 'small',
+    personPhotoUrl: getImagePath(partnerFaceImages, "steven_knoblich_zalando.jpeg"),
+    website: "",
+    category: null,
+    quote: "TODO",
+    quoteAuthor: "Steven Knoblich, Principal Manager",
+    linkedin: "https://www.linkedin.com/in/steven-knoblich-72bb53173/"
+  }
 ];

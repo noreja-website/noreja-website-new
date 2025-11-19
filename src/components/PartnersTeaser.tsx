@@ -20,6 +20,13 @@ export function PartnersTeaser() {
       partner.quote
   );
 
+  const getPartnerLogo = (partner: typeof partners[number]) => {
+    if (partner.preferOriginalLogo) {
+      return partner.logoUrl || partner.logoUrlWhite || "";
+    }
+    return partner.logoUrlWhite || partner.logoUrl || "";
+  };
+
   // Auto-rotate functionality - works globally across all partners
   useEffect(() => {
     if (!isHovered && galleryPartners.length > 1) {
@@ -84,7 +91,7 @@ export function PartnersTeaser() {
                 title={partner.name}
               >
                 <img
-                  src={partner.logoUrlWhite || partner.logoUrl}
+                  src={getPartnerLogo(partner)}
                   alt={partner.name}
                   className="max-h-full max-w-full object-contain"
                   loading="lazy"
@@ -123,8 +130,7 @@ export function PartnersTeaser() {
                         <img
                           src={
                             galleryPartners[currentIndex].personPhotoUrl ||
-                            galleryPartners[currentIndex].logoUrlWhite ||
-                            galleryPartners[currentIndex].logoUrl
+                            getPartnerLogo(galleryPartners[currentIndex])
                           }
                           alt={galleryPartners[currentIndex].quoteAuthor || galleryPartners[currentIndex].name}
                           className="w-full h-full object-cover rounded-lg"
