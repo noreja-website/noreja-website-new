@@ -21,7 +21,9 @@ export interface Translations {
       titleHighlight: string;
       subtitle: string;
       learnMore: string;
+      learnMoreHighlight: string;
       learnMoreSubtitle: string;
+      learnMoreCta: string;
       capabilities: {
         dataCollection: {
           title: string;
@@ -525,8 +527,10 @@ export const translations: Record<Language, Translations> = {
         title: "Product",
         titleHighlight: "Functionalities",
         subtitle: "Gain complete transparency into your processes—clear, data-driven, and in real time. AI guides you to the biggest opportunities and helps you implement lasting improvements.",
-        learnMore: "Learn More",
-        learnMoreSubtitle: "Discover insights and best practices from our experts",
+        learnMore: "Clear options –",
+        learnMoreHighlight: "Find out what Noreja costs",
+        learnMoreSubtitle: "Compare transparent packages and pick the setup that fits your team.",
+        learnMoreCta: "View Pricing",
         capabilities: {
           dataCollection: {
             title: "Data Collection",
@@ -1153,8 +1157,10 @@ export const translations: Record<Language, Translations> = {
         title: "Produkt",
         titleHighlight: "Funktionen",
         subtitle: "Von automatischer Analyse bis KI-gestützter Ursachenforschung – alles, was du brauchst, um Prozesse selbstverbessernd zu machen.",
-        learnMore: "Mehr erfahren",
-        learnMoreSubtitle: "Entdecke Einblicke und Best Practices von unseren Experten",
+        learnMore: "Klare Optionen –",
+        learnMoreHighlight: "Erfahre was Noreja kostet",
+        learnMoreSubtitle: "Vergleiche transparente Pakete und finde das Setup, das zu deinem Team passt.",
+        learnMoreCta: "Zu den Preisen",
         capabilities: {
           dataCollection: {
             title: "Datenerfassung",
