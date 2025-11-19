@@ -66,6 +66,12 @@ export interface Translations {
       titleHighlight: string;
       subtitle: string;
       readCaseStudy: string;
+      partnerSection: {
+        title: string;
+        highlight: string;
+        subtitle: string;
+        buttonLabel: string;
+      };
     };
     partners: {
       title: string;
@@ -78,6 +84,12 @@ export interface Translations {
       partnerWithUs: string;
       learnMore: string;
       partnerSubtitle: string;
+      successStoriesCta: {
+        title: string;
+        highlight: string;
+        description: string;
+        buttonLabel: string;
+      };
       partnerDescriptions: Record<string, string>;
       partnerCategories: Record<PartnerCategory, string> & { uncategorized: string };
     };
@@ -512,7 +524,7 @@ export const translations: Record<Language, Translations> = {
       functionalities: {
         title: "Product",
         titleHighlight: "Functionalities",
-        subtitle: "Discover the comprehensive capabilities that power your data-driven success. From intelligent collection to actionable insights, explore how our platform transforms your workflow.",
+        subtitle: "Gain complete transparency into your processes—clear, data-driven, and in real time. AI guides you to the biggest opportunities and helps you implement lasting improvements.",
         learnMore: "Learn More",
         learnMoreSubtitle: "Discover insights and best practices from our experts",
         capabilities: {
@@ -557,8 +569,14 @@ export const translations: Record<Language, Translations> = {
       successStories: {
         title: "Customer",
         titleHighlight: "Success Stories",
-        subtitle: "Discover how leading organizations across industries have transformed their operations and achieved remarkable results with our platform.",
-        readCaseStudy: "Read Case Study"
+        subtitle: "See how other organizations use Noreja Process Intelligence to move faster, work more efficiently, and stay data-driven—and what you can apply to your own processes.",
+        readCaseStudy: "Read Case Study",
+        partnerSection: {
+          title: "Trusted Partners –",
+          highlight: "real value",
+          subtitle: "Our consulting and implementation partners help you unlock even more from Noreja Process Intelligence. See how they move your initiatives forward with precision.",
+          buttonLabel: "Explore Partners"
+        }
       },
       partners: {
         title: "Our",
@@ -571,6 +589,12 @@ export const translations: Record<Language, Translations> = {
         partnerWithUs: "Partner With Us",
         learnMore: "Learn More",
         partnerSubtitle: "Join our ecosystem of innovative partners and unlock new opportunities for growth, collaboration, and shared success.",
+        successStoriesCta: {
+          title: "Successful Projects –",
+          highlight: "real results",
+          description: "Discover how organizations use Noreja Process Intelligence to work more efficiently—and what you can apply to your own processes.",
+          buttonLabel: "Explore Success Stories"
+        },
         partnerDescriptions: {
           "1": "Aptean (formerly Ramsauer & Stürmer) is one of the major players in Austria’s software and consulting market. Since 1984, it has delivered advanced ERP systems covering finance, HR, procurement, inventory, and order management. Clients also benefit from tailored consulting at the business–IT interface throughout their entire ERP customer journey.",
           "2": "Miragon is a boutique consultancy specializing in process management, process mining, and automation. Based in Augsburg, it helps companies of all sizes digitalize processes, uncover inefficiencies, and build modern process capabilities. As a technology and implementation partner, it supports clients in deploying process mining effectively and increasing process maturity.",
@@ -1173,13 +1197,19 @@ export const translations: Record<Language, Translations> = {
       successStories: {
         title: "Kunden",
         titleHighlight: "Success Stories",
-        subtitle: "Entdecke, wie führende Organisationen verschiedener Branchen ihre Abläufe transformiert und bemerkenswerte Ergebnisse mit unserer Plattform erzielt haben.",
-        readCaseStudy: "Fallstudie lesen"
+        subtitle: "Unsere Success Stories zeigen dir, wie andere Unternehmen mit Noreja Process Intelligence schneller, effizienter und datengetriebener arbeiten. Gewinne Einblicke, die du direkt auf deine eigenen Prozesse übertragen kannst.",
+        readCaseStudy: "Success Story lesen",
+        partnerSection: {
+          title: "Starke Partner –",
+          highlight: "echte Mehrwerte",
+          subtitle: "Unsere Beratungs- und Implementierungspartner unterstützen dich dabei, noch mehr aus Noreja Process Intelligence herauszuholen. Entdecke, wie sie deine Projekte gezielt voranbringen.",
+          buttonLabel: "Zu den Partnern"
+        }
       },
       partners: {
         title: "Unsere",
         titleHighlight: "Partner",
-        subtitle: "Zusammenarbeit mit Branchenführern zur Bereitstellung innovativer Lösungen und zur Förderung der digitalen Transformation in jedem Sektor.",
+        subtitle: "Unsere Partner unterstützen dich dabei, das volle Potenzial unserer Process-Intelligence-Plattform auszuschöpfen. Ob Beratung oder Implementierung – gemeinsam sorgen wir dafür, dass deine Prozesse nachhaltig besser werden.",
         strategicPartnerships: "Strategische Partnerschaften",
         trustedBy: "Vertraut von führenden Organisationen weltweit",
         visitWebsite: "Website besuchen",
@@ -1187,6 +1217,12 @@ export const translations: Record<Language, Translations> = {
         partnerWithUs: "Partner werden",
         learnMore: "Mehr erfahren",
         partnerSubtitle: "Tritt unserem Ökosystem innovativer Partner bei und erschließe neue Möglichkeiten für Wachstum, Zusammenarbeit und gemeinsamen Erfolg.",
+        successStoriesCta: {
+          title: "Erfolgreiche Projekte –",
+          highlight: "echte Ergebnisse",
+          description: "Erfahre, wie Unternehmen mit Noreja Process Intelligence effizienter arbeiten – und was du daraus für deine eigenen Prozesse mitnehmen kannst.",
+          buttonLabel: "Zu den Success Stories"
+        },
         partnerDescriptions: {
           "1": "Aptean (ehem. Ramsauer & Stürmer) zählt zu den Big Playern am österreichischen Software- und Beratungsmarkt. Seit 1984 bietet das Unternehmen moderne ERP-Systeme mit Modulen für Rechnungswesen, HR, Einkauf, Lager und Auftragsverwaltung. Ergänzend erhält jeder Kunde individuelle Beratung an der Schnittstelle von Business und IT entlang der gesamten ERP-Journey.",
           "2": "Miragon ist eine Boutique-Beratung für Prozessmanagement, Process Mining und Automatisierung aus Augsburg. Sie unterstützt Unternehmen jeder Größe bei der Digitalisierung, dem Aufdecken von Ineffizienzen und dem Aufbau moderner Prozesskompetenzen. Als Technologie- und Implementierungspartner helfen sie Kunden, Process Mining optimal einzusetzen und ihre Prozessreife zu steigern.",
@@ -1440,7 +1476,7 @@ export const translations: Record<Language, Translations> = {
     functionalities: {
       title: "Eine Plattform -",
       titleHighlight: "mit KI-gestützer Process Intelligence",
-      subtitle: "Mit unserer Plattform erhältst du alle Prozessdaten, Analysen und Insights an einem zentralen Ort. KI unterstützt dich dabei, Abläufe zu verstehen, Engpässe aufzudecken und schneller bessere Entscheidungen zu treffen.",
+      subtitle: "Mit unserer Plattform erhältst du vollständige Transparenz über deine Prozesse – übersichtlich, datenbasiert und in Echtzeit. KI unterstützt dich dabei, Potenziale zu erkennen und nachhaltige Verbesserungen umzusetzen.",
       exploreFeatures: "Alle Features erkunden",
       dataCollection: {
         title: "Datenerfassung",
