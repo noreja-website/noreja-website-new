@@ -415,10 +415,6 @@ export interface Translations {
       };
       noResourcesFound: string;
       noResourcesDescription: string;
-      needAdditionalResources: string;
-      needAdditionalDescription: string;
-      contactSupport: string;
-      requestCustomResource: string;
     };
     events: {
       title: string;
@@ -1035,7 +1031,7 @@ export const translations: Record<Language, Translations> = {
     },
     downloads: {
       title: "Resource Downloads",
-      subtitle: "Access comprehensive guides, documentation, tools, and resources to accelerate your implementation and maximize your platform potential.",
+      subtitle: "Download whitepapers, product briefs, compliance documents, or industry reports to deepen your understanding of modern process intelligence and Noreja’s methodology.",
       filterByCategory: "Filter by Category:",
       availableDownloads: "Available Downloads",
       resource: "resource",
@@ -1047,15 +1043,11 @@ export const translations: Record<Language, Translations> = {
       },
       noResourcesFound: "No resources found",
       noResourcesDescription: "No downloads available for the selected category.",
-      needAdditionalResources: "Need Additional Resources?",
-      needAdditionalDescription: "Cannot find what you are looking for? Our team is here to help you access the right resources for your specific use case.",
-      contactSupport: "Contact Support",
-      requestCustomResource: "Request Custom Resource",
     },
     events: {
       title: "Events &",
       titleHighlight: "Announcements",
-      subtitle: "Stay updated with our latest events, webinars, and important announcements. Join us for insights and networking opportunities.",
+      subtitle: "Browse our upcoming events and secure your seat. Get first-hand insights on how to get more out of your process intelligence.",
       upcomingEvents: "Upcoming Events",
       pastEvents: "Past Events",
       noUpcomingEvents: "No upcoming events at the moment",
@@ -1082,7 +1074,7 @@ export const translations: Record<Language, Translations> = {
     },
     team: {
       title: "Meet Our Team",
-      subtitle: "Get to know the faces behind the vision and development of our solution.",
+      subtitle: "Our team is made up of experts who live and breathe process intelligence. We help you make your processes measurably better.",
       connectLinkedIn: "Connect on LinkedIn",
       founders: "Founder-Team",
       team: "Team",
@@ -1673,7 +1665,7 @@ export const translations: Record<Language, Translations> = {
     },
     downloads: {
       title: "Ressourcen-Downloads",
-      subtitle: "Zugang zu umfassenden Leitfäden, Dokumentationen, Tools und Ressourcen, um deine Implementierung zu beschleunigen und das Potenzial deiner Plattform zu maximieren.",
+      subtitle: "Lade Whitepaper, Produktinfos, Compliance-Dokumente oder Industrie-Berichte herunter und vertiefe dein Know-how rund um moderne Process Intelligence und Norejas Vorgehensweise.",
       filterByCategory: "Nach Kategorie filtern:",
       availableDownloads: "Verfügbare Downloads",
       resource: "Ressource",
@@ -1685,15 +1677,11 @@ export const translations: Record<Language, Translations> = {
       },
       noResourcesFound: "Keine Ressourcen gefunden",
       noResourcesDescription: "Keine Downloads für die ausgewählte Kategorie verfügbar.",
-      needAdditionalResources: "Benötigst du zusätzliche Ressourcen?",
-      needAdditionalDescription: "Kannst du nicht finden, wonach du suchst? Unser Team ist hier, um dir zu helfen, die richtigen Ressourcen für deinen spezifischen Anwendungsfall zu finden.",
-      contactSupport: "Support kontaktieren",
-      requestCustomResource: "Individuelle Ressource anfordern",
     },
     events: {
       title: "Veranstaltungen &",
       titleHighlight: "Ankündigungen",
-      subtitle: "Bleibe auf dem Laufenden über unsere neuesten Veranstaltungen, Webinare und wichtige Ankündigungen. Begleite uns für Insights und Networking-Möglichkeiten.",
+      subtitle: "Entdecke unsere bevorstehenden Veranstaltungen und sichere dir einen Platz. Erfahre aus erster Hand, wie du mehr aus deiner Process Intelligence herausholst.",
       upcomingEvents: "Kommende Veranstaltungen",
       pastEvents: "Vergangene Veranstaltungen",
       noUpcomingEvents: "Momentan keine kommenden Veranstaltungen",
@@ -1720,7 +1708,7 @@ export const translations: Record<Language, Translations> = {
     },
     team: {
       title: "Unser Team",
-      subtitle: "Lerne das Expertenteam kennen, das sich hinter der Vision und Entwicklung unserer Lösung befindet.",
+      subtitle: "Unser Team besteht aus Expertinnen und Experten, die Process Intelligence leben. Wir unterstützen dich dabei, deine Prozesse messbar besser zu machen.",
       connectLinkedIn: "Auf LinkedIn verbinden",
       founders: "Gründer-Team",
       team: "Team",

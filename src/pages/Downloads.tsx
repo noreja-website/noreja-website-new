@@ -162,40 +162,6 @@ export default function Downloads() {
         </div>
       </section>
 
-      {/* Help Section */}
-      <section className="bg-muted/30 py-16">
-        <div className="w-full max-w-7xl mx-auto px-4 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center"
-          >
-            <h2 className="text-3xl font-bold mb-4 text-foreground">
-              {t.downloads.needAdditionalResources}
-            </h2>
-            <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-              {t.downloads.needAdditionalDescription}
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                size="lg"
-                className="bg-noreja-main hover:bg-noreja-main/90 text-white px-8"
-              >
-                {t.downloads.contactSupport}
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                className="border-noreja-main/30 hover:bg-noreja-main/10 px-8"
-              >
-                {t.downloads.requestCustomResource}
-              </Button>
-            </div>
-          </motion.div>
-        </div>
-      </section>
       </div>
     </div>
   );
