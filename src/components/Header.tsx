@@ -5,7 +5,7 @@ import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
-import logo from "@/assets/noreja_logo_white_violet.svg";
+import logo from "@/assets/noreja_logo_white.png";
 
 // Compact mobile language switcher
 function MobileLanguageSwitcher() {

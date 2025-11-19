@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Github, Linkedin, Twitter } from "lucide-react";
+import { Linkedin, Twitter, Youtube } from "lucide-react";
 import { siteConfig } from "@/lib/config";
 import { useLanguage } from "@/contexts/LanguageContext";
-import logo from "@/assets/noreja_logo_white_violet.svg";
+import logo from "@/assets/noreja_logo_white.png";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -55,28 +55,34 @@ export function Footer() {
             </p>
             <div className="flex space-x-4">
               <motion.a
-                href={siteConfig.links.twitter}
-                className="text-muted-foreground hover:text-primary transition-fast"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <Twitter className="h-5 w-5" />
-              </motion.a>
-              <motion.a
                 href={siteConfig.links.linkedin}
                 className="text-muted-foreground hover:text-primary transition-fast"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <Linkedin className="h-5 w-5" />
               </motion.a>
               <motion.a
-                href={siteConfig.links.github}
+                href={siteConfig.links.twitter}
                 className="text-muted-foreground hover:text-primary transition-fast"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                <Github className="h-5 w-5" />
+                <Twitter className="h-5 w-5" />
+              </motion.a>
+              <motion.a
+                href={siteConfig.links.youtube} 
+                className="text-muted-foreground hover:text-primary transition-fast"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Youtube className="h-5 w-5" />
               </motion.a>
             </div>
           </div>

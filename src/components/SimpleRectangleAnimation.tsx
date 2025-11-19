@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
 import { AnimatedGridBackground } from "@/components/AnimatedGridBackground";
-import noreja_logo_white_violet from "@/assets/noreja_logo_white_violet.svg";
+import noreja_logo_white from "@/assets/noreja_logo_white.png";
 
 const SimpleRectangleAnimation = () => {
   // Animation state: tracks which step of the 4-card cycle we're in (0, 1, 2, 3)
@@ -92,7 +92,7 @@ const SimpleRectangleAnimation = () => {
           }}
         >
           <div className="relative z-20 transform translate-y-[-30px] translate-x-[-70px] w-2/3 h-2/3">
-            <img src={noreja_logo_white_violet} alt="Noreja Logo" className="w-2/3 h-1/2 mx-auto" loading="lazy" style={{ 
+            <img src={noreja_logo_white} alt="Noreja Logo" className="w-2/3 h-1/2 mx-auto" loading="lazy" style={{ 
               filter: 'drop-shadow(0 30px 60px rgba(0, 0, 0, 0.6)) drop-shadow(0 15px 30px rgba(0, 0, 0, 0.4)) drop-shadow(0 0 40px rgba(255, 255, 255, 0.3))',
               transform: 'translateZ(20px)'
             }} />
@@ -136,7 +136,7 @@ const SimpleRectangleAnimation = () => {
           }}
         >
           <div className="relative z-20 transform translate-y-[350px] translate-x-70px w-2/3 h-2/3">
-            <img src={noreja_logo_white_violet} alt="Noreja Logo" className="w-2/3 h-1/2 mx-auto" loading="lazy" style={{ 
+            <img src={noreja_logo_white} alt="Noreja Logo" className="w-2/3 h-1/2 mx-auto" loading="lazy" style={{ 
               filter: 'drop-shadow(0 30px 60px rgba(0, 0, 0, 0.6)) drop-shadow(0 15px 30px rgba(0, 0, 0, 0.4)) drop-shadow(0 0 40px rgba(255, 255, 255, 0.3))',
               transform: 'translateZ(20px)'
             }} />
@@ -180,7 +180,7 @@ const SimpleRectangleAnimation = () => {
           }}
         >
           <div className="relative z-20 transform translate-y-[80px]">
-            <img src={noreja_logo_white_violet} alt="Noreja Logo" className="w-2/3 h-1/2 mx-auto" loading="lazy" style={{ 
+            <img src={noreja_logo_white} alt="Noreja Logo" className="w-2/3 h-1/2 mx-auto" loading="lazy" style={{ 
               filter: 'drop-shadow(0 30px 60px rgba(0, 0, 0, 0.6)) drop-shadow(0 15px 30px rgba(0, 0, 0, 0.4)) drop-shadow(0 0 40px rgba(255, 255, 255, 0.3))',
               transform: 'translateZ(20px)'
             }} />
@@ -224,7 +224,7 @@ const SimpleRectangleAnimation = () => {
           }}
         >
           <div className="relative z-20 transform translate-y-[-30px] translate-x-[70px] w-2/3 h-2/3">
-            <img src={noreja_logo_white_violet} alt="Noreja Logo" className="w-2/3 h-2/3 mx-auto" loading="lazy" style={{ 
+            <img src={noreja_logo_white} alt="Noreja Logo" className="w-2/3 h-2/3 mx-auto" loading="lazy" style={{ 
               filter: 'drop-shadow(0 30px 60px rgba(0, 0, 0, 0.6)) drop-shadow(0 15px 30px rgba(0, 0, 0, 0.4)) drop-shadow(0 0 40px rgba(255, 255, 255, 0.3))',
               transform: 'translateZ(20px)'
             }} />

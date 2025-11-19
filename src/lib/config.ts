@@ -12,9 +12,9 @@ export const siteConfig = {
   url: SITE_URL,
   links: {
     blog: BLOG_SUBDOMAIN_URL,
-    twitter: "https://twitter.com/noreja",
     linkedin: "https://linkedin.com/company/noreja",
-    github: "https://github.com/noreja",
+    twitter: "https://twitter.com/noreja_",
+    youtube: "https://www.youtube.com/@noreja_intelligence",
     referralProgram: "https://144242473.fs1.hubspotusercontent-eu1.net/hubfs/144242473/Noreja%20Referral%20Program%20DE.pdf"
   },
   hubspot: {

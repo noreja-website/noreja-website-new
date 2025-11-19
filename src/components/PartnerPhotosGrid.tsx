@@ -26,7 +26,7 @@ export function PartnerPhotosGrid() {
       const j = Math.floor(Math.random() * (i + 1));
       [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
-    return shuffled;
+    return shuffled.slice(0, 12);
   }, []);
 
   const getPartnerLogo = (partner: typeof partners[number]) => {
@@ -69,7 +69,7 @@ export function PartnerPhotosGrid() {
           initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto py-8 overflow-hidden"
+          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 max-w-5xl w-full mx-auto py-8 overflow-hidden"
         >
           {gridPartners.map((partner, index) => (
             <motion.div
@@ -81,7 +81,7 @@ export function PartnerPhotosGrid() {
               onClick={() => openModal(partner)}
             >
               <div className="relative overflow-hidden rounded-xl bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105">
-                <div className="aspect-square p-4">
+                <div className="aspect-square p-3 sm:p-4">
                   <img
                     src={partner.personPhotoUrl}
                     alt={partner.quoteAuthor || partner.name}
