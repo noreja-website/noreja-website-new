@@ -1,9 +1,8 @@
 import { motion } from "framer-motion";
-import { ArrowRight, ExternalLink, Package, Factory, Shield, Building2 } from "lucide-react";
+import { ArrowRight, ExternalLink, Package, Factory, Shield, Building2, Trophy } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { HubSpotBlogTeaser } from "@/components/HubSpotBlogTeaser";
 import { successStories } from "@/lib/successStories";
@@ -105,6 +104,22 @@ const SuccessStories = () => {
       {/* Success Stories Carousel */}
       <section className="pb-20">
         <div className="w-full max-w-7xl mx-auto px-4 lg:px-8">
+          {/* Tag Badge */}
+          {current > 0 && successStories[current - 1] && (
+            <motion.div
+              key={current}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.3 }}
+              className="flex justify-center mb-8"
+            >
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
+                <Trophy className="w-4 h-4 mr-2 text-noreja-tertiary" />
+                <span className="text-sm font-medium">{successStories[current - 1].industry}</span>
+              </div>
+            </motion.div>
+          )}
+          
           <div 
             className="relative"
             onMouseEnter={handleMouseEnter}
@@ -130,7 +145,7 @@ const SuccessStories = () => {
                       <Card className="h-full group hover:shadow-md transition-all duration-300 cursor-pointer border-border/30 hover:border-noreja-main/20 max-w-4xl mx-auto">
                         <CardHeader className="pb-4">
                           {/* Company Logo */}
-                          <div className="w-full h-24 mb-4 overflow-hidden rounded-lg bg-muted/50 flex items-center justify-center">
+                          <div className="w-full h-36 mb-4 overflow-hidden rounded-lg flex items-center justify-center">
                             <img
                               src={story.logoUrl}
                               alt={`${story.companyName} logo`}
@@ -145,11 +160,6 @@ const SuccessStories = () => {
                             <h2 className="text-2xl font-bold group-hover:text-noreja-main transition-colors text-center">
                               {story.companyName}
                             </h2>
-                            <div className="flex flex-wrap gap-2 justify-center">
-                              <Badge variant="secondary" className="text-sm px-3 py-1">
-                                {story.industry}
-                              </Badge>
-                            </div>
                           </div>
                         </CardHeader>
                         
@@ -186,10 +196,10 @@ const SuccessStories = () => {
               {Array.from({ length: count }, (_, index) => (
                 <button
                   key={index}
-                  className={`w-4 h-4 rounded-full transition-all duration-200 hover:scale-110 ${
+                  className={`rounded-full transition-all duration-200 hover:scale-110 ${
                     index + 1 === current 
-                      ? 'bg-noreja-main shadow-lg shadow-noreja-main/30' 
-                      : 'bg-muted-foreground/30 hover:bg-muted-foreground/60'
+                      ? 'w-5 h-5 bg-muted-foreground/30 ring-2 ring-accent' 
+                      : 'w-4 h-4 bg-muted-foreground/30 hover:bg-muted-foreground/60'
                   }`}
                   onClick={() => handleDotClick(index)}
                   aria-label={`Go to slide ${index + 1}`}
