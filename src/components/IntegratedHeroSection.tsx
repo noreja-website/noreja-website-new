@@ -52,7 +52,7 @@ export function IntegratedHeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.8 }}
-            className="text-lg sm:text-xl md:text-2xl text-muted-foreground mb-6 md:mb-8 max-w-4xl mx-auto whitespace-pre-line px-4"
+            className="text-lg sm:text-xl md:text-2xl text-muted-foreground mb-6 md:mb-8 max-w-5xl xl:max-w-6xl mx-auto whitespace-pre-line px-4"
           >
             {t.hero.subtitle}
           </motion.p>
