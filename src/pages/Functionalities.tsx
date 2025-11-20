@@ -123,12 +123,12 @@ const FeatureSection = ({ feature, Icon, layout, index, animationStyle }: Featur
     <motion.section
       ref={sectionRef}
       id={feature.id}
-      className="scroll-mt-24"
+      className="scroll-mt-24 py-8"
       initial={{ opacity: 0 }}
       animate={isInView ? { opacity: 1 } : { opacity: 0 }}
       transition={{ duration: 0.3 }}
     >
-      <div className={`grid ${layout.gridCols} gap-8 lg:gap-12 items-start`}>
+      <div className={`grid ${layout.gridCols} gap-8 lg:gap-12 items-start overflow-hidden`}>
         {/* Image Section with Parallax */}
         <motion.div
           ref={imageRef}
@@ -195,7 +195,7 @@ const FeatureSection = ({ feature, Icon, layout, index, animationStyle }: Featur
           animate="animate"
           transition={textTransition}
         >
-          <div className="space-y-6 lg:py-4">
+          <div className="space-y-6 lg:py-4 pb-8">
             <motion.div
               className="flex items-center gap-4 mb-6"
               initial={{ opacity: 0 }}
@@ -325,7 +325,7 @@ const Functionalities = () => {
       </div>
 
       {/* Features Section with Gradient Background */}
-      <div className="relative" style={{
+      <div className="relative overflow-hidden" style={{
         background: `
           linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--noreja-main) / 0.14) 50%, hsl(var(--background)) 100%),
           radial-gradient(ellipse 1000px 800px at 50% 50%, hsl(var(--noreja-secondary) / 0.10) 0%, transparent 60%)
@@ -336,7 +336,7 @@ const Functionalities = () => {
         {/* Gradient fade to next section */}
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-background pointer-events-none z-0" />
         
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 lg:px-8 py-20">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 py-20">
           <div className="space-y-32 lg:space-y-40">
             {features.map((feature, index) => {
               const Icon = feature.icon;
