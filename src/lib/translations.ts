@@ -1099,7 +1099,7 @@ export const translations: Record<Language, Translations> = {
       ctaPrimary: "Get Started Today",
       ctaSecondary: "Schedule a Demo",
       startJourney: "Start Your Journey",
-      scheduleDemo: "Schedule Demo"
+      scheduleDemo: "Schedule a Demo"
     },
     footer: {
       description: "Noreja Generative Process Intelligence - Elevating Process Knowledge with the Power of GenAI.",

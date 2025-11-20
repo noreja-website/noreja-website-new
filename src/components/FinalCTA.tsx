@@ -3,6 +3,7 @@ import { useRef } from "react";
 import { ArrowRight, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { siteConfig } from "@/lib/config";
 
 export function FinalCTA() {
   const ref = useRef(null);
@@ -56,12 +57,19 @@ export function FinalCTA() {
             transition={{ delay: 0.8, duration: 0.8 }}
             className="flex flex-col sm:flex-row gap-4 justify-center overflow-hidden"
           >
-            <Button size="lg" className="gradient-primary glow-primary group">
-              {t.finalCta.startJourney}
-              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </Button>
-            <Button size="lg" variant="outline" className="border-primary/30 hover:bg-primary/10">
-              {t.finalCta.scheduleDemo}
+            <Button 
+              size="lg" 
+              className="gradient-primary glow-primary group"
+              asChild
+            >
+              <a 
+                href={siteConfig.hubspot.appointmentBooking}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {t.finalCta.scheduleDemo}
+                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </a>
             </Button>
           </motion.div>
         </motion.div>
