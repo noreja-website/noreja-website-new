@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ExternalLink } from "lucide-react";
+import { ArrowRight, ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -283,7 +283,7 @@ export default function Partners() {
                   <div className="max-w-3xl mx-auto">
                     <HubSpotContactForm
                       wrapperClassName="w-full"
-                      contentClassName="rounded-2xl border border-border/60 bg-background/95 px-6 py-10 shadow-sm space-y-6"
+                      contentClassName="rounded-2xl border border-border bg-card px-6 py-10 shadow-sm space-y-6"
                       loadingMessage={t.pages.contact.formLoading}
                       errorMessage={t.pages.contact.formError}
                       minHeight="0"
@@ -300,7 +300,7 @@ export default function Partners() {
               viewport={{ once: true }}
               className="mt-16"
             >
-              <div className="relative overflow-hidden rounded-3xl border border-border/50 bg-background/95 px-8 py-12 text-center shadow-xl shadow-noreja-main/10">
+              <div className="relative overflow-hidden rounded-3xl border border-border/60 bg-background/95 px-8 py-12 text-center shadow-xl shadow-noreja-main/10">
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-noreja-main/10 via-transparent to-noreja-secondary/20 opacity-70" />
                 <div className="relative z-10 space-y-6">
                   <h2 className="text-3xl md:text-4xl font-bold text-foreground">
@@ -314,12 +314,13 @@ export default function Partners() {
                   </p>
                   <Button
                     size="lg"
-                    className="group bg-noreja-main text-white hover:bg-noreja-main/90"
+                    variant="secondary"
+                    className="group"
                     asChild
                   >
                     <Link to="/success-stories">
                       {t.pages.partners.successStoriesCta.buttonLabel}
-                      <ExternalLink className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
+                      <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                     </Link>
                   </Button>
                 </div>

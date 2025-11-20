@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ExternalLink, TrendingUp } from "lucide-react";
+import { ArrowRight, ExternalLink, TrendingUp } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/card";
@@ -239,12 +239,13 @@ const SuccessStories = () => {
                 </p>
                 <Button
                   size="lg"
-                  className="group bg-noreja-main text-white hover:bg-noreja-main/90"
+                  variant="secondary"
+                  className="group"
                   asChild
                 >
                   <Link to="/partners">
                     {t.pages.successStories.partnerSection.buttonLabel}
-                    <ExternalLink className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
+                    <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                   </Link>
                 </Button>
               </div>

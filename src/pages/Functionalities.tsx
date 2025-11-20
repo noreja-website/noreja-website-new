@@ -479,28 +479,32 @@ const Functionalities = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="text-center mb-12 space-y-6"
+              className="mb-12"
             >
-              <h2 className="text-3xl lg:text-4xl font-bold mb-4 text-foreground">
-                {t.pages.functionalities.learnMore}{" "}
-                <span className="bg-gradient-primary bg-clip-text text-transparent">
-                  {t.pages.functionalities.learnMoreHighlight}
-                </span>
-              </h2>
-              <p className="text-lg text-muted-foreground">
-                {t.pages.functionalities.learnMoreSubtitle}
-              </p>
-              <div className="flex justify-center">
-                <Button
-                  size="lg"
-                  className="group bg-noreja-main text-white hover:bg-noreja-main/90"
-                  asChild
-                >
-                  <Link to="/pricing">
-                    {t.pages.functionalities.learnMoreCta}
-                    <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
-                  </Link>
-                </Button>
+              <div className="relative overflow-hidden rounded-3xl border border-border/60 bg-background/95 px-8 py-12 text-center shadow-xl shadow-noreja-main/10">
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-noreja-main/10 via-transparent to-noreja-secondary/20 opacity-70" />
+                <div className="relative z-10 space-y-6">
+                  <h2 className="text-3xl md:text-4xl font-bold text-foreground">
+                    {t.pages.functionalities.learnMore}{" "}
+                    <span className="bg-gradient-primary bg-clip-text text-transparent">
+                      {t.pages.functionalities.learnMoreHighlight}
+                    </span>
+                  </h2>
+                  <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+                    {t.pages.functionalities.learnMoreSubtitle}
+                  </p>
+                  <Button
+                    size="lg"
+                    variant="secondary"
+                    className="group"
+                    asChild
+                  >
+                    <Link to="/pricing">
+                      {t.pages.functionalities.learnMoreCta}
+                      <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                    </Link>
+                  </Button>
+                </div>
               </div>
             </motion.div>
             
