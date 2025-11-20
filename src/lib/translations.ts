@@ -683,7 +683,7 @@ export const translations: Record<Language, Translations> = {
           title: "Ready to Transform Your Processes?",
           description: "Discover how Noreja Process Intelligence can help your organization achieve similar results.",
           buttonLabel: "Get Started",
-          secondaryButtonLabel: "View More Success Stories"
+          secondaryButtonLabel: "View Success Stories"
         }
       },
       partners: {
@@ -1398,7 +1398,7 @@ export const translations: Record<Language, Translations> = {
           title: "Bereit, deine Prozesse zu transformieren?",
           description: "Entdecke, wie Noreja Process Intelligence deiner Organisation helfen kann, ähnliche Ergebnisse zu erzielen.",
           buttonLabel: "Jetzt starten",
-          secondaryButtonLabel: "Weitere Success Stories ansehen"
+          secondaryButtonLabel: "Success Stories ansehen"
         }
       },
       partners: {

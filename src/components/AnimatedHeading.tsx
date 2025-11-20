@@ -42,6 +42,13 @@ export function AnimatedHeading({
     );
   }
 
+  // Reset animation when rotatingWords or fixedText changes (e.g., language switch)
+  useEffect(() => {
+    setCurrentWordIndex(0);
+    setDisplayedText("");
+    setIsTyping(true);
+  }, [rotatingWords, fixedText]);
+
   useEffect(() => {
     const currentWord = rotatingWords[currentWordIndex];
     
