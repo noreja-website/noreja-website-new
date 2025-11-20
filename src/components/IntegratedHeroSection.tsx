@@ -2,6 +2,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Zap, Shield, Rocket, Database } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { siteConfig } from "@/lib/config";
+import { Link } from "react-router-dom";
 import graphThreeNodes from "@/assets/graph_three_nodes.png";
 import { AnimatedHeading } from "@/components/AnimatedHeading";
 
@@ -64,12 +66,29 @@ export function IntegratedHeroSection() {
             transition={{ delay: 0.8, duration: 0.8 }}
             className="flex flex-row gap-3 sm:gap-4 justify-center mb-8 md:mb-12 px-4"
           >
-            <Button size="lg" className="gradient-primary glow-primary group">
-              {t.hero.getStarted}
-              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            <Button 
+              size="lg" 
+              className="gradient-primary glow-primary group"
+              asChild
+            >
+              <a 
+                href={siteConfig.hubspot.appointmentBooking}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {t.hero.getStarted}
+                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </a>
             </Button>
-            <Button size="lg" variant="outline" className="border-primary/30 hover:bg-primary/10">
-              {t.hero.learnMore}
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="border-primary/30 hover:bg-primary/10"
+              asChild
+            >
+              <Link to="/functionalities">
+                {t.hero.learnMore}
+              </Link>
             </Button>
           </motion.div>
         </motion.div>

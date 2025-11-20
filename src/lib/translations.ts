@@ -825,7 +825,7 @@ export const translations: Record<Language, Translations> = {
       subtitle: "Elevating Process Knowledge with the Power of GenAI – faster data connection without event-log, more realistic outcomes, open architecture for easy integration.\nEnterprise technology, built for efficiency in medium-sized businesses",
       ctaPrimary: "Get Started",
       ctaSecondary: "Learn More",
-      getStarted: "Get Started",
+      getStarted: "Book a Demo",
       learnMore: "Learn More",
       features: {
         secure: "Secure",
@@ -1099,7 +1099,7 @@ export const translations: Record<Language, Translations> = {
       ctaPrimary: "Get Started Today",
       ctaSecondary: "Schedule a Demo",
       startJourney: "Start Your Journey",
-      scheduleDemo: "Schedule a Demo"
+      scheduleDemo: "Book a Demo"
     },
     footer: {
       description: "Noreja Generative Process Intelligence - Elevating Process Knowledge with the Power of GenAI.",
@@ -1459,7 +1459,7 @@ export const translations: Record<Language, Translations> = {
       subtitle: "Elevating Process Knowledge with the Power of GenAI – faster data connection without event-log, more realistic outcomes, open architecture for easy integration.\nEnterprise technology, built for efficiency in medium-sized businesses",
       ctaPrimary: "Loslegen",
       ctaSecondary: "Mehr erfahren",
-      getStarted: "Jetzt starten",
+      getStarted: "Demo buchen",
       learnMore: "Mehr erfahren",
       features: {
         secure: "Sicher",
@@ -1733,7 +1733,7 @@ export const translations: Record<Language, Translations> = {
       ctaPrimary: "Heute loslegen",
       ctaSecondary: "Demo vereinbaren",
       startJourney: "Starte deine Reise",
-      scheduleDemo: "Demo vereinbaren"
+      scheduleDemo: "Demo buchen"
     },
     footer: {
       description: "Noreja Generative Process Intelligence - Elevating Process Knowledge with the Power of GenAI.",
