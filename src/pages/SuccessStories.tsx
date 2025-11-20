@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, ExternalLink, Package, Factory, Shield, Building2, Trophy } from "lucide-react";
+import { ArrowRight, Package, Factory, Shield, Building2, Trophy } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/card";
@@ -174,11 +174,11 @@ const SuccessStories = () => {
                             <Button
                               variant="outline"
                               size="lg"
-                              className="w-auto group-hover:bg-noreja-main/10 group-hover:border-noreja-main/40 transition-all"
+                              className="w-auto group group-hover:bg-noreja-main/10 group-hover:border-noreja-main/40 transition-all"
                               onClick={() => window.open(story.externalUrl, '_blank')}
                             >
                               {t.pages.successStories.readCaseStudy}
-                              <ExternalLink className="w-4 h-4 ml-2" />
+                              <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
                             </Button>
                           </div>
                         </CardContent>
