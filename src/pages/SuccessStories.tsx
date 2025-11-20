@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, ExternalLink, TrendingUp } from "lucide-react";
+import { ArrowRight, ExternalLink, Package, Factory, Shield, Building2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/card";
@@ -127,10 +127,10 @@ const SuccessStories = () => {
                       transition={{ duration: 0.6, delay: index * 0.1 }}
                       className="h-full"
                     >
-                      <Card className="h-full group hover:shadow-lg transition-all duration-300 cursor-pointer border-border/40 hover:border-noreja-main/30 max-w-4xl mx-auto">
-                        <CardHeader className="pb-6">
+                      <Card className="h-full group hover:shadow-md transition-all duration-300 cursor-pointer border-border/30 hover:border-noreja-main/20 max-w-4xl mx-auto">
+                        <CardHeader className="pb-4">
                           {/* Company Logo */}
-                          <div className="w-full h-40 mb-6 overflow-hidden rounded-lg bg-muted flex items-center justify-center">
+                          <div className="w-full h-24 mb-4 overflow-hidden rounded-lg bg-muted/50 flex items-center justify-center">
                             <img
                               src={story.logoUrl}
                               alt={`${story.companyName} logo`}
@@ -149,44 +149,28 @@ const SuccessStories = () => {
                               <Badge variant="secondary" className="text-sm px-3 py-1">
                                 {story.industry}
                               </Badge>
-                              <Badge variant="outline" className="text-sm px-3 py-1">
-                                {story.company_size}
-                              </Badge>
                             </div>
                           </div>
                         </CardHeader>
                         
-                        <CardContent className="pt-0 px-8">
+                        <CardContent className="pt-0 px-6">
                           {/* Summary */}
                           <CardDescription className="text-base leading-relaxed mb-6 text-center">
                             {story.summary}
                           </CardDescription>
                           
-                          {/* Key Stat */}
-                          {story.keyStat && (
-                            <div className="flex items-center justify-center gap-3 mb-6 p-4 bg-noreja-main/5 rounded-lg border border-noreja-main/10">
-                              <TrendingUp className="w-6 h-6 text-noreja-main" />
-                              <div className="text-center">
-                                <div className="font-bold text-noreja-main text-2xl">
-                                  {story.keyStat.value}
-                                </div>
-                                <div className="text-sm text-muted-foreground">
-                                  {story.keyStat.metric}
-                                </div>
-                              </div>
-                            </div>
-                          )}
-                          
                           {/* Read More Button */}
-                          <Button
-                            variant="outline"
-                            size="lg"
-                            className="w-full group-hover:bg-noreja-main group-hover:text-white group-hover:border-noreja-main transition-all"
-                            onClick={() => window.open(story.externalUrl, '_blank')}
-                          >
-                            {t.pages.successStories.readCaseStudy}
-                            <ExternalLink className="w-4 h-4 ml-2" />
-                          </Button>
+                          <div className="flex justify-center">
+                            <Button
+                              variant="outline"
+                              size="lg"
+                              className="w-auto group-hover:bg-noreja-main/10 group-hover:border-noreja-main/40 transition-all"
+                              onClick={() => window.open(story.externalUrl, '_blank')}
+                            >
+                              {t.pages.successStories.readCaseStudy}
+                              <ExternalLink className="w-4 h-4 ml-2" />
+                            </Button>
+                          </div>
                         </CardContent>
                       </Card>
                     </motion.div>
@@ -212,6 +196,72 @@ const SuccessStories = () => {
                 />
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Use Cases Section */}
+      <section className="px-4 lg:px-8 pb-20">
+        <div className="w-full max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              {t.pages.successStories.useCasesSection?.title || "Use Cases"}
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              {t.pages.successStories.useCasesSection?.subtitle || "Discover how Noreja Process Intelligence transforms operations across industries."}
+            </p>
+          </motion.div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { id: "supply-chain", name: "Supply Chain", Icon: Package },
+              { id: "manufacturing", name: "Manufacturing", Icon: Factory },
+              { id: "insurance", name: "Insurance", Icon: Shield },
+              { id: "banking", name: "Banking", Icon: Building2 }
+            ].map((useCase, index) => {
+              const IconComponent = useCase.Icon;
+              return (
+                <motion.div
+                  key={useCase.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <Link to={`/use-cases/${useCase.id}`}>
+                    <Card className="h-full group hover:shadow-lg transition-all duration-300 cursor-pointer border-border/30 hover:border-noreja-main/40 hover:scale-105">
+                      <CardContent className="p-6 text-center">
+                        <div className="flex justify-center mb-4">
+                          <div className="w-16 h-16 rounded-full bg-noreja-main/10 group-hover:bg-noreja-main/20 flex items-center justify-center transition-colors">
+                            <IconComponent className="w-8 h-8 text-foreground" />
+                          </div>
+                        </div>
+                        <h3 className="text-xl font-semibold group-hover:text-noreja-main transition-colors">
+                          {t.pages.useCases?.[useCase.id]?.title || useCase.name}
+                        </h3>
+                        <p className="text-sm text-muted-foreground mt-2">
+                          {t.pages.useCases?.[useCase.id]?.shortDescription || "Learn more about this use case"}
+                        </p>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="mt-4 group-hover:text-noreja-main"
+                        >
+                          {t.pages.successStories.useCasesSection?.buttonLabel || "Learn More"}
+                          <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
