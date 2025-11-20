@@ -118,42 +118,77 @@ export const IntegrationsShowcase: React.FC<IntegrationsShowcaseProps> = ({
     return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
   
+  const isStackedLayout = screenSize !== 'desktop';
   const actualRows = screenSize === 'mobile' ? 2 : screenSize === 'medium' ? 3 : rows;
   const rowsData = buildRows(logos, actualRows);
   
   // Use translations as defaults if no props are provided
-  const displayTitle = title || `${t.integrations.title} ${t.integrations.titleHighlight}`;
   const displaySubtitle = subtitle || t.integrations.subtitle;
+
+  const TextContent = () => (
+    <>
+      {title ? (
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 leading-tight">
+          {title}
+        </h2>
+      ) : (
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 leading-tight">
+          <span className="whitespace-nowrap">{t.integrations.title}</span>{" "}
+          <span className="bg-gradient-primary bg-clip-text text-transparent whitespace-nowrap">
+            {t.integrations.titleHighlight}
+          </span>
+        </h2>
+      )}
+      <p className="text-xl text-muted-foreground">{displaySubtitle}</p>
+    </>
+  );
   return (
     <section className="relative overflow-hidden">
+      {isStackedLayout && (
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 h-[460px] sm:h-[520px] bg-gradient-to-b from-background via-background/95 to-transparent"
+          aria-hidden
+        />
+      )}
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          {/* Left: Text Content */}
-          <div className="max-w-xl pt-20 relative z-0">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 leading-tight">
-              <span className="whitespace-nowrap">{t.integrations.title}</span>{" "}
-              <span className="bg-gradient-primary bg-clip-text text-transparent whitespace-nowrap">
-                {t.integrations.titleHighlight}
-              </span>
-            </h2>
-            <p className="text-xl text-muted-foreground">
-              {displaySubtitle}
-            </p>
-          </div>
-
-          {/* Right: Integrations Animation Grid */}
-          <div className="relative w-full z-0 overflow-hidden">
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" aria-hidden>
-              {rowsData.map((row, rowIndex) => (
-                <VerticalTicker
-                  key={rowIndex}
-                  items={row}
-                  reverse={rowIndex % 2 === 1}
-                />
-              ))}
+        {isStackedLayout ? (
+          <div className="relative flex flex-col gap-10 py-12 sm:py-16">
+            <div className="relative z-10 max-w-2xl sm:max-w-3xl mx-auto text-center sm:text-left">
+              <TextContent />
+            </div>
+            <div className="relative w-full z-0 overflow-hidden">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4" aria-hidden>
+                {rowsData.map((row, rowIndex) => (
+                  <VerticalTicker
+                    key={rowIndex}
+                    items={row}
+                    reverse={rowIndex % 2 === 1}
+                  />
+                ))}
+              </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            {/* Left: Text Content */}
+            <div className="max-w-2xl lg:max-w-xl w-full relative pt-20">
+              <TextContent />
+            </div>
+
+            {/* Right: Integrations Animation Grid */}
+            <div className="relative w-full z-0 overflow-hidden">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" aria-hidden>
+                {rowsData.map((row, rowIndex) => (
+                  <VerticalTicker
+                    key={rowIndex}
+                    items={row}
+                    reverse={rowIndex % 2 === 1}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
