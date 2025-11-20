@@ -17,7 +17,9 @@ export function PartnerPhotosGrid() {
     const loadData = async () => {
       try {
         await initializePartnersData();
-        setLoadedPartners([...partners]);
+        // Create a new array to ensure React detects the change
+        const updatedPartners = partners.map(p => ({ ...p }));
+        setLoadedPartners(updatedPartners);
       } catch (error) {
         console.error('Error loading partners in PartnerPhotosGrid:', error);
         setLoadedPartners([]);
@@ -101,15 +103,26 @@ export function PartnerPhotosGrid() {
               className="group cursor-pointer overflow-hidden"
               onClick={() => openModal(partner)}
             >
-              <div className="relative overflow-hidden rounded-xl bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300">
+              <div className="relative overflow-hidden rounded-xl bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 z-10">
                 <div className="aspect-square p-3 sm:p-4">
                   <div className="relative h-full w-full overflow-hidden rounded-lg transition-transform duration-500 group-hover:scale-105">
-                    <img
-                      src={partner.personPhotoUrl}
-                      alt={partner.quoteAuthor || partner.name}
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                    />
+                    {partner.personPhotoUrl ? (
+                      <img
+                        src={partner.personPhotoUrl}
+                        alt={partner.quoteAuthor || partner.name}
+                        className="w-full h-full object-cover relative z-10"
+                        loading="lazy"
+                        onError={(e) => {
+                          console.error('Failed to load partner image:', partner.personPhotoUrl, partner.name);
+                          const target = e.currentTarget as HTMLImageElement;
+                          target.style.display = 'none';
+                        }}
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gray-700 flex items-center justify-center">
+                        <span className="text-gray-400 text-xs">No image</span>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

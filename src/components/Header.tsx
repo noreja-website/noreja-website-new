@@ -5,6 +5,7 @@ import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { TypingNavLink } from "@/components/TypingNavLink";
 import logo from "@/assets/noreja_logo_white.png";
 
 // Compact mobile language switcher
@@ -89,24 +90,13 @@ export function Header() {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             {navigationItems.map((item) => (
-              <Link
+              <TypingNavLink
                 key={item.href}
                 to={item.href}
-                className={`text-sm font-medium transition-fast ${
-                  isActive(item.href)
-                    ? "text-[hsl(256,77%,72%)]"
-                    : "text-muted-foreground hover:text-[hsl(256,77%,72%)]"
-                }`}
+                isActive={isActive(item.href)}
               >
                 {item.name}
-                {isActive(item.href) && (
-                  <motion.div
-                    className="h-0.5 bg-gradient-primary mt-1"
-                    layoutId="activeTab"
-                    initial={false}
-                  />
-                )}
-              </Link>
+              </TypingNavLink>
             ))}
           </nav>
 
