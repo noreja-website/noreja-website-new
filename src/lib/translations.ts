@@ -121,6 +121,8 @@ export interface Translations {
       dataVolume: string;
       dataAmount?: string;
       perspectives?: string;
+      dataAmountSuffix?: string;
+      perspectivesSuffix?: string;
       dataAmountTooltip?: string;
       perspectivesTooltip?: string;
       usersTooltip?: string;
@@ -740,8 +742,10 @@ export const translations: Record<Language, Translations> = {
         dataVolume: "Data Volume:",
         dataAmount: "Data amount",
         perspectives: "Perspectives",
-        dataAmountTooltip: "Select the approximate volume of data records you'll be processing. This helps us calculate the optimal pricing for your use case.",
-        perspectivesTooltip: "Choose the number of different analytical perspectives or dimensions you need. Each perspective represents a unique way of analyzing your process data.",
+        dataAmountSuffix: ", based on graph nodes:",
+        perspectivesSuffix: ", i.e., views on the process:",
+        dataAmountTooltip: "Graph nodes are the smallest storage unit in our database. A node roughly corresponds to an event. Chunks from imported documents and text are also stored as nodes.",
+        perspectivesTooltip: "A perspective (or dimension) is a user-defined view of the process and can be created individually. Typically, the distinction is made based on process boundaries or responsibilities.",
         usersTooltip: "Power Users are fully licensed editors. Reading users can be added as noted below.",
         users: "users",
         user: "user",
@@ -1455,8 +1459,10 @@ export const translations: Record<Language, Translations> = {
         dataVolume: "Datenvolumen:",
         dataAmount: "Datenmenge",
         perspectives: "Perspektiven",
-        dataAmountTooltip: "Wähle das ungefähre Volumen der Daten, die du verarbeiten wirst. Dies hilft uns, den optimalen Preis für deinen Anwendungsfall zu berechnen.",
-        perspectivesTooltip: "Wähle die Anzahl der verschiedenen analytischen Perspektiven oder Dimensionen, die du benötigst. Jede Perspektive stellt eine einzigartige Art dar, deine Prozessdaten zu analysieren.",
+        dataAmountSuffix: ", anhand von Graphen-Nodes:",
+        perspectivesSuffix: ", also Sichten auf den Prozess:",
+        dataAmountTooltip: "Graphen-Nodes sind die kleinste Speichereinheit in unserer Datenbank. Ein Node entspricht vereinfacht einem Event. Auch Chunks aus importierten Dokumenten und Text werden als Nodes abgespeichert.",
+        perspectivesTooltip: "Eine Perspektive (oder Dimension) ist eine vom User definierte Sicht auf den Prozess und kann individuell angelegt werden. I.d.R. findet die Abgrenzung anhand von Prozessgrenzen oder Verantwortlichkeiten statt.",
         usersTooltip: "Power-User sind vollständig lizenzierte Editoren. Lesende Nutzer können zusätzlich ergänzt werden.",
         users: "Benutzer",
         user: "Nutzer",

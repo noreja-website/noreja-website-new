@@ -183,9 +183,16 @@ const Pricing = () => {
               {/* Data Amount Slider - LEFT */}
               <div className="bg-card rounded-lg p-8 border">
                 <div className="flex items-center justify-center gap-2 mb-6">
-                  <h3 className="text-lg font-semibold text-foreground">
-                    {t.pages.pricing.dataAmount ?? t.pages.pricing.dataVolume}
-                  </h3>
+                  <div className="flex items-center gap-0">
+                    <h3 className="text-lg font-semibold text-foreground">
+                      {t.pages.pricing.dataAmount ?? t.pages.pricing.dataVolume}
+                    </h3>
+                    {t.pages.pricing.dataAmountSuffix && (
+                      <span className="text-lg text-foreground">
+                        {t.pages.pricing.dataAmountSuffix}
+                      </span>
+                    )}
+                  </div>
                   {t.pages.pricing.dataAmountTooltip && (
                     <Popover>
                       <PopoverTrigger asChild>
@@ -228,9 +235,16 @@ const Pricing = () => {
               {/* Perspectives Slider - RIGHT */}
               <div className="bg-card rounded-lg p-8 border">
                 <div className="flex items-center justify-center gap-2 mb-6">
-                  <h3 className="text-lg font-semibold text-foreground">
-                    {t.pages.pricing.perspectives ?? t.pages.pricing.teamSize}
-                  </h3>
+                  <div className="flex items-center gap-0">
+                    <h3 className="text-lg font-semibold text-foreground">
+                      {t.pages.pricing.perspectives ?? t.pages.pricing.teamSize}
+                    </h3>
+                    {t.pages.pricing.perspectivesSuffix && (
+                      <span className="text-lg text-foreground">
+                        {t.pages.pricing.perspectivesSuffix}
+                      </span>
+                    )}
+                  </div>
                   {t.pages.pricing.perspectivesTooltip && (
                     <Popover>
                       <PopoverTrigger asChild>
