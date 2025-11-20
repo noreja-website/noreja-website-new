@@ -1,5 +1,6 @@
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState, useMemo } from "react";
+import { createPortal } from "react-dom";
 import { X, Linkedin, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -97,112 +98,115 @@ export function PartnerPhotosGrid() {
         </motion.div>
 
         {/* Modal */}
-        <AnimatePresence>
-          {selectedPartner && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-hidden"
-              onClick={closeModal}
-            >
+        {selectedPartner && createPortal(
+          <AnimatePresence>
+            {selectedPartner && (
               <motion.div
-                initial={{ opacity: 0, scale: 0.94, y: 32 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.94, y: 32 }}
-                transition={{ duration: 0.3 }}
-                className="bg-gray-900 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
-                onClick={(e) => e.stopPropagation()}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[9999] flex items-center justify-center p-4 overflow-hidden"
+                onClick={closeModal}
               >
-                <div className="p-8 md:p-12">
-                  {/* Close Button */}
-                  <button
-                    onClick={closeModal}
-                    className="absolute top-4 right-4 w-10 h-10 bg-gray-700 hover:bg-gray-600 rounded-full flex items-center justify-center transition-colors duration-200"
-                  >
-                    <X className="w-5 h-5 text-white" />
-                  </button>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.94, y: 32 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.94, y: 32 }}
+                  transition={{ duration: 0.3 }}
+                  className="bg-gray-900 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <div className="p-8 md:p-12">
+                    {/* Close Button */}
+                    <button
+                      onClick={closeModal}
+                      className="absolute top-4 right-4 w-10 h-10 bg-gray-700 hover:bg-gray-600 rounded-full flex items-center justify-center transition-colors duration-200"
+                    >
+                      <X className="w-5 h-5 text-white" />
+                    </button>
 
-                  <div className="flex flex-col lg:flex-row items-center gap-8">
-                    {/* Partner Photo */}
-                    <div className="flex-shrink-0">
-                      <div className="w-48 h-48 lg:w-56 lg:h-56 bg-gray-800 rounded-xl shadow-lg flex items-center justify-center p-4 overflow-hidden">
-                        <img
-                          src={selectedPartner.personPhotoUrl}
-                          alt={selectedPartner.quoteAuthor || selectedPartner.name}
-                          className="w-full h-full object-cover rounded-lg"
-                        />
-                      </div>
-                      {/* LinkedIn Link */}
-                      {selectedPartner.linkedin && (
-                        <div className="mt-4 flex justify-center">
-                          <a
-                            href={selectedPartner.linkedin}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center justify-center w-12 h-12 text-blue-400 hover:text-blue-300 hover:bg-blue-900/30 rounded-lg transition-colors duration-200"
-                            title="LinkedIn Profile"
-                          >
-                            <Linkedin className="w-7 h-7" />
-                          </a>
-                        </div>
-                      )}
-                    </div>
-                    
-                    {/* Partner Details */}
-                    <div className="flex-1 text-center lg:text-left">
-                      <div className="mb-6">
-                        {getPartnerLogo(selectedPartner) && (
+                    <div className="flex flex-col lg:flex-row items-center gap-8">
+                      {/* Partner Photo */}
+                      <div className="flex-shrink-0">
+                        <div className="w-48 h-48 lg:w-56 lg:h-56 bg-gray-800 rounded-xl shadow-lg flex items-center justify-center p-4 overflow-hidden">
                           <img
-                            src={getPartnerLogo(selectedPartner)}
-                            alt={selectedPartner.name}
-                            className="h-12 mx-auto lg:mx-0 mb-4 object-contain"
-                            onError={(e) => {
-                              const target = e.currentTarget as HTMLImageElement;
-                              target.style.display = 'none';
-                            }}
+                            src={selectedPartner.personPhotoUrl}
+                            alt={selectedPartner.quoteAuthor || selectedPartner.name}
+                            className="w-full h-full object-cover rounded-lg"
                           />
-                        )}
-                      </div>
-                      
-                      <blockquote className="text-xl lg:text-2xl text-white font-medium mb-8 leading-relaxed whitespace-pre-line">
-                        "{selectedPartner.quote}"
-                      </blockquote>
-                      
-                      <div className="text-base lg:text-lg text-gray-300 mb-6">
-                        <div className="font-semibold text-white">
-                          {selectedPartner.quoteAuthor}
                         </div>
-                        <div className="text-noreja-tertiary">
-                          {selectedPartner.name}
-                        </div>
-                      </div>
-
-                      <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                        {selectedPartner.website && (
-                          <Button asChild variant="outline" className="border-gray-600 hover:bg-gray-800 text-white hover:text-white">
-                            <a href={selectedPartner.website} target="_blank" rel="noopener noreferrer">
-                              Visit Website
-                              <ExternalLink className="ml-2 h-4 w-4" />
-                            </a>
-                          </Button>
-                        )}
+                        {/* LinkedIn Link */}
                         {selectedPartner.linkedin && (
-                          <Button asChild variant="outline" className="border-blue-400 hover:bg-blue-900/30 text-blue-400 hover:text-blue-300">
-                            <a href={selectedPartner.linkedin} target="_blank" rel="noopener noreferrer">
-                              LinkedIn Profile
-                              <Linkedin className="ml-2 h-4 w-4" />
+                          <div className="mt-4 flex justify-center">
+                            <a
+                              href={selectedPartner.linkedin}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center justify-center w-12 h-12 text-blue-400 hover:text-blue-300 hover:bg-blue-900/30 rounded-lg transition-colors duration-200"
+                              title="LinkedIn Profile"
+                            >
+                              <Linkedin className="w-7 h-7" />
                             </a>
-                          </Button>
+                          </div>
                         )}
+                      </div>
+                      
+                      {/* Partner Details */}
+                      <div className="flex-1 text-center lg:text-left">
+                        <div className="mb-6">
+                          {getPartnerLogo(selectedPartner) && (
+                            <img
+                              src={getPartnerLogo(selectedPartner)}
+                              alt={selectedPartner.name}
+                              className="h-12 mx-auto lg:mx-0 mb-4 object-contain"
+                              onError={(e) => {
+                                const target = e.currentTarget as HTMLImageElement;
+                                target.style.display = 'none';
+                              }}
+                            />
+                          )}
+                        </div>
+                        
+                        <blockquote className="text-xl lg:text-2xl text-white font-medium mb-8 leading-relaxed whitespace-pre-line">
+                          "{selectedPartner.quote}"
+                        </blockquote>
+                        
+                        <div className="text-base lg:text-lg text-gray-300 mb-6">
+                          <div className="font-semibold text-white">
+                            {selectedPartner.quoteAuthor}
+                          </div>
+                          <div className="text-noreja-tertiary">
+                            {selectedPartner.name}
+                          </div>
+                        </div>
+
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                          {selectedPartner.website && (
+                            <Button asChild variant="outline" className="border-gray-600 hover:bg-gray-800 text-white hover:text-white">
+                              <a href={selectedPartner.website} target="_blank" rel="noopener noreferrer">
+                                Visit Website
+                                <ExternalLink className="ml-2 h-4 w-4" />
+                              </a>
+                            </Button>
+                          )}
+                          {selectedPartner.linkedin && (
+                            <Button asChild variant="outline" className="border-blue-400 hover:bg-blue-900/30 text-blue-400 hover:text-blue-300">
+                              <a href={selectedPartner.linkedin} target="_blank" rel="noopener noreferrer">
+                                LinkedIn Profile
+                                <Linkedin className="ml-2 h-4 w-4" />
+                              </a>
+                            </Button>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+            )}
+          </AnimatePresence>,
+          document.body
+        )}
       </div>
     </section>
   );

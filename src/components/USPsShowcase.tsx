@@ -144,7 +144,7 @@ export function USPsShowcase() {
           {/* Background overlay when a card is selected */}
           {selectedCard !== null && (
             <motion.div 
-              className="fixed inset-0 bg-black/30 z-40"
+              className="fixed inset-0 bg-black/30 z-[9999]"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -158,7 +158,7 @@ export function USPsShowcase() {
             <AnimatePresence>
               {selectedCard !== null && (
                 <motion.div 
-                  className="absolute inset-0 z-50 flex items-center justify-center overflow-hidden"
+                  className="absolute inset-0 z-[9999] flex items-center justify-center overflow-hidden"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
