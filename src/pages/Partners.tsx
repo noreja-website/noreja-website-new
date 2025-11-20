@@ -5,13 +5,33 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { partners, type PartnerCategory, type PartnerLogoSize } from "@/lib/partners";
+import { partners, initializePartnersData, type PartnerCategory, type PartnerLogoSize, type Partner } from "@/lib/partners";
 import { useEffect, useState } from "react";
 import { HubSpotContactForm } from "@/components/HubSpotContactForm";
 import { AnimatedHeading } from "@/components/AnimatedHeading";
 
 export default function Partners() {
   const { t, language } = useLanguage();
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadedPartners, setLoadedPartners] = useState<Partner[]>([]);
+  const [flippedCardId, setFlippedCardId] = useState<string | null>(null);
+
+  // Initialize partners data on mount
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        await initializePartnersData();
+        setLoadedPartners([...partners]);
+      } catch (error) {
+        console.error('Error loading partners:', error);
+        // Set empty array on error to prevent infinite loading
+        setLoadedPartners([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    loadData();
+  }, []);
 
   // Language-specific heading texts
   const headingTexts = {
@@ -32,7 +52,15 @@ export default function Partners() {
     window.scrollTo(0, 0);
   }, []);
 
-  const partnerList = partners.filter(
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-muted-foreground">Loading...</div>
+      </div>
+    );
+  }
+
+  const partnerList = loadedPartners.filter(
     (partner) =>
       partner.partnerType === 'businessWithQuote' ||
       partner.partnerType === 'businessWithoutQuote'
@@ -62,7 +90,6 @@ export default function Partners() {
 
   const baseLogoWrapperClass =
     "w-40 h-32 md:w-48 md:h-40 lg:w-56 lg:h-44 rounded-2xl bg-gradient-to-br from-noreja-main/10 to-noreja-main/5 flex items-center justify-center p-5 md:p-6";
-  const [flippedCardId, setFlippedCardId] = useState<string | null>(null);
 
   const toggleCard = (partnerId: string) => {
     setFlippedCardId((current) => (current === partnerId ? null : partnerId));

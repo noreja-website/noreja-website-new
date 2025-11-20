@@ -17,7 +17,7 @@ const sizeClasses = {
 
 export function AnimatedHeading({ 
   fixedText, 
-  rotatingWords, 
+  rotatingWords = [], 
   className = "",
   size = 'lg'
 }: AnimatedHeadingProps) {
@@ -28,8 +28,24 @@ export function AnimatedHeading({
   const [minWidth, setMinWidth] = useState<number | undefined>(undefined);
   const measureRef = useRef<HTMLSpanElement>(null);
 
+  // If no rotating words, just show fixed text
+  if (rotatingWords.length === 0) {
+    return (
+      <motion.h1
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4, duration: 0.8 }}
+        className={`${sizeClasses[size]} font-bold mb-4 lg:mb-6 leading-[1.1] lg:leading-[1.2] text-center ${className}`}
+      >
+        {fixedText}
+      </motion.h1>
+    );
+  }
+
   useEffect(() => {
     const currentWord = rotatingWords[currentWordIndex];
+    
+    if (!currentWord) return;
     
     if (isTyping) {
       // Typing effect
@@ -71,7 +87,7 @@ export function AnimatedHeading({
   // Measure the widest word to calculate min-width for preventing layout shifts
   useEffect(() => {
     const measureWidth = () => {
-      if (!measureRef.current || rotatingWords.length === 0) return;
+      if (!measureRef.current || !rotatingWords || rotatingWords.length === 0) return;
 
       // Measure the actual rendered width of each word to find the widest one
       // (not just the longest by character count, as character widths vary)

@@ -103,53 +103,80 @@ const UseCase = () => {
 
         {/* Content Sections */}
         <section className="pb-20">
-          <div className="w-full max-w-7xl mx-auto px-4 lg:px-8">
-            <div className="space-y-24">
-              {useCaseData.sections?.map((section, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: index * 0.2 }}
-                  viewport={{ once: true }}
-                  className={`flex flex-col ${
-                    index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
-                  } gap-12 items-center`}
-                >
-                  {/* Text Content */}
-                  <div className="flex-1 space-y-4">
-                    <h2 className="text-3xl font-bold text-foreground">
-                      {section.title}
-                    </h2>
-                    <div className="prose prose-lg max-w-none text-muted-foreground">
-                      <p className="text-base leading-relaxed whitespace-pre-line">
-                        {section.content}
-                      </p>
-                    </div>
-                  </div>
+          <div className="w-full max-w-7xl mx-auto px-6 lg:px-12">
+            <div className="space-y-32 lg:space-y-40">
+              {useCaseData.sections?.map((section, index) => {
+                // Alternate layout: even index = image left, odd index = image right
+                const isImageLeft = index % 2 === 0;
+                const gridCols = isImageLeft 
+                  ? "lg:grid-cols-[1.2fr_1fr]" 
+                  : "lg:grid-cols-[1fr_1.2fr]";
+                
+                return (
+                  <motion.section
+                    key={index}
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.6 }}
+                    className="scroll-mt-24"
+                  >
+                    <div className={`grid ${gridCols} gap-8 lg:gap-12 items-center overflow-hidden`}>
+                      {/* Image Section */}
+                      <motion.div
+                        className={`${isImageLeft ? "lg:order-1" : "lg:order-2"}`}
+                        initial={{ opacity: 0, x: isImageLeft ? -50 : 50 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: index * 0.1 }}
+                      >
+                        <motion.div
+                          className="relative w-full h-[400px] lg:h-[500px] rounded-2xl overflow-hidden border border-border/50 shadow-lg group"
+                          whileHover={{ scale: 1.02 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          {section.imagePath ? (
+                            <>
+                              <img
+                                src={section.imagePath}
+                                alt={section.title}
+                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                loading="lazy"
+                              />
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                            </>
+                          ) : (
+                            <div className="w-full h-full bg-gradient-to-br from-muted/50 to-muted/30 flex items-center justify-center">
+                              <div className="text-muted-foreground text-center p-8">
+                                <p className="text-sm font-medium">Image placeholder</p>
+                                <p className="text-xs mt-2 opacity-70">Add image for {section.title}</p>
+                              </div>
+                            </div>
+                          )}
+                        </motion.div>
+                      </motion.div>
 
-                  {/* Image */}
-                  <div className="flex-1">
-                    {section.imagePath ? (
-                      <div className="relative rounded-lg overflow-hidden shadow-xl">
-                        <img
-                          src={section.imagePath}
-                          alt={section.title}
-                          className="w-full h-auto object-cover"
-                          loading="lazy"
-                        />
-                      </div>
-                    ) : (
-                      <div className="relative rounded-lg overflow-hidden shadow-xl bg-muted/50 aspect-video flex items-center justify-center">
-                        <div className="text-muted-foreground text-center p-8">
-                          <p className="text-sm">Image placeholder</p>
-                          <p className="text-xs mt-2">Add image for {section.title}</p>
+                      {/* Text Content Section */}
+                      <motion.div
+                        className={`${isImageLeft ? "lg:order-2" : "lg:order-1"} space-y-6`}
+                        initial={{ opacity: 0, x: isImageLeft ? 50 : -50 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: index * 0.1 + 0.2 }}
+                      >
+                        <h2 className="text-3xl lg:text-4xl font-bold text-foreground leading-tight">
+                          {section.title}
+                        </h2>
+                        <div className="prose prose-lg max-w-none">
+                          <p className="text-base lg:text-lg leading-relaxed text-muted-foreground whitespace-pre-line">
+                            {section.content}
+                          </p>
                         </div>
-                      </div>
-                    )}
-                  </div>
-                </motion.div>
-              ))}
+                      </motion.div>
+                    </div>
+                  </motion.section>
+                );
+              })}
             </div>
           </div>
         </section>

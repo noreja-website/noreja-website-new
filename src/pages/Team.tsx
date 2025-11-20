@@ -1,13 +1,27 @@
 import { motion } from "framer-motion";
 import { Linkedin } from "lucide-react";
-import { useMemo, useEffect } from "react";
+import { useMemo, useEffect, useState } from "react";
 import { HubSpotBlogTeaser } from "@/components/HubSpotBlogTeaser";
 import { TeamCard } from "@/components/TeamCard";
-import { teamMembers, advisoryMembers } from "@/lib/team";
+import { teamMembers, advisoryMembers, initializeTeamData, type TeamMember, type AdvisoryMember } from "@/lib/team";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Team() {
   const { t } = useLanguage();
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadedTeamMembers, setLoadedTeamMembers] = useState<TeamMember[]>([]);
+  const [loadedAdvisoryMembers, setLoadedAdvisoryMembers] = useState<AdvisoryMember[]>([]);
+
+  // Initialize team data on mount
+  useEffect(() => {
+    const loadData = async () => {
+      await initializeTeamData();
+      setLoadedTeamMembers([...teamMembers]);
+      setLoadedAdvisoryMembers([...advisoryMembers]);
+      setIsLoading(false);
+    };
+    loadData();
+  }, []);
 
   // Scroll to top when component mounts
   useEffect(() => {
@@ -15,7 +29,7 @@ export default function Team() {
   }, []);
 
   // Shuffle function using Fisher-Yates algorithm
-  const shuffleArray = (array: typeof teamMembers) => {
+  const shuffleArray = (array: TeamMember[]) => {
     const shuffled = [...array];
     for (let i = shuffled.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -25,11 +39,19 @@ export default function Team() {
   };
 
   // Separate founders and team members first
-  const founders = teamMembers.filter(member => member.isFounder);
-  const regularTeamMembers = teamMembers.filter(member => !member.isFounder);
+  const founders = loadedTeamMembers.filter(member => member.isFounder);
+  const regularTeamMembers = loadedTeamMembers.filter(member => !member.isFounder);
 
   // Only shuffle the regular team members, keep founders in original order
-  const shuffledTeamMembers_ = useMemo(() => shuffleArray(regularTeamMembers), []);
+  const shuffledTeamMembers_ = useMemo(() => shuffleArray(regularTeamMembers), [loadedTeamMembers]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-muted-foreground">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen relative" style={{
@@ -125,7 +147,7 @@ export default function Team() {
           </motion.div>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {advisoryMembers.map((member, index) => (
+            {loadedAdvisoryMembers.map((member, index) => (
               <motion.div
                 key={member.id}
                 initial={{ opacity: 0, y: 20 }}

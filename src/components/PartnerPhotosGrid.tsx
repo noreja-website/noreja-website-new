@@ -1,21 +1,36 @@
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import { useRef, useState, useMemo } from "react";
+import { useRef, useState, useMemo, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { X, Linkedin, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { partners } from "@/lib/partners";
+import { partners, initializePartnersData, type Partner } from "@/lib/partners";
 
 export function PartnerPhotosGrid() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const { t } = useLanguage();
+  const [loadedPartners, setLoadedPartners] = useState<Partner[]>([]);
   
-  const [selectedPartner, setSelectedPartner] = useState<typeof partners[0] | null>(null);
+  // Initialize partners data on mount
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        await initializePartnersData();
+        setLoadedPartners([...partners]);
+      } catch (error) {
+        console.error('Error loading partners in PartnerPhotosGrid:', error);
+        setLoadedPartners([]);
+      }
+    };
+    loadData();
+  }, []);
+  
+  const [selectedPartner, setSelectedPartner] = useState<Partner | null>(null);
 
   // Get all partners with photos and quotes for the grid, randomized on every reload
   const gridPartners = useMemo(() => {
-    const partnersWithPhotos = partners.filter(
+    const partnersWithPhotos = loadedPartners.filter(
       (partner) =>
         (partner.partnerType === 'businessWithQuote' || partner.partnerType === 'advisorWithQuote') &&
         partner.personPhotoUrl &&
@@ -28,16 +43,21 @@ export function PartnerPhotosGrid() {
       [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
     return shuffled.slice(0, 12);
-  }, []);
+  }, [loadedPartners]);
 
-  const getPartnerLogo = (partner: typeof partners[number]) => {
+  const getPartnerLogo = (partner: Partner) => {
     if (partner.preferOriginalLogo) {
       return partner.logoUrl || partner.logoUrlWhite || "";
     }
     return partner.logoUrlWhite || partner.logoUrl || "";
   };
 
-  const openModal = (partner: typeof partners[0]) => {
+  // Don't render if no partners loaded yet
+  if (loadedPartners.length === 0) {
+    return null;
+  }
+
+  const openModal = (partner: Partner) => {
     setSelectedPartner(partner);
   };
 

@@ -3,24 +3,44 @@ import { useRef, useState, useEffect } from "react";
 import { ArrowRight, ChevronLeft, ChevronRight, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { partners } from "@/lib/partners";
+import { partners, initializePartnersData, type Partner } from "@/lib/partners";
 
 export function PartnersTeaser() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const { t } = useLanguage();
+  const [loadedPartners, setLoadedPartners] = useState<Partner[]>([]);
+  
+  // Initialize partners data on mount
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        await initializePartnersData();
+        setLoadedPartners([...partners]);
+      } catch (error) {
+        console.error('Error loading partners in PartnersTeaser:', error);
+        setLoadedPartners([]);
+      }
+    };
+    loadData();
+  }, []);
   
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
 
   // Get all partners with quotes for the gallery
-  const galleryPartners = partners.filter(
+  const galleryPartners = loadedPartners.filter(
     (partner) =>
       (partner.partnerType === 'businessWithQuote' || partner.partnerType === 'advisorWithQuote') &&
       partner.quote
   );
 
-  const getPartnerLogo = (partner: typeof partners[number]) => {
+  // Don't render if no partners loaded yet
+  if (loadedPartners.length === 0) {
+    return null;
+  }
+
+  const getPartnerLogo = (partner: Partner) => {
     if (partner.preferOriginalLogo) {
       return partner.logoUrl || partner.logoUrlWhite || "";
     }

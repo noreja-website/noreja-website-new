@@ -1,15 +1,31 @@
-// Dynamically import all team images
+// Dynamically import all team images (lazy loading)
 const teamImages = import.meta.glob<{ default: string }>(
   '../assets/team/*.{png,jpg,jpeg}',
-  { eager: true }
+  { eager: false }
 );
 
-// Helper function to get image path from imports
-const getTeamImagePath = (filename: string): string => {
+// Cache for loaded images
+const imageCache = new Map<string, string>();
+
+// Helper function to get image path from imports (async)
+const getTeamImagePath = async (filename: string): Promise<string> => {
+  // Check cache first
+  if (imageCache.has(filename)) {
+    return imageCache.get(filename)!;
+  }
+
   const entry = Object.entries(teamImages).find(([path]) => 
     path.toLowerCase().includes(filename.toLowerCase())
   );
-  return entry ? entry[1].default : '';
+  
+  if (entry) {
+    const module = await entry[1]();
+    const url = module.default;
+    imageCache.set(filename, url);
+    return url;
+  }
+  
+  return '';
 };
 
 export interface TeamMember {
@@ -33,14 +49,36 @@ export interface AdvisoryMember {
   imageUrl: string;
 }
 
-export const teamMembers: TeamMember[] = [
+// Base data structures with image filenames (not URLs)
+interface TeamMemberBase {
+  id: string;
+  name: string;
+  role: string;
+  oneLiner: string;
+  linkedInUrl: string;
+  imageFilename: string;
+  isFounder: boolean;
+  personalIntro: {
+    en: string;
+    de: string;
+  };
+}
+
+interface AdvisoryMemberBase {
+  id: string;
+  name: string;
+  linkedInUrl: string;
+  imageFilename: string;
+}
+
+const teamMembersBase: TeamMemberBase[] = [
   {
     id: "1",
     name: "Dr. Lukas Pfahlsberger",
     role: "Chief Executive Officer",
     oneLiner: "Visionary leader driving digital transformation across industries.",
     linkedInUrl: "https://www.linkedin.com/in/lukas-pfahlsberger/",
-    imageUrl: getTeamImagePath("Pfahlsberger.jpg"),
+    imageFilename: "Pfahlsberger.jpg",
     isFounder: true,
     personalIntro: {
       en: "As CEO at Noreja, Lukas is responsible for operations, sales, and strategy. At the same time, Lukas is a guest lecturer at Humboldt University in Berlin, WU Vienna and Salzburg University of Applied Sciences. He completed his doctorate with a research focus on the organizational context of process mining in relation to dynamic and improvisational capabilities. Before that, Lukas worked several years as a senior consultant at EY in the area of analytics & AI, data architecture, and -integration with an industry focus on automotive and manufacturing. He started his professional career as an IT-system-designer and BPM engineer at Deutsche Post DHL Group.",
@@ -53,7 +91,7 @@ export const teamMembers: TeamMember[] = [
     role: "Chief Technology Officer",
     oneLiner: "Engineering excellence through innovative cloud-native solutions.",
     linkedInUrl: "https://www.linkedin.com/in/philipp-w-a09018100/",
-    imageUrl: getTeamImagePath("Waibel.png"),
+    imageFilename: "Waibel.png",
     isFounder: true,
     personalIntro: {
       en: "As CTO, Philipp is mainly responsible for software development and its architecture. Philipp has a long track record in academic project execution for the Vienna University of Economics and Business as well as the Vienna University of Technology. He studied Software Engineering at the Vienna University of Technology and is an expert at cloud-based business processes execution. He developed our process mining algorithm based on conflict-free prime event structures.",
@@ -66,7 +104,7 @@ export const teamMembers: TeamMember[] = [
     role: "Head of Partnerships & Knowledge",
     oneLiner: "Engineering excellence through innovative cloud-native solutions.",
     linkedInUrl: "https://www.linkedin.com/in/janmendling/",
-    imageUrl: getTeamImagePath("Mendling.png"),
+    imageFilename: "Mendling.png",
     isFounder: true,
     personalIntro: {
       en: "Jan is a Einstein professor at the Humboldt University Berlin. Previously, he worked as a full professor and department head at Vienna University of Economics and Business. Also, he is a co-author of seminal textbooks on the Fundamentals of Business Process Management and on Business Information Systems are used in more than 250 universities in 70 countries. He is one of the founders of the Berliner BPM-Offensive, a board member of the Austrian Society for Process Management, a member of the IEEE Task Force on Process Mining, and one of the initiators of the international Business Process Management Association.",
@@ -79,7 +117,7 @@ export const teamMembers: TeamMember[] = [
     role: "Head of Sales",
     oneLiner: "Crafting user experiences that solve real business challenges.",
     linkedInUrl: "https://www.linkedin.com/in/schulaxshan-arulampalam-b29b08195/",
-    imageUrl: getTeamImagePath("Schulax.png"),
+    imageFilename: "Schulax.png",
     isFounder: false,
     personalIntro: {
       en: "As Head of Sales at Noreja, Schulaxshan is responsible for the company’s sales strategy as well as the development and expansion of long-term customer relationships – from the initial contact to successful partnerships. With over three years of experience in the B2B SaaS tech sector – from pre-seed to Series B – he brings deep expertise in dynamic growth phases, complex sales cycles, and team leadership. \n\n Before joining Noreja, Schulaxshan held various sales roles at fast-growing tech companies. He knows what it takes not only to sell technology but also to ensure it is understood and successfully implemented – especially within the industrial midmarket segment. \n\n In his personal life, he is a passionate traveler and tech enthusiast. He is particularly fascinated by solutions like Noreja that generate real impact for companies – not as a buzzword, but as tangible change. ",
@@ -92,7 +130,7 @@ export const teamMembers: TeamMember[] = [
     role: "Senior Product Manager",
     oneLiner: "Building scalable platforms that power enterprise growth.",
     linkedInUrl: "https://www.linkedin.com/in/julian-weiss/",
-    imageUrl: getTeamImagePath("Julian-Weiss.jpg"),
+    imageFilename: "Julian-Weiss.jpg",
     isFounder: false,
     personalIntro: {
       en: "Julian is a Product Manager with a strong focus on data-driven product development and scalable digital solutions. \n\n At Noreja, he is responsible for the continuous development of key product areas, ensuring that data-driven decisions and user-centric approaches are integrated into the product strategy. Previously, he worked at several scale-ups, where he supported growth phases by developing and optimizing digital products and implementing efficient processes. Through close collaboration with cross-functional teams, he drove innovative solutions and actively shaped strategic scaling projects. \n\n His academic background is in business informatics, where he focused on process optimization and analysis during his studies and continued this work during his tenure at TU Wien.",
@@ -105,7 +143,7 @@ export const teamMembers: TeamMember[] = [
     role: "Head of Frontend",
     oneLiner: "Ensuring our clients achieve transformational outcomes.",
     linkedInUrl: "https://www.linkedin.com/in/florian-eichin-92ba57106/",
-    imageUrl: getTeamImagePath("Florian-Eichin.jpg"),
+    imageFilename: "Florian-Eichin.jpg",
     isFounder: false,
     personalIntro: {
       en: "Florian is an experienced software developer and IT consultant with over 8 years of practical experience. He studied business informatics at the dual university in Lörrach in cooperation with Coop. In his professional career he worked mainly for small and medium-sized companies as a web developer at the internet agency Brainson, but also as a CRM consultant at Allgeier Enterprise Service AG in the SAP environment. At Noreja, Florian takes the role ‘Frontend Lead’. In this context, he takes care of the design of the user interface, the performance optimization and the provision of interfaces to the backend.",
@@ -118,7 +156,7 @@ export const teamMembers: TeamMember[] = [
     role: "Head of Backend",
     oneLiner: "Connecting innovative solutions with forward-thinking organizations.",
     linkedInUrl: "https://www.linkedin.com/in/daniel-bauer-485954199/",
-    imageUrl: getTeamImagePath("Daniel-Bauer.png"),
+    imageFilename: "Daniel-Bauer.png",
     isFounder: false,
     personalIntro: {
       en: "Daniel is an experienced developer with over 10 years of experience specialising in backend development and leading software teams in early-stage start ups. He has a strong background in JAVA and various backend technologies, which he has applied in multiple roles, including his previous position as Head of Development. Now, as the Head of Backend at Noreja, Daniel oversees the architecture, scalability, and integration of backend systems, ensuring robust and efficient data flow across all platforms. His leadership and technical expertise are pivotal in driving the backend team’s success and aligning it with the company’s strategic objectives.",
@@ -131,7 +169,7 @@ export const teamMembers: TeamMember[] = [
     role: "Senior Software Developer",
     oneLiner: "Telling stories that inspire digital transformation journeys.",
     linkedInUrl: "https://www.linkedin.com/in/violeta-petkova-298287136/",
-    imageUrl: getTeamImagePath("Violeta-Petkova.jpg"),
+    imageFilename: "Violeta-Petkova.jpg",
     isFounder: false,
     personalIntro: {
       en: "Violeta is a software developer with experience in web development. At Noreja she focuses specifically on our ‘Process Science Workbench’ feature as well as the user management APIs. In parallel to her work at Noreja, Violeta is studying Computer Science at the Vienna University of Technology. In her bachelor thesis ‘Interactive Process Visualization of Correlation Based Customer Journey Processes in the Tourism Domain’ she already dealt with the application of complex process mining and data science algorithms.",
@@ -144,7 +182,7 @@ export const teamMembers: TeamMember[] = [
     role: "Software Developer",
     oneLiner: "Optimizing processes that scale with our growing global impact.",
     linkedInUrl: "https://www.linkedin.com/in/temucin-damdinjamts-kintaert/",
-    imageUrl: getTeamImagePath("Temu.jpg"),
+    imageFilename: "Temu.jpg",
     isFounder: false,
     personalIntro: {
       en: "Temucin is a full-stack developer with a diverse professional background. He began his career as a musician and chef before gaining extensive experience in B2B sales and project management. His keen interest in technology eventually led him to software development. At Noreja, Temucin focuses on front-end development, where he optimizes user interfaces and improves the user experience.",
@@ -153,29 +191,86 @@ export const teamMembers: TeamMember[] = [
   }
 ];
 
-export const advisoryMembers: AdvisoryMember[] = [
+const advisoryMembersBase: AdvisoryMemberBase[] = [
   {
     id: "adv-1",
     name: "Markus Neumayr",
     linkedInUrl: "https://www.linkedin.com/in/markus-neumayr-110a71104/",
-    imageUrl: getTeamImagePath("Markus-Neumayr.jpeg")
+    imageFilename: "Markus-Neumayr.jpeg"
   },
   {
     id: "adv-2", 
     name: "Christian Riffner",
     linkedInUrl: "https://www.linkedin.com/in/christian-riffner-0119b233/",
-    imageUrl: getTeamImagePath("Christian-Riffner.jpeg")
+    imageFilename: "Christian-Riffner.jpeg"
   },
   {
     id: "adv-3",
     name: "Gordana McNamara",
     linkedInUrl: "https://www.linkedin.com/in/gordana-mcnamara/",
-    imageUrl: getTeamImagePath("Gordana-McNamara.jpeg")
+    imageFilename: "Gordana-McNamara.jpeg"
   },
   {
     id: "adv-4",
     name: "Steven Knoblich",
     linkedInUrl: "https://www.linkedin.com/in/steven-knoblich-72bb53173/",
-    imageUrl: getTeamImagePath("Steven-Knoblich.jpeg")
+    imageFilename: "Steven-Knoblich.jpeg"
   }
 ];
+
+// Async getters that load images and return fully populated data structures
+export const getTeamMembers = async (): Promise<TeamMember[]> => {
+  const imagePromises = teamMembersBase.map(member => 
+    getTeamImagePath(member.imageFilename)
+  );
+  const imageUrls = await Promise.all(imagePromises);
+  
+  return teamMembersBase.map((member, index) => ({
+    ...member,
+    imageUrl: imageUrls[index]
+  }));
+};
+
+export const getAdvisoryMembers = async (): Promise<AdvisoryMember[]> => {
+  const imagePromises = advisoryMembersBase.map(member => 
+    getTeamImagePath(member.imageFilename)
+  );
+  const imageUrls = await Promise.all(imagePromises);
+  
+  return advisoryMembersBase.map((member, index) => ({
+    ...member,
+    imageUrl: imageUrls[index]
+  }));
+};
+
+// Cache for loaded members (to avoid reloading)
+let teamMembersCache: TeamMember[] | null = null;
+let advisoryMembersCache: AdvisoryMember[] | null = null;
+
+// Synchronous getters that return cached data (loads on first access)
+export const teamMembers: TeamMember[] = [];
+export const advisoryMembers: AdvisoryMember[] = [];
+
+// Initialize function to load images
+let initializationPromise: Promise<void> | null = null;
+
+export const initializeTeamData = async (): Promise<void> => {
+  if (initializationPromise) {
+    return initializationPromise;
+  }
+  
+  initializationPromise = (async () => {
+    if (!teamMembersCache) {
+      teamMembersCache = await getTeamMembers();
+      teamMembers.length = 0;
+      teamMembers.push(...teamMembersCache);
+    }
+    if (!advisoryMembersCache) {
+      advisoryMembersCache = await getAdvisoryMembers();
+      advisoryMembers.length = 0;
+      advisoryMembers.push(...advisoryMembersCache);
+    }
+  })();
+  
+  return initializationPromise;
+};

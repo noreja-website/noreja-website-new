@@ -7,15 +7,24 @@ type IntegrationLogo = {
   size?: 'regular' | 'large' | 'xlarge';
 };
 
-// Dynamically import all images from the integrations folder
+// Dynamically import all images from the integrations folder (lazy loading)
 const integrationImages = import.meta.glob<{ default: string }>(
   '../assets/integrations/*.{png,jpg,jpeg,svg,webp}',
-  { eager: true }
+  { eager: false }
 );
 
-// Convert the imported images to IntegrationLogo format
-const DEFAULT_LOGOS: IntegrationLogo[] = Object.entries(integrationImages).map(
-  ([path, module]) => {
+// Cache for loaded logos
+let logosCache: IntegrationLogo[] | null = null;
+
+// Async function to load integration logos
+const loadIntegrationLogos = async (): Promise<IntegrationLogo[]> => {
+  if (logosCache) {
+    return logosCache;
+  }
+
+  const imageEntries = Object.entries(integrationImages);
+  const logoPromises = imageEntries.map(async ([path, moduleLoader]) => {
+    const module = await moduleLoader();
     // Extract filename without extension from path
     const filename = path.split('/').pop()?.replace(/\.(png|jpg|jpeg|svg|webp)$/, '') || '';
     // Determine size based on filename postfix
@@ -39,8 +48,11 @@ const DEFAULT_LOGOS: IntegrationLogo[] = Object.entries(integrationImages).map(
       src: module.default,
       size
     };
-  }
-);
+  });
+
+  logosCache = await Promise.all(logoPromises);
+  return logosCache;
+};
 
 export interface IntegrationsShowcaseProps {
   title?: string;
@@ -95,10 +107,26 @@ function buildRows(all: IntegrationLogo[], rows: number): IntegrationLogo[][] {
 export const IntegrationsShowcase: React.FC<IntegrationsShowcaseProps> = ({
   title,
   subtitle,
-  logos = DEFAULT_LOGOS,
+  logos: providedLogos,
   rows = 4
 }) => {
   const { t } = useLanguage();
+  const [loadedLogos, setLoadedLogos] = React.useState<IntegrationLogo[]>([]);
+  const [isLoading, setIsLoading] = React.useState(!providedLogos);
+  
+  // Load logos if not provided
+  React.useEffect(() => {
+    if (providedLogos) {
+      setLoadedLogos(providedLogos);
+      setIsLoading(false);
+    } else {
+      loadIntegrationLogos().then(logos => {
+        setLoadedLogos(logos);
+        setIsLoading(false);
+      });
+    }
+  }, [providedLogos]);
+
   // Use fewer rows on mobile (2), medium (3), and more on desktop (4)
   const [screenSize, setScreenSize] = React.useState<'mobile' | 'medium' | 'desktop'>('desktop');
   
@@ -120,7 +148,11 @@ export const IntegrationsShowcase: React.FC<IntegrationsShowcaseProps> = ({
   
   const isStackedLayout = screenSize !== 'desktop';
   const actualRows = screenSize === 'mobile' ? 2 : screenSize === 'medium' ? 3 : rows;
-  const rowsData = buildRows(logos, actualRows);
+  const rowsData = buildRows(loadedLogos, actualRows);
+
+  if (isLoading) {
+    return null; // Or a loading spinner
+  }
   
   // Use translations as defaults if no props are provided
   const displaySubtitle = subtitle || t.integrations.subtitle;
