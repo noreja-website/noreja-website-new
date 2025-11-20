@@ -68,32 +68,56 @@ export function AnimatedHeading({
     return () => clearInterval(interval);
   }, []);
 
-  // Measure the longest word to calculate min-width for preventing layout shifts
+  // Measure the widest word to calculate min-width for preventing layout shifts
   useEffect(() => {
     const measureWidth = () => {
       if (!measureRef.current || rotatingWords.length === 0) return;
 
-      // Find the longest word
-      const longestWord = rotatingWords.reduce((longest, word) => 
-        word.length > longest.length ? word : longest
-      , rotatingWords[0]);
-
-      // Temporarily set the longest word to measure its width
-      // The measureRef span already has the correct styling matching the animated text
-      const originalText = measureRef.current.textContent;
-      measureRef.current.textContent = longestWord + '_'; // Include cursor space
+      // Measure the actual rendered width of each word to find the widest one
+      // (not just the longest by character count, as character widths vary)
+      let widestWord = rotatingWords[0];
+      let maxWidth = 0;
       
-      // Force a reflow to ensure accurate measurement
+      for (const word of rotatingWords) {
+        // Set the word to measure its width
+        measureRef.current.textContent = word;
+        
+        // Force a reflow to ensure accurate measurement
+        void measureRef.current.offsetWidth;
+        
+        // Get the width of this word
+        const wordWidth = measureRef.current.offsetWidth;
+        
+        // Track the widest word
+        if (wordWidth > maxWidth) {
+          maxWidth = wordWidth;
+          widestWord = word;
+        }
+      }
+      
+      // Now measure the cursor with margin using the widest word
+      measureRef.current.textContent = widestWord;
       void measureRef.current.offsetWidth;
       
-      // Get the width
-      const width = measureRef.current.offsetWidth;
+      const cursorSpan = document.createElement('span');
+      cursorSpan.className = 'inline-block ml-1';
+      cursorSpan.style.fontSize = '1em';
+      cursorSpan.style.lineHeight = '0.1';
+      cursorSpan.textContent = '_';
+      measureRef.current.appendChild(cursorSpan);
       
-      // Restore original text (empty for measurement span)
+      // Force a reflow
+      void measureRef.current.offsetWidth;
+      
+      // Get the total width including cursor
+      const totalWidth = measureRef.current.offsetWidth;
+      
+      // Clean up
+      measureRef.current.removeChild(cursorSpan);
       measureRef.current.textContent = '';
       
       // Set the min-width
-      setMinWidth(width);
+      setMinWidth(totalWidth);
     };
 
     // Measure after a short delay to ensure DOM is ready
