@@ -80,14 +80,16 @@ export function PartnerPhotosGrid() {
               className="group cursor-pointer overflow-hidden"
               onClick={() => openModal(partner)}
             >
-              <div className="relative overflow-hidden rounded-xl bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+              <div className="relative overflow-hidden rounded-xl bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300">
                 <div className="aspect-square p-3 sm:p-4">
-                  <img
-                    src={partner.personPhotoUrl}
-                    alt={partner.quoteAuthor || partner.name}
-                    className="w-full h-full object-cover rounded-lg"
-                    loading="lazy"
-                  />
+                  <div className="relative h-full w-full overflow-hidden rounded-lg transition-transform duration-500 group-hover:scale-105">
+                    <img
+                      src={partner.personPhotoUrl}
+                      alt={partner.quoteAuthor || partner.name}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
                 </div>
               </div>
             </motion.div>

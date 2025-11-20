@@ -1098,7 +1098,7 @@ export const translations: Record<Language, Translations> = {
       subtitle: "Join companies that are redefining growth and efficiency with intelligent process analysis.",
       ctaPrimary: "Get Started Today",
       ctaSecondary: "Schedule a Demo",
-      startJourney: "Start Your Journey →",
+      startJourney: "Start Your Journey",
       scheduleDemo: "Schedule Demo"
     },
     footer: {
