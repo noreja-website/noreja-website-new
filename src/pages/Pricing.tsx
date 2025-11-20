@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -64,19 +64,20 @@ const calculatePricing = (perspectivesIndex: number, dataAmountIndex: number) =>
 const Pricing = () => {
   const { t, language } = useLanguage();
   
-  // Language-specific heading texts
-  const headingTexts = {
-    en: {
-      fixedText: "Choose A Plan That",
-      rotatingWords: ["Fits", "Growths", "Delivers"]
-    },
-    de: {
-      fixedText: "Wähle einen Plan, der",
-      rotatingWords: ["passt", "mitwächst", "liefert"]
-    }
-  };
-
-  const currentHeading = headingTexts[language];
+  // Language-specific heading texts - memoized to prevent animation restart on slider changes
+  const currentHeading = useMemo(() => {
+    const headingTexts = {
+      en: {
+        fixedText: "Choose A Plan That",
+        rotatingWords: ["Fits", "Growths", "Delivers"]
+      },
+      de: {
+        fixedText: "Wähle einen Plan, der",
+        rotatingWords: ["passt", "mitwächst", "liefert"]
+      }
+    };
+    return headingTexts[language];
+  }, [language]);
 
   const extractPowerUserCount = (usersText?: string | string[]) => {
     if (!usersText) return 1;
