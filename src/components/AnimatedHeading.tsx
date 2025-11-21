@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface AnimatedHeadingProps {
   fixedText: string;
@@ -21,6 +22,7 @@ export function AnimatedHeading({
   className = "",
   size = 'lg'
 }: AnimatedHeadingProps) {
+  const { language } = useLanguage();
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
   const [isTyping, setIsTyping] = useState(true);
@@ -42,12 +44,12 @@ export function AnimatedHeading({
     );
   }
 
-  // Reset animation when rotatingWords or fixedText changes (e.g., language switch)
+  // Reset animation only when language changes
   useEffect(() => {
     setCurrentWordIndex(0);
     setDisplayedText("");
     setIsTyping(true);
-  }, [rotatingWords, fixedText]);
+  }, [language]);
 
   useEffect(() => {
     const currentWord = rotatingWords[currentWordIndex];
