@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Download, X, FileText, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -33,19 +33,36 @@ interface DownloadGateInlineProps extends Omit<DownloadGateProps, "variant"> {
 const DOWNLOAD_SESSION_KEY = "noreja_download_validated";
 
 // Load HubSpot form script dynamically
-const loadHubSpotScript = (): Promise<void> => {
+const loadHubSpotScript = (scriptSrc: string = "https://js-eu1.hsforms.net/forms/embed/144242473.js"): Promise<void> => {
   return new Promise((resolve, reject) => {
-    if (window.hbspt) {
+    const hbspt = (window as unknown as { hbspt?: { forms?: { create?: (config: Record<string, unknown>) => void } } }).hbspt;
+    if (hbspt?.forms?.create) {
       resolve();
       return;
     }
 
-    const script = document.createElement("script");
-    script.src = "//js.hsforms.net/forms/embed/v2.js";
+    // Check if script is already being loaded
+    let script = document.querySelector<HTMLScriptElement>(
+      `script[src="${scriptSrc}"]`
+    );
+
+    const handleLoad = () => resolve();
+    const handleError = () => reject(new Error("Failed to load HubSpot form script"));
+
+    if (script) {
+      script.addEventListener("load", handleLoad, { once: true });
+      script.addEventListener("error", handleError, { once: true });
+      return;
+    }
+
+    script = document.createElement("script");
+    script.src = scriptSrc;
+    script.async = true;
+    script.defer = true;
     script.charset = "utf-8";
     script.type = "text/javascript";
-    script.onload = () => resolve();
-    script.onerror = () => reject(new Error("Failed to load HubSpot script"));
+    script.addEventListener("load", handleLoad, { once: true });
+    script.addEventListener("error", handleError, { once: true });
     document.head.appendChild(script);
   });
 };
@@ -55,27 +72,54 @@ const createHubSpotForm = (
   portalId: string,
   formGuid: string,
   targetId: string,
-  onFormSubmit: () => void
+  onFormSubmit: () => void,
+  onFormReady?: () => void,
+  onFormError?: () => void
 ) => {
-  if (!window.hbspt) {
+  const hbspt = (window as unknown as { hbspt?: { forms?: { create?: (config: Record<string, unknown>) => void } } }).hbspt;
+  
+  if (!hbspt?.forms?.create) {
     console.error("HubSpot script not loaded");
+    onFormError?.();
     return;
   }
 
-  window.hbspt.forms.create({
-    region: "na1", // TODO: Update with your HubSpot region if different
+  const targetElement = document.getElementById(targetId);
+  if (!targetElement) {
+    console.error(`Target element #${targetId} not found`);
+    onFormError?.();
+    return;
+  }
+
+  // Clear any existing content
+  targetElement.innerHTML = '';
+
+  try {
+            console.log("Creating HubSpot form with:", { region: "eu1", portalId, formId: formGuid, target: `#${targetId}` });
+            hbspt.forms.create({
+      region: "eu1",
     portalId,
     formId: formGuid,
     target: `#${targetId}`,
     onFormSubmit: () => {
+        console.log("HubSpot form submitted");
       // Set session flag
       sessionStorage.setItem(DOWNLOAD_SESSION_KEY, "true");
       onFormSubmit();
     },
     onFormReady: () => {
       console.log("HubSpot form loaded successfully");
+        onFormReady?.();
+      },
+      onFormError: (error: unknown) => {
+        console.error("HubSpot form error:", error);
+        onFormError?.();
     }
   });
+  } catch (error) {
+    console.error("Error creating HubSpot form:", error);
+    onFormError?.();
+  }
 };
 
 // Check if user has already validated this session
@@ -112,9 +156,247 @@ export const DownloadGate: React.FC<DownloadGateProps> = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFormLoading, setIsFormLoading] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
+  const [formLoaded, setFormLoaded] = useState(false);
+  const [formError, setFormError] = useState(false);
   const { toast } = useToast();
 
-  const formTargetId = `hubspot-form-${Math.random().toString(36).substr(2, 9)}`;
+  // Generate a stable form target ID using useRef (like HubSpotContactForm)
+  const formTargetIdRef = useRef<string>(`hubspot-form-${Math.random().toString(36).substr(2, 9)}`);
+  const formTargetId = formTargetIdRef.current;
+  
+  // Use ref to track form loaded state (immediately available in observer callback)
+  const formLoadedRef = useRef(false);
+
+  const handleDirectDownload = useCallback(() => {
+    setIsDownloading(true);
+    triggerDownload(fileUrl, title);
+    
+    // Reset downloading state after a delay
+    setTimeout(() => {
+      setIsDownloading(false);
+    }, 2000);
+  }, [fileUrl, title]);
+
+  const handleFormSuccess = useCallback(() => {
+    // Close modal and start download
+    setIsModalOpen(false);
+    handleDirectDownload();
+    onSuccess?.();
+    
+    toast({
+      title: t.downloadGate.success,
+      description: t.downloadGate.downloadStarted,
+      variant: "default"
+    });
+  }, [handleDirectDownload, onSuccess, toast, t.downloadGate.success, t.downloadGate.downloadStarted]);
+
+  // Load HubSpot script and create form when modal opens (following HubSpotContactForm pattern)
+  useEffect(() => {
+    if (!isModalOpen || !requiresForm) {
+      // Reset states when modal closes
+      setIsFormLoading(false);
+      setFormLoaded(false);
+      setFormError(false);
+      formLoadedRef.current = false;
+      return;
+    }
+
+    let isMounted = true;
+    let observer: MutationObserver | null = null;
+    let formSubmitted = false; // Flag to prevent double-firing
+
+    const renderForm = () => {
+      const hbspt = (window as unknown as { hbspt?: { forms?: { create?: (config: Record<string, unknown>) => void } } }).hbspt;
+      const container = document.getElementById(formTargetId);
+
+      if (!hbspt?.forms?.create || !container) {
+        if (isMounted) {
+          setFormError(true);
+          setIsFormLoading(false);
+        }
+        return;
+      }
+
+      container.innerHTML = "";
+      formSubmitted = false; // Reset flag
+      formLoadedRef.current = false; // Reset ref
+      if (isMounted) {
+        setFormError(false);
+        setFormLoaded(false);
+        setIsFormLoading(true);
+      }
+
+      observer?.disconnect();
+      observer = new MutationObserver(() => {
+        if (!isMounted) {
+          observer?.disconnect();
+          return;
+        }
+        
+        const currentContainer = document.getElementById(formTargetId);
+        if (!currentContainer) return;
+        
+        // Check if form is loaded (initial state) - use ref for immediate availability
+        if (currentContainer.childElementCount > 0 && !formLoadedRef.current) {
+          formLoadedRef.current = true;
+          setFormLoaded(true);
+          setIsFormLoading(false);
+          // Don't disconnect - keep watching for success message
+        }
+        
+        // Check for success indicators after form is loaded - use ref
+        if (currentContainer && formLoadedRef.current && !formSubmitted) {
+          const containerText = currentContainer.textContent?.toLowerCase() || '';
+          
+          // Look for success message text (English and German)
+          const hasSuccessText = 
+            containerText.includes('thank') || 
+            containerText.includes('success') ||
+            containerText.includes('erfolgreich') ||
+            containerText.includes('vielen dank') ||
+            containerText.includes('danke');
+          
+          // Look for HubSpot success classes
+          const hasSuccessClass = 
+            currentContainer.querySelector('.submitted-message') ||
+            currentContainer.querySelector('.hs-form-success') ||
+            currentContainer.querySelector('[class*="success"]') ||
+            currentContainer.querySelector('[class*="submitted"]');
+          
+          // Check if form is hidden (HubSpot hides form on success)
+          const form = currentContainer.querySelector('form');
+          const formHidden = form && (
+            form.style.display === 'none' || 
+            form.getAttribute('style')?.includes('display: none') ||
+            window.getComputedStyle(form).display === 'none'
+          );
+          
+          // Check if form element was removed (replaced by success message)
+          const formRemoved = !currentContainer.querySelector('form') && formLoadedRef.current;
+          
+          if (hasSuccessText || hasSuccessClass || formHidden || formRemoved) {
+            console.log("HubSpot form success detected", { hasSuccessText, hasSuccessClass, formHidden, formRemoved });
+            if (isMounted && !formSubmitted) {
+              formSubmitted = true;
+              sessionStorage.setItem(DOWNLOAD_SESSION_KEY, "true");
+              
+              // Small delay to ensure user sees the success message
+              setTimeout(() => {
+                if (isMounted) {
+                  handleFormSuccess();
+                  observer?.disconnect();
+                }
+              }, 1000);
+            }
+          }
+        }
+      });
+      observer.observe(container, { childList: true, subtree: true, attributes: true, attributeFilter: ['style', 'class'] });
+
+      console.log("Creating HubSpot form with:", { region: "eu1", portalId: formPortalId, formId: formGuid, target: `#${formTargetId}` });
+      
+      hbspt.forms.create({
+        region: "eu1",
+        portalId: formPortalId,
+        formId: formGuid,
+        target: `#${formTargetId}`,
+        onFormSubmit: () => {
+          if (formSubmitted) return; // Prevent double-firing
+          console.log("HubSpot form submitted via onFormSubmit callback");
+          if (isMounted) {
+            formSubmitted = true;
+            // Set session flag first
+            sessionStorage.setItem(DOWNLOAD_SESSION_KEY, "true");
+            
+            // Close modal and trigger download immediately
+            handleFormSuccess();
+          }
+        },
+        onFormReady: () => {
+          console.log("HubSpot form loaded successfully");
+          if (isMounted) {
+            formLoadedRef.current = true;
+            setFormLoaded(true);
+            setIsFormLoading(false);
+            // Don't disconnect observer - keep watching for success message
+          }
+        },
+        onFormError: (error: unknown) => {
+          console.error("HubSpot form error:", error);
+          if (isMounted) {
+            setFormError(true);
+            setIsFormLoading(false);
+            observer?.disconnect();
+            toast({
+              title: t.downloadGate.error,
+              description: t.downloadGate.formLoadError,
+              variant: "destructive"
+            });
+          }
+        }
+      });
+    };
+
+    const loadHubSpotScript = () =>
+      new Promise<void>((resolve, reject) => {
+        const hbspt = (window as unknown as { hbspt?: { forms?: { create?: (config: Record<string, unknown>) => void } } }).hbspt;
+        if (hbspt?.forms?.create) {
+          resolve();
+          return;
+        }
+
+        const scriptSrc = "https://js-eu1.hsforms.net/forms/embed/144242473.js";
+        let script = document.querySelector<HTMLScriptElement>(
+          `script[src="${scriptSrc}"]`
+        );
+
+        const handleLoad = () => resolve();
+        const handleError = () => reject(new Error("Failed to load HubSpot form script"));
+
+        if (script) {
+          script.addEventListener("load", handleLoad, { once: true });
+          script.addEventListener("error", handleError, { once: true });
+          return;
+        }
+
+        script = document.createElement("script");
+        script.src = scriptSrc;
+        script.async = true;
+        script.defer = true;
+        script.charset = "utf-8";
+        script.type = "text/javascript";
+        script.addEventListener("load", handleLoad, { once: true });
+        script.addEventListener("error", handleError, { once: true });
+        document.head.appendChild(script);
+      });
+
+    // Wait a bit for the dialog to be fully rendered before creating form
+    const timeoutId = setTimeout(() => {
+      loadHubSpotScript()
+        .then(() => {
+          if (isMounted) {
+            renderForm();
+          }
+        })
+        .catch(() => {
+          if (isMounted) {
+            setFormError(true);
+            setIsFormLoading(false);
+            toast({
+              title: t.downloadGate.error,
+              description: t.downloadGate.formLoadError,
+              variant: "destructive"
+            });
+          }
+        });
+    }, 300);
+
+    return () => {
+      isMounted = false;
+      clearTimeout(timeoutId);
+      observer?.disconnect();
+    };
+  }, [isModalOpen, requiresForm, formTargetId, formPortalId, formGuid, handleFormSuccess, toast, t.downloadGate.error, t.downloadGate.formLoadError]);
 
   const handleDownloadClick = async () => {
     if (!requiresForm) {
@@ -128,51 +410,8 @@ export const DownloadGate: React.FC<DownloadGateProps> = ({
       return;
     }
 
-    // Show modal with form
+    // Show modal with form - useEffect will handle form loading
     setIsModalOpen(true);
-    setIsFormLoading(true);
-
-    try {
-      await loadHubSpotScript();
-      
-      // Small delay to ensure DOM is ready
-      setTimeout(() => {
-        createHubSpotForm(formPortalId, formGuid, formTargetId, handleFormSuccess);
-        setIsFormLoading(false);
-      }, 100);
-    } catch (error) {
-      console.error("Error loading HubSpot form:", error);
-      toast({
-        title: t.downloadGate.error,
-        description: t.downloadGate.formLoadError,
-        variant: "destructive"
-      });
-      setIsModalOpen(false);
-      setIsFormLoading(false);
-    }
-  };
-
-  const handleFormSuccess = () => {
-    // Close modal and start download
-    setIsModalOpen(false);
-    handleDirectDownload();
-    onSuccess?.();
-    
-    toast({
-      title: t.downloadGate.success,
-      description: t.downloadGate.downloadStarted,
-      variant: "default"
-    });
-  };
-
-  const handleDirectDownload = () => {
-    setIsDownloading(true);
-    triggerDownload(fileUrl, title);
-    
-    // Reset downloading state after a delay
-    setTimeout(() => {
-      setIsDownloading(false);
-    }, 2000);
   };
 
   if (variant === "card") {
@@ -246,20 +485,20 @@ export const DownloadGate: React.FC<DownloadGateProps> = ({
                   {t.downloadGate.fillForm}
                 </p>
                 
-                {isFormLoading ? (
-                  <div className="flex items-center justify-center py-8">
+                {isFormLoading && !formLoaded && !formError && (
+                  <div className="flex items-center justify-center py-4 mb-4">
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-noreja-main"></div>
                   </div>
-                ) : (
-                  <div id={formTargetId} className="hubspot-form-container"></div>
                 )}
                 
-                {/* TODO: HubSpot Form Integration
-                    1. Replace formPortalId and formGuid with your actual HubSpot values
-                    2. Update the region in createHubSpotForm if needed (default: "na1")
-                    3. Test the form submission and download flow
-                    4. Customize form styling in your HubSpot account if needed
-                */}
+                {formError && (
+                  <div className="text-destructive text-center mb-4">
+                    {t.downloadGate.formLoadError}
+                  </div>
+                )}
+                
+                {/* Always render the form container (like HubSpotContactForm) */}
+                <div id={formTargetId} className="hubspot-form-container w-full min-h-[200px]"></div>
               </div>
             </DialogContent>
           </Dialog>
@@ -298,13 +537,20 @@ export const DownloadGate: React.FC<DownloadGateProps> = ({
                 {t.downloadGate.fillForm}
               </p>
               
-              {isFormLoading ? (
-                <div className="flex items-center justify-center py-8">
+              {isFormLoading && !formLoaded && !formError && (
+                <div className="flex items-center justify-center py-4 mb-4">
                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-noreja-main"></div>
                 </div>
-              ) : (
-                <div id={formTargetId} className="hubspot-form-container"></div>
               )}
+              
+              {formError && (
+                <div className="text-destructive text-center mb-4">
+                  {t.downloadGate.formLoadError}
+                </div>
+              )}
+              
+              {/* Always render the form container (like HubSpotContactForm) */}
+              <div id={formTargetId} className="hubspot-form-container w-full min-h-[200px]"></div>
             </div>
           </DialogContent>
         </Dialog>
@@ -433,7 +679,7 @@ export const DownloadGateInline: React.FC<DownloadGateInlineProps> = ({
                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-noreja-main"></div>
                 </div>
               ) : (
-                <div id={formTargetId} className="hubspot-form-container"></div>
+                <div id={formTargetId} className="hubspot-form-container w-full min-h-[200px]"></div>
               )}
             </div>
           </DialogContent>

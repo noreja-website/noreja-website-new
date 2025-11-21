@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Downloads() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
 
   // Scroll to top when component mounts
@@ -16,13 +16,18 @@ export default function Downloads() {
     window.scrollTo(0, 0);
   }, []);
   
-  // Get unique categories
-  const categories = ["All", ...Array.from(new Set(downloadAssets.map(asset => asset.category)))];
+  // Filter assets by language first
+  const languageFilteredAssets = downloadAssets.filter(asset => 
+    asset.languages.includes(language)
+  );
   
-  // Filter assets based on selected category
+  // Get unique categories from language-filtered assets
+  const categories = ["All", ...Array.from(new Set(languageFilteredAssets.map(asset => asset.category)))];
+  
+  // Filter assets based on selected category (after language filtering)
   const filteredAssets = selectedCategory === "All" 
-    ? downloadAssets 
-    : downloadAssets.filter(asset => asset.category === selectedCategory);
+    ? languageFilteredAssets 
+    : languageFilteredAssets.filter(asset => asset.category === selectedCategory);
 
   const gradientStyle = {
     background: `
@@ -84,7 +89,7 @@ export default function Downloads() {
                   {category}
                   {category !== "All" && (
                     <Badge variant="secondary" className="ml-2 text-xs">
-                      {downloadAssets.filter(asset => asset.category === category).length}
+                      {languageFilteredAssets.filter(asset => asset.category === category).length}
                     </Badge>
                   )}
                 </Button>

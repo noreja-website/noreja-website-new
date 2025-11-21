@@ -2,8 +2,8 @@
 
 export const SITE_NAME = "Noreja";
 export const SITE_URL = "https://noreja.com";
-export const HUBSPOT_PORTAL_ID = "YOUR_HUBSPOT_PORTAL_ID";
-export const HUBSPOT_FORM_GUID_DEFAULT = "YOUR_DEFAULT_FORM_GUID";
+export const HUBSPOT_PORTAL_ID = "144242473";
+export const HUBSPOT_FORM_GUID_DEFAULT = "cba179f6-530c-43a4-9d41-4bc0a459953b";
 export const BLOG_SUBDOMAIN_URL = "https://blog.noreja.com";
 
 export const siteConfig = {
