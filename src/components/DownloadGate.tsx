@@ -127,15 +127,9 @@ const isUserValidated = (): boolean => {
   return sessionStorage.getItem(DOWNLOAD_SESSION_KEY) === "true";
 };
 
-// Trigger file download
+// Open file in new tab
 const triggerDownload = (fileUrl: string, fileName?: string) => {
-  const link = document.createElement("a");
-  link.href = fileUrl;
-  link.download = fileName || fileUrl.split("/").pop() || "download";
-  link.style.display = "none";
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
+  window.open(fileUrl, '_blank');
 };
 
 export const DownloadGate: React.FC<DownloadGateProps> = ({
