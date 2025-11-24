@@ -19,7 +19,7 @@ interface UseCaseData {
 }
 
 const UseCase = () => {
-  const { useCaseId } = useParams<{ useCaseId: string }>();
+  const { useCaseName } = useParams<{ useCaseName: string }>();
   const { t, language } = useLanguage();
 
   // Scroll to top when component mounts
@@ -28,22 +28,22 @@ const UseCase = () => {
   }, []);
 
   // Get use case data from translations (exclude 'cta' which is not a use case)
-  const useCaseData: UseCaseData | null = useCaseId && 
-    useCaseId !== 'cta' && 
-    t.pages.useCases?.[useCaseId] && 
-    'sections' in t.pages.useCases[useCaseId] ? {
-      title: t.pages.useCases[useCaseId].title,
-      description: t.pages.useCases[useCaseId].description,
-      sections: (t.pages.useCases[useCaseId] as { sections?: TextSection[] }).sections || []
+  const useCaseData: UseCaseData | null = useCaseName && 
+    useCaseName !== 'cta' && 
+    t.pages.useCases?.[useCaseName] && 
+    'sections' in t.pages.useCases[useCaseName] ? {
+      title: t.pages.useCases[useCaseName].title,
+      description: t.pages.useCases[useCaseName].description,
+      sections: (t.pages.useCases[useCaseName] as { sections?: TextSection[] }).sections || []
     } : null;
 
-  if (!useCaseData || !useCaseId) {
+  if (!useCaseData || !useCaseName) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="text-center space-y-4">
           <h1 className="text-4xl font-bold mb-4">Use Case Not Found</h1>
           <p className="text-muted-foreground">
-            {useCaseId ? `Use case "${useCaseId}" not found.` : "No use case ID provided."}
+            {useCaseName ? `Use case "${useCaseName}" not found.` : "No use case name provided."}
           </p>
           <Link to="/success-stories">
             <Button>Back to Success Stories</Button>

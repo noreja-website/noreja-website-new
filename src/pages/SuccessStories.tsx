@@ -115,7 +115,7 @@ const SuccessStories = () => {
             >
               <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
                 <Trophy className="w-4 h-4 mr-2 text-noreja-tertiary" />
-                <span className="text-sm font-medium">{successStories[current - 1].industry}</span>
+                <span className="text-sm font-medium">{successStories[current - 1].industry[language]}</span>
               </div>
             </motion.div>
           )}
@@ -151,7 +151,6 @@ const SuccessStories = () => {
                               alt={`${story.companyName} logo`}
                               className="max-w-full max-h-full object-contain transition-transform group-hover:scale-105"
                               loading="lazy"
-                              onClick={() => window.open(story.externalUrl, '_blank')}
                             />
                           </div>
                           
@@ -166,7 +165,7 @@ const SuccessStories = () => {
                         <CardContent className="pt-0 px-6">
                           {/* Summary */}
                           <CardDescription className="text-base leading-relaxed mb-6 text-center">
-                            {story.summary}
+                            {story.summary[language]}
                           </CardDescription>
                           
                           {/* Read More Button */}
@@ -175,10 +174,12 @@ const SuccessStories = () => {
                               variant="outline"
                               size="lg"
                               className="w-auto group group-hover:bg-noreja-main/10 group-hover:border-noreja-main/40 transition-all"
-                              onClick={() => window.open(story.externalUrl, '_blank')}
+                              asChild
                             >
-                              {t.pages.successStories.readCaseStudy}
-                              <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+                              <Link to={`/success-stories/${story.id}`}>
+                                {t.pages.successStories.readCaseStudy}
+                                <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+                              </Link>
                             </Button>
                           </div>
                         </CardContent>

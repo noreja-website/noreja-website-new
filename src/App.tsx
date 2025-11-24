@@ -8,6 +8,7 @@ import { LanguageProvider } from "@/contexts/LanguageContext";
 import Index from "./pages/Index";
 import Functionalities from "./pages/Functionalities";
 import SuccessStories from "./pages/SuccessStories";
+import SuccessStoryDetail from "./pages/SuccessStoryDetail";
 import UseCase from "./pages/UseCase";
 import Team from "./pages/Team";
 import Partners from "./pages/Partners";
@@ -36,7 +37,8 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/functionalities" element={<Functionalities />} />
             <Route path="/success-stories" element={<SuccessStories />} />
-            <Route path="/use-cases/:useCaseId" element={<UseCase />} />
+            <Route path="/success-stories/:companyName" element={<SuccessStoryDetail />} />
+            <Route path="/use-cases/:useCaseName" element={<UseCase />} />
             <Route path="/team" element={<Team />} />
             <Route path="/partners" element={<Partners />} />
             <Route path="/blog" element={<Blog />} />

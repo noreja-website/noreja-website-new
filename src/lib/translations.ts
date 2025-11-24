@@ -68,6 +68,18 @@ export interface Translations {
       titleHighlight: string;
       subtitle: string;
       readCaseStudy: string;
+      backButton?: string;
+      downloadSection?: {
+        title: string;
+        subtitle: string;
+        buttonLabel: string;
+      };
+      pricingCta?: {
+        title: string;
+        highlight: string;
+        subtitle: string;
+        buttonLabel: string;
+      };
       partnerSection: {
         title: string;
         highlight: string;
@@ -592,6 +604,18 @@ export const translations: Record<Language, Translations> = {
         titleHighlight: "Success Stories",
         subtitle: "See how other organizations use Noreja Process Intelligence to move faster, work more efficiently, and stay data-driven—and what you can apply to your own processes.",
         readCaseStudy: "Read Case Study",
+        backButton: "Back to Success Stories",
+        downloadSection: {
+          title: "Still unsure?",
+          subtitle: "Read the full report in a downloadable PDF!",
+          buttonLabel: "DOWNLOAD SUCCESS STORY"
+        },
+        pricingCta: {
+          title: "Ready to get started?",
+          highlight: "",
+          subtitle: "Discover our pricing and find the right plan for your business.",
+          buttonLabel: "View Pricing"
+        },
         partnerSection: {
           title: "Trusted Partners –",
           highlight: "real value",
@@ -1309,6 +1333,18 @@ export const translations: Record<Language, Translations> = {
         titleHighlight: "Success Stories",
         subtitle: "Unsere Success Stories zeigen dir, wie andere Unternehmen mit Noreja Process Intelligence schneller, effizienter und datengetriebener arbeiten. Gewinne Einblicke, die du direkt auf deine eigenen Prozesse übertragen kannst.",
         readCaseStudy: "Success Story lesen",
+        backButton: "Zurück zu Success Stories",
+        downloadSection: {
+          title: "Noch unsicher?",
+          subtitle: "Lese den ganzen Report in einem herunterladbaren PDF!",
+          buttonLabel: "SUCCESS STORY HERUNTERLADEN"
+        },
+        pricingCta: {
+          title: "Bereit loszulegen?",
+          highlight: "",
+          subtitle: "Entdecke unsere Preise und finde den passenden Plan für dein Unternehmen.",
+          buttonLabel: "Zu den Preisen"
+        },
         partnerSection: {
           title: "Starke Partner –",
           highlight: "echte Mehrwerte",
