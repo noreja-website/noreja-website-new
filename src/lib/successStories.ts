@@ -26,6 +26,7 @@ export interface SuccessStoryDetailItem {
   imagePath?: string; // Optional image path - items can alternate between text-only and image+text
   content: string;
   number?: string; // Optional number for numbered findings (e.g., "7329")
+  title?: string; // Optional headline/title above the content
 }
 
 export interface SuccessStory {
@@ -307,10 +308,12 @@ export const successStories: SuccessStory[] = [
         title: "In Detail",
         items: [
           {
-            content: "Uncover and understand structural problems: The analysis shows complex process flows with various paths and relationships within the system."
+            title: "Uncover and understand structural problems",
+            content: "The analysis shows complex process flows with various paths and relationships within the system."
           },
           {
-            content: "Fluctuating run times: The posting out of materials was partly slower than planned in recent years. Production delays or standstills could be significantly reduced in the future through automation in material withdrawal."
+            title: "Fluctuating run times",
+            content: "The posting out of materials was partly slower than planned in recent years. Production delays or standstills could be significantly reduced in the future through automation in material withdrawal."
           }
         ]
       },
@@ -318,10 +321,16 @@ export const successStories: SuccessStory[] = [
         title: "Im Detail",
         items: [
           {
-            content: "Strukturprobleme aufdecken und verstehen: Die Analyse zeigt komplexe Prozessabläufe mit verschiedenen Pfaden und Beziehungen innerhalb des Systems."
+            title: "Wie ist es gelaufen?",
+            content: `**Schritt 1:** Eine Datenschutzvereinbarung wurde erstellt (ca. 1 Tag)
+**Schritt 2:** Die relevanten Daten wurden aus dem ERP-System von iDM extrahiert (ca. 1 Woche)
+**Schritt 3:** Import der Daten und Mapping auf den Noreja-Builder (ca. 2 Wochen)
+**Schritt 4:** Analyse der Prozessmodelle und Dokumentation der Ergebnisse (ca. 2 Wochen)
+**Schritt 5:** Abschluss-Workshop vor Ort in Matrei (1 Tag)`
           },
           {
-            content: "Schwankende Laufzeiten: Die Ausbuchung der Materialien verlief in den letzten Jahren teils langsamer als geplant. Produktionsverzögerungen oder -stillstände ließen sich durch Automatisierungen bei der Materialentnahme künftig deutlich verringern."
+            title: "Schwankende Laufzeiten",
+            content: "Die Ausbuchung der Materialien verlief in den letzten Jahren teils langsamer als geplant. Produktionsverzögerungen oder -stillstände ließen sich durch Automatisierungen bei der Materialentnahme künftig deutlich verringern."
           }
         ]
       }
@@ -363,11 +372,11 @@ export const successStories: SuccessStory[] = [
     logoUrl: getImagePath(customerLogoImages, "idm_logo_white.png"),
     summary: {
       en: "IDM Wärmepumpen optimized their manufacturing processes through Process Mining, achieving 99.9% accuracy in process detection while significantly reducing manual workload.",
-      de: "IDM Wärmepumpen optimierte seine Fertigungsprozesse durch Process Mining und erreichte 99,9% Genauigkeit bei der Prozesserfassung bei gleichzeitiger erheblicher Reduzierung des manuellen Arbeitsaufwands."
+      de: "Erfahre, wie Noreja IDM dabei geholfen hat, den Order-to-Cash-Prozess innerhalb von drei Wochen sichtbar zu machen."
     },
     subtitle: {
       en: "Optimizing manufacturing processes through Process Mining",
-      de: "Optimierung von Fertigungsprozessen durch Process Mining"
+      de: "Erfahre, wie Noreja IDM dabei geholfen hat, den Order-to-Cash-Prozess innerhalb von drei Wochen sichtbar zu machen."
     },
     whoIsSection: {
       en: {
@@ -376,7 +385,7 @@ export const successStories: SuccessStory[] = [
       },
       de: {
         title: "Wer ist IDM Wärmepumpen?",
-        content: "IDM Wärmepumpen ist ein führender Hersteller von Wärmepumpen, spezialisiert auf energieeffiziente Heizlösungen."
+        content: "IDM Energiesysteme GmbH ist ein führender Anbieter von fortschrittlichen Heizungslösungen, der sich auf nachhaltige und energieeffiziente Systeme spezialisiert hat. Mit einer starken Präsenz auf dem europäischen Markt konzentrieren sich ihre innovativen Produkte auf erneuerbare Energiequellen und gewährleisten umweltfreundliche und kostengünstige Heizlösungen."
       }
     },
     blindSpotsSection: {
@@ -386,7 +395,7 @@ export const successStories: SuccessStory[] = [
       },
       de: {
         title: "Wo waren die Blind-Spots?",
-        content: "Fertigungsprozesse fehlten an Transparenz, was es schwierig machte, Ineffizienzen und Optimierungspotenziale zu identifizieren."
+        content: "Zu Beginn herrschte wenig Transparenz darüber, wie sich Laufzeiten konkreter Schritte ausgestalteten und wie deren Abhängigkeiten untereinander zu Engpässen führten. Das Ziel war es, ein erstes Gesamtbild der Situation zu erzeugen, welches dann als Grundlage für weitere Entscheidungen bezüglich Optimierungsmaßnahmen diente."
       }
     },
     findingsSection: {
@@ -415,20 +424,20 @@ export const successStories: SuccessStory[] = [
         title: "Was haben wir gefunden?",
         findings: [
           {
-            title: "Prozesstransparenz",
-            content: "IDM Wärmepumpen nutzte Process Mining, um Einblicke in seine Fertigungs-Workflows zu gewinnen und Verbesserungsbereiche zu identifizieren."
+            title: "Manuelle Dateneingabe verzögert den Prozess",
+            content: "Die manuelle Datenübertragung zwischen IT-Systemen verursacht Verzögerungen und höhere Kosten. Sie ist fehleranfällig, was ungenaue Daten und ineffiziente Arbeitsabläufe zur Folge haben kann. Diese Verzögerungen beeinträchtigen die Entscheidungsfindung und gefährden wichtige Fristen. Zudem reduzieren die zusätzlichen Kosten die Rentabilität und behindern Investitionen in strategische Bereiche."
           },
           {
-            title: "Genauigkeitsverbesserung",
-            content: "Die Implementierung ermöglichte es IDM, 99,9% Genauigkeit bei der Prozesserfassung zu erreichen und gleichzeitig den manuellen Arbeitsaufwand erheblich zu reduzieren."
+            title: "Wunschliefertermin wird überschritten",
+            content: "Der von den Kunden angegebene Wunschliefertermin lag oft weit vor dem tatsächlichen Liefertermin, was zu einer erheblichen Diskrepanz zwischen Erwartungen und Realität führte. Diese Diskrepanz wirkt sich unmittelbar auf die Kundenzufriedenheit aus, da die Kunden den Dienst als unzuverlässig empfinden können. Die häufigen Diskrepanzen können langfristige Kundenbeziehungen schädigen und aufgrund des mangelnden Vertrauens zu verpassten Geschäftsmöglichkeiten führen. Letztlich untergräbt dies den Ruf des Unternehmens und kann die Kunden dazu bringen, sich nach anderen Anbietern umzusehen."
           },
           {
-            title: "Effizienzsteigerungen",
-            content: "Die operative Effizienz verbesserte sich erheblich durch ein besseres Prozessverständnis und Optimierung."
+            title: "Verspäteter Versand der Rechnungen",
+            content: "Bei bestimmten Produktgruppen wurde die Rechnung trotz Vorauszahlung relativ spät gestellt, was sich auf das Betriebskapital auswirkt. Die verspätete Rechnungsstellung beeinträchtigt den Cashflow und kann zu Liquiditätsproblemen führen, insbesondere in Zeiten mit hohem Vorauszahlungsvolumen. Diese Situation kann die finanziellen Ressourcen belasten und die Fähigkeit des Unternehmens einschränken, in den Bestand, den Betrieb oder Wachstumsinitiativen zu investieren. Darüber hinaus kann eine verspätete Rechnungsstellung zu Frustration bei den Kunden führen, die eine rechtzeitige Bearbeitung ihrer Transaktionen erwarten, was die Geschäftsbeziehungen beeinträchtigen kann."
           },
           {
-            title: "Kostenreduzierung",
-            content: "Reduzierter manueller Arbeitsaufwand und verbesserte Prozesse führten zu erheblichen Kosteneinsparungen."
+            title: "Überspringen der Bestellbestätigung",
+            content: "In einigen Zeiträumen wurde zunehmend auf eine spezielle Auftragsbestätigung verzichtet, was zu potenziellen Problemen bei der Auftragsgenauigkeit und -abwicklung führte. Eine strengere Überprüfung der Auftragsdaten könnte die Fehlerquote möglicherweise verringern, aber ohne Bestätigung könnten Fehler im Auftrag bis zur Lieferung unbemerkt bleiben, was zu Rücksendungen, Rückerstattungen oder unzufriedenen Kunden führen kann. Das Fehlen einer Auftragsbestätigung erhöht auch das Risiko von Kommunikationsfehlern zwischen dem Unternehmen und seinen Kunden, die sich zu größeren betrieblichen Problemen auswachsen können. Die Behebung dieser Lücke ist entscheidend für die Aufrechterhaltung des Vertrauens und die Gewährleistung, dass die Kunden genau das erhalten, was sie bestellt haben, wenn sie es erwarten."
           }
         ]
       }
@@ -446,7 +455,16 @@ export const successStories: SuccessStory[] = [
         title: "Im Detail",
         items: [
           {
-            content: "Die detaillierte Analyse der Fertigungs-Workflows offenbarte Optimierungsmöglichkeiten über mehrere Produktionsstufen hinweg."
+            title: "Wie ist es gelaufen?",
+            content: `**Schritt 1:** Eine Datenschutzvereinbarung wurde erstellt (ca. 1 Tag)
+**Schritt 2:** Die relevanten Daten wurden aus dem ERP-System von iDM extrahiert (ca. 1 Woche)
+**Schritt 3:** Import der Daten und Mapping auf den Noreja-Builder (ca. 2 Wochen)
+**Schritt 4:** Analyse der Prozessmodelle und Dokumentation der Ergebnisse (ca. 2 Wochen)
+**Schritt 5:** Abschluss-Workshop vor Ort in Matrei (1 Tag)`
+          },
+          {
+            title: "Langfristig",
+            content: "Als nächsten Schritten wird die Analyse auf angrenzende Systeme wie das Buchhaltungssystem und das CRM-System ausgeweitet, um die Tiefe der Prozessanalyse zu verfeinern. Auf Basis der Erkenntnisse sollen dann möglichst bald konkrete Optimierungsmaßnahmen abgeleitet werden, um messbare Erfolge zu erzielen."
           }
         ]
       }
@@ -488,11 +506,11 @@ export const successStories: SuccessStory[] = [
     logoUrl: getImagePath(customerLogoImages, "cib_logo_white.png"),
     summary: {
       en: "CIB transformed their software development processes through Process Mining, achieving 40% faster diagnosis of process issues and significantly improved development cycle efficiency.",
-      de: "CIB transformierte seine Softwareentwicklungsprozesse durch Process Mining und erreichte 40% schnellere Diagnose von Prozessproblemen bei gleichzeitig erheblich verbesserter Effizienz des Entwicklungszyklus."
+      de: "Erfahre, wie Noreja der CIB Group half, ihren Hiring-Prozess in nur einem Monat vollständig abzubilden."
     },
     subtitle: {
       en: "Transforming software development processes",
-      de: "Transformation von Softwareentwicklungsprozessen"
+      de: "Erfahre, wie Noreja der CIB Group half, ihren Hiring-Prozess in nur einem Monat vollständig abzubilden."
     },
     whoIsSection: {
       en: {
@@ -501,7 +519,7 @@ export const successStories: SuccessStory[] = [
       },
       de: {
         title: "Wer ist CIB?",
-        content: "CIB ist ein Softwareentwicklungsunternehmen, das sich auf innovative Lösungen für verschiedene Branchen konzentriert."
+        content: "CIB ist ein Technologie- und Softwareentwicklungsunternehmen, das sich auf Digitalisierung, Prozessautomatisierung und künstliche Intelligenz spezialisiert hat. CIB ist führend in der Entwicklung von KI-gestützten Digitalisierungslösungen, die es Unternehmen ermöglichen, die betriebliche Effizienz zu steigern und den manuellen Arbeitsaufwand zu reduzieren."
       }
     },
     blindSpotsSection: {
@@ -511,7 +529,11 @@ export const successStories: SuccessStory[] = [
       },
       de: {
         title: "Wo waren die Blind-Spots?",
-        content: "Softwareentwicklungsprozesse fehlten an Transparenz, was es schwierig machte, Engpässe zu identifizieren und Workflows zu optimieren."
+        content: `Keine prozessorientierte **Leistungsverfolgung** im Bewerbungs- und Einstellungsprozess.
+
+Keine **Nachverfolgung der Prozess-Conformance** für die Bewerber-Experience.
+
+**Uneinheitliche Kommunikation** mit Mix aus E-Mail, Telefon und IT-Systemen.`
       }
     },
     findingsSection: {
@@ -519,20 +541,20 @@ export const successStories: SuccessStory[] = [
         title: "What did we find?",
         findings: [
           {
-            title: "Process Optimization",
-            content: "CIB implemented Process Mining to optimize their software development workflows and improve project delivery times."
+            title: "Initialer Antwort zuvorkommen",
+            content: "Eines der wichtigsten Probleme war die Verzögerung bei der ersten Kontaktaufnahme mit den Bewerbern. Wir haben festgestellt, dass eine Verkürzung der Zeit bis zum ersten Kontakt mit den Bewerbern deren Experience und Engagement im Einstellungsverfahren erheblich verbessern könnte."
           },
           {
-            title: "Faster Diagnosis",
-            content: "The solution enabled CIB to achieve 40% faster diagnosis of process issues and significantly improved their development cycle efficiency."
+            title: "Prozess-Redesign durchführen",
+            content: "Wir haben festgestellt, dass der häufigere Einsatz eines telefonischen Vorabgesprächs die anschließenden manuellen Bearbeitungsaktivitäten reduzieren und den zentralen Engpass im Prozess entlasten könnte. Dies könnte zu einer besseren Rationalisierung des Prozesses beitragen und den zuständigen Führungskräften mehr Zeit für strategische Aufgaben lassen."
           },
           {
-            title: "Better Visibility",
-            content: "Complete visibility into development workflows helped identify and resolve bottlenecks more effectively."
+            title: "Flaschenhälse abbauen",
+            content: "Durch die Neugestaltung einiger Prozessschritte und die Verbesserung der Kommunikation mit den Bewerbern könnte CIB nach unserer Einschätzung die Zeit bis zur Einstellung um bis zu einer Woche verkürzen. Diese Verkürzung würde nicht nur den Einstellungsprozess beschleunigen, sondern auch die Einstellungskosten senken."
           },
           {
-            title: "Improved Delivery",
-            content: "Project delivery times improved significantly through better process understanding and optimization."
+            title: "Bewerber-Experience optimieren",
+            content: "Durch die Standardisierung des Prozesses und die Verbesserung der Kandidatenerfahrung prognostizierten wir, dass CIB eine Verbesserung ihres Net Promoter Scores (NPS) erreichen könnte. Dies würde eine deutliche Steigerung der Kandidatenzufriedenheit und der allgemeinen Wahrnehmung des Rekrutierungsprozesses des Unternehmens widerspiegeln."
           }
         ]
       },
@@ -540,20 +562,20 @@ export const successStories: SuccessStory[] = [
         title: "Was haben wir gefunden?",
         findings: [
           {
-            title: "Prozessoptimierung",
-            content: "CIB implementierte Process Mining, um seine Softwareentwicklungs-Workflows zu optimieren und Projektlieferzeiten zu verbessern."
+            title: "Initialer Antwort zuvorkommen",
+            content: "Eines der wichtigsten Probleme war die Verzögerung bei der ersten Kontaktaufnahme mit den Bewerbern. Wir haben festgestellt, dass eine Verkürzung der Zeit bis zum ersten Kontakt mit den Bewerbern deren Experience und Engagement im Einstellungsverfahren erheblich verbessern könnte."
           },
           {
-            title: "Schnellere Diagnose",
-            content: "Die Lösung ermöglichte es CIB, 40% schnellere Diagnose von Prozessproblemen zu erreichen und die Effizienz des Entwicklungszyklus erheblich zu verbessern."
+            title: "Prozess-Redesign durchführen",
+            content: "Wir haben festgestellt, dass der häufigere Einsatz eines telefonischen Vorabgesprächs die anschließenden manuellen Bearbeitungsaktivitäten reduzieren und den zentralen Engpass im Prozess entlasten könnte. Dies könnte zu einer besseren Rationalisierung des Prozesses beitragen und den zuständigen Führungskräften mehr Zeit für strategische Aufgaben lassen."
           },
           {
-            title: "Bessere Transparenz",
-            content: "Vollständige Transparenz in Entwicklungs-Workflows half dabei, Engpässe effektiver zu identifizieren und zu beheben."
+            title: "Flaschenhälse abbauen",
+            content: "Durch die Neugestaltung einiger Prozessschritte und die Verbesserung der Kommunikation mit den Bewerbern könnte CIB nach unserer Einschätzung die Zeit bis zur Einstellung um bis zu einer Woche verkürzen. Diese Verkürzung würde nicht nur den Einstellungsprozess beschleunigen, sondern auch die Einstellungskosten senken."
           },
           {
-            title: "Verbesserte Lieferung",
-            content: "Projektlieferzeiten verbesserten sich erheblich durch besseres Prozessverständnis und Optimierung."
+            title: "Bewerber-Experience optimieren",
+            content: "Durch die Standardisierung des Prozesses und die Verbesserung der Kandidatenerfahrung prognostizierten wir, dass CIB eine Verbesserung ihres Net Promoter Scores (NPS) erreichen könnte. Dies würde eine deutliche Steigerung der Kandidatenzufriedenheit und der allgemeinen Wahrnehmung des Rekrutierungsprozesses des Unternehmens widerspiegeln."
           }
         ]
       }
@@ -570,20 +592,55 @@ export const successStories: SuccessStory[] = [
       de: {
         title: "Im Detail",
         items: [
-          {
-            content: "Die detaillierte Analyse der Softwareentwicklungs-Workflows offenbarte mehrere Möglichkeiten zur Prozessverbesserung."
-          }
+            {
+              title: "Hoher Grad an Flexibilität",
+              content: "Der Bewerbungsprozess ist mit vielen strukturellen Freiheiten konzipiert, was ihn flexibel macht, aber aufgrund einer geringen Standardisierung auch teurer und aufwendiger zu managen. Möglicherweise könnte es sich lohnen den Prozess stärker zu streamlinen, um schneller und kostengünstiger zu agieren."
+            },
+            {
+              title: "Lange Entscheidungszeiten",
+              content: "Die Entscheidungszeit der verantwortlichen Manager dauerte länger als erwartet, während Selbstabsagen relativ schnell erfolgen (nach 1W 3D). Mehr Feedback an die Kandidaten während des Einstellungsprozesses könnte sie auf dem Laufenden halten und ihre Selbstabsage verhindern. Zusätzlich könnte die Einrichtung eines KI-unterstützten Vorqualifizierungsassistenten, der vielversprechende Bewerber priorisiert und sie bei Bedarf automatisch zu Vorabinterviews einlädt, dafür sorgen, dass hochqualifizierte Kandidaten bereits am Tag ihrer Bewerbung kontaktiert werden."
+            },
+            {
+              title: "Persönlicher Kontakt",
+              content: "Der Prozessschritt „Bewerber zum telefonischen Vorgespräch einladen“ wurde nur sehr selten genutzt (nämlich 11 mal). Dieser Durchführung dieses Schrittes könnte als Vorqualifikation innerhalb einer Woche nach der Bewerbung des potenziellen Kandidaten eingesetzt werden, um frühzeitige Selbstabsagen von High-Potentials zu verhindern."
+            }
         ]
       }
     },
     nextStepsSection: {
       en: {
         title: "Next Steps",
-        content: "CIB continues to leverage Process Mining insights to further optimize their software development processes."
+        items: [
+          {
+            title: "After the Workshop",
+            content: "CIB will evaluate the changes identified by our process analysis to improve the hiring process. Initial quick wins have already been identified. We look forward to seeing how these changes can positively impact the process and the company."
+          },
+          {
+            title: "Mid-term",
+            content: "We are currently exploring which other systems within CIB are suitable for a Process Mining analysis to uncover optimization opportunities in other business areas."
+          },
+          {
+            title: "Long-term",
+            content: "We are in initial discussions about whether and how Process Mining can be implemented as part of their workflow solution CIB flow. This technical partnership would enable us to offer out-of-the-box analyses to the entire CIB customer base. On the other hand, Noreja customers can also benefit by directly addressing identified weaknesses with automation."
+          }
+        ]
       },
       de: {
         title: "Nächste Schritte",
-        content: "CIB nutzt weiterhin Process Mining-Erkenntnisse, um seine Softwareentwicklungsprozesse weiter zu optimieren."
+        items: [
+          {
+            title: "Nach dem Workshop",
+            content: "CIB wird die durch unsere Prozessanalyse ermittelten Änderungen evaluieren, um den Einstellungsprozess zu verbessern. Erste Quick-Wins sind bereits identifiziert. Wir freuen uns darauf, zu sehen, wie sich diese Änderungen positiv auf den Prozess und das Unternehmen auswirken können."
+          },
+          {
+            title: "Mittelfristig",
+            content: "Wir sondieren aktuell, welche anderen Systeme innerhalb von CIB für eine Process Mining Analyse geeignet sind, um Optimierungsmöglichkeiten in anderen Geschäftsbereichen aufzudecken."
+          },
+          {
+            title: "Langfristig",
+            content: "Wir befinden uns in ersten Gesprächen darüber, ob und wie man Process Mining als Teil ihrer Workflow-Lösung CIB flow implementieren können. Diese technische Partnerschaft würde es uns ermöglichen, dem gesamten CIBKundenkreis Out-of-the-Box-Analysen anzubieten. Auf der anderen Seite können auch Noreja-Kunden profitieren, indem sie identifizierte Schwachstellen direkt mit Automatisierung angehen können."
+          }
+        ]
       }
     },
     downloadAssetId: "success-story-cib",

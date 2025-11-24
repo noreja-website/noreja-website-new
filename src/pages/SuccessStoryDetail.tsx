@@ -5,10 +5,121 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { AnimatedHeading } from "@/components/AnimatedHeading";
 import { useEffect, useMemo } from "react";
-import { successStories } from "@/lib/successStories";
+import { successStories, type SuccessStoryDetailItem } from "@/lib/successStories";
 import { downloadAssets, type DownloadAsset } from "@/lib/downloads";
 import { DownloadGate } from "@/components/DownloadGate";
 import { ArrowRight } from "lucide-react";
+
+// Helper function to format text with markdown and HTML support
+const formatContent = (text: string): string => {
+  if (!text) return '';
+  
+  // Convert markdown bold (**text**) to HTML
+  let formatted = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  
+  // Preserve line breaks
+  formatted = formatted.replace(/\n/g, '<br />');
+  
+  return formatted;
+};
+
+// Reusable function to render detail/next steps items
+const renderDetailItem = (
+  item: SuccessStoryDetailItem,
+  index: number,
+  sectionTitle: string
+) => {
+  // If item has a number, render in numbered format
+  if (item.number) {
+    return (
+      <motion.div
+        key={index}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: index * 0.1 }}
+        className="space-y-4"
+      >
+        <div className="flex items-baseline gap-3">
+          <span className="text-5xl lg:text-6xl font-bold text-foreground">
+            {item.number}
+          </span>
+          <span className="text-5xl lg:text-6xl font-bold text-foreground">x</span>
+        </div>
+        {item.title && (
+          <h3 className="text-xl lg:text-2xl font-semibold text-foreground">
+            {item.title}
+          </h3>
+        )}
+        <p 
+          className="text-base lg:text-lg leading-relaxed text-muted-foreground"
+          dangerouslySetInnerHTML={{ __html: formatContent(item.content) }}
+        />
+      </motion.div>
+    );
+  }
+  
+  // Format with optional image
+  const isImageLeft = index % 2 === 0;
+  const gridCols = isImageLeft 
+    ? "lg:grid-cols-[1.2fr_1fr]" 
+    : "lg:grid-cols-[1fr_1.2fr]";
+  
+  return (
+    <motion.div
+      key={index}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      className={`grid ${item.imagePath ? gridCols : "grid-cols-1"} gap-8 lg:gap-12 items-center`}
+    >
+      {/* Image Section */}
+      {item.imagePath && (
+        <motion.div
+          className={`${isImageLeft ? "lg:order-1" : "lg:order-2"}`}
+          initial={{ opacity: 0, x: isImageLeft ? -50 : 50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          <motion.div
+            className="relative w-full h-[400px] lg:h-[500px] rounded-2xl overflow-hidden border border-border/50 shadow-lg group"
+            whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.3 }}
+          >
+            <img
+              src={item.imagePath}
+              alt={sectionTitle}
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          </motion.div>
+        </motion.div>
+      )}
+
+      {/* Text Content Section */}
+      <motion.div
+        className={`${item.imagePath ? (isImageLeft ? "lg:order-2" : "lg:order-1") : ""} space-y-4`}
+        initial={{ opacity: 0, x: item.imagePath ? (isImageLeft ? 50 : -50) : 0 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+      >
+        {item.title && (
+          <h3 className="text-xl lg:text-2xl font-semibold text-foreground">
+            {item.title}
+          </h3>
+        )}
+        <p 
+          className="text-base lg:text-lg leading-relaxed text-muted-foreground"
+          dangerouslySetInnerHTML={{ __html: formatContent(item.content) }}
+        />
+      </motion.div>
+    </motion.div>
+  );
+};
 
 const SuccessStoryDetail = () => {
   const { companyName } = useParams<{ companyName: string }>();
@@ -127,9 +238,10 @@ const SuccessStoryDetail = () => {
                   <h2 className="text-3xl lg:text-4xl font-bold text-foreground leading-tight mb-6">
                     {successStory.whoIsSection[language].title}
                   </h2>
-                  <p className="text-base lg:text-lg leading-relaxed text-muted-foreground whitespace-pre-line">
-                    {successStory.whoIsSection[language].content}
-                  </p>
+                  <p 
+                    className="text-base lg:text-lg leading-relaxed text-muted-foreground"
+                    dangerouslySetInnerHTML={{ __html: formatContent(successStory.whoIsSection[language].content) }}
+                  />
                 </div>
               </motion.section>
 
@@ -145,9 +257,10 @@ const SuccessStoryDetail = () => {
                   <h2 className="text-3xl lg:text-4xl font-bold text-foreground leading-tight mb-6">
                     {successStory.blindSpotsSection[language].title}
                   </h2>
-                  <p className="text-base lg:text-lg leading-relaxed text-muted-foreground whitespace-pre-line">
-                    {successStory.blindSpotsSection[language].content}
-                  </p>
+                  <p 
+                    className="text-base lg:text-lg leading-relaxed text-muted-foreground"
+                    dangerouslySetInnerHTML={{ __html: formatContent(successStory.blindSpotsSection[language].content) }}
+                  />
                 </div>
               </motion.section>
 
@@ -176,9 +289,10 @@ const SuccessStoryDetail = () => {
                         <h3 className="text-xl lg:text-2xl font-semibold text-foreground">
                           {finding.title}
                         </h3>
-                        <p className="text-base lg:text-lg leading-relaxed text-muted-foreground">
-                          {finding.content}
-                        </p>
+                        <p 
+                          className="text-base lg:text-lg leading-relaxed text-muted-foreground"
+                          dangerouslySetInnerHTML={{ __html: formatContent(finding.content) }}
+                        />
                       </motion.div>
                     ))}
                   </div>
@@ -198,86 +312,9 @@ const SuccessStoryDetail = () => {
                     {successStory.detailSection[language].title}
                   </h2>
                   <div className="space-y-12">
-                    {successStory.detailSection[language].items.map((item, index) => {
-                      // If item has a number, render in numbered format
-                      if (item.number) {
-                        return (
-                          <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: index * 0.1 }}
-                            className="space-y-4"
-                          >
-                            <div className="flex items-baseline gap-3">
-                              <span className="text-5xl lg:text-6xl font-bold text-foreground">
-                                {item.number}
-                              </span>
-                              <span className="text-5xl lg:text-6xl font-bold text-foreground">x</span>
-                            </div>
-                            <p className="text-base lg:text-lg leading-relaxed text-muted-foreground">
-                              {item.content}
-                            </p>
-                          </motion.div>
-                        );
-                      }
-                      
-                      // Original format for items without numbers (backward compatibility)
-                      const isImageLeft = index % 2 === 0;
-                      const gridCols = isImageLeft 
-                        ? "lg:grid-cols-[1.2fr_1fr]" 
-                        : "lg:grid-cols-[1fr_1.2fr]";
-                      
-                      return (
-                        <motion.div
-                          key={index}
-                          initial={{ opacity: 0 }}
-                          whileInView={{ opacity: 1 }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 0.6, delay: index * 0.1 }}
-                          className={`grid ${item.imagePath ? gridCols : "grid-cols-1"} gap-8 lg:gap-12 items-center`}
-                        >
-                          {/* Image Section */}
-                          {item.imagePath && (
-                            <motion.div
-                              className={`${isImageLeft ? "lg:order-1" : "lg:order-2"}`}
-                              initial={{ opacity: 0, x: isImageLeft ? -50 : 50 }}
-                              whileInView={{ opacity: 1, x: 0 }}
-                              viewport={{ once: true }}
-                              transition={{ duration: 0.8 }}
-                            >
-                              <motion.div
-                                className="relative w-full h-[400px] lg:h-[500px] rounded-2xl overflow-hidden border border-border/50 shadow-lg group"
-                                whileHover={{ scale: 1.02 }}
-                                transition={{ duration: 0.3 }}
-                              >
-                                <img
-                                  src={item.imagePath}
-                                  alt={successStory.detailSection[language].title}
-                                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                  loading="lazy"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                              </motion.div>
-                            </motion.div>
-                          )}
-
-                          {/* Text Content Section */}
-                          <motion.div
-                            className={`${item.imagePath ? (isImageLeft ? "lg:order-2" : "lg:order-1") : ""} space-y-4`}
-                            initial={{ opacity: 0, x: item.imagePath ? (isImageLeft ? 50 : -50) : 0 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.8, delay: 0.2 }}
-                          >
-                            <p className="text-base lg:text-lg leading-relaxed text-muted-foreground whitespace-pre-line">
-                              {item.content}
-                            </p>
-                          </motion.div>
-                        </motion.div>
-                      );
-                    })}
+                    {successStory.detailSection[language].items.map((item, index) => 
+                      renderDetailItem(item, index, successStory.detailSection[language].title)
+                    )}
                   </div>
                 </div>
               </motion.section>
@@ -298,94 +335,18 @@ const SuccessStoryDetail = () => {
                   {/* New format: items array */}
                   {successStory.nextStepsSection[language].items && successStory.nextStepsSection[language].items.length > 0 ? (
                     <div className="space-y-12">
-                      {successStory.nextStepsSection[language].items!.map((item, index) => {
-                        // If item has a number, render in numbered format
-                        if (item.number) {
-                          return (
-                            <motion.div
-                              key={index}
-                              initial={{ opacity: 0, y: 20 }}
-                              whileInView={{ opacity: 1, y: 0 }}
-                              viewport={{ once: true }}
-                              transition={{ duration: 0.6, delay: index * 0.1 }}
-                              className="space-y-4"
-                            >
-                              <div className="flex items-baseline gap-3">
-                                <span className="text-5xl lg:text-6xl font-bold text-foreground">
-                                  {item.number}
-                                </span>
-                                <span className="text-5xl lg:text-6xl font-bold text-foreground">x</span>
-                              </div>
-                              <p className="text-base lg:text-lg leading-relaxed text-muted-foreground">
-                                {item.content}
-                              </p>
-                            </motion.div>
-                          );
-                        }
-                        
-                        // Format with optional image
-                        const isImageLeft = index % 2 === 0;
-                        const gridCols = isImageLeft 
-                          ? "lg:grid-cols-[1.2fr_1fr]" 
-                          : "lg:grid-cols-[1fr_1.2fr]";
-                        
-                        return (
-                          <motion.div
-                            key={index}
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: index * 0.1 }}
-                            className={`grid ${item.imagePath ? gridCols : "grid-cols-1"} gap-8 lg:gap-12 items-center`}
-                          >
-                            {/* Image Section */}
-                            {item.imagePath && (
-                              <motion.div
-                                className={`${isImageLeft ? "lg:order-1" : "lg:order-2"}`}
-                                initial={{ opacity: 0, x: isImageLeft ? -50 : 50 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.8 }}
-                              >
-                                <motion.div
-                                  className="relative w-full h-[400px] lg:h-[500px] rounded-2xl overflow-hidden border border-border/50 shadow-lg group"
-                                  whileHover={{ scale: 1.02 }}
-                                  transition={{ duration: 0.3 }}
-                                >
-                                  <img
-                                    src={item.imagePath}
-                                    alt={successStory.nextStepsSection[language].title}
-                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                    loading="lazy"
-                                  />
-                                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                                </motion.div>
-                              </motion.div>
-                            )}
-
-                            {/* Text Content Section */}
-                            <motion.div
-                              className={`${item.imagePath ? (isImageLeft ? "lg:order-2" : "lg:order-1") : ""} space-y-4`}
-                              initial={{ opacity: 0, x: item.imagePath ? (isImageLeft ? 50 : -50) : 0 }}
-                              whileInView={{ opacity: 1, x: 0 }}
-                              viewport={{ once: true }}
-                              transition={{ duration: 0.8, delay: 0.2 }}
-                            >
-                              <p className="text-base lg:text-lg leading-relaxed text-muted-foreground whitespace-pre-line">
-                                {item.content}
-                              </p>
-                            </motion.div>
-                          </motion.div>
-                        );
-                      })}
+                      {successStory.nextStepsSection[language].items!.map((item, index) => 
+                        renderDetailItem(item, index, successStory.nextStepsSection[language].title)
+                      )}
                     </div>
                   ) : (
                     /* Old format: content + optional imagePath (backward compatibility) */
                     <div className="max-w-4xl mx-auto">
                       {successStory.nextStepsSection[language].content && (
-                        <p className="text-base lg:text-lg leading-relaxed text-muted-foreground whitespace-pre-line mb-8">
-                          {successStory.nextStepsSection[language].content}
-                        </p>
+                        <p 
+                          className="text-base lg:text-lg leading-relaxed text-muted-foreground mb-8"
+                          dangerouslySetInnerHTML={{ __html: formatContent(successStory.nextStepsSection[language].content || '') }}
+                        />
                       )}
                       {successStory.nextStepsSection[language].imagePath && (
                         <motion.div
