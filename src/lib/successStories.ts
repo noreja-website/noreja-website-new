@@ -321,12 +321,8 @@ export const successStories: SuccessStory[] = [
         title: "Im Detail",
         items: [
           {
-            title: "Wie ist es gelaufen?",
-            content: `**Schritt 1:** Eine Datenschutzvereinbarung wurde erstellt (ca. 1 Tag)
-**Schritt 2:** Die relevanten Daten wurden aus dem ERP-System von iDM extrahiert (ca. 1 Woche)
-**Schritt 3:** Import der Daten und Mapping auf den Noreja-Builder (ca. 2 Wochen)
-**Schritt 4:** Analyse der Prozessmodelle und Dokumentation der Ergebnisse (ca. 2 Wochen)
-**Schritt 5:** Abschluss-Workshop vor Ort in Matrei (1 Tag)`
+            title: "Strukturprobleme aufdecken und verstehen",
+            content: "*Laufzeiten, Objektanzahl und weitere Prozesskennzahlen wurden aus Gründen der Anonymisierung ausgeblendet."
           },
           {
             title: "Schwankende Laufzeiten",
