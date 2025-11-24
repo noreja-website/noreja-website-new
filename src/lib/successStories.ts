@@ -35,6 +35,7 @@ export interface SuccessStoryFinding {
 
 export interface SuccessStoryDetailItem {
   imagePath?: string; // Optional image path - items can alternate between text-only and image+text
+  imageSize?: "s" | "m" | "l"; // Optional image size: s (small), m (medium), l (large). Defaults to "m" if not specified
   content: string;
   number?: string; // Optional number for numbered findings (e.g., "7329")
   title?: string; // Optional headline/title above the content
@@ -49,24 +50,30 @@ export interface SuccessStory {
   whoIsSection: Record<Language, {
     title: string;
     content: string;
+    highlight?: string; // Optional highlight text to display after the title
   }>;
   blindSpotsSection: Record<Language, {
     title: string;
     content: string;
+    highlight?: string; // Optional highlight text to display after the title
   }>;
   findingsSection: Record<Language, {
     title: string;
     findings: SuccessStoryFinding[];
+    highlight?: string; // Optional highlight text to display after the title
   }>;
   detailSection: Record<Language, {
     title: string;
     items: SuccessStoryDetailItem[]; // Variable number of items, alternating between text and image+text
+    highlight?: string; // Optional highlight text to display after the title
   }>;
   nextStepsSection: Record<Language, {
     title: string;
     content?: string; // Optional for backward compatibility - use items instead
     imagePath?: string; // Optional for backward compatibility - use items instead
+    imageSize?: "s" | "m" | "l"; // Optional image size for backward compatibility imagePath
     items?: SuccessStoryDetailItem[]; // Optional items array for multiple content elements and images
+    highlight?: string; // Optional highlight text to display after the title
   }>;
   downloadAssetId: string; // Base ID without language suffix (e.g., "success-story-megatron")
   keyStat?: Record<Language, {
@@ -93,27 +100,32 @@ export const successStories: SuccessStory[] = [
     },
     whoIsSection: {
       en: {
-        title: "Who is Hector?",
+        title: "Who is ",
+        highlight: "Hector?",
         content: "Hector is an innovative insurer in the field of motor vehicle insurance solutions and sees itself as an innovation leader. As a digital pioneer, the focus is on efficient processes through their own scalable and adaptable platform ZEUSS®, which leads to lower premiums."
       },
       de: {
-        title: "Wer ist Hector?",
+        title: "Wer ist ",
+        highlight: "Hector?",
         content: "Hector ist ein innovativer Assekuradeur im Bereich der Kfz-Versicherungslösungen und sieht sich als Innovationsführer. Als digitaler Vorreiter liegt der Fokus auf effizienten Prozessen mittels der eigenen skalier- und adaptierbare Plattform ZEUSS®, die zu niedrigeren Prämien führen."
       }
     },
     blindSpotsSection: {
       en: {
-        title: "Where were the blind spots?",
+        title: "Where were the ",
+        highlight: "blind spots?",
         content: "High rates of reopened claims without clear reasons being apparent. Delays in claims processing due to unforeseen bottlenecks. The impact of subsequent adjustments to reserve provisions in claims settlement on the process was unclear."
       },
       de: {
-        title: "Wo waren die Blind-Spots?",
+        title: "Wo waren die ",
+        highlight: "Blind-Spots?",
         content: "Hohe Raten an wiedereröffneten Schadenfällen, ohne dass die Gründe dafür klar ersichtlich waren. Verzögerungen in der Schadensabwicklung aufgrund unvorhergesehener Engpässe. Die Auswirkungen nachträglicher Anpassungen der Reserverückstellungen in der Schadensregulierung auf den Prozess waren unklar."
       }
     },
     findingsSection: {
       en: {
-        title: "What did we find?",
+        title: "What did we ",
+        highlight: "find?",
         findings: [
           {
             title: "High Number of Claim Reopenings",
@@ -134,7 +146,8 @@ export const successStories: SuccessStory[] = [
         ]
       },
       de: {
-        title: "Was haben wir gefunden?",
+        title: "Was haben wir ",
+        highlight: "gefunden?",
         findings: [
           {
             title: "Hohe Anzahl an Schaden-Re-Openings",
@@ -157,7 +170,8 @@ export const successStories: SuccessStory[] = [
     },
     detailSection: {
       en: {
-        title: "In Detail",
+        title: "In ",
+        highlight: "Detail",
         items: [
           {
             number: "7329",
@@ -182,7 +196,8 @@ export const successStories: SuccessStory[] = [
         ]
       },
       de: {
-        title: "Im Detail",
+        title: "Im ",
+        highlight: "Detail",
         items: [
           {
             number: "7329",
@@ -209,11 +224,13 @@ export const successStories: SuccessStory[] = [
     },
     nextStepsSection: {
       en: {
-        title: "Next Steps",
+        title: "Next ",
+        highlight: "Steps",
         content: "Hector continues to leverage Process Mining insights to further optimize their operations."
       },
       de: {
-        title: "Nächste Schritte",
+        title: "Nächste ",
+        highlight: "Schritte",
         content: "Hector nutzt weiterhin Process Mining-Erkenntnisse, um seine Operationen weiter zu optimieren."
       }
     },
@@ -252,27 +269,32 @@ export const successStories: SuccessStory[] = [
     },
     whoIsSection: {
       en: {
-        title: "Who is Megatron?",
+        title: "Who is ",
+        highlight: "Megatron?",
         content: "MEGATRON Elektronik GmbH & Co. KG, based in Putzbrunn near Munich, specializes in sensor technology and precision measurement technology. The company develops and produces high-quality components primarily for industrial applications and stands for precision, reliability, and customer-specific solutions in the electronics industry."
       },
       de: {
-        title: "Wer ist Megatron?",
+        title: "Wer ist ",
+        highlight: "Megatron?",
         content: "MEGATRON Elektronik GmbH & Co. KG mit Sitz in Putzbrunn bei München ist spezialisiert auf Sensortechnologie und Präzisionsmesstechnik. Das Unternehmen entwickelt und produziert hochwertige Komponenten vor allem für industrielle Anwendungen und steht für Präzision, Zuverlässigkeit und kundenspezifische Lösungen in der Elektronikbranche."
       }
     },
     blindSpotsSection: {
       en: {
-        title: "Where were the blind spots?",
+        title: "Where were the ",
+        highlight: "blind spots?",
         content: "Optimization potential in the use of the ERP system through more targeted collection of relevant information along process chains. Low transparency regarding the status of orders and customer orders."
       },
       de: {
-        title: "Wo waren die Blind-Spots?",
+        title: "Wo waren die ",
+        highlight: "Blind-Spots?",
         content: "Optimierungspotenzial in der Nutzung des ERP-Systems durch die gezieltere Erfassung relevanter Informationen entlang der Prozessketten. Niedrige Transparenz bezüglich des Status von Bestellungen und Kundenaufträgen."
       }
     },
     findingsSection: {
       en: {
-        title: "What did we find?",
+        title: "What did we ",
+        highlight: "find?",
         findings: [
           {
             title: "Optimizable Order Assignment",
@@ -293,7 +315,8 @@ export const successStories: SuccessStory[] = [
         ]
       },
       de: {
-        title: "Was haben wir gefunden?",
+        title: "Was haben wir ",
+        highlight: "gefunden?",
         findings: [
           {
             title: "Optimierbare Auftragszuordnung",
@@ -316,22 +339,26 @@ export const successStories: SuccessStory[] = [
     },
     detailSection: {
       en: {
-        title: "In Detail",
+        title: "In ",
+        highlight: "Detail",
         items: [
           {
             title: "Uncover and understand structural problems",
             imagePath: getSuccessStoryImagePath("megatron_structural_de.webp"),
+            imageSize: "l",
             content: "*Runtime, object count and other process metrics have been hidden for anonymization purposes."
           },
           {
             title: "Fluctuating run times",
             imagePath: getSuccessStoryImagePath("megatron_runtime_de.webp"),
+            imageSize: "s",
             content: "The posting out of materials was partly slower than planned in recent years. Production delays or standstills could be significantly reduced in the future through automation in material withdrawal."
           }
         ]
       },
       de: {
-        title: "Im Detail",
+        title: "Im ",
+        highlight: "Detail",
         items: [
           {
             title: "Strukturprobleme aufdecken und verstehen",
@@ -348,7 +375,8 @@ export const successStories: SuccessStory[] = [
     },
     nextStepsSection: {
       en: {
-        title: "Next Steps",
+        title: "Next ",
+        highlight: "Steps",
         items: [
           {
             title: "After the Workshop",
@@ -358,7 +386,8 @@ export const successStories: SuccessStory[] = [
         ]
       },
       de: {
-        title: "Nächste Schritte",
+        title: "Nächste ",
+        highlight: "Schritte",
         items: [
           {
             title: "Nach dem Workshop",
@@ -403,27 +432,32 @@ export const successStories: SuccessStory[] = [
     },
     whoIsSection: {
       en: {
-        title: "Who is IDM Wärmepumpen?",
+        title: "Who is ",
+        highlight: "IDM Wärmepumpen?",
         content: "IDM Wärmepumpen is a leading manufacturer of heat pumps, specializing in energy-efficient heating solutions."
       },
       de: {
-        title: "Wer ist IDM Wärmepumpen?",
+        title: "Wer ist ",
+        highlight: "IDM Wärmepumpen?",
         content: "IDM Energiesysteme GmbH ist ein führender Anbieter von fortschrittlichen Heizungslösungen, der sich auf nachhaltige und energieeffiziente Systeme spezialisiert hat. Mit einer starken Präsenz auf dem europäischen Markt konzentrieren sich ihre innovativen Produkte auf erneuerbare Energiequellen und gewährleisten umweltfreundliche und kostengünstige Heizlösungen."
       }
     },
     blindSpotsSection: {
       en: {
-        title: "Where were the blind spots?",
+        title: "Where were the ",
+        highlight: "blind spots?",
         content: "Manufacturing processes lacked visibility, making it difficult to identify inefficiencies and optimization opportunities."
       },
       de: {
-        title: "Wo waren die Blind-Spots?",
+        title: "Wo waren die ",
+        highlight: "Blind-Spots?",
         content: "Zu Beginn herrschte wenig Transparenz darüber, wie sich Laufzeiten konkreter Schritte ausgestalteten und wie deren Abhängigkeiten untereinander zu Engpässen führten. Das Ziel war es, ein erstes Gesamtbild der Situation zu erzeugen, welches dann als Grundlage für weitere Entscheidungen bezüglich Optimierungsmaßnahmen diente."
       }
     },
     findingsSection: {
       en: {
-        title: "What did we find?",
+        title: "What did we ",
+        highlight: "find?",
         findings: [
           {
             title: "Process Visibility",
@@ -444,7 +478,8 @@ export const successStories: SuccessStory[] = [
         ]
       },
       de: {
-        title: "Was haben wir gefunden?",
+        title: "Was haben wir ",
+        highlight: "gefunden?",
         findings: [
           {
             title: "Manuelle Dateneingabe verzögert den Prozess",
@@ -467,7 +502,8 @@ export const successStories: SuccessStory[] = [
     },
     detailSection: {
       en: {
-        title: "In Detail",
+        title: "In ",
+        highlight: "Detail",
         items: [
           {
             content: "Detailed analysis of manufacturing workflows revealed optimization opportunities across multiple production stages."
@@ -475,7 +511,8 @@ export const successStories: SuccessStory[] = [
         ]
       },
       de: {
-        title: "Im Detail",
+        title: "Im ",
+        highlight: "Detail",
         items: [
           {
             title: "Wie ist es gelaufen?",
@@ -494,11 +531,13 @@ export const successStories: SuccessStory[] = [
     },
     nextStepsSection: {
       en: {
-        title: "Next Steps",
+        title: "Next ",
+        highlight: "Steps",
         content: "IDM continues to use Process Mining insights to further optimize their manufacturing processes."
       },
       de: {
-        title: "Nächste Schritte",
+        title: "Nächste ",
+        highlight: "Schritte",
         content: "IDM nutzt weiterhin Process Mining-Erkenntnisse, um seine Fertigungsprozesse weiter zu optimieren."
       }
     },
@@ -537,21 +576,25 @@ export const successStories: SuccessStory[] = [
     },
     whoIsSection: {
       en: {
-        title: "Who is CIB?",
+        title: "Who is ",
+        highlight: "CIB?",
         content: "CIB is a software development company focused on creating innovative solutions for various industries."
       },
       de: {
-        title: "Wer ist CIB?",
+        title: "Wer ist ",
+        highlight: "CIB?",
         content: "CIB ist ein Technologie- und Softwareentwicklungsunternehmen, das sich auf Digitalisierung, Prozessautomatisierung und künstliche Intelligenz spezialisiert hat. CIB ist führend in der Entwicklung von KI-gestützten Digitalisierungslösungen, die es Unternehmen ermöglichen, die betriebliche Effizienz zu steigern und den manuellen Arbeitsaufwand zu reduzieren."
       }
     },
     blindSpotsSection: {
       en: {
-        title: "Where were the blind spots?",
+        title: "Where were the ",
+        highlight: "blind spots?",
         content: "Software development processes lacked transparency, making it difficult to identify bottlenecks and optimize workflows."
       },
       de: {
-        title: "Wo waren die Blind-Spots?",
+        title: "Wo waren die ",
+        highlight: "Blind-Spots?",
         content: `Keine prozessorientierte **Leistungsverfolgung** im Bewerbungs- und Einstellungsprozess.
 
 Keine **Nachverfolgung der Prozess-Conformance** für die Bewerber-Experience.
@@ -561,7 +604,8 @@ Keine **Nachverfolgung der Prozess-Conformance** für die Bewerber-Experience.
     },
     findingsSection: {
       en: {
-        title: "What did we find?",
+        title: "What did we ",
+        highlight: "find?",
         findings: [
           {
             title: "Initialer Antwort zuvorkommen",
@@ -582,7 +626,8 @@ Keine **Nachverfolgung der Prozess-Conformance** für die Bewerber-Experience.
         ]
       },
       de: {
-        title: "Was haben wir gefunden?",
+        title: "Was haben wir ",
+        highlight: "gefunden?",
         findings: [
           {
             title: "Initialer Antwort zuvorkommen",
@@ -605,7 +650,8 @@ Keine **Nachverfolgung der Prozess-Conformance** für die Bewerber-Experience.
     },
     detailSection: {
       en: {
-        title: "In Detail",
+        title: "In ",
+        highlight: "Detail",
         items: [
           {
             title: "High Degree of Flexibility",
@@ -625,7 +671,8 @@ Keine **Nachverfolgung der Prozess-Conformance** für die Bewerber-Experience.
         ]
       },
       de: {
-        title: "Im Detail",
+        title: "Im ",
+        highlight: "Detail",
         items: [
             {
               title: "Hoher Grad an Flexibilität",
@@ -647,7 +694,8 @@ Keine **Nachverfolgung der Prozess-Conformance** für die Bewerber-Experience.
     },
     nextStepsSection: {
       en: {
-        title: "Next Steps",
+        title: "Next ",
+        highlight: "Steps",
         items: [
           {
             title: "After the Workshop",
@@ -664,7 +712,8 @@ Keine **Nachverfolgung der Prozess-Conformance** für die Bewerber-Experience.
         ]
       },
       de: {
-        title: "Nächste Schritte",
+        title: "Nächste ",
+        highlight: "Schritte",
         items: [
           {
             title: "Nach dem Workshop",

@@ -23,6 +23,19 @@ const formatContent = (text: string): string => {
   return formatted;
 };
 
+// Helper function to get image container classes based on size
+const getImageContainerClasses = (size?: "s" | "m" | "l"): string => {
+  switch (size) {
+    case "s":
+      return "w-full max-w-md mx-auto";
+    case "l":
+      return "w-full max-w-4xl mx-auto";
+    case "m":
+    default:
+      return "w-full max-w-2xl mx-auto";
+  }
+};
+
 // Reusable function to render detail/next steps items
 const renderDetailItem = (
   item: SuccessStoryDetailItem,
@@ -72,7 +85,7 @@ const renderDetailItem = (
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className={`grid ${item.imagePath ? gridCols : "grid-cols-1"} gap-8 lg:gap-12 items-center`}
+      className={`grid ${item.imagePath ? gridCols : "grid-cols-1"} gap-8 lg:gap-12 items-start`}
     >
       {/* Image Section */}
       {item.imagePath && (
@@ -84,17 +97,14 @@ const renderDetailItem = (
           transition={{ duration: 0.8 }}
         >
           <motion.div
-            className="relative w-full h-[400px] lg:h-[500px] rounded-2xl overflow-hidden border border-border/50 shadow-lg group"
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.3 }}
+            className={`relative ${getImageContainerClasses(item.imageSize)} rounded-2xl overflow-hidden border border-border/50 shadow-lg`}
           >
             <img
               src={item.imagePath}
               alt={sectionTitle}
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              className="w-full h-auto object-contain"
               loading="lazy"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           </motion.div>
         </motion.div>
       )}
@@ -237,6 +247,14 @@ const SuccessStoryDetail = () => {
                 <div className="max-w-4xl mx-auto">
                   <h2 className="text-3xl lg:text-4xl font-bold text-foreground leading-tight mb-6">
                     {successStory.whoIsSection[language].title}
+                    {successStory.whoIsSection[language].highlight && (
+                      <>
+                        {" "}
+                        <span className="bg-gradient-primary bg-clip-text text-transparent">
+                          {successStory.whoIsSection[language].highlight}
+                        </span>
+                      </>
+                    )}
                   </h2>
                   <p 
                     className="text-base lg:text-lg leading-relaxed text-muted-foreground"
@@ -256,6 +274,14 @@ const SuccessStoryDetail = () => {
                 <div className="max-w-4xl mx-auto">
                   <h2 className="text-3xl lg:text-4xl font-bold text-foreground leading-tight mb-6">
                     {successStory.blindSpotsSection[language].title}
+                    {successStory.blindSpotsSection[language].highlight && (
+                      <>
+                        {" "}
+                        <span className="bg-gradient-primary bg-clip-text text-transparent">
+                          {successStory.blindSpotsSection[language].highlight}
+                        </span>
+                      </>
+                    )}
                   </h2>
                   <p 
                     className="text-base lg:text-lg leading-relaxed text-muted-foreground"
@@ -270,13 +296,21 @@ const SuccessStoryDetail = () => {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.6 }}
-                className="scroll-mt-24"
+                className="scroll-mt-24 min-h-[600px]"
               >
                 <div className="max-w-6xl mx-auto">
                   <h2 className="text-3xl lg:text-4xl font-bold text-foreground leading-tight mb-12 text-center">
                     {successStory.findingsSection[language].title}
+                    {successStory.findingsSection[language].highlight && (
+                      <>
+                        {" "}
+                        <span className="bg-gradient-primary bg-clip-text text-transparent">
+                          {successStory.findingsSection[language].highlight}
+                        </span>
+                      </>
+                    )}
                   </h2>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
                     {successStory.findingsSection[language].findings.map((finding, index) => (
                       <motion.div
                         key={index}
@@ -305,13 +339,21 @@ const SuccessStoryDetail = () => {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.6 }}
-                className="scroll-mt-24"
+                className="scroll-mt-24 min-h-[600px]"
               >
                 <div className="max-w-6xl mx-auto">
                   <h2 className="text-3xl lg:text-4xl font-bold text-foreground leading-tight mb-12 text-center">
                     {successStory.detailSection[language].title}
+                    {successStory.detailSection[language].highlight && (
+                      <>
+                        {" "}
+                        <span className="bg-gradient-primary bg-clip-text text-transparent">
+                          {successStory.detailSection[language].highlight}
+                        </span>
+                      </>
+                    )}
                   </h2>
-                  <div className="space-y-12">
+                  <div className="space-y-12 overflow-visible">
                     {successStory.detailSection[language].items.map((item, index) => 
                       renderDetailItem(item, index, successStory.detailSection[language].title)
                     )}
@@ -330,6 +372,14 @@ const SuccessStoryDetail = () => {
                 <div className="max-w-6xl mx-auto">
                   <h2 className="text-3xl lg:text-4xl font-bold text-foreground leading-tight mb-12 text-center">
                     {successStory.nextStepsSection[language].title}
+                    {successStory.nextStepsSection[language].highlight && (
+                      <>
+                        {" "}
+                        <span className="bg-gradient-primary bg-clip-text text-transparent">
+                          {successStory.nextStepsSection[language].highlight}
+                        </span>
+                      </>
+                    )}
                   </h2>
                   
                   {/* New format: items array */}
@@ -356,14 +406,13 @@ const SuccessStoryDetail = () => {
                           transition={{ duration: 0.8 }}
                           className="mt-8"
                         >
-                          <div className="relative w-full h-[400px] lg:h-[500px] rounded-2xl overflow-hidden border border-border/50 shadow-lg group">
+                          <div className={`relative ${getImageContainerClasses(successStory.nextStepsSection[language].imageSize)} rounded-2xl overflow-hidden border border-border/50 shadow-lg`}>
                             <img
                               src={successStory.nextStepsSection[language].imagePath}
                               alt={successStory.nextStepsSection[language].title}
-                              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                              className="w-full h-auto object-contain"
                               loading="lazy"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                           </div>
                         </motion.div>
                       )}
