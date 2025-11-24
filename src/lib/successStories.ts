@@ -6,6 +6,12 @@ const customerLogoImages = import.meta.glob<{ default: string }>(
   { eager: true }
 );
 
+// Dynamically import all success story images
+const successStoryImages = import.meta.glob<{ default: string }>(
+  '../assets/success_stories/**/*.{png,jpg,jpeg,svg,webp}',
+  { eager: true }
+);
+
 // Helper function to get image path from imports
 const getImagePath = (
   images: Record<string, { default: string }>,
@@ -15,6 +21,11 @@ const getImagePath = (
     path.toLowerCase().includes(filename.toLowerCase())
   );
   return entry ? entry[1].default : '';
+};
+
+// Helper function to get success story image path
+const getSuccessStoryImagePath = (filename: string): string => {
+  return getImagePath(successStoryImages, filename);
 };
 
 export interface SuccessStoryFinding {
@@ -309,10 +320,12 @@ export const successStories: SuccessStory[] = [
         items: [
           {
             title: "Uncover and understand structural problems",
-            content: "The analysis shows complex process flows with various paths and relationships within the system."
+            imagePath: getSuccessStoryImagePath("megatron_structural_de.webp"),
+            content: "*Runtime, object count and other process metrics have been hidden for anonymization purposes."
           },
           {
             title: "Fluctuating run times",
+            imagePath: getSuccessStoryImagePath("megatron_runtime_de.webp"),
             content: "The posting out of materials was partly slower than planned in recent years. Production delays or standstills could be significantly reduced in the future through automation in material withdrawal."
           }
         ]
@@ -322,10 +335,12 @@ export const successStories: SuccessStory[] = [
         items: [
           {
             title: "Strukturprobleme aufdecken und verstehen",
+            imagePath: getSuccessStoryImagePath("megatron_structural_de.webp"),
             content: "*Laufzeiten, Objektanzahl und weitere Prozesskennzahlen wurden aus Gründen der Anonymisierung ausgeblendet."
           },
           {
             title: "Schwankende Laufzeiten",
+            imagePath: getSuccessStoryImagePath("megatron_runtime_de.webp"),
             content: "Die Ausbuchung der Materialien verlief in den letzten Jahren teils langsamer als geplant. Produktionsverzögerungen oder -stillstände ließen sich durch Automatisierungen bei der Materialentnahme künftig deutlich verringern."
           }
         ]
@@ -334,11 +349,23 @@ export const successStories: SuccessStory[] = [
     nextStepsSection: {
       en: {
         title: "Next Steps",
-        content: "During the workshop, initial use cases were developed together. Of the total of 11 identified application cases, Megatron will initially focus on those that achieve a particularly high impact with low effort. Use Cases 8 and 9 have already been initiated and are outside the scope."
+        items: [
+          {
+            title: "After the Workshop",
+            imagePath: getSuccessStoryImagePath("megatron_matrix_de.webp"),
+            content: "During the workshop, initial use cases were developed together. Of the total of 11 identified application cases, Megatron will initially focus on those that achieve a particularly high impact with low effort. Use Cases 8 and 9 have already been initiated and are outside the scope."
+          }
+        ]
       },
       de: {
         title: "Nächste Schritte",
-        content: "Im Rahmen des Workshops wurden gemeinsam erste Use Cases erarbeitet. Von denen insgesamt 11 identifizierten Anwendungsfällen wird sich Megatron zunächst auf diejenigen konzentrieren, die mit geringem Aufwand einen besonders hohen Impact erzielen. Die Use Cases 8 und 9 wurden bereits initiiert und liegen außerhalb des Scopes."
+        items: [
+          {
+            title: "Nach dem Workshop",
+            imagePath: getSuccessStoryImagePath("megatron_matrix_de.webp"),
+            content: "Im Rahmen des Workshops wurden gemeinsam erste Use Cases erarbeitet. Von denen insgesamt 11 identifizierten Anwendungsfällen wird sich Megatron zunächst auf diejenigen konzentrieren, die mit geringem Aufwand einen besonders hohen Impact erzielen. Die Use Cases 8 und 9 wurden bereits initiiert und liegen außerhalb des Scopes."
+          }
+        ]
       }
     },
     downloadAssetId: "success-story-megatron",
@@ -581,7 +608,19 @@ Keine **Nachverfolgung der Prozess-Conformance** für die Bewerber-Experience.
         title: "In Detail",
         items: [
           {
-            content: "Detailed analysis of software development workflows revealed multiple opportunities for process improvement."
+            title: "High Degree of Flexibility",
+            imagePath: getSuccessStoryImagePath("cib_flexiblity_de.jpg"),
+            content: "The application process is designed with many structural freedoms, making it flexible but also more expensive and more complex to manage due to low standardization. It might be worthwhile to streamline the process more to act faster and more cost-effectively."
+          },
+          {
+            title: "Long Decision Times",
+            imagePath: getSuccessStoryImagePath("cib_decisions_de.jpg"),
+            content: "The decision time of responsible managers took longer than expected, while self-rejections occur relatively quickly (after 1W 3D). More feedback to candidates during the hiring process could keep them informed and prevent their self-rejection. Additionally, setting up an AI-supported pre-qualification assistant that prioritizes promising applicants and automatically invites them to preliminary interviews if needed could ensure that highly qualified candidates are contacted on the day of their application."
+          },
+          {
+            title: "Personal Contact",
+            imagePath: getSuccessStoryImagePath("cib_contact_de.jpg"),
+            content: "The process step \"Invite applicant to telephone preliminary interview\" was used very rarely (namely 11 times). This step could be used as pre-qualification within a week after the potential candidate's application to prevent early self-rejections from high-potentials."
           }
         ]
       },
@@ -590,14 +629,17 @@ Keine **Nachverfolgung der Prozess-Conformance** für die Bewerber-Experience.
         items: [
             {
               title: "Hoher Grad an Flexibilität",
+              imagePath: getSuccessStoryImagePath("cib_flexiblity_de.jpg"),
               content: "Der Bewerbungsprozess ist mit vielen strukturellen Freiheiten konzipiert, was ihn flexibel macht, aber aufgrund einer geringen Standardisierung auch teurer und aufwendiger zu managen. Möglicherweise könnte es sich lohnen den Prozess stärker zu streamlinen, um schneller und kostengünstiger zu agieren."
             },
             {
               title: "Lange Entscheidungszeiten",
+              imagePath: getSuccessStoryImagePath("cib_decisions_de.jpg"),
               content: "Die Entscheidungszeit der verantwortlichen Manager dauerte länger als erwartet, während Selbstabsagen relativ schnell erfolgen (nach 1W 3D). Mehr Feedback an die Kandidaten während des Einstellungsprozesses könnte sie auf dem Laufenden halten und ihre Selbstabsage verhindern. Zusätzlich könnte die Einrichtung eines KI-unterstützten Vorqualifizierungsassistenten, der vielversprechende Bewerber priorisiert und sie bei Bedarf automatisch zu Vorabinterviews einlädt, dafür sorgen, dass hochqualifizierte Kandidaten bereits am Tag ihrer Bewerbung kontaktiert werden."
             },
             {
               title: "Persönlicher Kontakt",
+              imagePath: getSuccessStoryImagePath("cib_contact_de.jpg"),
               content: "Der Prozessschritt „Bewerber zum telefonischen Vorgespräch einladen“ wurde nur sehr selten genutzt (nämlich 11 mal). Dieser Durchführung dieses Schrittes könnte als Vorqualifikation innerhalb einer Woche nach der Bewerbung des potenziellen Kandidaten eingesetzt werden, um frühzeitige Selbstabsagen von High-Potentials zu verhindern."
             }
         ]
