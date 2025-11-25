@@ -46,29 +46,29 @@ export const useCases: UseCase[] = [
       de: "Supply Chain"
     },
     shortDescription: {
-      en: "Optimize logistics and distribution processes",
+      en: "Discover how Noreja can increase efficiency in Supply Chain Management.",
       de: "Entdecke, wie Noreja die Effizienz im Supply Chain Management erhöhen kann."
     },
     description: {
-      en: "Transform your supply chain operations with Noreja Process Intelligence. Gain visibility into every step of your logistics processes, identify bottlenecks, and optimize distribution networks for maximum efficiency.",
+      en: "Noreja's innovative Process Intelligence approach and Supply Chain Management are made for each other. With the ability to uncover deep structural problems across data and systems, we can solve a variety of common problems in the industry. Now we present some application areas where our solution can make your organization's processes leaner and more effective!",
       de: "Norejas innovativer Process-Intelligence-Ansatz und Supply Chain Management sind wie gemacht für einander. Mit der Fähigkeit daten- und systemüberfreifend tiefgreifende Strukturprobleme aufzudecken, können wir eine Vielzahl gängiger Probleme in der Branche lösen. Nun präsentieren wir einige Anwendungsfelder, in denen unsere Lösung die Prozesse deiner Organisation schlanker und effektiver machen kann!"
     },
     sections: {
       en: [
         {
-          title: "End-to-End Visibility",
-          subtitle: "Complete transparency across your supply chain",
-          content: "Achieve complete transparency across your entire supply chain. Track orders from procurement to delivery, monitor inventory levels in real-time, and identify process deviations before they impact your operations. With Noreja, you can visualize complex multi-tier supply chains and understand how different stages interconnect."
+          title: "Production Line Optimization",
+          subtitle: "Increasing efficiency of processes and resources",
+          content: "Production line optimization through Process Mining focuses on improving the efficiency and effectiveness of manufacturing processes. By analyzing production workflows, companies can identify bottlenecks, delays, and underutilized resources in production. For example, Process Mining can reveal that certain machines frequently stand still due to maintenance problems or that certain production steps take longer than expected. By eliminating these inefficiencies, manufacturers can streamline their processes, increase throughput, and reduce operating costs. This optimization not only improves production times but also overall product quality and customer satisfaction."
         },
         {
-          title: "Bottleneck Identification",
-          subtitle: "Identify and resolve process bottlenecks",
-          content: "Quickly identify and resolve bottlenecks in your supply chain processes. Our AI-powered analysis reveals where delays occur most frequently, which suppliers cause the most issues, and where inventory gets stuck. Use these insights to optimize routing, improve supplier relationships, and reduce lead times significantly."
+          title: "Inventory Optimization",
+          subtitle: "Avoiding overstock or understock situations",
+          content: "Inventory optimization through Process Mining involves analyzing inventory levels and turnover rates to ensure efficient inventory management. By examining historical sales data, reorder patterns, and supplier lead times, companies can identify trends and forecast demand more accurately. These insights enable companies to maintain optimal inventory levels, reduce overstock, and minimize stockouts. By optimizing inventory, companies can reduce storage costs, improve cash flow, and increase service quality. Ultimately, effective inventory management leads to a more responsive supply chain and higher customer satisfaction."
         },
         {
-          title: "Demand Forecasting & Optimization",
-          subtitle: "Improve forecasting accuracy and inventory management",
-          content: "Improve demand forecasting accuracy by analyzing historical process patterns and identifying trends. Optimize inventory levels, reduce stockouts and overstock situations, and align production schedules with actual demand. Noreja helps you balance efficiency with resilience in your supply chain operations."
+          title: "Emissions Tracking (CO2)",
+          subtitle: "Reducing the ecological footprint",
+          content: "Emissions tracking through Process Mining focuses on monitoring and analyzing greenhouse gas emissions throughout the supply chain. By examining data from production processes, transportation, and logistics, companies can identify the main sources of emissions and areas with improvement potential. This analysis enables companies to develop strategies to reduce their CO2 emissions, for example by optimizing transport routes or improving energy efficiency in production. By actively tracking and managing emissions, companies can meet legal requirements, strengthen their sustainability initiatives, and improve their reputation as a company."
         }
       ],
       de: [
@@ -135,49 +135,87 @@ export const useCases: UseCase[] = [
       de: "Produktion"
     },
     shortDescription: {
-      en: "Enhance production efficiency and quality control",
-      de: "Produktionseffizienz und Qualitätskontrolle verbessern"
+      en: "Discover how Noreja can help achieve new productivity levels in Manufacturing.",
+      de: "Entdecke, wie Noreja dabei helfen kann neue Produktivitätslevel im Manufacturing zu erreichen."
     },
     description: {
-      en: "Streamline manufacturing operations with process intelligence. Monitor production workflows, optimize resource allocation, and ensure consistent quality across all manufacturing processes.",
-      de: "Optimiere Produktionsprozesse mit Process Intelligence. Überwache Produktionsabläufe, optimiere Ressourcenzuteilung und stelle konsistente Qualität in allen Produktionsprozessen sicher."
+      en: "Noreja's innovative Process Intelligence approach and Manufacturing are made for each other. With the ability to uncover deep structural problems across data and systems, we can solve a variety of common problems in the industry. Now we present some application areas where our solution can make your organization's processes leaner and more effective!",
+      de: "Norejas innovativer Process-Intelligence-Ansatz und Manufacturing sind wie gemacht für einander. Mit der Fähigkeit daten- und systemüberfreifend tiefgreifende Strukturprobleme aufzudecken, können wir eine Vielzahl gängiger Probleme in der Branche lösen. Nun präsentieren wir einige Anwendungsfelder, in denen unsere Lösung die Prozesse deiner Organisation schlanker und effektiver machen kann!"
     },
     sections: {
       en: [
         {
-          title: "Production Process Optimization",
-          subtitle: "Enhance efficiency and effectiveness of manufacturing processes",
-          content: "Gain deep insights into your manufacturing workflows. Identify inefficiencies in production lines, optimize machine utilization, and reduce cycle times. Track how materials flow through your facility, understand where quality issues originate, and improve overall equipment effectiveness (OEE) through data-driven process improvements."
+          title: "Procurement Optimization",
+          subtitle: "Optimizing efficiency through reduction of manual activities",
+          content: "Procurement optimization through Process Mining focuses on improving the efficiency of purchasing and supplier management processes. By analyzing procurement workflows, manufacturing companies can identify procurement delays, supplier bottlenecks, or recurring bottlenecks (e.g., in approvals or releases) that slow down the supply chain. Process analysis can, for example, reveal frequent delays with certain suppliers or anomalies in approval cycles. By optimizing procurement processes, manufacturers can shorten lead times, negotiate better supplier terms, and ensure timely availability of raw materials. This ultimately leads to cost savings and more flexible production processes."
         },
         {
-          title: "Quality Control & Compliance",
-          subtitle: "Ensure consistent quality standards and regulatory compliance",
-          content: "Ensure consistent quality standards across all production stages. Monitor quality checkpoints, track defect rates, and identify root causes of quality issues. Maintain compliance with industry standards and regulations by documenting process adherence and identifying areas where procedures need reinforcement."
+          title: "Defect & Waste Reduction",
+          subtitle: "Reducing time-intensive steps and rework",
+          content: "Reducing defects and waste through Process Mining focuses on identifying inefficiencies that lead to product defects and material waste. By analyzing production workflows and quality control data, manufacturing companies can identify the phases or points where errors occur most frequently or where too much material is consumed. Process Mining can uncover recurring problems, such as equipment malfunctions or incorrect machine settings that lead to deviations from quality standards. By eliminating these inefficiencies, manufacturers can reduce the scrap rate, improve product quality, and lower overall production costs, leading to a more sustainable and profitable operation."
         },
         {
-          title: "Predictive Maintenance",
-          subtitle: "Reduce unplanned downtime through proactive maintenance",
-          content: "Reduce unplanned downtime through predictive maintenance insights. Analyze equipment performance patterns, identify early warning signs of potential failures, and schedule maintenance proactively. Optimize maintenance schedules to minimize production disruptions while extending equipment lifespan."
+          title: "Working Capital Management",
+          subtitle: "Optimizing payment cycles and intelligent prioritization",
+          content: "Working capital management using Process Mining focuses on optimizing the flow of capital tied up in operations, such as inventory, liabilities, and receivables. By analyzing financial transactions and operational data, companies can identify inefficiencies in payment cycles or excess inventory that burden cash flow. For example, Process Mining can reveal delays in invoicing or sluggish supplier payments that affect working capital. When these issues are addressed, manufacturers can improve their liquidity, reduce financing costs, and invest more efficiently in growth and innovation."
         }
       ],
       de: [
         {
-          title: "Produktionsprozess-Optimierung",
-          subtitle: "Verbesserung der Effizienz und Effektivität von Fertigungsprozessen",
-          content: "Gewinne tiefe Einblicke in deine Produktionsabläufe. Identifiziere Ineffizienzen in Produktionslinien, optimiere Maschinenauslastung und reduziere Zykluszeiten. Verfolge, wie Materialien durch deine Anlage fließen, verstehe, wo Qualitätsprobleme entstehen, und verbessere die Gesamtanlageneffektivität (OEE) durch datengestützte Prozessverbesserungen."
+          title: "Optimierung der Beschaffung",
+          subtitle: "Optimierung der Effizienz durch Reduktion manueller Tätigkeiten",
+          content: "Die Optimierung der Beschaffung mittels Process Mining konzentriert sich auf die Verbesserung der Effizienz von Einkaufs- und Lieferantenmanagementprozessen. Durch die Analyse von Beschaffungsabläufen können produzierende Unternehmen Verzögerungen bei der Beschaffung, Engpässe bei Lieferanten oder sich wiederholende Flaschenhälse (z. B. bei Genehmigungen oder Freigaben) identifizieren, die die Lieferkette verlangsamen. Die Prozessanalyse kann zum Beispiel häufige Verzögerungen bei bestimmten Lieferanten oder Anomalien in den Genehmigungszyklen aufdecken. Durch die Optimierung der Beschaffungsprozesse können Hersteller die Lead-Times verkürzen, bessere Lieferantenbedingungen aushandeln und die rechtzeitige Verfügbarkeit von Rohstoffen sicherstellen. Dies führt letztlich zu Kosteneinsparungen und flexibleren Produktionsabläufen."
         },
         {
-          title: "Qualitätskontrolle & Compliance",
-          subtitle: "Sicherstellung konsistenter Qualitätsstandards und regulatorischer Compliance",
-          content: "Stelle konsistente Qualitätsstandards in allen Produktionsstufen sicher. Überwache Qualitätsprüfpunkte, verfolge Fehlerquoten und identifiziere Ursachen von Qualitätsproblemen. Halte Compliance mit Branchenstandards und Vorschriften aufrecht, indem du Prozesseinhaltung dokumentierst und Bereiche identifizierst, in denen Verfahren verstärkt werden müssen."
+          title: "Defekt- & Ausschussreduzierung",
+          subtitle: "Reduktion zeitintensiver Schritte und Rework",
+          content: "Die Verringerung von Defekten und Ausschuss durch Process Mining konzentriert sich auf die Ermittlung von Ineffizienzen, die zu Produktfehlern und Materialverschwendung führen. Durch die Analyse von Produktionsabläufen und Qualitätskontrolldaten können produzierende Unternehmen die Phasen oder Stellen ermitteln, in denen am häufigsten Fehler auftreten oder in denen zu viel Material verbraucht wird. Process Mining kann wiederkehrende Probleme aufdecken, z. B. Fehlfunktionen von Anlagen oder falsche Maschineneinstellungen, die zu Abweichungen von Qualitätsstandards führen. Durch die Beseitigung dieser Ineffizienzen können Hersteller die Ausschussrate reduzieren, die Produktqualität verbessern und die Gesamtproduktionskosten senken, was zu einem nachhaltigeren und rentableren Betrieb führt."
         },
         {
-          title: "Vorausschauende Wartung",
-          subtitle: "Reduzierung ungeplanter Ausfallzeiten durch proaktive Wartung",
-          content: "Reduziere ungeplante Ausfallzeiten durch Erkenntnisse zur vorausschauenden Wartung. Analysiere Leistungsmuster von Anlagen, identifiziere frühe Warnsignale potenzieller Ausfälle und plane Wartung proaktiv. Optimiere Wartungspläne, um Produktionsunterbrechungen zu minimieren und gleichzeitig die Lebensdauer der Anlagen zu verlängern."
+          title: "Working-Capital-Management",
+          subtitle: "Optimierung der Zahlungszyklen und intelligentes Priorisieren",
+          content: "Das Working-Capital-Management mithilfe von Process Mining konzentriert sich auf die Optimierung des Flusses der im Betrieb gebundenen Kapitalmittel, wie z. B. Lagerbestände, Verbindlichkeiten und Forderungen. Durch die Analyse von Finanztransaktionen und Betriebsdaten können Unternehmen Ineffizienzen in den Zahlungszyklen oder überschüssige Bestände identifizieren, die den Cashflow belasten. So kann das Process Mining beispielsweise Verzögerungen bei der Rechnungsstellung oder schleppende Lieferantenzahlungen aufdecken, die sich auf das Betriebskapital auswirken. Wenn diese Probleme angegangen werden, können Hersteller ihre Liquidität verbessern, die Finanzierungskosten senken und effizienter in Wachstum und Innovation investieren."
         }
       ]
-    }
+    },
+    additionalUseCases: [
+      {
+        id: "shop-floor-optimization",
+        title: {
+          en: "Shop-Floor Optimization",
+          de: "Shop-Floor-Optimierung"
+        },
+        description: {
+          en: "The optimization of shop floors through Process Mining improves operational efficiency in production by uncovering bottlenecks and inefficiencies, thereby increasing throughput, shortening lead times, and reducing costs.",
+          de: "Die Optimierung des Shop-Floors durch Process Mining verbessert die betriebliche Effizienz in der Produktion, indem sie Engpässe und Ineffizienzen aufdeckt und so den Durchsatz erhöht, die Durchlaufzeiten verkürzt und Kosten senkt."
+        },
+        icon: "Settings"
+      },
+      {
+        id: "demand-output-forecast",
+        title: {
+          en: "Demand and Output Forecast",
+          de: "Nachfrage- und Output-Prognose"
+        },
+        description: {
+          en: "In demand and production forecasting in manufacturing, Process Mining is used to analyze historical data, improve forecast accuracy, optimize production plans, and reduce inventory costs.",
+          de: "Bei der Bedarfs- und Produktionsvorhersage in der Fertigung wird Process Mining eingesetzt, um historische Daten zu analysieren, die Vorhersagegenauigkeit zu verbessern, die Produktionspläne zu optimieren und die Bestandskosten zu senken."
+        },
+        icon: "TrendingUp"
+      },
+      {
+        id: "warehouse-management",
+        title: {
+          en: "Warehouse Management",
+          de: "Lager-Management"
+        },
+        description: {
+          en: "In inventory management in manufacturing, Process Mining is used to optimize inventory levels, reduce storage costs, avoid production delays, and improve cash flow.",
+          de: "Bei der Bestandsverwaltung in der Fertigung wird Process Mining eingesetzt, um die Lagerbestände zu optimieren, die Lagerkosten zu senken, Produktionsverzögerungen zu vermeiden und den Cashflow zu verbessern."
+        },
+        icon: "Package"
+      }
+    ]
   },
   {
     id: "insurance",
@@ -186,49 +224,87 @@ export const useCases: UseCase[] = [
       de: "Versicherung"
     },
     shortDescription: {
-      en: "Streamline claims processing and risk assessment",
-      de: "Schadensbearbeitung und Risikobewertung optimieren"
+      en: "Discover how Noreja can help analyze claims processes in insurance.",
+      de: "Entdecke, wie Noreja dabei helfen kann Claims-Prozesse in der Assekuranz zu analysieren."
     },
     description: {
-      en: "Transform insurance operations with intelligent process analysis. Accelerate claims processing, improve risk assessment accuracy, and enhance customer experience through optimized workflows.",
-      de: "Transformiere Versicherungsoperationen mit intelligenter Prozessanalyse. Beschleunige Schadensbearbeitung, verbessere Risikobewertungsgenauigkeit und verbessere Kundenerfahrungen durch optimierte Workflows."
+      en: "Noreja's innovative Process Intelligence approach and insurance are made for each other. With the ability to uncover deep structural problems across data and systems, we can solve a variety of common problems in the industry. Now we present some application areas where our solution can make your organization's processes leaner and more effective!",
+      de: "Norejas innovativer Process-Intelligence-Ansatz und die Assekuranz sind wie gemacht für einander. Mit der Fähigkeit daten- und systemüberfreifend tiefgreifende Strukturprobleme aufzudecken, können wir eine Vielzahl gängiger Probleme in der Branche lösen. Nun präsentieren wir einige Anwendungsfelder, in denen unsere Lösung die Prozesse deiner Organisation schlanker und effektiver machen kann!"
     },
     sections: {
       en: [
         {
-          title: "Claims Processing Efficiency",
-          subtitle: "Reduce processing time and improve customer satisfaction",
-          content: "Dramatically reduce claims processing time by identifying bottlenecks and inefficiencies in your workflows. Automate routine tasks, route complex cases to the right specialists faster, and ensure consistent processing across all claims. Track processing times, identify patterns that cause delays, and optimize your claims handling processes for better customer satisfaction."
-        },
-        {
-          title: "Risk Assessment & Underwriting",
-          subtitle: "Improve accuracy and consistency in risk evaluation",
-          content: "Improve risk assessment accuracy by analyzing historical process data and identifying patterns that correlate with risk levels. Optimize underwriting workflows, reduce manual review times, and ensure consistent risk evaluation across all policies. Use process insights to refine risk models and make more informed underwriting decisions."
+          title: "Claims Management",
+          subtitle: "Processing applications faster and with fewer errors",
+          content: "Claims management optimization through Process Mining focuses on improving the efficiency of the processing process. By analyzing the workflow from occurrence to claims settlement, insurers can identify bottlenecks, redundancies, and areas with delays. For example, Process Mining can reveal that certain claims cases frequently stall due to incomplete documentation or excessive manual reviews. By eliminating these inefficiencies, insurers can streamline their processes, shorten processing times, and improve customer satisfaction. This optimization not only improves the overall experience for policyholders but also reduces operating costs, allowing insurers to use their resources more effectively."
         },
         {
           title: "Regulatory Compliance",
-          subtitle: "Maintain compliance through comprehensive process documentation",
-          content: "Maintain compliance with insurance regulations through comprehensive process documentation and monitoring. Track adherence to required procedures, identify areas where compliance processes break down, and ensure all regulatory requirements are consistently met. Generate audit-ready documentation automatically from your process data."
+          subtitle: "Identifying compliance and legal risks",
+          content: "Regulatory compliance analysis through Process Mining focuses on verifying compliance with legal standards and internal guidelines. By analyzing workflow data, insurers can identify potential compliance risks and deviations from established protocols. For example, Process Mining can uncover cases where documentation requirements are not met or procedures are not consistently followed. This transparency enables insurers to take corrective action and improve compliance training programs. By maintaining solid compliance practices, insurers can avoid penalties, protect their reputation, and foster stakeholder trust. Data protection is of utmost importance, especially given the sensitive nature of personal and financial information that insurers handle."
+        },
+        {
+          title: "Fraud Detection",
+          subtitle: "Recognize unauthorized claims",
+          content: "Fraud detection through Process Mining helps identify and prevent fraudulent activities in claims and contract management. By examining transaction data and process flows, insurers can uncover unusual patterns, anomalies, or deviations from standard operating procedures. This early detection mechanism is crucial as it enables insurers to intervene before fraudulent claims are processed. In this way, companies can significantly reduce fraud-related costs while improving operational efficiency. Furthermore, this proactive approach ensures that legitimate claims are processed fairly and promptly, maintaining customer trust."
         }
       ],
       de: [
         {
-          title: "Schadensbearbeitungs-Effizienz",
-          subtitle: "Reduzierung der Bearbeitungszeit und Verbesserung der Kundenzufriedenheit",
-          content: "Reduziere die Schadensbearbeitungszeit erheblich, indem du Engpässe und Ineffizienzen in deinen Workflows identifizierst. Automatisiere Routineaufgaben, leite komplexe Fälle schneller an die richtigen Spezialisten weiter und stelle konsistente Bearbeitung bei allen Schäden sicher. Verfolge Bearbeitungszeiten, identifiziere Muster, die Verzögerungen verursachen, und optimiere deine Schadensbearbeitungsprozesse für bessere Kundenzufriedenheit."
-        },
-        {
-          title: "Risikobewertung & Underwriting",
-          subtitle: "Verbesserung der Genauigkeit und Konsistenz bei der Risikobewertung",
-          content: "Verbessere die Genauigkeit der Risikobewertung durch Analyse historischer Prozessdaten und Identifikation von Mustern, die mit Risikoniveaus korrelieren. Optimiere Underwriting-Workflows, reduziere manuelle Prüfzeiten und stelle konsistente Risikobewertung bei allen Policen sicher. Nutze Prozesserkenntnisse, um Risikomodelle zu verfeinern und fundiertere Underwriting-Entscheidungen zu treffen."
+          title: "Schadenmanagement",
+          subtitle: "Anträge schneller und mit weniger Fehlern bearbeiten",
+          content: "Die Optimierung des Schadensmanagements durch Process Mining konzentriert sich auf die Verbesserung der Effizienz des Bearbeitungsprozesses. Durch die Analyse des Arbeitsablaufs von der Entstehung bis zur Schadenregulierung können Versicherer Engpässe, Redundanzen und Bereiche mit Verzögerungen aufspüren. So kann das Process Mining beispielsweise aufzeigen, dass bestimmte Schadenfälle aufgrund unvollständiger Dokumentation oder übermäßiger manueller Überprüfungen häufig ins Stocken geraten. Durch die Beseitigung dieser Ineffizienzen können die Versicherer ihre Abläufe rationalisieren, die Bearbeitungszeiten verkürzen und die Kundenzufriedenheit verbessern. Diese Optimierung verbessert nicht nur das Gesamterlebnis für die Versicherungsnehmer, sondern senkt auch die Betriebskosten, so dass die Versicherer ihre Ressourcen effektiver einsetzen können."
         },
         {
           title: "Regulatorische Compliance",
-          subtitle: "Aufrechterhaltung der Compliance durch umfassende Prozessdokumentation",
-          content: "Halte Compliance mit Versicherungsvorschriften durch umfassende Prozessdokumentation und Überwachung aufrecht. Verfolge Einhaltung erforderlicher Verfahren, identifiziere Bereiche, in denen Compliance-Prozesse zusammenbrechen, und stelle sicher, dass alle regulatorischen Anforderungen konsistent erfüllt werden. Generiere auditbereite Dokumentation automatisch aus deinen Prozessdaten."
+          subtitle: "Erkennung von Compliance- und Rechtsrisiken",
+          content: "Die Analyse der regulatorischen Compliance durch Process Mining konzentriert sich darauf, die Einhaltung gesetzlicher Standards und interner Richtlinien zu überprüfen. Durch die Analyse von Workflow-Daten können Versicherer potenzielle Compliance-Risiken und Abweichungen von etablierten Protokollen erkennen. Beispielsweise können durch Process Mining Fälle aufgedeckt werden, in denen Dokumentationsanforderungen nicht erfüllt werden oder Verfahren nicht konsequent eingehalten werden. Diese Transparenz ermöglicht es den Versicherern, Korrekturmaßnahmen zu ergreifen und Schulungsprogramme zur Einhaltung der Vorschriften zu verbessern. Durch die Aufrechterhaltung solider Compliance-Praktiken können Versicherer Strafen vermeiden, ihren Ruf schützen und das Vertrauen der Beteiligten fördern. Der Datenschutz ist von größter Bedeutung, insbesondere in Anbetracht der sensiblen Natur der persönlichen und finanziellen Informationen, mit denen Versicherer umgehen."
+        },
+        {
+          title: "Betrugserkennung",
+          subtitle: "Erkennen Sie unberechtigte Forderungen",
+          content: "Die Betrugserkennung durch Process Mining hilft betrügerische Aktivitäten in der Schaden- und Vertragsverwaltung zu erkennen und zu verhindern. Durch die Untersuchung von Transaktionsdaten und Prozessabläufen können Versicherer ungewöhnliche Muster, Anomalien oder Abweichungen von Standardbetriebsverfahren aufdecken. Dieser Mechanismus zur Früherkennung ist von entscheidender Bedeutung, da er es Versicherern ermöglicht, einzugreifen, bevor betrügerische Ansprüche bearbeitet werden. Auf diese Weise können Unternehmen die mit Betrug verbundenen Kosten erheblich senken und gleichzeitig die betriebliche Effizienz verbessern. Darüber hinaus stellt dieser proaktive Ansatz sicher, dass legitime Ansprüche fair und zeitnah bearbeitet werden und das Vertrauen der Kunden erhalten bleibt."
         }
       ]
-    }
+    },
+    additionalUseCases: [
+      {
+        id: "customer-journey-mapping",
+        title: {
+          en: "Customer Journey Mapping",
+          de: "Customer-Journey-Mapping"
+        },
+        description: {
+          en: "In customer journey mapping, Process Mining can be used to analyze customer interactions, identify pain points, and optimize services. This increases satisfaction and strengthens customer loyalty.",
+          de: "Beim Customer Journey Mapping kann Process Mining eingesetzt werden, um Kundeninteraktionen zu analysieren, Pain-Points zu identifizieren und Dienstleistungen zu optimieren. Dies erhöht die Zufriedenheit und steigert die Kundenbindung."
+        },
+        icon: "Map"
+      },
+      {
+        id: "partner-optimization",
+        title: {
+          en: "Partner Optimization",
+          de: "Partner-Optimierung"
+        },
+        description: {
+          en: "The optimization of preferred partners in the insurance industry can be analyzed through Process Mining to improve collaboration with third-party providers and identify the most efficient and reliable partners. This improves service and reduces costs.",
+          de: "Die Optimierung bevorzugter Partner in der Versicherungsbranche kann durch Process Mining analysiert werden, um die Zusammenarbeit mit Drittanbietern zu verbessern und die effizientesten und zuverlässigsten Partner zu identifizieren. Dies verbessert den Service und senkt die Kosten."
+        },
+        icon: "Users"
+      },
+      {
+        id: "reserve-adjustments",
+        title: {
+          en: "Reserve Adjustments",
+          de: "Rückstellungs-anpassungen"
+        },
+        description: {
+          en: "Retroactive adjustments of reserve amounts can be analyzed with Process Mining to optimize policy corrections, identify causes for reversals, and implement strategies to reduce errors.",
+          de: "Nachträgliche Anpassungen der Reservebeträge können mit Process Mining analysiert werden, um Policenkorrekturen zu optimieren, Ursachen für Rückbuchungen zu identifizieren und Strategien zur Fehlerreduzierung umzusetzen."
+        },
+        icon: "Undo"
+      }
+    ]
   },
   {
     id: "banking",
@@ -237,29 +313,29 @@ export const useCases: UseCase[] = [
       de: "Banking"
     },
     shortDescription: {
-      en: "Optimize financial operations and compliance",
+      en: "Discover how Noreja can help improve Compliance and Risk Management in Banking.",
       de: "Entdecke, wie Noreja dabei helfen kann Compliance and Risikomanagement im Banking zu verbessern."
     },
     description: {
-      en: "Enhance banking operations with process intelligence. Improve loan processing, optimize compliance workflows, and deliver better customer experiences through streamlined financial processes.",
+      en: "Noreja's innovative Process Intelligence approach and Banking are made for each other. With the ability to uncover deep structural problems across data and systems, we can solve a variety of common problems in the industry. Now we present some application areas where our solution can make your organization's processes leaner and more effective!",
       de: "Norejas innovativer Process-Intelligence-Ansatz und Banking sind wie gemacht für einander. Mit der Fähigkeit daten- und systemüberfreifend tiefgreifende Strukturprobleme aufzudecken, können wir eine Vielzahl gängiger Probleme in der Branche lösen. Nun präsentieren wir einige Anwendungsfelder, in denen unsere Lösung die Prozesse deiner Organisation schlanker und effektiver machen kann!"
     },
     sections: {
       en: [
         {
-          title: "Loan Processing & Credit Assessment",
-          subtitle: "Accelerate processing while maintaining thorough risk assessment",
-          content: "Accelerate loan processing while maintaining thorough risk assessment. Identify bottlenecks in application workflows, optimize credit evaluation processes, and reduce time-to-decision for customers. Analyze approval patterns to ensure consistent decision-making and identify opportunities to streamline without compromising risk management."
+          title: "Fraud Detection",
+          subtitle: "Quickly recognize fraudulent behavior",
+          content: "Fraud detection in banking through Process Mining uses data analysis to detect and prevent fraudulent activities in various transactions. By examining transaction data and user behavior patterns, banks can uncover anomalies, unusual trends, or deviations from typical customer behavior. This proactive approach enables financial institutions to detect potentially fraudulent transactions in real-time and intervene quickly before significant losses occur. By improving fraud detection capabilities, banks can significantly reduce fraud-related costs while maintaining customer trust."
         },
         {
-          title: "Compliance & Risk Management",
-          subtitle: "Ensure regulatory compliance across all banking operations",
-          content: "Ensure regulatory compliance across all banking operations. Monitor adherence to KYC (Know Your Customer) procedures, track AML (Anti-Money Laundering) workflows, and identify compliance gaps before they become issues. Automate compliance reporting and maintain comprehensive audit trails for all financial processes."
+          title: "Risk Management",
+          subtitle: "Identifying and avoiding compliance risks",
+          content: "Compliance and risk management with Process Mining is about ensuring adherence to regulatory standards and internal risk guidelines. By analyzing transaction flows and operational processes, banks can identify potential compliance risks, such as insufficient documentation or inconsistent practices. This transparency enables institutions to take corrective action, expand training programs, and improve control mechanisms. By adhering to strict compliance practices and effective risk management, banks can avoid penalties, protect their reputation, and strengthen the trust of both regulators and customers."
         },
         {
-          title: "Customer Onboarding & Service",
-          subtitle: "Improve customer experiences through optimized processes",
-          content: "Improve customer onboarding experiences by optimizing account opening processes. Reduce onboarding time, eliminate unnecessary steps, and ensure consistent service quality. Track customer service interactions to identify common issues and optimize support workflows for faster resolution times."
+          title: "Loan Application & Approval Process",
+          subtitle: "Analyzing bottlenecks for more efficient processes",
+          content: "Loan application and approval using Process Mining focuses on optimizing the process structure. By examining the workflow from application to final approval, banks can identify delays, redundancies, and areas where customer experience can be improved. For example, Process Mining can reveal that certain loan types consistently require longer approval times due to complex review processes. By eliminating these inefficiencies and automating parts of the workflow, banks can accelerate the loan approval process, improve customer satisfaction, and ultimately increase loan volume."
         }
       ],
       de: [

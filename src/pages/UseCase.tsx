@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useParams, Link } from "react-router-dom";
-import { ArrowLeft, Handshake, BarChart3, FileCheck, CreditCard, UserPlus } from "lucide-react";
+import { ArrowLeft, Handshake, BarChart3, FileCheck, CreditCard, UserPlus, Settings, TrendingUp, Package, Map, Users, Undo } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { AnimatedHeading } from "@/components/AnimatedHeading";
@@ -197,7 +197,13 @@ const UseCase = () => {
                     BarChart3,
                     FileCheck,
                     CreditCard,
-                    UserPlus
+                    UserPlus,
+                    Settings,
+                    TrendingUp,
+                    Package,
+                    Map,
+                    Users,
+                    Undo
                   };
                   const IconComponent = iconMap[additionalUseCase.icon] || Handshake;
                   
