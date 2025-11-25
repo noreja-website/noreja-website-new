@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
 import { useParams, Link } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Handshake, BarChart3, FileCheck } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { AnimatedHeading } from "@/components/AnimatedHeading";
 import { useEffect } from "react";
-import { useCases } from "@/lib/useCases";
+import { useCases, additionalUseCases } from "@/lib/useCases";
+import { Card, CardContent } from "@/components/ui/card";
 
 const UseCase = () => {
   const { useCaseName } = useParams<{ useCaseName: string }>();
@@ -148,9 +149,16 @@ const UseCase = () => {
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: index * 0.1 + 0.2 }}
                       >
-                        <h2 className="text-3xl lg:text-4xl font-bold text-foreground leading-tight">
-                          {section.title}
-                        </h2>
+                        <div className="space-y-2">
+                          <h2 className="text-3xl lg:text-4xl font-bold text-foreground leading-tight">
+                            {section.title}
+                          </h2>
+                          {section.subtitle && (
+                            <p className="text-lg text-muted-foreground font-medium">
+                              {section.subtitle}
+                            </p>
+                          )}
+                        </div>
                         <div className="prose prose-lg max-w-none">
                           <p className="text-base lg:text-lg leading-relaxed text-muted-foreground whitespace-pre-line">
                             {section.content}
@@ -159,6 +167,61 @@ const UseCase = () => {
                       </motion.div>
                     </div>
                   </motion.section>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* Additional Use Cases Section */}
+        <section className="px-4 lg:px-8 pb-20">
+          <div className="w-full max-w-7xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                {language === 'de' ? 'und mehr...' : 'and more...'}
+              </h2>
+            </motion.div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+              {additionalUseCases.map((additionalUseCase, index) => {
+                // Map icon names to components
+                const iconMap: Record<string, typeof Handshake> = {
+                  Handshake,
+                  BarChart3,
+                  FileCheck
+                };
+                const IconComponent = iconMap[additionalUseCase.icon] || Handshake;
+                
+                return (
+                  <motion.div
+                    key={additionalUseCase.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                  >
+                    <Card className="h-full group hover:shadow-lg transition-all duration-300 border-border/30 hover:border-noreja-main/40">
+                      <CardContent className="p-6">
+                        <div className="flex justify-center mb-4">
+                          <div className="w-16 h-16 rounded-full bg-noreja-main/10 group-hover:bg-noreja-main/20 flex items-center justify-center transition-colors">
+                            <IconComponent className="w-8 h-8 text-noreja-main" />
+                          </div>
+                        </div>
+                        <h3 className="text-xl font-semibold text-foreground mb-3 text-center group-hover:text-noreja-main transition-colors">
+                          {additionalUseCase.title[language]}
+                        </h3>
+                        <p className="text-sm text-muted-foreground text-center leading-relaxed">
+                          {additionalUseCase.description[language]}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
                 );
               })}
             </div>

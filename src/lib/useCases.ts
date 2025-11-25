@@ -24,6 +24,7 @@ const getUseCaseImagePath = (filename: string): string => {
 
 export interface UseCaseSection {
   title: string;
+  subtitle?: string; // Optional subtitle
   content: string;
   imagePath?: string; // Optional image path
 }
@@ -45,39 +46,45 @@ export const useCases: UseCase[] = [
     },
     shortDescription: {
       en: "Optimize logistics and distribution processes",
-      de: "Logistik- und Distributionsprozesse optimieren"
+      de: "Entdecke, wie Noreja die Effizienz im Supply Chain Management erhöhen kann."
     },
     description: {
       en: "Transform your supply chain operations with Noreja Process Intelligence. Gain visibility into every step of your logistics processes, identify bottlenecks, and optimize distribution networks for maximum efficiency.",
-      de: "Transformiere deine Supply-Chain-Operationen mit Noreja Process Intelligence. Erhalte Transparenz in jeden Schritt deiner Logistikprozesse, identifiziere Engpässe und optimiere Distributionsnetzwerke für maximale Effizienz."
+      de: "Norejas innovativer Process-Intelligence-Ansatz und Supply Chain Management sind wie gemacht für einander. Mit der Fähigkeit daten- und systemüberfreifend tiefgreifende Strukturprobleme aufzudecken, können wir eine Vielzahl gängiger Probleme in der Branche lösen. Nun präsentieren wir einige Anwendungsfelder, in denen unsere Lösung die Prozesse deiner Organisation schlanker und effektiver machen kann!"
     },
     sections: {
       en: [
         {
           title: "End-to-End Visibility",
+          subtitle: "Complete transparency across your supply chain",
           content: "Achieve complete transparency across your entire supply chain. Track orders from procurement to delivery, monitor inventory levels in real-time, and identify process deviations before they impact your operations. With Noreja, you can visualize complex multi-tier supply chains and understand how different stages interconnect."
         },
         {
           title: "Bottleneck Identification",
+          subtitle: "Identify and resolve process bottlenecks",
           content: "Quickly identify and resolve bottlenecks in your supply chain processes. Our AI-powered analysis reveals where delays occur most frequently, which suppliers cause the most issues, and where inventory gets stuck. Use these insights to optimize routing, improve supplier relationships, and reduce lead times significantly."
         },
         {
           title: "Demand Forecasting & Optimization",
+          subtitle: "Improve forecasting accuracy and inventory management",
           content: "Improve demand forecasting accuracy by analyzing historical process patterns and identifying trends. Optimize inventory levels, reduce stockouts and overstock situations, and align production schedules with actual demand. Noreja helps you balance efficiency with resilience in your supply chain operations."
         }
       ],
       de: [
         {
-          title: "End-to-End Transparenz",
-          content: "Erreiche vollständige Transparenz über deine gesamte Supply Chain. Verfolge Bestellungen von der Beschaffung bis zur Lieferung, überwache Lagerbestände in Echtzeit und identifiziere Prozessabweichungen, bevor sie deine Operationen beeinträchtigen. Mit Noreja kannst du komplexe mehrstufige Supply Chains visualisieren und verstehen, wie verschiedene Stufen miteinander verbunden sind."
+          title: "Optimierung der Produktionslinie",
+          subtitle: "Effizienzsteigerung der Abläufe und Ressourcen",
+          content: "Die Optimierung der Produktionslinien durch Process Mining konzentriert sich auf die Verbesserung der Effizienz und Effektivität von Fertigungsprozessen. Durch die Analyse von Produktionsabläufen können Unternehmen Engpässe, Verzögerungen und nicht ausgelastete Ressourcen in der Produktion erkennen. So kann das Process Mining beispielsweise aufzeigen, dass bestimmte Maschinen aufgrund von Wartungsproblemen häufig stillstehen oder dass bestimmte Produktionsschritte länger als erwartet dauern. Durch die Beseitigung dieser Ineffizienzen können Hersteller ihre Abläufe rationalisieren, den Durchsatz erhöhen und die Betriebskosten senken. Diese Optimierung verbessert nicht nur die Produktionszeiten, sondern auch die allgemeine Produktqualität und die Kundenzufriedenheit."
         },
         {
-          title: "Engpass-Identifikation",
-          content: "Identifiziere und behebe schnell Engpässe in deinen Supply-Chain-Prozessen. Unsere KI-gestützte Analyse zeigt, wo Verzögerungen am häufigsten auftreten, welche Lieferanten die meisten Probleme verursachen und wo Bestände stecken bleiben. Nutze diese Erkenntnisse, um Routen zu optimieren, Lieferantenbeziehungen zu verbessern und Durchlaufzeiten erheblich zu reduzieren."
+          title: "Optimierung der Lagerbestände",
+          subtitle: "Vermeidung von Über- oder Unterbeständen",
+          content: "Bestandsoptimierung durch Process Mining beinhaltet die Analyse von Lagerbeständen und Umschlagshäufigkeiten, um eine effiziente Bestandsverwaltung zu gewährleisten. Durch die Untersuchung historischer Verkaufsdaten, Nachbestellungsmuster und Vorlaufzeiten von Lieferanten können Unternehmen Trends erkennen und die Nachfrage genauer prognostizieren. Diese Erkenntnisse ermöglichen es Unternehmen, optimale Lagerbestände aufrechtzuerhalten, Überbestände zu reduzieren und Fehlbestände zu minimieren. Durch die Optimierung der Bestände können Unternehmen ihre Lagerhaltungskosten senken, den Cashflow verbessern und die Servicequalität steigern. Letztendlich führt eine effektive Bestandsverwaltung zu einer reaktionsfähigeren Lieferkette und einer höheren Kundenzufriedenheit."
         },
         {
-          title: "Nachfrageprognose & Optimierung",
-          content: "Verbessere die Genauigkeit der Nachfrageprognose durch Analyse historischer Prozessmuster und Identifikation von Trends. Optimiere Lagerbestände, reduziere Fehlbestände und Überbestände und richte Produktionspläne an der tatsächlichen Nachfrage aus. Noreja hilft dir, Effizienz mit Resilienz in deinen Supply-Chain-Operationen auszubalancieren."
+          title: "Emissions-Tracking (CO2)",
+          subtitle: "Reduktion des ökologischen Fußabdruckes",
+          content: "Die Verfolgung von Emissionen mittels Process Mining konzentriert sich auf die Überwachung und Analyse von Treibhausgasemissionen in der gesamten Lieferkette. Durch die Untersuchung von Daten aus Produktionsprozessen, Transport und Logistik können Unternehmen die wichtigsten Emissionsquellen und Bereiche mit Verbesserungspotenzial identifizieren. Diese Analyse ermöglicht es den Unternehmen, Strategien zur Verringerung ihres CO2-Ausstoßes zu entwickeln, z. B. durch die Optimierung von Transportwegen oder die Verbesserung der Energieeffizienz in der Produktion. Durch aktives Verfolgen und Verwalten von Emissionen können Unternehmen die gesetzlichen Anforderungen erfüllen, ihre Nachhaltigkeitsinitiativen verstärken und ihren Ruf als Unternehmen verbessern."
         }
       ]
     }
@@ -100,28 +107,34 @@ export const useCases: UseCase[] = [
       en: [
         {
           title: "Production Process Optimization",
+          subtitle: "Enhance efficiency and effectiveness of manufacturing processes",
           content: "Gain deep insights into your manufacturing workflows. Identify inefficiencies in production lines, optimize machine utilization, and reduce cycle times. Track how materials flow through your facility, understand where quality issues originate, and improve overall equipment effectiveness (OEE) through data-driven process improvements."
         },
         {
           title: "Quality Control & Compliance",
+          subtitle: "Ensure consistent quality standards and regulatory compliance",
           content: "Ensure consistent quality standards across all production stages. Monitor quality checkpoints, track defect rates, and identify root causes of quality issues. Maintain compliance with industry standards and regulations by documenting process adherence and identifying areas where procedures need reinforcement."
         },
         {
           title: "Predictive Maintenance",
+          subtitle: "Reduce unplanned downtime through proactive maintenance",
           content: "Reduce unplanned downtime through predictive maintenance insights. Analyze equipment performance patterns, identify early warning signs of potential failures, and schedule maintenance proactively. Optimize maintenance schedules to minimize production disruptions while extending equipment lifespan."
         }
       ],
       de: [
         {
           title: "Produktionsprozess-Optimierung",
+          subtitle: "Verbesserung der Effizienz und Effektivität von Fertigungsprozessen",
           content: "Gewinne tiefe Einblicke in deine Produktionsabläufe. Identifiziere Ineffizienzen in Produktionslinien, optimiere Maschinenauslastung und reduziere Zykluszeiten. Verfolge, wie Materialien durch deine Anlage fließen, verstehe, wo Qualitätsprobleme entstehen, und verbessere die Gesamtanlageneffektivität (OEE) durch datengestützte Prozessverbesserungen."
         },
         {
           title: "Qualitätskontrolle & Compliance",
+          subtitle: "Sicherstellung konsistenter Qualitätsstandards und regulatorischer Compliance",
           content: "Stelle konsistente Qualitätsstandards in allen Produktionsstufen sicher. Überwache Qualitätsprüfpunkte, verfolge Fehlerquoten und identifiziere Ursachen von Qualitätsproblemen. Halte Compliance mit Branchenstandards und Vorschriften aufrecht, indem du Prozesseinhaltung dokumentierst und Bereiche identifizierst, in denen Verfahren verstärkt werden müssen."
         },
         {
           title: "Vorausschauende Wartung",
+          subtitle: "Reduzierung ungeplanter Ausfallzeiten durch proaktive Wartung",
           content: "Reduziere ungeplante Ausfallzeiten durch Erkenntnisse zur vorausschauenden Wartung. Analysiere Leistungsmuster von Anlagen, identifiziere frühe Warnsignale potenzieller Ausfälle und plane Wartung proaktiv. Optimiere Wartungspläne, um Produktionsunterbrechungen zu minimieren und gleichzeitig die Lebensdauer der Anlagen zu verlängern."
         }
       ]
@@ -145,28 +158,34 @@ export const useCases: UseCase[] = [
       en: [
         {
           title: "Claims Processing Efficiency",
+          subtitle: "Reduce processing time and improve customer satisfaction",
           content: "Dramatically reduce claims processing time by identifying bottlenecks and inefficiencies in your workflows. Automate routine tasks, route complex cases to the right specialists faster, and ensure consistent processing across all claims. Track processing times, identify patterns that cause delays, and optimize your claims handling processes for better customer satisfaction."
         },
         {
           title: "Risk Assessment & Underwriting",
+          subtitle: "Improve accuracy and consistency in risk evaluation",
           content: "Improve risk assessment accuracy by analyzing historical process data and identifying patterns that correlate with risk levels. Optimize underwriting workflows, reduce manual review times, and ensure consistent risk evaluation across all policies. Use process insights to refine risk models and make more informed underwriting decisions."
         },
         {
           title: "Regulatory Compliance",
+          subtitle: "Maintain compliance through comprehensive process documentation",
           content: "Maintain compliance with insurance regulations through comprehensive process documentation and monitoring. Track adherence to required procedures, identify areas where compliance processes break down, and ensure all regulatory requirements are consistently met. Generate audit-ready documentation automatically from your process data."
         }
       ],
       de: [
         {
           title: "Schadensbearbeitungs-Effizienz",
+          subtitle: "Reduzierung der Bearbeitungszeit und Verbesserung der Kundenzufriedenheit",
           content: "Reduziere die Schadensbearbeitungszeit erheblich, indem du Engpässe und Ineffizienzen in deinen Workflows identifizierst. Automatisiere Routineaufgaben, leite komplexe Fälle schneller an die richtigen Spezialisten weiter und stelle konsistente Bearbeitung bei allen Schäden sicher. Verfolge Bearbeitungszeiten, identifiziere Muster, die Verzögerungen verursachen, und optimiere deine Schadensbearbeitungsprozesse für bessere Kundenzufriedenheit."
         },
         {
           title: "Risikobewertung & Underwriting",
+          subtitle: "Verbesserung der Genauigkeit und Konsistenz bei der Risikobewertung",
           content: "Verbessere die Genauigkeit der Risikobewertung durch Analyse historischer Prozessdaten und Identifikation von Mustern, die mit Risikoniveaus korrelieren. Optimiere Underwriting-Workflows, reduziere manuelle Prüfzeiten und stelle konsistente Risikobewertung bei allen Policen sicher. Nutze Prozesserkenntnisse, um Risikomodelle zu verfeinern und fundiertere Underwriting-Entscheidungen zu treffen."
         },
         {
           title: "Regulatorische Compliance",
+          subtitle: "Aufrechterhaltung der Compliance durch umfassende Prozessdokumentation",
           content: "Halte Compliance mit Versicherungsvorschriften durch umfassende Prozessdokumentation und Überwachung aufrecht. Verfolge Einhaltung erforderlicher Verfahren, identifiziere Bereiche, in denen Compliance-Prozesse zusammenbrechen, und stelle sicher, dass alle regulatorischen Anforderungen konsistent erfüllt werden. Generiere auditbereite Dokumentation automatisch aus deinen Prozessdaten."
         }
       ]
@@ -190,32 +209,85 @@ export const useCases: UseCase[] = [
       en: [
         {
           title: "Loan Processing & Credit Assessment",
+          subtitle: "Accelerate processing while maintaining thorough risk assessment",
           content: "Accelerate loan processing while maintaining thorough risk assessment. Identify bottlenecks in application workflows, optimize credit evaluation processes, and reduce time-to-decision for customers. Analyze approval patterns to ensure consistent decision-making and identify opportunities to streamline without compromising risk management."
         },
         {
           title: "Compliance & Risk Management",
+          subtitle: "Ensure regulatory compliance across all banking operations",
           content: "Ensure regulatory compliance across all banking operations. Monitor adherence to KYC (Know Your Customer) procedures, track AML (Anti-Money Laundering) workflows, and identify compliance gaps before they become issues. Automate compliance reporting and maintain comprehensive audit trails for all financial processes."
         },
         {
           title: "Customer Onboarding & Service",
+          subtitle: "Improve customer experiences through optimized processes",
           content: "Improve customer onboarding experiences by optimizing account opening processes. Reduce onboarding time, eliminate unnecessary steps, and ensure consistent service quality. Track customer service interactions to identify common issues and optimize support workflows for faster resolution times."
         }
       ],
       de: [
         {
           title: "Kreditbearbeitung & Kreditbewertung",
+          subtitle: "Beschleunigung der Bearbeitung bei gleichzeitiger gründlicher Risikobewertung",
           content: "Beschleunige Kreditbearbeitung bei gleichzeitiger gründlicher Risikobewertung. Identifiziere Engpässe in Antrags-Workflows, optimiere Kreditbewertungsprozesse und reduziere Entscheidungszeiten für Kunden. Analysiere Genehmigungsmuster, um konsistente Entscheidungsfindung sicherzustellen und Möglichkeiten zur Optimierung zu identifizieren, ohne Risikomanagement zu beeinträchtigen."
         },
         {
           title: "Compliance & Risikomanagement",
+          subtitle: "Sicherstellung der regulatorischen Compliance in allen Bankoperationen",
           content: "Stelle regulatorische Compliance in allen Bankoperationen sicher. Überwache Einhaltung von KYC-Verfahren (Know Your Customer), verfolge AML-Workflows (Anti-Money Laundering) und identifiziere Compliance-Lücken, bevor sie zu Problemen werden. Automatisiere Compliance-Berichterstattung und halte umfassende Prüfpfade für alle Finanzprozesse aufrecht."
         },
         {
           title: "Kunden-Onboarding & Service",
+          subtitle: "Verbesserung der Kundenerfahrungen durch optimierte Prozesse",
           content: "Verbessere Kundenerfahrungen beim Onboarding durch Optimierung von Konteneröffnungsprozessen. Reduziere Onboarding-Zeit, eliminiere unnötige Schritte und stelle konsistente Servicequalität sicher. Verfolge Kundenservice-Interaktionen, um häufige Probleme zu identifizieren und Support-Workflows für schnellere Lösungszeiten zu optimieren."
         }
       ]
     }
+  }
+];
+
+// Additional use cases for the "und mehr..." section
+export interface AdditionalUseCase {
+  id: string;
+  title: Record<Language, string>;
+  description: Record<Language, string>;
+  icon: string; // Icon name from lucide-react
+}
+
+export const additionalUseCases: AdditionalUseCase[] = [
+  {
+    id: "supplier-performance",
+    title: {
+      en: "Supplier Performance Analysis",
+      de: "Lieferanten-Performance-Analyse"
+    },
+    description: {
+      en: "In supplier performance analysis, Process Mining is used to evaluate supplier efficiency, improve decision-making, reduce costs, and increase the overall performance of the supply chain.",
+      de: "Bei der Analyse der Supplier-Performacne wird Process Mining eingesetzt, um die Effizienz der Lieferanten zu bewerten, die Entscheidungsfindung zu verbessern, die Kosten zu senken und die Gesamtleistung der Lieferkette zu steigern."
+    },
+    icon: "Handshake"
+  },
+  {
+    id: "working-capital",
+    title: {
+      en: "Working Capital Analysis",
+      de: "Working-Capital Analyse"
+    },
+    description: {
+      en: "In working capital analysis, Process Mining is used to optimize cash flow, improve payment processes, and increase liquidity for growth.",
+      de: "Bei der Working-Capital-Analyse wird Process Mining eingesetzt, um den Cashflow zu optimieren, die Zahlungsprozesse zu verbessern und die Liquidität für das Wachstum zu erhöhen."
+    },
+    icon: "BarChart3"
+  },
+  {
+    id: "quality-compliance",
+    title: {
+      en: "Quality Control and Compliance",
+      de: "Qualitätskontrolle und Compliance"
+    },
+    description: {
+      en: "In quality control and compliance with regulations, Process Mining is used to identify errors, ensure compliance with regulations, and reduce recalls.",
+      de: "Bei der Qualitätskontrolle und Einhaltung von Vorschriften wird Process Mining eingesetzt, um Fehler zu erkennen, die Einhaltung von Vorschriften zu gewährleisten und Rückrufe zu reduzieren."
+    },
+    icon: "FileCheck"
   }
 ];
 
