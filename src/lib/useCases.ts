@@ -35,6 +35,7 @@ export interface UseCase {
   shortDescription: Record<Language, string>;
   description: Record<Language, string>;
   sections: Record<Language, UseCaseSection[]>;
+  additionalUseCases?: AdditionalUseCase[]; // Optional: specific additional use cases for this use case
 }
 
 export const useCases: UseCase[] = [
@@ -87,7 +88,45 @@ export const useCases: UseCase[] = [
           content: "Die Verfolgung von Emissionen mittels Process Mining konzentriert sich auf die Überwachung und Analyse von Treibhausgasemissionen in der gesamten Lieferkette. Durch die Untersuchung von Daten aus Produktionsprozessen, Transport und Logistik können Unternehmen die wichtigsten Emissionsquellen und Bereiche mit Verbesserungspotenzial identifizieren. Diese Analyse ermöglicht es den Unternehmen, Strategien zur Verringerung ihres CO2-Ausstoßes zu entwickeln, z. B. durch die Optimierung von Transportwegen oder die Verbesserung der Energieeffizienz in der Produktion. Durch aktives Verfolgen und Verwalten von Emissionen können Unternehmen die gesetzlichen Anforderungen erfüllen, ihre Nachhaltigkeitsinitiativen verstärken und ihren Ruf als Unternehmen verbessern."
         }
       ]
-    }
+    },
+    additionalUseCases: [
+      {
+        id: "supplier-performance",
+        title: {
+          en: "Supplier Performance Analysis",
+          de: "Lieferanten-Performance-Analyse"
+        },
+        description: {
+          en: "In supplier performance analysis, Process Mining is used to evaluate supplier efficiency, improve decision-making, reduce costs, and increase the overall performance of the supply chain.",
+          de: "Bei der Analyse der Supplier-Performance wird Process Mining eingesetzt, um die Effizienz der Lieferanten zu bewerten, die Entscheidungsfindung zu verbessern, die Kosten zu senken und die Gesamtleistung der Lieferkette zu steigern."
+        },
+        icon: "Handshake"
+      },
+      {
+        id: "working-capital",
+        title: {
+          en: "Working Capital Analysis",
+          de: "Working-Capital Analyse"
+        },
+        description: {
+          en: "In working capital analysis, Process Mining is used to optimize cash flow, improve payment processes, and increase liquidity for growth.",
+          de: "Bei der Working-Capital-Analyse wird Process Mining eingesetzt, um den Cashflow zu optimieren, die Zahlungsprozesse zu verbessern und die Liquidität für das Wachstum zu erhöhen."
+        },
+        icon: "BarChart3"
+      },
+      {
+        id: "quality-compliance",
+        title: {
+          en: "Quality Control and Compliance",
+          de: "Qualitätskontrolle und Compliance"
+        },
+        description: {
+          en: "In quality control and compliance with regulations, Process Mining is used to identify errors, ensure compliance with regulations, and reduce recalls.",
+          de: "Bei der Qualitätskontrolle und Einhaltung von Vorschriften wird Process Mining eingesetzt, um Fehler zu erkennen, die Einhaltung von Vorschriften zu gewährleisten und Rückrufe zu reduzieren."
+        },
+        icon: "FileCheck"
+      }
+    ]
   },
   {
     id: "manufacturing",
@@ -199,11 +238,11 @@ export const useCases: UseCase[] = [
     },
     shortDescription: {
       en: "Optimize financial operations and compliance",
-      de: "Finanzoperationen und Compliance optimieren"
+      de: "Entdecke, wie Noreja dabei helfen kann Compliance and Risikomanagement im Banking zu verbessern."
     },
     description: {
       en: "Enhance banking operations with process intelligence. Improve loan processing, optimize compliance workflows, and deliver better customer experiences through streamlined financial processes.",
-      de: "Verbessere Bankoperationen mit Process Intelligence. Verbessere Kreditbearbeitung, optimiere Compliance-Workflows und liefere bessere Kundenerfahrungen durch optimierte Finanzprozesse."
+      de: "Norejas innovativer Process-Intelligence-Ansatz und Banking sind wie gemacht für einander. Mit der Fähigkeit daten- und systemüberfreifend tiefgreifende Strukturprobleme aufzudecken, können wir eine Vielzahl gängiger Probleme in der Branche lösen. Nun präsentieren wir einige Anwendungsfelder, in denen unsere Lösung die Prozesse deiner Organisation schlanker und effektiver machen kann!"
     },
     sections: {
       en: [
@@ -225,22 +264,60 @@ export const useCases: UseCase[] = [
       ],
       de: [
         {
-          title: "Kreditbearbeitung & Kreditbewertung",
-          subtitle: "Beschleunigung der Bearbeitung bei gleichzeitiger gründlicher Risikobewertung",
-          content: "Beschleunige Kreditbearbeitung bei gleichzeitiger gründlicher Risikobewertung. Identifiziere Engpässe in Antrags-Workflows, optimiere Kreditbewertungsprozesse und reduziere Entscheidungszeiten für Kunden. Analysiere Genehmigungsmuster, um konsistente Entscheidungsfindung sicherzustellen und Möglichkeiten zur Optimierung zu identifizieren, ohne Risikomanagement zu beeinträchtigen."
+          title: "Betrugserkennung",
+          subtitle: "Betrügerisches Verhalten schnell erkennen",
+          content: "Die Betrugserkennung im Bankwesen durch Process Mining nutzt die Datenanalyse, um betrügerische Aktivitäten bei verschiedenen Transaktionen zu erkennen und zu verhindern. Durch die Untersuchung von Transaktionsdaten und Benutzerverhaltensmustern können Banken Anomalien, ungewöhnliche Trends oder Abweichungen vom typischen Kundenverhalten aufdecken. Dieser proaktive Ansatz ermöglicht es Finanzinstituten, potenziell betrügerische Transaktionen in Echtzeit zu erkennen und schnell einzugreifen, bevor erhebliche Verluste entstehen. Durch die Verbesserung der Betrugserkennungsfunktionen können Banken die mit Betrug verbundenen Kosten erheblich senken und gleichzeitig das Vertrauen ihrer Kunden erhalten."
         },
         {
-          title: "Compliance & Risikomanagement",
-          subtitle: "Sicherstellung der regulatorischen Compliance in allen Bankoperationen",
-          content: "Stelle regulatorische Compliance in allen Bankoperationen sicher. Überwache Einhaltung von KYC-Verfahren (Know Your Customer), verfolge AML-Workflows (Anti-Money Laundering) und identifiziere Compliance-Lücken, bevor sie zu Problemen werden. Automatisiere Compliance-Berichterstattung und halte umfassende Prüfpfade für alle Finanzprozesse aufrecht."
+          title: "Riskikomanagement",
+          subtitle: "Erkennung und Vermeidung von Compliancerisiken",
+          content: "Beim Compliance- und Risikomanagement mit Hilfe von Process Mining geht es darum, die Einhaltung aufsichtsrechtlicher Standards und interner Risikorichtlinien zu gewährleisten. Durch die Analyse von Transaktionsflüssen und betrieblichen Abläufen können Banken potenzielle Compliance-Risiken erkennen, z. B. unzureichende Dokumentation oder inkonsistente Praktiken. Diese Transparenz ermöglicht es den Instituten, Korrekturmaßnahmen zu ergreifen, Schulungsprogramme zu erweitern und die Kontrollmechanismen zu verbessern. Durch die Einhaltung strenger Compliance-Praktiken und ein effektives Risikomanagement können Banken Strafen vermeiden, ihren Ruf schützen und das Vertrauen von Aufsichtsbehörden und Kunden gleichermaßen stärken."
         },
         {
-          title: "Kunden-Onboarding & Service",
-          subtitle: "Verbesserung der Kundenerfahrungen durch optimierte Prozesse",
-          content: "Verbessere Kundenerfahrungen beim Onboarding durch Optimierung von Konteneröffnungsprozessen. Reduziere Onboarding-Zeit, eliminiere unnötige Schritte und stelle konsistente Servicequalität sicher. Verfolge Kundenservice-Interaktionen, um häufige Probleme zu identifizieren und Support-Workflows für schnellere Lösungszeiten zu optimieren."
+          title: "Kreditantrag- & Approval-Prozess",
+          subtitle: "Analyse von Flaschenhälsen für effizientere Abläufe",
+          content: "Bei dem Darlehnsantrag und -genehmigung mithilfe von Process Mining liegt der Schwerpunkt auf der Optimierung der Prozessstruktur. Durch die Untersuchung des Arbeitsablaufs von der Antragstellung bis zur endgültigen Genehmigung können Banken Verzögerungen, Redundanzen und Bereiche identifizieren, in denen die Kundenerfahrung verbessert werden kann. So kann das Process Mining beispielsweise aufzeigen, dass bestimmte Kreditarten aufgrund komplexer Überprüfungsprozesse immer wieder längere Genehmigungszeiten erfordern. Durch die Beseitigung dieser Ineffizienzen und die Automatisierung von Teilen des Arbeitsablaufs können die Banken den Kreditgenehmigungsprozess beschleunigen, die Kundenzufriedenheit verbessern und letztendlich das Kreditvolumen erhöhen."
         }
       ]
-    }
+    },
+    additionalUseCases: [
+      {
+        id: "kyc-compliance",
+        title: {
+          en: "Know-Your-Customer-Compliance",
+          de: "Know-Your-Customer-Compliance"
+        },
+        description: {
+          en: "Process Mining optimizes KYC processes by uncovering bottlenecks, automating tasks, and improving data management to ensure compliance and enhance customer experience.",
+          de: "Process Mining optimiert KYC-Prozesse, indem es Engpässe aufdeckt, Aufgaben automatisiert und die Datenverwaltung verbessert, um Compliance zu gewährleisten und die Kundenerfahrung zu steigern."
+        },
+        icon: "FileCheck"
+      },
+      {
+        id: "credit-card-application",
+        title: {
+          en: "Credit Card Application",
+          de: "Kreditkartenantrag"
+        },
+        description: {
+          en: "The optimization of credit card applications through Process Mining helps banks identify reasons for rejection, delays, and customer drop-offs to improve the application process, shorten approval times, and increase customer satisfaction.",
+          de: "Die Optimierung von Kreditkartenanträgen durch Process Mining hilft Banken, Ablehnungsgründe, Verzögerungen und Kundenabbrüche zu identifizieren, um den Antragsprozess zu verbessern, die Genehmigungszeiten zu verkürzen und die Kundenzufriedenheit zu steigern."
+        },
+        icon: "CreditCard"
+      },
+      {
+        id: "account-opening-onboarding",
+        title: {
+          en: "Account Opening & Onboarding",
+          de: "Kontoeröffnung & Onboarding"
+        },
+        description: {
+          en: "The analysis of account opening processes using Process Mining helps banks identify inefficient processes and increase speed, efficiency, and customer satisfaction through automation and optimization.",
+          de: "Die Analyse der Kontoeröffnungsabläufe mittels Process Mining hilft Banken, ineffiziente Prozesse zu identifizieren und durch Automatisierung und Optimierung die Geschwindigkeit, Effizienz und Kundenzufriedenheit zu steigern."
+        },
+        icon: "UserPlus"
+      }
+    ]
   }
 ];
 
@@ -251,43 +328,4 @@ export interface AdditionalUseCase {
   description: Record<Language, string>;
   icon: string; // Icon name from lucide-react
 }
-
-export const additionalUseCases: AdditionalUseCase[] = [
-  {
-    id: "supplier-performance",
-    title: {
-      en: "Supplier Performance Analysis",
-      de: "Lieferanten-Performance-Analyse"
-    },
-    description: {
-      en: "In supplier performance analysis, Process Mining is used to evaluate supplier efficiency, improve decision-making, reduce costs, and increase the overall performance of the supply chain.",
-      de: "Bei der Analyse der Supplier-Performacne wird Process Mining eingesetzt, um die Effizienz der Lieferanten zu bewerten, die Entscheidungsfindung zu verbessern, die Kosten zu senken und die Gesamtleistung der Lieferkette zu steigern."
-    },
-    icon: "Handshake"
-  },
-  {
-    id: "working-capital",
-    title: {
-      en: "Working Capital Analysis",
-      de: "Working-Capital Analyse"
-    },
-    description: {
-      en: "In working capital analysis, Process Mining is used to optimize cash flow, improve payment processes, and increase liquidity for growth.",
-      de: "Bei der Working-Capital-Analyse wird Process Mining eingesetzt, um den Cashflow zu optimieren, die Zahlungsprozesse zu verbessern und die Liquidität für das Wachstum zu erhöhen."
-    },
-    icon: "BarChart3"
-  },
-  {
-    id: "quality-compliance",
-    title: {
-      en: "Quality Control and Compliance",
-      de: "Qualitätskontrolle und Compliance"
-    },
-    description: {
-      en: "In quality control and compliance with regulations, Process Mining is used to identify errors, ensure compliance with regulations, and reduce recalls.",
-      de: "Bei der Qualitätskontrolle und Einhaltung von Vorschriften wird Process Mining eingesetzt, um Fehler zu erkennen, die Einhaltung von Vorschriften zu gewährleisten und Rückrufe zu reduzieren."
-    },
-    icon: "FileCheck"
-  }
-];
 
