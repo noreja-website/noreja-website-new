@@ -8,7 +8,6 @@ import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { config } from "@/lib/config";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { useHubSpotForm } from "@/hooks/use-hubspot-form";
 
 interface DownloadGateProps {
   title: string;
@@ -32,6 +31,14 @@ interface DownloadGateInlineProps extends Omit<DownloadGateProps, "variant"> {
 
 // Session storage key for tracking form submissions
 const DOWNLOAD_SESSION_KEY = "noreja_download_validated";
+// LocalStorage key for pending downloads (persists across redirect)
+const PENDING_DOWNLOAD_KEY = "pendingDownload";
+
+// HubSpot form script URL
+const HUBSPOT_FORM_SCRIPT = "https://js-eu1.hsforms.net/forms/embed/144242473.js";
+const HUBSPOT_FORM_REGION = "eu1";
+const HUBSPOT_PORTAL_ID = "144242473";
+const HUBSPOT_FORM_ID = "cba179f6-530c-43a4-9d41-4bc0a459953b";
 
 // Check if user has already validated this session
 const isUserValidated = (): boolean => {
@@ -41,6 +48,45 @@ const isUserValidated = (): boolean => {
 // Open file in new tab
 const triggerDownload = (fileUrl: string, fileName?: string) => {
   window.open(fileUrl, '_blank');
+};
+
+// Save document info to localStorage before form submission
+const savePendingDownload = (fileUrl: string, title: string, id?: string) => {
+  const downloadInfo = {
+    fileUrl,
+    title,
+    id,
+    timestamp: Date.now()
+  };
+  localStorage.setItem(PENDING_DOWNLOAD_KEY, JSON.stringify(downloadInfo));
+};
+
+// Load HubSpot form script globally (only once)
+let scriptLoadPromise: Promise<void> | null = null;
+const loadHubSpotFormScript = (): Promise<void> => {
+  if (scriptLoadPromise) {
+    return scriptLoadPromise;
+  }
+
+  // Check if script already exists
+  const existingScript = document.querySelector<HTMLScriptElement>(
+    `script[src="${HUBSPOT_FORM_SCRIPT}"]`
+  );
+  if (existingScript) {
+    scriptLoadPromise = Promise.resolve();
+    return scriptLoadPromise;
+  }
+
+  scriptLoadPromise = new Promise<void>((resolve, reject) => {
+    const script = document.createElement("script");
+    script.src = HUBSPOT_FORM_SCRIPT;
+    script.defer = true;
+    script.onload = () => resolve();
+    script.onerror = () => reject(new Error("Failed to load HubSpot form script"));
+    document.head.appendChild(script);
+  });
+
+  return scriptLoadPromise;
 };
 
 export const DownloadGate: React.FC<DownloadGateProps> = ({
@@ -60,11 +106,9 @@ export const DownloadGate: React.FC<DownloadGateProps> = ({
   const { t } = useLanguage();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
+  const [formError, setFormError] = useState(false);
   const { toast } = useToast();
-
-  // Use refs to avoid dependency issues with hook callbacks
-  const handleFormSuccessRef = useRef<(() => void) | null>(null);
-  const handleDirectDownloadRef = useRef<(() => void) | null>(null);
+  const formContainerRef = useRef<HTMLDivElement>(null);
 
   const handleDirectDownload = useCallback(() => {
     setIsDownloading(true);
@@ -76,62 +120,95 @@ export const DownloadGate: React.FC<DownloadGateProps> = ({
     }, 2000);
   }, [fileUrl, title]);
 
-  const handleFormSuccess = useCallback(() => {
-    // Close modal and start download
-    setIsModalOpen(false);
-    handleDirectDownload();
-    onSuccess?.();
-    
-    toast({
-      title: t.downloadGate.success,
-      description: t.downloadGate.downloadStarted,
-      variant: "default"
-    });
-  }, [handleDirectDownload, onSuccess, toast, t.downloadGate.success, t.downloadGate.downloadStarted]);
-
-  // Update refs when callbacks change
+  // Load HubSpot form script and initialize form when modal opens
   useEffect(() => {
-    handleDirectDownloadRef.current = handleDirectDownload;
-    handleFormSuccessRef.current = handleFormSuccess;
-  }, [handleDirectDownload, handleFormSuccess]);
+    if (!isModalOpen || !requiresForm || !formContainerRef.current) {
+      return;
+    }
 
-  // Use HubSpot form hook with v2 API
-  // The hook automatically creates the form when enabled=true, so we don't need to manually call createForm()
-  const {
-    formLoaded,
-    formError,
-    formTargetId,
-    destroyForm,
-  } = useHubSpotForm({
-    portalId: formPortalId,
-    formId: formGuid,
-    enabled: isModalOpen && requiresForm,
-    trackAnalytics: true,
-    analyticsSource: "download_page",
-    onFormSubmit: () => {
-      // Set session flag
-      sessionStorage.setItem(DOWNLOAD_SESSION_KEY, "true");
-      // Handle form success using ref to avoid dependency issues
-      handleFormSuccessRef.current?.();
-    },
-    onFormReady: () => {
-      // Form is ready, no additional action needed
-    },
-    onFormError: () => {
-      toast({
-        title: t.downloadGate.error,
-        description: t.downloadGate.formLoadError,
-        variant: "destructive"
+    // Save document info to localStorage before form loads
+    savePendingDownload(fileUrl, title);
+
+    const container = formContainerRef.current;
+    
+    // Clear any existing content
+    container.innerHTML = "";
+
+    // Create form container with data attributes - this must exist before script loads
+    const formDiv = document.createElement("div");
+    formDiv.className = "hs-form-frame";
+    formDiv.setAttribute("data-region", HUBSPOT_FORM_REGION);
+    formDiv.setAttribute("data-form-id", formGuid || HUBSPOT_FORM_ID);
+    formDiv.setAttribute("data-portal-id", formPortalId || HUBSPOT_PORTAL_ID);
+    
+    container.appendChild(formDiv);
+
+    // Load script - it will automatically find and initialize the form
+    loadHubSpotFormScript()
+      .then(() => {
+        setFormError(false);
+
+        // Set up form submission watcher to detect when form is submitted
+        // This allows us to ensure localStorage is saved before redirect
+        const observer = new MutationObserver(() => {
+          const form = container.querySelector('form');
+          if (form) {
+            // Attach submit listener to form
+            const handleSubmit = (e: Event) => {
+              // Ensure localStorage is saved (in case it wasn't already)
+              savePendingDownload(fileUrl, title);
+              // Set session flag
+              sessionStorage.setItem(DOWNLOAD_SESSION_KEY, "true");
+            };
+            
+            form.addEventListener('submit', handleSubmit, { once: true });
+            
+            // Also watch for form submission via button clicks
+            const submitButton = form.querySelector('input[type="submit"], button[type="submit"]');
+            if (submitButton) {
+              submitButton.addEventListener('click', () => {
+                savePendingDownload(fileUrl, title);
+                sessionStorage.setItem(DOWNLOAD_SESSION_KEY, "true");
+              }, { once: true });
+            }
+          }
+        });
+
+        observer.observe(container, {
+          childList: true,
+          subtree: true
+        });
+
+        // Cleanup observer after form loads or timeout
+        setTimeout(() => {
+          observer.disconnect();
+        }, 10000);
+
+        // Check if form loaded successfully after a delay
+        setTimeout(() => {
+          const hasForm = container.querySelector('form');
+          if (!hasForm) {
+            setFormError(true);
+          }
+        }, 3000);
+      })
+      .catch((error) => {
+        console.error("Error loading HubSpot form:", error);
+        setFormError(true);
+        toast({
+          title: t.downloadGate.error,
+          description: t.downloadGate.formLoadError,
+          variant: "destructive"
+        });
       });
-    },
-  });
+  }, [isModalOpen, requiresForm, fileUrl, title, formGuid, formPortalId, toast, t.downloadGate.error, t.downloadGate.formLoadError]);
 
   // Clean up form when modal closes
   useEffect(() => {
-    if (!isModalOpen && requiresForm) {
-      destroyForm();
+    if (!isModalOpen && formContainerRef.current) {
+      formContainerRef.current.innerHTML = "";
     }
-  }, [isModalOpen, requiresForm, destroyForm]);
+  }, [isModalOpen]);
 
   const handleDownloadClick = async () => {
     if (!requiresForm) {
@@ -227,8 +304,8 @@ export const DownloadGate: React.FC<DownloadGateProps> = ({
                   </div>
                 )}
                 
-                {/* Form container - HubSpot form loads asynchronously, no spinner needed */}
-                <div id={formTargetId} className="hs-form-frame hubspot-form-container w-full min-h-[200px]"></div>
+                {/* Form container - HubSpot form loads asynchronously via data attributes */}
+                <div ref={formContainerRef} className="hubspot-form-container w-full min-h-[200px]"></div>
               </div>
             </DialogContent>
           </Dialog>
@@ -267,19 +344,15 @@ export const DownloadGate: React.FC<DownloadGateProps> = ({
                 {t.downloadGate.fillForm}
               </p>
               
-              {/* Only show error if form truly failed to load (check DOM) */}
-              {formError && (() => {
-                const container = document.getElementById(formTargetId);
-                const hasForm = container && container.querySelector('form');
-                return !hasForm;
-              })() && (
+              {/* Only show error if form truly failed to load */}
+              {formError && (
                 <div className="text-destructive text-center mb-4">
                   {t.downloadGate.formLoadError}
                 </div>
               )}
               
-              {/* Form container - HubSpot form loads asynchronously, no spinner needed */}
-              <div id={formTargetId} className="hs-form-frame hubspot-form-container w-full min-h-[200px]"></div>
+              {/* Form container - HubSpot form loads asynchronously via data attributes */}
+              <div ref={formContainerRef} className="hubspot-form-container w-full min-h-[200px]"></div>
             </div>
           </DialogContent>
         </Dialog>
@@ -305,13 +378,11 @@ export const DownloadGateInline: React.FC<DownloadGateInlineProps> = ({
   const { t } = useLanguage();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
+  const [formError, setFormError] = useState(false);
   const { toast } = useToast();
+  const formContainerRef = useRef<HTMLDivElement>(null);
 
   const defaultButtonText = buttonText || t.downloadGate.download;
-
-  // Use refs to avoid dependency issues with hook callbacks
-  const handleFormSuccessRef = useRef<(() => void) | null>(null);
-  const handleDirectDownloadRef = useRef<(() => void) | null>(null);
 
   const handleDirectDownload = useCallback(() => {
     setIsDownloading(true);
@@ -319,51 +390,87 @@ export const DownloadGateInline: React.FC<DownloadGateInlineProps> = ({
     setTimeout(() => setIsDownloading(false), 2000);
   }, [fileUrl, title]);
 
-  const handleFormSuccess = useCallback(() => {
-    setIsModalOpen(false);
-    handleDirectDownload();
-    onSuccess?.();
-    
-    toast({
-      title: t.downloadGate.success,
-      description: t.downloadGate.downloadStarted,
-      variant: "default"
-    });
-  }, [handleDirectDownload, onSuccess, toast, t.downloadGate.success, t.downloadGate.downloadStarted]);
-
-  // Update refs when callbacks change
+  // Load HubSpot form script and initialize form when modal opens
   useEffect(() => {
-    handleDirectDownloadRef.current = handleDirectDownload;
-    handleFormSuccessRef.current = handleFormSuccess;
-  }, [handleDirectDownload, handleFormSuccess]);
+    if (!isModalOpen || !requiresForm || !formContainerRef.current) {
+      return;
+    }
 
-  // Use HubSpot form hook with v2 API
-  // The hook automatically creates the form when enabled=true, so we don't need to manually call createForm()
-  const {
-    formLoaded,
-    formError,
-    formTargetId,
-    destroyForm,
-  } = useHubSpotForm({
-    portalId: formPortalId,
-    formId: formGuid,
-    enabled: isModalOpen && requiresForm,
-    trackAnalytics: true,
-    analyticsSource: "download_page",
-    onFormSubmit: () => {
-      // Set session flag
-      sessionStorage.setItem(DOWNLOAD_SESSION_KEY, "true");
-      // Handle form success using ref to avoid dependency issues
-      handleFormSuccessRef.current?.();
-    },
-    onFormError: () => {
-      toast({
-        title: t.downloadGate.error,
-        description: t.downloadGate.formLoadError,
-        variant: "destructive"
+    // Save document info to localStorage before form loads
+    savePendingDownload(fileUrl, title);
+
+    const container = formContainerRef.current;
+    
+    // Clear any existing content
+    container.innerHTML = "";
+
+    // Create form container with data attributes - this must exist before script loads
+    const formDiv = document.createElement("div");
+    formDiv.className = "hs-form-frame";
+    formDiv.setAttribute("data-region", HUBSPOT_FORM_REGION);
+    formDiv.setAttribute("data-form-id", formGuid || HUBSPOT_FORM_ID);
+    formDiv.setAttribute("data-portal-id", formPortalId || HUBSPOT_PORTAL_ID);
+    
+    container.appendChild(formDiv);
+
+    // Load script - it will automatically find and initialize the form
+    loadHubSpotFormScript()
+      .then(() => {
+        setFormError(false);
+
+        // Set up form submission watcher to detect when form is submitted
+        const observer = new MutationObserver(() => {
+          const form = container.querySelector('form');
+          if (form) {
+            // Attach submit listener to form
+            const handleSubmit = (e: Event) => {
+              // Ensure localStorage is saved (in case it wasn't already)
+              savePendingDownload(fileUrl, title);
+              // Set session flag
+              sessionStorage.setItem(DOWNLOAD_SESSION_KEY, "true");
+            };
+            
+            form.addEventListener('submit', handleSubmit, { once: true });
+            
+            // Also watch for form submission via button clicks
+            const submitButton = form.querySelector('input[type="submit"], button[type="submit"]');
+            if (submitButton) {
+              submitButton.addEventListener('click', () => {
+                savePendingDownload(fileUrl, title);
+                sessionStorage.setItem(DOWNLOAD_SESSION_KEY, "true");
+              }, { once: true });
+            }
+          }
+        });
+
+        observer.observe(container, {
+          childList: true,
+          subtree: true
+        });
+
+        // Cleanup observer after form loads or timeout
+        setTimeout(() => {
+          observer.disconnect();
+        }, 10000);
+
+        // Check if form loaded successfully after a delay
+        setTimeout(() => {
+          const hasForm = container.querySelector('form');
+          if (!hasForm) {
+            setFormError(true);
+          }
+        }, 3000);
+      })
+      .catch((error) => {
+        console.error("Error loading HubSpot form:", error);
+        setFormError(true);
+        toast({
+          title: t.downloadGate.error,
+          description: t.downloadGate.formLoadError,
+          variant: "destructive"
+        });
       });
-    },
-  });
+  }, [isModalOpen, requiresForm, fileUrl, title, formGuid, formPortalId, toast, t.downloadGate.error, t.downloadGate.formLoadError]);
 
   const handleDownloadClick = () => {
     if (!requiresForm) {
@@ -381,10 +488,10 @@ export const DownloadGateInline: React.FC<DownloadGateInlineProps> = ({
 
   // Clean up form when modal closes
   useEffect(() => {
-    if (!isModalOpen && requiresForm) {
-      destroyForm();
+    if (!isModalOpen && formContainerRef.current) {
+      formContainerRef.current.innerHTML = "";
     }
-  }, [isModalOpen, requiresForm, destroyForm]);
+  }, [isModalOpen]);
 
   return (
     <>
@@ -427,19 +534,15 @@ export const DownloadGateInline: React.FC<DownloadGateInlineProps> = ({
                 {t.downloadGate.fillForm}
               </p>
               
-              {/* Only show error if form truly failed to load (check DOM) */}
-              {formError && (() => {
-                const container = document.getElementById(formTargetId);
-                const hasForm = container && container.querySelector('form');
-                return !hasForm;
-              })() && (
+              {/* Only show error if form truly failed to load */}
+              {formError && (
                 <div className="text-destructive text-center mb-4">
                   {t.downloadGate.formLoadError}
                 </div>
               )}
               
-              {/* Form container - HubSpot form loads asynchronously, no spinner needed */}
-              <div id={formTargetId} className="hs-form-frame hubspot-form-container w-full min-h-[200px]"></div>
+              {/* Form container - HubSpot form loads asynchronously via data attributes */}
+              <div ref={formContainerRef} className="hubspot-form-container w-full min-h-[200px]"></div>
             </div>
           </DialogContent>
         </Dialog>

@@ -15,6 +15,7 @@ import Partners from "./pages/Partners";
 import Blog from "./pages/Blog";
 import BlogCategory from "./pages/BlogCategory";
 import Downloads from "./pages/Downloads";
+import DownloadThankYou from "./pages/DownloadThankYou";
 import Events from "./pages/Events";
 import Pricing from "./pages/Pricing";
 import ContactUs from "./pages/ContactUs";
@@ -44,6 +45,7 @@ const App = () => (
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:category" element={<BlogCategory />} />
             <Route path="/downloads" element={<Downloads />} />
+            <Route path="/download-thank-you" element={<DownloadThankYou />} />
             <Route path="/events" element={<Events />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/contact" element={<ContactUs />} />
