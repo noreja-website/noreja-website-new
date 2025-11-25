@@ -144,9 +144,8 @@ export function AnimatedGridBackground({ className = "" }: AnimatedGridBackgroun
   return (
     <div 
       ref={containerRef}
-      className={`absolute inset-0 overflow-hidden pointer-events-none ${className}`}
+      className={`absolute inset-0 overflow-hidden pointer-events-none z-0 ${className}`}
       style={{
-        background: 'hsl(var(--background))',
         backgroundImage: `
           radial-gradient(at 20% 50%, hsl(var(--noreja-main) / 0.05) 0px, transparent 50%),
           radial-gradient(at 80% 20%, hsl(var(--noreja-secondary) / 0.05) 0px, transparent 50%),

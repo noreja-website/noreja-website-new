@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/
 import { Button } from "@/components/ui/button";
 import { HubSpotBlogTeaser } from "@/components/HubSpotBlogTeaser";
 import { successStories } from "@/lib/successStories";
+import { useCases } from "@/lib/useCases";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from "@/components/ui/carousel";
 import { useEffect, useState } from "react";
 import { AnimatedHeading } from "@/components/AnimatedHeading";
@@ -231,12 +232,15 @@ const SuccessStories = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { id: "supply-chain", name: "Supply Chain", Icon: Package },
-              { id: "manufacturing", name: "Manufacturing", Icon: Factory },
-              { id: "insurance", name: "Insurance", Icon: Shield },
-              { id: "banking", name: "Banking", Icon: Building2 }
-            ].map((useCase, index) => {
-              const IconComponent = useCase.Icon;
+              { id: "supply-chain", Icon: Package },
+              { id: "manufacturing", Icon: Factory },
+              { id: "insurance", Icon: Shield },
+              { id: "banking", Icon: Building2 }
+            ].map((useCaseItem, index) => {
+              const useCase = useCases.find(uc => uc.id === useCaseItem.id);
+              const IconComponent = useCaseItem.Icon;
+              if (!useCase) return null;
+              
               return (
                 <motion.div
                   key={useCase.id}
@@ -254,10 +258,10 @@ const SuccessStories = () => {
                           </div>
                         </div>
                         <h3 className="text-xl font-semibold group-hover:text-noreja-main transition-colors">
-                          {t.pages.useCases?.[useCase.id]?.title || useCase.name}
+                          {useCase.title[language]}
                         </h3>
                         <p className="text-sm text-muted-foreground mt-2">
-                          {t.pages.useCases?.[useCase.id]?.shortDescription || "Learn more about this use case"}
+                          {useCase.shortDescription[language]}
                         </p>
                         <Button
                           variant="ghost"

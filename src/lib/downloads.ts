@@ -36,7 +36,7 @@ export const downloadAssets: DownloadAsset[] = [
     fileSize: "2.5 MB",
     fileType: "PDF",
     category: "Whitepaper",
-    access: "free",
+    access: "locked",
     languages: ["de"]
   },
   {
@@ -47,7 +47,7 @@ export const downloadAssets: DownloadAsset[] = [
     fileSize: "2.5 MB",
     fileType: "PDF",
     category: "Whitepaper",
-    access: "free",
+    access: "locked",
     languages: ["de"]
   },
   {
@@ -58,7 +58,7 @@ export const downloadAssets: DownloadAsset[] = [
     fileSize: "2.5 MB",
     fileType: "PDF",
     category: "Whitepaper",
-    access: "free",
+    access: "locked",
     languages: ["de"]
   },
   {
@@ -69,7 +69,7 @@ export const downloadAssets: DownloadAsset[] = [
     fileSize: "2.5 MB",
     fileType: "PDF",
     category: "Whitepaper",
-    access: "free",
+    access: "locked",
     languages: ["de"]
   },
   // Whitepapers - EN
@@ -81,7 +81,7 @@ export const downloadAssets: DownloadAsset[] = [
     fileSize: "2.5 MB",
     fileType: "PDF",
     category: "Whitepaper",
-    access: "free",
+    access: "locked",
     languages: ["en"]
   },
   {
@@ -92,7 +92,7 @@ export const downloadAssets: DownloadAsset[] = [
     fileSize: "2.5 MB",
     fileType: "PDF",
     category: "Whitepaper",
-    access: "free",
+    access: "locked",
     languages: ["en"]
   },
   {
@@ -103,7 +103,7 @@ export const downloadAssets: DownloadAsset[] = [
     fileSize: "2.5 MB",
     fileType: "PDF",
     category: "Whitepaper",
-    access: "free",
+    access: "locked",
     languages: ["en"]
   },
   {
@@ -114,7 +114,7 @@ export const downloadAssets: DownloadAsset[] = [
     fileSize: "2.5 MB",
     fileType: "PDF",
     category: "Whitepaper",
-    access: "free",
+    access: "locked",
     languages: ["en"]
   },
   // Success Stories - DE
@@ -126,7 +126,7 @@ export const downloadAssets: DownloadAsset[] = [
     fileSize: "1.5 MB",
     fileType: "PDF",
     category: "Success Stories",
-    access: "free",
+    access: "locked",
     languages: ["de"]
   },
   {
@@ -137,7 +137,7 @@ export const downloadAssets: DownloadAsset[] = [
     fileSize: "1.5 MB",
     fileType: "PDF",
     category: "Success Stories",
-    access: "free",
+    access: "locked",
     languages: ["de"]
   },
   {
@@ -148,7 +148,7 @@ export const downloadAssets: DownloadAsset[] = [
     fileSize: "1.5 MB",
     fileType: "PDF",
     category: "Success Stories",
-    access: "free",
+    access: "locked",
     languages: ["de"]
   },
   {
@@ -159,7 +159,7 @@ export const downloadAssets: DownloadAsset[] = [
     fileSize: "1.5 MB",
     fileType: "PDF",
     category: "Success Stories",
-    access: "free",
+    access: "locked",
     languages: ["de"]
   },
   // Success Stories - EN
@@ -171,7 +171,7 @@ export const downloadAssets: DownloadAsset[] = [
     fileSize: "1.5 MB",
     fileType: "PDF",
     category: "Success Stories",
-    access: "free",
+    access: "locked",
     languages: ["en"]
   },
   {
@@ -182,7 +182,7 @@ export const downloadAssets: DownloadAsset[] = [
     fileSize: "1.5 MB",
     fileType: "PDF",
     category: "Success Stories",
-    access: "free",
+    access: "locked",
     languages: ["en"]
   },
   {
@@ -193,7 +193,7 @@ export const downloadAssets: DownloadAsset[] = [
     fileSize: "1.5 MB",
     fileType: "PDF",
     category: "Success Stories",
-    access: "free",
+    access: "locked",
     languages: ["en"]
   },
   {
@@ -204,7 +204,7 @@ export const downloadAssets: DownloadAsset[] = [
     fileSize: "1.5 MB",
     fileType: "PDF",
     category: "Success Stories",
-    access: "free",
+    access: "locked",
     languages: ["en"]
   }
 ];

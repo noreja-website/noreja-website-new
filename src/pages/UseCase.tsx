@@ -5,18 +5,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { AnimatedHeading } from "@/components/AnimatedHeading";
 import { useEffect } from "react";
-
-interface TextSection {
-  title: string;
-  content: string;
-  imagePath?: string;
-}
-
-interface UseCaseData {
-  title: string;
-  description: string;
-  sections?: TextSection[];
-}
+import { useCases } from "@/lib/useCases";
 
 const UseCase = () => {
   const { useCaseName } = useParams<{ useCaseName: string }>();
@@ -27,15 +16,10 @@ const UseCase = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  // Get use case data from translations (exclude 'cta' which is not a use case)
-  const useCaseData: UseCaseData | null = useCaseName && 
-    useCaseName !== 'cta' && 
-    t.pages.useCases?.[useCaseName] && 
-    'sections' in t.pages.useCases[useCaseName] ? {
-      title: t.pages.useCases[useCaseName].title,
-      description: t.pages.useCases[useCaseName].description,
-      sections: (t.pages.useCases[useCaseName] as { sections?: TextSection[] }).sections || []
-    } : null;
+  // Get use case data from useCases.ts
+  const useCaseData = useCaseName 
+    ? useCases.find(uc => uc.id === useCaseName)
+    : null;
 
   if (!useCaseData || !useCaseName) {
     return (
@@ -89,13 +73,13 @@ const UseCase = () => {
               className="text-center mb-16"
             >
               <AnimatedHeading 
-                fixedText={useCaseData.title}
+                fixedText={useCaseData.title[language]}
                 rotatingWords={[]}
                 size="md"
                 className="text-foreground mb-6"
               />
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                {useCaseData.description}
+                {useCaseData.description[language]}
               </p>
             </motion.div>
           </div>
@@ -105,7 +89,7 @@ const UseCase = () => {
         <section className="pb-20">
           <div className="w-full max-w-7xl mx-auto px-6 lg:px-12">
             <div className="space-y-32 lg:space-y-40">
-              {useCaseData.sections?.map((section, index) => {
+              {useCaseData.sections[language]?.map((section, index) => {
                 // Alternate layout: even index = image left, odd index = image right
                 const isImageLeft = index % 2 === 0;
                 const gridCols = isImageLeft 

@@ -68,7 +68,7 @@ export function PartnerPhotosGrid() {
   };
 
   return (
-    <section ref={ref} className="py-32 overflow-hidden">
+    <section ref={ref} className="relative py-32 overflow-hidden z-10">
       <div className="container mx-auto px-4 lg:px-8 overflow-hidden">
         <motion.div
           initial={{ opacity: 0, y: 32 }}
@@ -100,10 +100,10 @@ export function PartnerPhotosGrid() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.6, delay: 0.1 * index }}
-              className="group cursor-pointer overflow-hidden"
+              className="group cursor-pointer overflow-hidden relative z-20"
               onClick={() => openModal(partner)}
             >
-              <div className="relative overflow-hidden rounded-xl bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 z-10">
+              <div className="relative overflow-hidden rounded-xl bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300">
                 <div className="aspect-square p-3 sm:p-4">
                   <div className="relative h-full w-full overflow-hidden rounded-lg transition-transform duration-500 group-hover:scale-105">
                     {partner.personPhotoUrl ? (

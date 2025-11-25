@@ -451,6 +451,7 @@ const SuccessStoryDetail = () => {
                         fileUrl={downloadAsset.fileUrl}
                         fileSize={downloadAsset.fileSize}
                         fileType={downloadAsset.fileType}
+                        formGuid={downloadAsset.formGuid} // Use asset-specific form if provided, otherwise defaults to config.hubspot.defaultFormGuid
                         variant="default"
                         requiresForm={downloadAsset.access === "locked"}
                         className="group"

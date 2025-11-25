@@ -246,8 +246,17 @@ export function HubSpotBlogTeaser({ maxItems = 3 }: HubSpotBlogTeaserProps) {
                       variant="outline" 
                       size="lg"
                       className="w-full min-h-[44px]"
+                      asChild
                     >
-                      {t.blog.readMore}
+                      <a 
+                        href={post.link} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-2"
+                      >
+                        {t.blog.readMore}
+                        <ExternalLink className="h-4 w-4" />
+                      </a>
                     </Button>
                   </CardContent>
                 </Card>
