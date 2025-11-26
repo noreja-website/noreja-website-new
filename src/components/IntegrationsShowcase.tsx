@@ -148,7 +148,11 @@ export const IntegrationsShowcase: React.FC<IntegrationsShowcaseProps> = ({
   
   const isStackedLayout = screenSize !== 'desktop';
   const actualRows = screenSize === 'mobile' ? 2 : screenSize === 'medium' ? 3 : rows;
-  const rowsData = buildRows(loadedLogos, actualRows);
+  
+  // Memoize rowsData to prevent recalculation on every render
+  const rowsData = React.useMemo(() => {
+    return buildRows(loadedLogos, actualRows);
+  }, [loadedLogos, actualRows]);
 
   if (isLoading) {
     return null; // Or a loading spinner
@@ -230,8 +234,9 @@ const VerticalTicker: React.FC<{ items: IntegrationLogo[]; reverse?: boolean }> 
   items,
   reverse = false
 }) => {
-  // Duplicate list for seamless loop
-  const sequence = [...items, ...items];
+  // Memoize duplicated sequence to prevent re-creation on every render
+  const sequence = React.useMemo(() => [...items, ...items], [items]);
+  
   return (
     <div className="relative h-[320px] md:h-[520px] overflow-hidden rounded-xl bg-transparent z-0">
       <div
@@ -246,9 +251,12 @@ const VerticalTicker: React.FC<{ items: IntegrationLogo[]; reverse?: boolean }> 
             logo.size === 'large' ? 'max-h-16 max-w-16' :
             'max-h-12 max-w-12';
           
+          // Use stable key based on logo data, not just index
+          const stableKey = `${logo.alt}-${logo.src}-${idx}`;
+          
           return (
             <div
-              key={idx}
+              key={stableKey}
               className="mx-auto grid h-24 w-24 place-content-center rounded-xl bg-white/90 shadow-sm ring-1 ring-border"
             >
               <img
@@ -256,6 +264,7 @@ const VerticalTicker: React.FC<{ items: IntegrationLogo[]; reverse?: boolean }> 
                 alt={logo.alt}
                 className={`${sizeClass} object-contain opacity-90`}
                 loading="lazy"
+                decoding="async"
               />
             </div>
           );

@@ -107,8 +107,10 @@ const LogoBanner: React.FC = () => {
     loadLogos();
   }, []);
 
-  // Duplicate logos for seamless scrolling
-  const duplicatedLogos = [...loadedLogos, ...loadedLogos, ...loadedLogos, ...loadedLogos];
+  // Memoize duplicated logos to prevent re-creation on every render
+  const duplicatedLogos = useMemo(() => {
+    return [...loadedLogos, ...loadedLogos, ...loadedLogos, ...loadedLogos];
+  }, [loadedLogos]);
 
   if (isLoading) {
     return null; // Or a loading spinner
@@ -140,6 +142,7 @@ const LogoBanner: React.FC = () => {
                   alt={`${company.name} logo`}
                   className={`${sizeClass} object-contain filter grayscale hover:grayscale-0 transition-all duration-300`}
                   loading="lazy"
+                  decoding="async"
                 />
               </div>
             </div>
