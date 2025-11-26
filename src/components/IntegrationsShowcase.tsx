@@ -7,40 +7,51 @@ type IntegrationLogo = {
   size?: 'regular' | 'large' | 'xlarge';
 };
 
-// Load all images eagerly at once
+// Lazy load images (will be loaded when section comes into view)
 const integrationImages = import.meta.glob<{ default: string }>(
   '../assets/integrations/*.{png,jpg,jpeg,svg,webp}',
-  { eager: true }
+  { eager: false }
 );
 
-// Process all images into logo objects (loaded eagerly, so this runs once at module load)
-const allLogos: IntegrationLogo[] = Object.entries(integrationImages).map(([path, module]) => {
-  // Extract filename without extension from path
-  const filename = path.split('/').pop()?.replace(/\.(png|jpg|jpeg|svg|webp)$/, '') || '';
-  
-  // Determine size based on filename postfix
-  let size: 'regular' | 'large' | 'xlarge' = 'regular';
-  if (filename.toLowerCase().includes('_xlarge')) {
-    size = 'xlarge';
-  } else if (filename.toLowerCase().includes('_large')) {
-    size = 'large';
+// Cache for processed logos
+let logosCache: IntegrationLogo[] | null = null;
+
+// Process images into logo objects
+const processLogos = async (): Promise<IntegrationLogo[]> => {
+  if (logosCache) {
+    return logosCache;
   }
-  
-  // Convert filename to readable alt text (e.g., "mysql_logo" -> "MySQL")
-  const alt = filename
-    .replace(/_logo|_white|-logo|_large|_xlarge/gi, '')
-    .replace(/[-_]/g, ' ')
-    .trim()
-    .split(' ')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
-  
-  return {
-    alt,
-    src: module.default,
-    size
-  };
-});
+
+  const imageEntries = Object.entries(integrationImages);
+  const logoPromises = imageEntries.map(async ([path, moduleLoader]) => {
+    const module = await moduleLoader();
+    const filename = path.split('/').pop()?.replace(/\.(png|jpg|jpeg|svg|webp)$/, '') || '';
+    
+    let size: 'regular' | 'large' | 'xlarge' = 'regular';
+    if (filename.toLowerCase().includes('_xlarge')) {
+      size = 'xlarge';
+    } else if (filename.toLowerCase().includes('_large')) {
+      size = 'large';
+    }
+    
+    const alt = filename
+      .replace(/_logo|_white|-logo|_large|_xlarge/gi, '')
+      .replace(/[-_]/g, ' ')
+      .trim()
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+    
+    return {
+      alt,
+      src: module.default,
+      size
+    };
+  });
+
+  logosCache = await Promise.all(logoPromises);
+  return logosCache;
+};
 
 export interface IntegrationsShowcaseProps {
   title?: string;
@@ -98,9 +109,51 @@ export const IntegrationsShowcase: React.FC<IntegrationsShowcaseProps> = ({
   rows = 4
 }) => {
   const { t } = useLanguage();
+  const sectionRef = React.useRef<HTMLElement>(null);
+  const [loadedLogos, setLoadedLogos] = React.useState<IntegrationLogo[]>(providedLogos || []);
+  const [isLoading, setIsLoading] = React.useState(!providedLogos);
   
-  // Use provided logos or fall back to all loaded logos
-  const loadedLogos = providedLogos || allLogos;
+  // Use Intersection Observer to lazy load images when section comes into view
+  React.useEffect(() => {
+    // If logos are provided, skip lazy loading
+    if (providedLogos) {
+      return;
+    }
+
+    // If logos are already loaded, skip observer setup
+    if (loadedLogos.length > 0) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          // Start loading when section is within 200px of viewport
+          if (entry.isIntersecting && loadedLogos.length === 0) {
+            setIsLoading(true);
+            processLogos().then((logos) => {
+              setLoadedLogos(logos);
+              setIsLoading(false);
+            });
+            // Disconnect observer after loading starts
+            observer.disconnect();
+          }
+        });
+      },
+      {
+        rootMargin: '200px', // Start loading 200px before section is visible
+        threshold: 0
+      }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [providedLogos, loadedLogos.length]);
 
   // Use fewer rows on mobile (2), medium (3), and more on desktop (4)
   const [screenSize, setScreenSize] = React.useState<'mobile' | 'medium' | 'desktop'>('desktop');
@@ -150,7 +203,7 @@ export const IntegrationsShowcase: React.FC<IntegrationsShowcaseProps> = ({
     </>
   );
   return (
-    <section className="relative overflow-hidden">
+    <section ref={sectionRef} className="relative overflow-hidden">
       {isStackedLayout && (
         <div
           className="pointer-events-none absolute inset-x-0 top-0 h-[460px] sm:h-[520px] bg-gradient-to-b from-background via-background/95 to-transparent"
@@ -164,15 +217,23 @@ export const IntegrationsShowcase: React.FC<IntegrationsShowcaseProps> = ({
               <TextContent />
             </div>
             <div className="relative w-full z-0 overflow-hidden">
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4" aria-hidden>
-                {rowsData.map((row, rowIndex) => (
-                  <VerticalTicker
-                    key={rowIndex}
-                    items={row}
-                    reverse={rowIndex % 2 === 1}
-                  />
-                ))}
-              </div>
+              {isLoading ? (
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4" aria-hidden>
+                  {Array.from({ length: actualRows }).map((_, idx) => (
+                    <div key={idx} className="h-[320px] md:h-[520px] rounded-xl bg-muted/50 animate-pulse" />
+                  ))}
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4" aria-hidden>
+                  {rowsData.map((row, rowIndex) => (
+                    <VerticalTicker
+                      key={rowIndex}
+                      items={row}
+                      reverse={rowIndex % 2 === 1}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         ) : (
@@ -184,15 +245,23 @@ export const IntegrationsShowcase: React.FC<IntegrationsShowcaseProps> = ({
 
             {/* Right: Integrations Animation Grid */}
             <div className="relative w-full z-0 overflow-hidden">
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" aria-hidden>
-                {rowsData.map((row, rowIndex) => (
-                  <VerticalTicker
-                    key={rowIndex}
-                    items={row}
-                    reverse={rowIndex % 2 === 1}
-                  />
-                ))}
-              </div>
+              {isLoading ? (
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" aria-hidden>
+                  {Array.from({ length: actualRows }).map((_, idx) => (
+                    <div key={idx} className="h-[320px] md:h-[520px] rounded-xl bg-muted/50 animate-pulse" />
+                  ))}
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" aria-hidden>
+                  {rowsData.map((row, rowIndex) => (
+                    <VerticalTicker
+                      key={rowIndex}
+                      items={row}
+                      reverse={rowIndex % 2 === 1}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         )}
