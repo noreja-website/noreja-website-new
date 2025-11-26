@@ -230,7 +230,39 @@ export const IntegrationsShowcase: React.FC<IntegrationsShowcaseProps> = ({
   );
 };
 
-const VerticalTicker: React.FC<{ items: IntegrationLogo[]; reverse?: boolean }> = ({
+// Memoized logo image component to prevent unnecessary re-renders
+const LogoImage = React.memo<{ logo: IntegrationLogo }>(({ logo }) => {
+  const sizeClass = 
+    logo.size === 'xlarge' ? 'max-h-32 max-w-32' :
+    logo.size === 'large' ? 'max-h-16 max-w-16' :
+    'max-h-12 max-w-12';
+  
+  return (
+    <div className="mx-auto grid h-24 w-24 place-content-center rounded-xl bg-white/90 shadow-sm ring-1 ring-border">
+      <img
+        src={logo.src}
+        alt={logo.alt}
+        className={`${sizeClass} object-contain opacity-90`}
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+  );
+});
+
+LogoImage.displayName = 'LogoImage';
+
+// Helper function to create stable key from logo data
+const createLogoKey = (logo: IntegrationLogo, sequenceIndex: number): string => {
+  // Use logo src (which is stable from Vite) as the base identifier
+  // Extract filename from src URL for a cleaner key
+  const srcFilename = logo.src.split('/').pop()?.split('?')[0] || logo.src;
+  // Combine with sequence index to ensure uniqueness in duplicated sequence
+  // The sequence index is stable for each position, so this creates a stable key
+  return `${logo.alt}-${srcFilename}-${sequenceIndex}`;
+};
+
+const VerticalTicker: React.FC<{ items: IntegrationLogo[]; reverse?: boolean }> = React.memo(({
   items,
   reverse = false
 }) => {
@@ -246,27 +278,11 @@ const VerticalTicker: React.FC<{ items: IntegrationLogo[]; reverse?: boolean }> 
         }
       >
         {sequence.map((logo, idx) => {
-          const sizeClass = 
-            logo.size === 'xlarge' ? 'max-h-32 max-w-32' :
-            logo.size === 'large' ? 'max-h-16 max-w-16' :
-            'max-h-12 max-w-12';
-          
-          // Use stable key based on logo data, not just index
-          const stableKey = `${logo.alt}-${logo.src}-${idx}`;
+          // Use stable key based on logo src (which is stable from Vite) and sequence position
+          const stableKey = createLogoKey(logo, idx);
           
           return (
-            <div
-              key={stableKey}
-              className="mx-auto grid h-24 w-24 place-content-center rounded-xl bg-white/90 shadow-sm ring-1 ring-border"
-            >
-              <img
-                src={logo.src}
-                alt={logo.alt}
-                className={`${sizeClass} object-contain opacity-90`}
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
+            <LogoImage key={stableKey} logo={logo} />
           );
         })}
       </div>
@@ -275,7 +291,9 @@ const VerticalTicker: React.FC<{ items: IntegrationLogo[]; reverse?: boolean }> 
       <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent pointer-events-none z-0" />
     </div>
   );
-};
+});
+
+VerticalTicker.displayName = 'VerticalTicker';
 
 export default IntegrationsShowcase;
 

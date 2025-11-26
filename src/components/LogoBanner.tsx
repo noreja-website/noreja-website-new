@@ -30,6 +30,36 @@ interface Logo {
   size: LogoSize;
 }
 
+// Memoized logo item component to prevent unnecessary re-renders
+const LogoItem = React.memo<{ company: Logo; index: number }>(({ company, index }) => {
+  // Apply size classes based on logo size
+  const sizeClass = 
+    company.size === 'xlarge' ? 'max-h-20 max-w-32' :
+    company.size === 'large' ? 'max-h-16 max-w-24' :
+    'max-h-12 max-w-20';
+  
+  const containerClass =
+    company.size === 'xlarge' ? 'w-32 h-20' :
+    company.size === 'large' ? 'w-24 h-16' :
+    'w-20 h-12';
+  
+  return (
+    <div className="flex-shrink-0 mx-8 flex items-center justify-center max-w-fit">
+      <div className={`relative ${containerClass} flex items-center justify-center opacity-60 hover:opacity-80 transition-opacity duration-300`}>
+        <img
+          src={company.logo}
+          alt={`${company.name} logo`}
+          className={`${sizeClass} object-contain filter grayscale hover:grayscale-0 transition-all duration-300`}
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    </div>
+  );
+});
+
+LogoItem.displayName = 'LogoItem';
+
 const LogoBanner: React.FC = () => {
   const [loadedLogos, setLoadedLogos] = useState<Logo[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -120,32 +150,11 @@ const LogoBanner: React.FC = () => {
     <div className="relative overflow-hidden py-8 w-full">
       <div className="flex animate-scroll w-full">
         {duplicatedLogos.map((company, index) => {
-          // Apply size classes based on logo size
-          const sizeClass = 
-            company.size === 'xlarge' ? 'max-h-20 max-w-32' :
-            company.size === 'large' ? 'max-h-16 max-w-24' :
-            'max-h-12 max-w-20';
-          
-          const containerClass =
-            company.size === 'xlarge' ? 'w-32 h-20' :
-            company.size === 'large' ? 'w-24 h-16' :
-            'w-20 h-12';
-          
+          // Create stable key using logo URL (which is stable from Vite) and position
+          const logoFilename = company.logo.split('/').pop()?.split('?')[0] || company.logo;
+          const stableKey = `${company.name}-${logoFilename}-${index}`;
           return (
-            <div
-              key={`${company.name}-${index}`}
-              className="flex-shrink-0 mx-8 flex items-center justify-center max-w-fit"
-            >
-              <div className={`relative ${containerClass} flex items-center justify-center opacity-60 hover:opacity-80 transition-opacity duration-300`}>
-                <img
-                  src={company.logo}
-                  alt={`${company.name} logo`}
-                  className={`${sizeClass} object-contain filter grayscale hover:grayscale-0 transition-all duration-300`}
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-            </div>
+            <LogoItem key={stableKey} company={company} index={index} />
           );
         })}
       </div>
