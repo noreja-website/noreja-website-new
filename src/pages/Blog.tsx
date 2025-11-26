@@ -78,10 +78,18 @@ export default function Blog() {
     }
   ];
 
+  // Detect if we're on localhost or production
+  const isLocalhost = window.location.hostname === 'localhost' || 
+                      window.location.hostname === '127.0.0.1' ||
+                      window.location.hostname === '::1';
+  
+  // Use http:// for localhost, https:// for production (Netlify)
+  const protocol = isLocalhost ? 'http' : 'https';
+  
   // RSS Feed URLs
   const RSS_FEED_URL = language === 'de' 
     ? 'https://144242473.hs-sites-eu1.com/de-de/noreja-intelligence-gmbh-blog/rss.xml'
-    : 'http://144242473.hs-sites-eu1.com/en/noreja-intelligence-blog/rss.xml';
+    : `${protocol}://144242473.hs-sites-eu1.com/en/noreja-intelligence-blog/rss.xml`;
 
   // Fetch RSS feed data
   useEffect(() => {
