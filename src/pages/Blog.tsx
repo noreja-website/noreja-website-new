@@ -421,7 +421,7 @@ export default function Blog() {
                                   className="p-0 h-auto text-noreja-main hover:bg-noreja-main/10"
                                   asChild
                                 >
-                                  <a href={post.link} target="_blank" rel="noopener noreferrer">
+                                  <a href={post.link}>
                                     {t.blog.readMore}
                                     <ExternalLink className="w-3 h-3 ml-1" />
                                   </a>
