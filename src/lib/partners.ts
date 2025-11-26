@@ -572,3 +572,69 @@ export const initializePartnersData = async (): Promise<void> => {
   
   return initializationPromise;
 };
+
+// Lightweight function that only loads face photos for partners with photos and quotes
+// Used by PartnerPhotosGrid to avoid loading all logo images
+export const getPartnersForGrid = async (): Promise<Partner[]> => {
+  try {
+    // Filter to only partners with photos and quotes
+    const partnersWithPhotos = partnersBase.filter(
+      (partner) =>
+        (partner.partnerType === 'businessWithQuote' || partner.partnerType === 'advisorWithQuote') &&
+        partner.personPhotoFilename &&
+        partner.quote
+    );
+
+    // Only load face photos, skip logos
+    const imagePromises = partnersWithPhotos.map(async (partner) => {
+      try {
+        const personPhotoUrl = partner.personPhotoFilename
+          ? await getImagePath(partnerFaceImages, partner.personPhotoFilename, 'partnerFaces')
+          : undefined;
+
+        return {
+          id: partner.id,
+          name: partner.name,
+          isPartner: partner.isPartner,
+          partnerType: partner.partnerType,
+          logoUrl: '', // Not needed for grid
+          logoUrlWhite: undefined, // Not needed for grid
+          logoSize: partner.logoSize,
+          personPhotoUrl,
+          website: partner.website,
+          category: partner.category,
+          quote: partner.quote,
+          quoteAuthor: partner.quoteAuthor,
+          linkedin: partner.linkedin,
+          preferOriginalLogo: partner.preferOriginalLogo
+        };
+      } catch (error) {
+        // If individual partner image loading fails, still return partner but without photo
+        console.warn(`Failed to load face photo for partner ${partner.name}:`, error);
+        return {
+          id: partner.id,
+          name: partner.name,
+          isPartner: partner.isPartner,
+          partnerType: partner.partnerType,
+          logoUrl: '',
+          logoUrlWhite: undefined,
+          logoSize: partner.logoSize,
+          personPhotoUrl: undefined,
+          website: partner.website,
+          category: partner.category,
+          quote: partner.quote,
+          quoteAuthor: partner.quoteAuthor,
+          linkedin: partner.linkedin,
+          preferOriginalLogo: partner.preferOriginalLogo
+        };
+      }
+    });
+
+    const result = await Promise.all(imagePromises);
+    return result;
+  } catch (error) {
+    console.error('Error loading partners for grid:', error);
+    // Return empty array on error - component will handle gracefully
+    return [];
+  }
+};

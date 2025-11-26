@@ -4,7 +4,7 @@ import { createPortal } from "react-dom";
 import { X, Linkedin, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { partners, initializePartnersData, type Partner } from "@/lib/partners";
+import { getPartnersForGrid, type Partner } from "@/lib/partners";
 
 export function PartnerPhotosGrid() {
   const ref = useRef(null);
@@ -12,22 +12,12 @@ export function PartnerPhotosGrid() {
   const { t } = useLanguage();
   const [loadedPartners, setLoadedPartners] = useState<Partner[]>([]);
   
-  // Initialize partners data on mount
+  // Load only face photos for grid partners
   useEffect(() => {
     const loadData = async () => {
       try {
-        await initializePartnersData();
-        
-        // Verify partners array is populated
-        if (partners.length === 0) {
-          console.warn('[PartnerPhotosGrid] Partners array is empty after initialization');
-          setLoadedPartners([]);
-          return;
-        }
-        
-        // Create a new array to ensure React detects the change
-        const updatedPartners = partners.map(p => ({ ...p }));
-        setLoadedPartners(updatedPartners);
+        const partners = await getPartnersForGrid();
+        setLoadedPartners(partners);
       } catch (error) {
         console.error('[PartnerPhotosGrid] Error loading partners:', error);
         setLoadedPartners([]);
@@ -41,10 +31,7 @@ export function PartnerPhotosGrid() {
   // Get all partners with photos and quotes for the grid, randomized on every reload
   const gridPartners = useMemo(() => {
     const partnersWithPhotos = loadedPartners.filter(
-      (partner) =>
-        (partner.partnerType === 'businessWithQuote' || partner.partnerType === 'advisorWithQuote') &&
-        partner.personPhotoUrl &&
-        partner.quote
+      (partner) => partner.personPhotoUrl && partner.quote
     );
     // Fisher-Yates shuffle algorithm
     const shuffled = [...partnersWithPhotos];
@@ -52,7 +39,8 @@ export function PartnerPhotosGrid() {
       const j = Math.floor(Math.random() * (i + 1));
       [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
-    return shuffled.slice(0, 12);
+    // Show all partners, not limited to 12
+    return shuffled;
   }, [loadedPartners]);
 
   const getPartnerLogo = (partner: Partner) => {
@@ -61,17 +49,6 @@ export function PartnerPhotosGrid() {
     }
     return partner.logoUrlWhite || partner.logoUrl || "";
   };
-
-  // Don't render if no partners loaded yet
-  if (loadedPartners.length === 0) {
-    return null;
-  }
-
-  // If we have partners but no grid partners (no photos/quotes), don't render the grid
-  // This can happen if images fail to load in production
-  if (gridPartners.length === 0) {
-    return null;
-  }
 
   const openModal = (partner: Partner) => {
     setSelectedPartner(partner);
@@ -106,7 +83,7 @@ export function PartnerPhotosGrid() {
           initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 max-w-5xl w-full mx-auto py-8 overflow-hidden"
+          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 w-full mx-auto py-8 overflow-hidden"
         >
           {gridPartners.map((partner, index) => (
             <motion.div
