@@ -7,52 +7,40 @@ type IntegrationLogo = {
   size?: 'regular' | 'large' | 'xlarge';
 };
 
-// Dynamically import all images from the integrations folder (lazy loading)
+// Load all images eagerly at once
 const integrationImages = import.meta.glob<{ default: string }>(
   '../assets/integrations/*.{png,jpg,jpeg,svg,webp}',
-  { eager: false }
+  { eager: true }
 );
 
-// Cache for loaded logos
-let logosCache: IntegrationLogo[] | null = null;
-
-// Async function to load integration logos
-const loadIntegrationLogos = async (): Promise<IntegrationLogo[]> => {
-  if (logosCache) {
-    return logosCache;
+// Process all images into logo objects (loaded eagerly, so this runs once at module load)
+const allLogos: IntegrationLogo[] = Object.entries(integrationImages).map(([path, module]) => {
+  // Extract filename without extension from path
+  const filename = path.split('/').pop()?.replace(/\.(png|jpg|jpeg|svg|webp)$/, '') || '';
+  
+  // Determine size based on filename postfix
+  let size: 'regular' | 'large' | 'xlarge' = 'regular';
+  if (filename.toLowerCase().includes('_xlarge')) {
+    size = 'xlarge';
+  } else if (filename.toLowerCase().includes('_large')) {
+    size = 'large';
   }
-
-  const imageEntries = Object.entries(integrationImages);
-  const logoPromises = imageEntries.map(async ([path, moduleLoader]) => {
-    const module = await moduleLoader();
-    // Extract filename without extension from path
-    const filename = path.split('/').pop()?.replace(/\.(png|jpg|jpeg|svg|webp)$/, '') || '';
-    // Determine size based on filename postfix
-    let size: 'regular' | 'large' | 'xlarge' = 'regular';
-    if (filename.toLowerCase().includes('_xlarge')) {
-      size = 'xlarge';
-    } else if (filename.toLowerCase().includes('_large')) {
-      size = 'large';
-    }
-    // Convert filename to readable alt text (e.g., "mysql_logo" -> "MySQL")
-    const alt = filename
-      .replace(/_logo|_white|-logo|_large|_xlarge/gi, '')
-      .replace(/[-_]/g, ' ')
-      .trim()
-      .split(' ')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
-    
-    return {
-      alt,
-      src: module.default,
-      size
-    };
-  });
-
-  logosCache = await Promise.all(logoPromises);
-  return logosCache;
-};
+  
+  // Convert filename to readable alt text (e.g., "mysql_logo" -> "MySQL")
+  const alt = filename
+    .replace(/_logo|_white|-logo|_large|_xlarge/gi, '')
+    .replace(/[-_]/g, ' ')
+    .trim()
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+  
+  return {
+    alt,
+    src: module.default,
+    size
+  };
+});
 
 export interface IntegrationsShowcaseProps {
   title?: string;
@@ -80,24 +68,23 @@ function seededShuffle<T>(array: T[], seed: number): T[] {
 function buildRows(all: IntegrationLogo[], rows: number): IntegrationLogo[][] {
   if (all.length === 0) return [];
   
-  // First, shuffle all logos once with a consistent seed
+  // Shuffle all logos once with a consistent seed for reproducibility
   const shuffled = seededShuffle(all, 42);
   
-  // Distribute logos across columns in a round-robin fashion
-  // This ensures each logo appears in different positions across columns
+  // Create rows array
   const result: IntegrationLogo[][] = Array.from({ length: rows }, () => []);
   
-  // Calculate how many times we need to go through the logos to fill all columns adequately
-  const logosPerColumn = Math.ceil(shuffled.length * 1.5); // Ensure enough logos per column for smooth scrolling
+  // Calculate how many logos per column for smooth scrolling (1.5x the total logos)
+  const logosPerColumn = Math.ceil(shuffled.length * 1.5);
   
-  // Distribute logos using offset round-robin to avoid same logos appearing at same positions
-  for (let columnIndex = 0; columnIndex < rows; columnIndex++) {
-    // Start each column at a different offset to spread logos out
-    const offset = Math.floor((columnIndex * shuffled.length) / rows);
+  // Distribute logos across rows using round-robin with offset
+  // Each row starts at a different position to spread logos out
+  for (let rowIndex = 0; rowIndex < rows; rowIndex++) {
+    const offset = Math.floor((rowIndex * shuffled.length) / rows);
     
     for (let i = 0; i < logosPerColumn; i++) {
       const logoIndex = (offset + i) % shuffled.length;
-      result[columnIndex].push(shuffled[logoIndex]);
+      result[rowIndex].push(shuffled[logoIndex]);
     }
   }
   
@@ -111,21 +98,9 @@ export const IntegrationsShowcase: React.FC<IntegrationsShowcaseProps> = ({
   rows = 4
 }) => {
   const { t } = useLanguage();
-  const [loadedLogos, setLoadedLogos] = React.useState<IntegrationLogo[]>([]);
-  const [isLoading, setIsLoading] = React.useState(!providedLogos);
   
-  // Load logos if not provided
-  React.useEffect(() => {
-    if (providedLogos) {
-      setLoadedLogos(providedLogos);
-      setIsLoading(false);
-    } else {
-      loadIntegrationLogos().then(logos => {
-        setLoadedLogos(logos);
-        setIsLoading(false);
-      });
-    }
-  }, [providedLogos]);
+  // Use provided logos or fall back to all loaded logos
+  const loadedLogos = providedLogos || allLogos;
 
   // Use fewer rows on mobile (2), medium (3), and more on desktop (4)
   const [screenSize, setScreenSize] = React.useState<'mobile' | 'medium' | 'desktop'>('desktop');
@@ -153,10 +128,6 @@ export const IntegrationsShowcase: React.FC<IntegrationsShowcaseProps> = ({
   const rowsData = React.useMemo(() => {
     return buildRows(loadedLogos, actualRows);
   }, [loadedLogos, actualRows]);
-
-  if (isLoading) {
-    return null; // Or a loading spinner
-  }
   
   // Use translations as defaults if no props are provided
   const displaySubtitle = subtitle || t.integrations.subtitle;
@@ -230,8 +201,8 @@ export const IntegrationsShowcase: React.FC<IntegrationsShowcaseProps> = ({
   );
 };
 
-// Memoized logo image component to prevent unnecessary re-renders
-const LogoImage = React.memo<{ logo: IntegrationLogo }>(({ logo }) => {
+// Logo image component
+const LogoImage: React.FC<{ logo: IntegrationLogo }> = ({ logo }) => {
   const sizeClass = 
     logo.size === 'xlarge' ? 'max-h-32 max-w-32' :
     logo.size === 'large' ? 'max-h-16 max-w-16' :
@@ -248,25 +219,13 @@ const LogoImage = React.memo<{ logo: IntegrationLogo }>(({ logo }) => {
       />
     </div>
   );
-});
-
-LogoImage.displayName = 'LogoImage';
-
-// Helper function to create stable key from logo data
-const createLogoKey = (logo: IntegrationLogo, sequenceIndex: number): string => {
-  // Use logo src (which is stable from Vite) as the base identifier
-  // Extract filename from src URL for a cleaner key
-  const srcFilename = logo.src.split('/').pop()?.split('?')[0] || logo.src;
-  // Combine with sequence index to ensure uniqueness in duplicated sequence
-  // The sequence index is stable for each position, so this creates a stable key
-  return `${logo.alt}-${srcFilename}-${sequenceIndex}`;
 };
 
 const VerticalTicker: React.FC<{ items: IntegrationLogo[]; reverse?: boolean }> = React.memo(({
   items,
   reverse = false
 }) => {
-  // Memoize duplicated sequence to prevent re-creation on every render
+  // Duplicate items for seamless scrolling
   const sequence = React.useMemo(() => [...items, ...items], [items]);
   
   return (
@@ -278,12 +237,9 @@ const VerticalTicker: React.FC<{ items: IntegrationLogo[]; reverse?: boolean }> 
         }
       >
         {sequence.map((logo, idx) => {
-          // Use stable key based on logo src (which is stable from Vite) and sequence position
-          const stableKey = createLogoKey(logo, idx);
-          
-          return (
-            <LogoImage key={stableKey} logo={logo} />
-          );
+          // Use logo src URL as key (stable since loaded eagerly) + index for uniqueness
+          const key = `${logo.src}-${idx}`;
+          return <LogoImage key={key} logo={logo} />;
         })}
       </div>
       {/* Fade overlays at top and bottom */}
