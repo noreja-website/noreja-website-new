@@ -52,3 +52,9 @@
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
 
+# --- FIX FOR SPA ROUTING ---
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
