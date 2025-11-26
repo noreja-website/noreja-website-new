@@ -34,30 +34,11 @@ const DOWNLOAD_SESSION_KEY = "noreja_download_validated";
 // LocalStorage key for pending downloads (persists across redirect)
 const PENDING_DOWNLOAD_KEY = "pendingDownload";
 
-// HubSpot form script URL - use v2 API
-const HUBSPOT_FORM_SCRIPT = "https://js-eu1.hsforms.net/forms/embed/v2.js";
+// HubSpot form script URL - use iframe embed
+const HUBSPOT_FORM_SCRIPT = "https://js-eu1.hsforms.net/forms/embed/144242473.js";
 const HUBSPOT_FORM_REGION = "eu1";
 const HUBSPOT_PORTAL_ID = "144242473";
 const HUBSPOT_FORM_ID = "cba179f6-530c-43a4-9d41-4bc0a459953b";
-
-// TypeScript declaration for HubSpot API
-declare global {
-  interface Window {
-    hbspt?: {
-      forms?: {
-        create?: (config: {
-          region: string;
-          portalId: string;
-          formId: string;
-          target: string;
-          onFormReady?: () => void;
-          onFormSubmit?: () => void;
-          onFormError?: (error?: unknown) => void;
-        }) => void;
-      };
-    };
-  }
-}
 
 // Check if user has already validated this session
 const isUserValidated = (): boolean => {
@@ -87,66 +68,23 @@ const loadHubSpotFormScript = (): Promise<void> => {
     return scriptLoadPromise;
   }
 
-  // Check if API is already available
-  const hbspt = window.hbspt;
-  if (hbspt?.forms?.create) {
-    scriptLoadPromise = Promise.resolve();
-    return scriptLoadPromise;
-  }
-
   // Check if script already exists
   const existingScript = document.querySelector<HTMLScriptElement>(
     `script[src="${HUBSPOT_FORM_SCRIPT}"]`
   );
   if (existingScript) {
-    // Script exists, wait for API to be available
-    scriptLoadPromise = new Promise<void>((resolve, reject) => {
-      const checkInterval = setInterval(() => {
-        const hbspt = window.hbspt;
-        if (hbspt?.forms?.create) {
-          clearInterval(checkInterval);
-          resolve();
-        }
-      }, 100);
-      
-      setTimeout(() => {
-        clearInterval(checkInterval);
-        const hbspt = window.hbspt;
-        if (hbspt?.forms?.create) {
-          resolve();
-        } else {
-          reject(new Error("HubSpot script loaded but API not available"));
-        }
-      }, 10000);
-    });
+    // Script exists, resolve immediately
+    scriptLoadPromise = Promise.resolve();
     return scriptLoadPromise;
   }
 
+  // Create and load script
   scriptLoadPromise = new Promise<void>((resolve, reject) => {
     const script = document.createElement("script");
     script.src = HUBSPOT_FORM_SCRIPT;
     script.async = true;
     script.defer = true;
-    script.onload = () => {
-      // Wait for API to be available after script loads
-      const checkInterval = setInterval(() => {
-        const hbspt = window.hbspt;
-        if (hbspt?.forms?.create) {
-          clearInterval(checkInterval);
-          resolve();
-        }
-      }, 100);
-      
-      setTimeout(() => {
-        clearInterval(checkInterval);
-        const hbspt = window.hbspt;
-        if (hbspt?.forms?.create) {
-          resolve();
-        } else {
-          reject(new Error("HubSpot script loaded but API not available"));
-        }
-      }, 10000);
-    };
+    script.onload = () => resolve();
     script.onerror = () => reject(new Error("Failed to load HubSpot form script"));
     document.head.appendChild(script);
   });
@@ -174,7 +112,6 @@ export const DownloadGate: React.FC<DownloadGateProps> = ({
   const [formError, setFormError] = useState(false);
   const { toast } = useToast();
   const formContainerRef = useRef<HTMLDivElement>(null);
-  const formContainerIdRef = useRef<string>(`hubspot-form-${Math.random().toString(36).slice(2, 10)}`);
 
   const handleDirectDownload = useCallback(() => {
     setIsDownloading(true);
@@ -196,72 +133,27 @@ export const DownloadGate: React.FC<DownloadGateProps> = ({
     savePendingDownload(fileUrl, title);
 
     const container = formContainerRef.current;
-    const formContainerId = formContainerIdRef.current;
-    
-    // Set ID on container if not already set
-    if (!container.id) {
-      container.id = formContainerId;
-    }
     
     // Clear any existing content
     container.innerHTML = "";
 
-    // Load script and create form using v2 API
+    // Load script and create form using iframe embed
     loadHubSpotFormScript()
       .then(() => {
-        const hbspt = window.hbspt;
-        if (!hbspt?.forms?.create) {
-          throw new Error("HubSpot forms API not available");
-        }
-
         setFormError(false);
 
-        // Create form using v2 API
-        hbspt.forms.create({
-          region: HUBSPOT_FORM_REGION,
-          portalId: formPortalId || HUBSPOT_PORTAL_ID,
-          formId: formGuid || HUBSPOT_FORM_ID,
-          target: `#${formContainerId}`,
-          onFormReady: () => {
-            setFormError(false);
-            
-            // Set up form submission watcher
-            const form = container.querySelector('form');
-            if (form) {
-              const handleSubmit = (e: Event) => {
-                savePendingDownload(fileUrl, title);
-                sessionStorage.setItem(DOWNLOAD_SESSION_KEY, "true");
-              };
-              
-              form.addEventListener('submit', handleSubmit, { once: true });
-              
-              const submitButton = form.querySelector('input[type="submit"], button[type="submit"]');
-              if (submitButton) {
-                submitButton.addEventListener('click', () => {
-                  savePendingDownload(fileUrl, title);
-                  sessionStorage.setItem(DOWNLOAD_SESSION_KEY, "true");
-                }, { once: true });
-              }
-            }
-          },
-          onFormSubmit: () => {
-            savePendingDownload(fileUrl, title);
-            sessionStorage.setItem(DOWNLOAD_SESSION_KEY, "true");
-          },
-          onFormError: (error?: unknown) => {
-            console.error("HubSpot form error:", error);
-            setFormError(true);
-            toast({
-              title: t.downloadGate.error,
-              description: t.downloadGate.formLoadError,
-              variant: "destructive"
-            });
-          }
-        });
+        // Create form div with iframe embed attributes
+        const formDiv = document.createElement("div");
+        formDiv.className = "hs-form-frame";
+        formDiv.setAttribute("data-region", HUBSPOT_FORM_REGION);
+        formDiv.setAttribute("data-form-id", formGuid || HUBSPOT_FORM_ID);
+        formDiv.setAttribute("data-portal-id", formPortalId || HUBSPOT_PORTAL_ID);
+        
+        container.appendChild(formDiv);
 
         // Check if form loaded successfully after a delay
         setTimeout(() => {
-          const hasForm = container.querySelector('form');
+          const hasForm = container.querySelector('.hs-form-frame');
           if (!hasForm) {
             setFormError(true);
           }
@@ -379,7 +271,7 @@ export const DownloadGate: React.FC<DownloadGateProps> = ({
                   </div>
                 )}
                 
-                {/* Form container - HubSpot form loads via v2 API */}
+                {/* Form container - HubSpot form loads via iframe embed */}
                 <div ref={formContainerRef} className="hubspot-form-container w-full min-h-[200px]"></div>
               </div>
             </DialogContent>
@@ -426,7 +318,7 @@ export const DownloadGate: React.FC<DownloadGateProps> = ({
                 </div>
               )}
               
-              {/* Form container - HubSpot form loads via v2 API */}
+              {/* Form container - HubSpot form loads via iframe embed */}
               <div ref={formContainerRef} className="hubspot-form-container w-full min-h-[200px]"></div>
             </div>
           </DialogContent>
@@ -456,7 +348,6 @@ export const DownloadGateInline: React.FC<DownloadGateInlineProps> = ({
   const [formError, setFormError] = useState(false);
   const { toast } = useToast();
   const formContainerRef = useRef<HTMLDivElement>(null);
-  const formContainerIdRef = useRef<string>(`hubspot-form-${Math.random().toString(36).slice(2, 10)}`);
 
   const defaultButtonText = buttonText || t.downloadGate.download;
 
@@ -476,72 +367,27 @@ export const DownloadGateInline: React.FC<DownloadGateInlineProps> = ({
     savePendingDownload(fileUrl, title);
 
     const container = formContainerRef.current;
-    const formContainerId = formContainerIdRef.current;
-    
-    // Set ID on container if not already set
-    if (!container.id) {
-      container.id = formContainerId;
-    }
     
     // Clear any existing content
     container.innerHTML = "";
 
-    // Load script and create form using v2 API
+    // Load script and create form using iframe embed
     loadHubSpotFormScript()
       .then(() => {
-        const hbspt = window.hbspt;
-        if (!hbspt?.forms?.create) {
-          throw new Error("HubSpot forms API not available");
-        }
-
         setFormError(false);
 
-        // Create form using v2 API
-        hbspt.forms.create({
-          region: HUBSPOT_FORM_REGION,
-          portalId: formPortalId || HUBSPOT_PORTAL_ID,
-          formId: formGuid || HUBSPOT_FORM_ID,
-          target: `#${formContainerId}`,
-          onFormReady: () => {
-            setFormError(false);
-            
-            // Set up form submission watcher
-            const form = container.querySelector('form');
-            if (form) {
-              const handleSubmit = (e: Event) => {
-                savePendingDownload(fileUrl, title);
-                sessionStorage.setItem(DOWNLOAD_SESSION_KEY, "true");
-              };
-              
-              form.addEventListener('submit', handleSubmit, { once: true });
-              
-              const submitButton = form.querySelector('input[type="submit"], button[type="submit"]');
-              if (submitButton) {
-                submitButton.addEventListener('click', () => {
-                  savePendingDownload(fileUrl, title);
-                  sessionStorage.setItem(DOWNLOAD_SESSION_KEY, "true");
-                }, { once: true });
-              }
-            }
-          },
-          onFormSubmit: () => {
-            savePendingDownload(fileUrl, title);
-            sessionStorage.setItem(DOWNLOAD_SESSION_KEY, "true");
-          },
-          onFormError: (error?: unknown) => {
-            console.error("HubSpot form error:", error);
-            setFormError(true);
-            toast({
-              title: t.downloadGate.error,
-              description: t.downloadGate.formLoadError,
-              variant: "destructive"
-            });
-          }
-        });
+        // Create form div with iframe embed attributes
+        const formDiv = document.createElement("div");
+        formDiv.className = "hs-form-frame";
+        formDiv.setAttribute("data-region", HUBSPOT_FORM_REGION);
+        formDiv.setAttribute("data-form-id", formGuid || HUBSPOT_FORM_ID);
+        formDiv.setAttribute("data-portal-id", formPortalId || HUBSPOT_PORTAL_ID);
+        
+        container.appendChild(formDiv);
 
         // Check if form loaded successfully after a delay
         setTimeout(() => {
-          const hasForm = container.querySelector('form');
+          const hasForm = container.querySelector('.hs-form-frame');
           if (!hasForm) {
             setFormError(true);
           }
