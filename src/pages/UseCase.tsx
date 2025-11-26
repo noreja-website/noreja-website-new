@@ -7,6 +7,8 @@ import { AnimatedHeading } from "@/components/AnimatedHeading";
 import { useEffect } from "react";
 import { useCases } from "@/lib/useCases";
 import { Card, CardContent } from "@/components/ui/card";
+import { DownloadGateInline } from "@/components/DownloadGate";
+import { getWhitepaperForUseCase } from "@/lib/downloads";
 
 const UseCase = () => {
   const { useCaseName } = useParams<{ useCaseName: string }>();
@@ -20,6 +22,11 @@ const UseCase = () => {
   // Get use case data from useCases.ts
   const useCaseData = useCaseName 
     ? useCases.find(uc => uc.id === useCaseName)
+    : null;
+
+  // Get whitepaper for this use case
+  const whitepaper = useCaseName 
+    ? getWhitepaperForUseCase(useCaseName, language)
     : null;
 
   if (!useCaseData || !useCaseName) {
@@ -275,6 +282,19 @@ const UseCase = () => {
                         {t.pages.useCases?.cta?.secondaryButtonLabel || "View More Success Stories"}
                       </Link>
                     </Button>
+                    {whitepaper && (
+                      <DownloadGateInline
+                        title={whitepaper.title}
+                        description={whitepaper.description}
+                        fileUrl={whitepaper.fileUrl}
+                        fileSize={whitepaper.fileSize}
+                        fileType={whitepaper.fileType}
+                        requiresForm={whitepaper.access === "locked"}
+                        buttonText={language === "de" ? "Whitepaper herunterladen" : "Download Whitepaper"}
+                        buttonVariant="outline"
+                        className="border-noreja-main/30 hover:bg-noreja-main/10"
+                      />
+                    )}
                   </div>
                 </div>
               </div>

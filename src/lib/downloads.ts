@@ -208,3 +208,43 @@ export const downloadAssets: DownloadAsset[] = [
     languages: ["en"]
   }
 ];
+
+/**
+ * Maps use case IDs to their corresponding whitepaper download IDs
+ */
+const useCaseToWhitepaperMap: Record<string, Record<Language, string>> = {
+  "banking": {
+    de: "whitepaper-banking-de",
+    en: "whitepaper-banking-en"
+  },
+  "insurance": {
+    de: "whitepaper-insurance-de",
+    en: "whitepaper-insurance-en"
+  },
+  "manufacturing": {
+    de: "whitepaper-manufacturing-de",
+    en: "whitepaper-manufacturing-en"
+  },
+  "supply-chain": {
+    de: "whitepaper-supplychain-de",
+    en: "whitepaper-supplychain-en"
+  }
+};
+
+/**
+ * Gets the whitepaper download asset for a given use case ID and language
+ * @param useCaseId - The use case ID (e.g., "banking", "insurance", "manufacturing", "supply-chain")
+ * @param language - The language code ("de" or "en")
+ * @returns The download asset if found, undefined otherwise
+ */
+export const getWhitepaperForUseCase = (
+  useCaseId: string,
+  language: Language
+): DownloadAsset | undefined => {
+  const whitepaperId = useCaseToWhitepaperMap[useCaseId]?.[language];
+  if (!whitepaperId) {
+    return undefined;
+  }
+  
+  return downloadAssets.find(asset => asset.id === whitepaperId);
+};
