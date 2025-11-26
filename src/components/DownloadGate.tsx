@@ -1,11 +1,9 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Download, X, FileText, CheckCircle } from "lucide-react";
+import React, { useState, useEffect, useCallback } from "react";
+import { Download, FileText, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { useToast } from "@/hooks/use-toast";
 import { config } from "@/lib/config";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -61,38 +59,25 @@ const savePendingDownload = (fileUrl: string, title: string, id?: string) => {
   localStorage.setItem(PENDING_DOWNLOAD_KEY, JSON.stringify(downloadInfo));
 };
 
-// Load HubSpot form script globally (only once)
-let scriptLoadPromise: Promise<void> | null = null;
-const loadHubSpotFormScript = (): Promise<void> => {
+// Load HubSpot form script globally (only once) - using exact HubSpot pattern
+let scriptLoaded = false;
+const loadHubSpotFormScript = (): void => {
   // Check if script already exists
   const existingScript = document.querySelector<HTMLScriptElement>(
     `script[src="${HUBSPOT_FORM_SCRIPT}"]`
   );
-  if (existingScript) {
-    // Script exists, wait a bit longer to ensure it's fully initialized
-    return new Promise<void>((resolve) => {
-      // Give more time for script to be ready
-      setTimeout(() => resolve(), 300);
-    });
+  if (existingScript || scriptLoaded) {
+    return;
   }
 
-  // Create new promise if script doesn't exist
-  if (!scriptLoadPromise) {
-    scriptLoadPromise = new Promise<void>((resolve, reject) => {
-      const script = document.createElement("script");
-      script.src = HUBSPOT_FORM_SCRIPT;
-      script.async = false; // Load synchronously to ensure it's ready
-      script.defer = false;
-      script.onload = () => {
-        // Give script more time to initialize after load
-        setTimeout(() => resolve(), 500);
-      };
-      script.onerror = () => reject(new Error("Failed to load HubSpot form script"));
-      document.head.appendChild(script);
-    });
-  }
-
-  return scriptLoadPromise;
+  // Create script with defer attribute exactly as HubSpot specifies
+  const script = document.createElement("script");
+  script.src = HUBSPOT_FORM_SCRIPT;
+  script.defer = true;
+  script.onload = () => {
+    scriptLoaded = true;
+  };
+  document.head.appendChild(script);
 };
 
 export const DownloadGate: React.FC<DownloadGateProps> = ({
@@ -112,9 +97,18 @@ export const DownloadGate: React.FC<DownloadGateProps> = ({
   const { t } = useLanguage();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
-  const [formError, setFormError] = useState(false);
-  const { toast } = useToast();
-  const formContainerRef = useRef<HTMLDivElement>(null);
+
+  // Load script once on component mount
+  useEffect(() => {
+    loadHubSpotFormScript();
+  }, []);
+
+  // Save to localStorage when modal opens
+  useEffect(() => {
+    if (isModalOpen && requiresForm) {
+      savePendingDownload(fileUrl, title);
+    }
+  }, [isModalOpen, requiresForm, fileUrl, title]);
 
   const handleDirectDownload = useCallback(() => {
     setIsDownloading(true);
@@ -125,85 +119,6 @@ export const DownloadGate: React.FC<DownloadGateProps> = ({
       setIsDownloading(false);
     }, 2000);
   }, [fileUrl, title]);
-
-  // Load HubSpot form script and initialize form when modal opens
-  useEffect(() => {
-    if (!isModalOpen || !requiresForm || !formContainerRef.current) {
-      return;
-    }
-
-    // Save document info to localStorage before form loads
-    savePendingDownload(fileUrl, title);
-
-    const container = formContainerRef.current;
-    
-    // Clear any existing content
-    container.innerHTML = "";
-
-    // Load script FIRST, then create the form div
-    // This ensures the script is ready to detect the div when we create it
-    loadHubSpotFormScript()
-      .then(() => {
-        setFormError(false);
-
-        // Now create the form div - script should detect it automatically
-        container.innerHTML = `<div class="hs-form-frame" data-region="${HUBSPOT_FORM_REGION}" data-form-id="${formGuid || HUBSPOT_FORM_ID}" data-portal-id="${formPortalId || HUBSPOT_PORTAL_ID}"></div>`;
-
-        // Give the script time to detect and initialize the form
-        // HubSpot creates an iframe inside the .hs-form-frame div
-        setTimeout(() => {
-          const hasIframe = container.querySelector('.hs-form-frame iframe');
-          const hasFormContent = container.querySelector('.hs-form-frame')?.children.length > 0;
-          
-          if (!hasIframe && !hasFormContent) {
-            // Form might still be loading, check again after a delay
-            setTimeout(() => {
-              const stillNoForm = !container.querySelector('.hs-form-frame iframe') && 
-                                  !container.querySelector('.hs-form-frame')?.children.length;
-              if (stillNoForm) {
-                console.warn("HubSpot form did not load - trying manual trigger");
-                
-                // Try manually triggering by removing and re-adding the form div
-                const formDiv = container.querySelector('.hs-form-frame');
-                if (formDiv) {
-                  const clone = formDiv.cloneNode(true) as HTMLElement;
-                  formDiv.remove();
-                  container.appendChild(clone);
-                  
-                  // Check one more time
-                  setTimeout(() => {
-                    const finalCheck = !container.querySelector('.hs-form-frame iframe') && 
-                                      !container.querySelector('.hs-form-frame')?.children.length;
-                    if (finalCheck) {
-                      console.error("HubSpot form failed to load after all attempts");
-                      setFormError(true);
-                    }
-                  }, 1500);
-                } else {
-                  setFormError(true);
-                }
-              }
-            }, 2000);
-          }
-        }, 1000);
-      })
-      .catch((error) => {
-        console.error("Error loading HubSpot form:", error);
-        setFormError(true);
-        toast({
-          title: t.downloadGate.error,
-          description: t.downloadGate.formLoadError,
-          variant: "destructive"
-        });
-      });
-  }, [isModalOpen, requiresForm, fileUrl, title, formGuid, formPortalId, toast, t.downloadGate.error, t.downloadGate.formLoadError]);
-
-  // Clean up form when modal closes
-  useEffect(() => {
-    if (!isModalOpen && formContainerRef.current) {
-      formContainerRef.current.innerHTML = "";
-    }
-  }, [isModalOpen]);
 
   const handleDownloadClick = async () => {
     if (!requiresForm) {
@@ -292,15 +207,13 @@ export const DownloadGate: React.FC<DownloadGateProps> = ({
                   {t.downloadGate.fillForm}
                 </p>
                 
-                {/* Only show error if form truly failed to load */}
-                {formError && (
-                  <div className="text-destructive text-center mb-4">
-                    {t.downloadGate.formLoadError}
-                  </div>
-                )}
-                
-                {/* Form container - HubSpot form loads via iframe embed */}
-                <div ref={formContainerRef} className="hubspot-form-container w-full min-h-[200px]"></div>
+                {/* HubSpot form - exact structure as specified */}
+                <div 
+                  className="hs-form-frame" 
+                  data-region={HUBSPOT_FORM_REGION}
+                  data-form-id={formGuid || HUBSPOT_FORM_ID}
+                  data-portal-id={formPortalId || HUBSPOT_PORTAL_ID}
+                />
               </div>
             </DialogContent>
           </Dialog>
@@ -339,15 +252,13 @@ export const DownloadGate: React.FC<DownloadGateProps> = ({
                 {t.downloadGate.fillForm}
               </p>
               
-              {/* Only show error if form truly failed to load */}
-              {formError && (
-                <div className="text-destructive text-center mb-4">
-                  {t.downloadGate.formLoadError}
-                </div>
-              )}
-              
-              {/* Form container - HubSpot form loads via iframe embed */}
-              <div ref={formContainerRef} className="hubspot-form-container w-full min-h-[200px]"></div>
+              {/* HubSpot form - exact structure as specified */}
+              <div 
+                className="hs-form-frame" 
+                data-region={HUBSPOT_FORM_REGION}
+                data-form-id={formGuid || HUBSPOT_FORM_ID}
+                data-portal-id={formPortalId || HUBSPOT_PORTAL_ID}
+              />
             </div>
           </DialogContent>
         </Dialog>
@@ -373,9 +284,18 @@ export const DownloadGateInline: React.FC<DownloadGateInlineProps> = ({
   const { t } = useLanguage();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
-  const [formError, setFormError] = useState(false);
-  const { toast } = useToast();
-  const formContainerRef = useRef<HTMLDivElement>(null);
+
+  // Load script once on component mount
+  useEffect(() => {
+    loadHubSpotFormScript();
+  }, []);
+
+  // Save to localStorage when modal opens
+  useEffect(() => {
+    if (isModalOpen && requiresForm) {
+      savePendingDownload(fileUrl, title);
+    }
+  }, [isModalOpen, requiresForm, fileUrl, title]);
 
   const defaultButtonText = buttonText || t.downloadGate.download;
 
@@ -384,78 +304,6 @@ export const DownloadGateInline: React.FC<DownloadGateInlineProps> = ({
     triggerDownload(fileUrl, title);
     setTimeout(() => setIsDownloading(false), 2000);
   }, [fileUrl, title]);
-
-  // Load HubSpot form script and initialize form when modal opens
-  useEffect(() => {
-    if (!isModalOpen || !requiresForm || !formContainerRef.current) {
-      return;
-    }
-
-    // Save document info to localStorage before form loads
-    savePendingDownload(fileUrl, title);
-
-    const container = formContainerRef.current;
-    
-    // Clear any existing content
-    container.innerHTML = "";
-
-    // Load script FIRST, then create the form div
-    // This ensures the script is ready to detect the div when we create it
-    loadHubSpotFormScript()
-      .then(() => {
-        setFormError(false);
-
-        // Now create the form div - script should detect it automatically
-        container.innerHTML = `<div class="hs-form-frame" data-region="${HUBSPOT_FORM_REGION}" data-form-id="${formGuid || HUBSPOT_FORM_ID}" data-portal-id="${formPortalId || HUBSPOT_PORTAL_ID}"></div>`;
-
-        // Give the script time to detect and initialize the form
-        // HubSpot creates an iframe inside the .hs-form-frame div
-        setTimeout(() => {
-          const hasIframe = container.querySelector('.hs-form-frame iframe');
-          const hasFormContent = container.querySelector('.hs-form-frame')?.children.length > 0;
-          
-          if (!hasIframe && !hasFormContent) {
-            // Form might still be loading, check again after a delay
-            setTimeout(() => {
-              const stillNoForm = !container.querySelector('.hs-form-frame iframe') && 
-                                  !container.querySelector('.hs-form-frame')?.children.length;
-              if (stillNoForm) {
-                console.warn("HubSpot form did not load - trying manual trigger");
-                
-                // Try manually triggering by removing and re-adding the form div
-                const formDiv = container.querySelector('.hs-form-frame');
-                if (formDiv) {
-                  const clone = formDiv.cloneNode(true) as HTMLElement;
-                  formDiv.remove();
-                  container.appendChild(clone);
-                  
-                  // Check one more time
-                  setTimeout(() => {
-                    const finalCheck = !container.querySelector('.hs-form-frame iframe') && 
-                                      !container.querySelector('.hs-form-frame')?.children.length;
-                    if (finalCheck) {
-                      console.error("HubSpot form failed to load after all attempts");
-                      setFormError(true);
-                    }
-                  }, 1500);
-                } else {
-                  setFormError(true);
-                }
-              }
-            }, 2000);
-          }
-        }, 1000);
-      })
-      .catch((error) => {
-        console.error("Error loading HubSpot form:", error);
-        setFormError(true);
-        toast({
-          title: t.downloadGate.error,
-          description: t.downloadGate.formLoadError,
-          variant: "destructive"
-        });
-      });
-  }, [isModalOpen, requiresForm, fileUrl, title, formGuid, formPortalId, toast, t.downloadGate.error, t.downloadGate.formLoadError]);
 
   const handleDownloadClick = () => {
     if (!requiresForm) {
@@ -470,13 +318,6 @@ export const DownloadGateInline: React.FC<DownloadGateInlineProps> = ({
 
     setIsModalOpen(true);
   };
-
-  // Clean up form when modal closes
-  useEffect(() => {
-    if (!isModalOpen && formContainerRef.current) {
-      formContainerRef.current.innerHTML = "";
-    }
-  }, [isModalOpen]);
 
   return (
     <>
@@ -519,15 +360,13 @@ export const DownloadGateInline: React.FC<DownloadGateInlineProps> = ({
                 {t.downloadGate.fillForm}
               </p>
               
-              {/* Only show error if form truly failed to load */}
-              {formError && (
-                <div className="text-destructive text-center mb-4">
-                  {t.downloadGate.formLoadError}
-                </div>
-              )}
-              
-              {/* Form container - HubSpot form loads via v2 API */}
-              <div ref={formContainerRef} className="hubspot-form-container w-full min-h-[200px]"></div>
+              {/* HubSpot form - exact structure as specified */}
+              <div 
+                className="hs-form-frame" 
+                data-region={HUBSPOT_FORM_REGION}
+                data-form-id={formGuid || HUBSPOT_FORM_ID}
+                data-portal-id={formPortalId || HUBSPOT_PORTAL_ID}
+              />
             </div>
           </DialogContent>
         </Dialog>
