@@ -17,11 +17,19 @@ export function PartnerPhotosGrid() {
     const loadData = async () => {
       try {
         await initializePartnersData();
+        
+        // Verify partners array is populated
+        if (partners.length === 0) {
+          console.warn('[PartnerPhotosGrid] Partners array is empty after initialization');
+          setLoadedPartners([]);
+          return;
+        }
+        
         // Create a new array to ensure React detects the change
         const updatedPartners = partners.map(p => ({ ...p }));
         setLoadedPartners(updatedPartners);
       } catch (error) {
-        console.error('Error loading partners in PartnerPhotosGrid:', error);
+        console.error('[PartnerPhotosGrid] Error loading partners:', error);
         setLoadedPartners([]);
       }
     };
@@ -56,6 +64,12 @@ export function PartnerPhotosGrid() {
 
   // Don't render if no partners loaded yet
   if (loadedPartners.length === 0) {
+    return null;
+  }
+
+  // If we have partners but no grid partners (no photos/quotes), don't render the grid
+  // This can happen if images fail to load in production
+  if (gridPartners.length === 0) {
     return null;
   }
 

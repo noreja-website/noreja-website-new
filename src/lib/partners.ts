@@ -403,37 +403,81 @@ const getImageCollection = (source: PartnerBase['logoSource']) => {
 export const getPartners = async (): Promise<Partner[]> => {
   try {
     const imagePromises = partnersBase.map(async (partner) => {
-      const logoUrl = partner.logoFilename 
-        ? await getImagePath(getImageCollection(partner.logoSource), partner.logoFilename, partner.logoSource)
-        : '';
-      
-      const logoUrlWhite = partner.logoFilenameWhite
-        ? await getImagePath(partnerLogoImagesWhite, partner.logoFilenameWhite, 'partners_white')
-        : undefined;
-      
-      const personPhotoUrl = partner.personPhotoFilename
-        ? await getImagePath(partnerFaceImages, partner.personPhotoFilename, 'partnerFaces')
-        : undefined;
-      
-      return {
+      try {
+        const logoUrl = partner.logoFilename 
+          ? await getImagePath(getImageCollection(partner.logoSource), partner.logoFilename, partner.logoSource)
+          : '';
+        
+        const logoUrlWhite = partner.logoFilenameWhite
+          ? await getImagePath(partnerLogoImagesWhite, partner.logoFilenameWhite, 'partners_white')
+          : undefined;
+        
+        const personPhotoUrl = partner.personPhotoFilename
+          ? await getImagePath(partnerFaceImages, partner.personPhotoFilename, 'partnerFaces')
+          : undefined;
+        
+        return {
+          id: partner.id,
+          name: partner.name,
+          isPartner: partner.isPartner,
+          partnerType: partner.partnerType,
+          logoUrl,
+          logoUrlWhite,
+          logoSize: partner.logoSize,
+          personPhotoUrl,
+          website: partner.website,
+          category: partner.category,
+          quote: partner.quote,
+          quoteAuthor: partner.quoteAuthor,
+          linkedin: partner.linkedin,
+          preferOriginalLogo: partner.preferOriginalLogo
+        };
+      } catch (error) {
+        // If individual partner image loading fails, return partner with empty image URLs
+        console.warn(`Failed to load images for partner ${partner.name}:`, error);
+        return {
+          id: partner.id,
+          name: partner.name,
+          isPartner: partner.isPartner,
+          partnerType: partner.partnerType,
+          logoUrl: '',
+          logoUrlWhite: undefined,
+          logoSize: partner.logoSize,
+          personPhotoUrl: undefined,
+          website: partner.website,
+          category: partner.category,
+          quote: partner.quote,
+          quoteAuthor: partner.quoteAuthor,
+          linkedin: partner.linkedin,
+          preferOriginalLogo: partner.preferOriginalLogo
+        };
+      }
+    });
+    
+    const result = await Promise.all(imagePromises);
+    
+    // Ensure we always return at least the base partners
+    if (result.length === 0) {
+      console.warn('getPartners: No partners loaded, returning fallback');
+      return partnersBase.map(partner => ({
         id: partner.id,
         name: partner.name,
         isPartner: partner.isPartner,
         partnerType: partner.partnerType,
-        logoUrl,
-        logoUrlWhite,
+        logoUrl: '',
+        logoUrlWhite: undefined,
         logoSize: partner.logoSize,
-        personPhotoUrl,
+        personPhotoUrl: undefined,
         website: partner.website,
         category: partner.category,
         quote: partner.quote,
         quoteAuthor: partner.quoteAuthor,
         linkedin: partner.linkedin,
         preferOriginalLogo: partner.preferOriginalLogo
-      };
-    });
+      }));
+    }
     
-    return Promise.all(imagePromises);
+    return result;
   } catch (error) {
     console.error('Error loading partners:', error);
     // Return partners with empty image URLs as fallback
@@ -474,6 +518,28 @@ export const initializePartnersData = async (): Promise<void> => {
     try {
       if (!partnersCache) {
         partnersCache = await getPartners();
+        
+        // Ensure we got partners back
+        if (partnersCache.length === 0) {
+          console.warn('initializePartnersData: getPartners returned empty array, using fallback');
+          partnersCache = partnersBase.map(p => ({
+            id: p.id,
+            name: p.name,
+            isPartner: p.isPartner,
+            partnerType: p.partnerType,
+            logoUrl: '',
+            logoUrlWhite: undefined,
+            logoSize: p.logoSize,
+            personPhotoUrl: undefined,
+            website: p.website,
+            category: p.category,
+            quote: p.quote,
+            quoteAuthor: p.quoteAuthor,
+            linkedin: p.linkedin,
+            preferOriginalLogo: p.preferOriginalLogo
+          }));
+        }
+        
         partners.length = 0;
         partners.push(...partnersCache);
       }
@@ -481,20 +547,25 @@ export const initializePartnersData = async (): Promise<void> => {
       console.error('Error initializing partners data:', error);
       // Ensure partners array is populated even on error
       if (partners.length === 0) {
-        partners.push(...partnersBase.map(p => ({
+        const fallbackPartners = partnersBase.map(p => ({
           id: p.id,
           name: p.name,
           isPartner: p.isPartner,
           partnerType: p.partnerType,
           logoUrl: '',
+          logoUrlWhite: undefined,
           logoSize: p.logoSize,
+          personPhotoUrl: undefined,
           website: p.website,
           category: p.category,
           quote: p.quote,
           quoteAuthor: p.quoteAuthor,
           linkedin: p.linkedin,
           preferOriginalLogo: p.preferOriginalLogo
-        })));
+        }));
+        partners.length = 0;
+        partners.push(...fallbackPartners);
+        partnersCache = fallbackPartners;
       }
     }
   })();
