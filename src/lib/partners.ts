@@ -380,6 +380,21 @@ const partnersBase: PartnerBase[] = [
     quote: "TODO",
     quoteAuthor: "Steven Knoblich, Principal Manager",
     linkedin: "https://www.linkedin.com/in/steven-knoblich-72bb53173/"
+  },
+  {
+    id: "17",
+    name: "Zalando",
+    isPartner: false,
+    partnerType: 'advisorWithQuote',
+    logoFilename: "hector_logo_white.png",
+    logoSource: 'customers',
+    logoSize: 'small',
+    personPhotoFilename: "michael_grasse_hector.jpeg",
+    website: "",
+    category: null,
+    quote: "Mit der Noreja haben wir die Analyse unseres Claim-Management-Prozesses durchgeführt. Wir konnten innerhalb kürzester Zeit die Struktur des Prozesses offenlegen und z.B. Re-Openings bei den Schadenfällen identifizieren, Engpässe aufgrund von verzögerten Rechnungen oder nachträgliche Korrekturen bei den Rückstellungen.",
+    quoteAuthor: "Michael Grassée, Geschäftsführer",
+    linkedin: "https://www.linkedin.com/in/michael-grass%C3%A9e-bbb7a911/"
   }
 ];
 
@@ -585,9 +600,17 @@ export const getPartnersForGrid = async (): Promise<Partner[]> => {
         partner.quote
     );
 
-    // Only load face photos, skip logos
+    // Load face photos and logos (logos needed for modal dialog)
     const imagePromises = partnersWithPhotos.map(async (partner) => {
       try {
+        const logoUrl = partner.logoFilename 
+          ? await getImagePath(getImageCollection(partner.logoSource), partner.logoFilename, partner.logoSource)
+          : '';
+        
+        const logoUrlWhite = partner.logoFilenameWhite
+          ? await getImagePath(partnerLogoImagesWhite, partner.logoFilenameWhite, 'partners_white')
+          : undefined;
+        
         const personPhotoUrl = partner.personPhotoFilename
           ? await getImagePath(partnerFaceImages, partner.personPhotoFilename, 'partnerFaces')
           : undefined;
@@ -597,8 +620,8 @@ export const getPartnersForGrid = async (): Promise<Partner[]> => {
           name: partner.name,
           isPartner: partner.isPartner,
           partnerType: partner.partnerType,
-          logoUrl: '', // Not needed for grid
-          logoUrlWhite: undefined, // Not needed for grid
+          logoUrl,
+          logoUrlWhite,
           logoSize: partner.logoSize,
           personPhotoUrl,
           website: partner.website,
@@ -609,8 +632,8 @@ export const getPartnersForGrid = async (): Promise<Partner[]> => {
           preferOriginalLogo: partner.preferOriginalLogo
         };
       } catch (error) {
-        // If individual partner image loading fails, still return partner but without photo
-        console.warn(`Failed to load face photo for partner ${partner.name}:`, error);
+        // If individual partner image loading fails, still return partner but without images
+        console.warn(`Failed to load images for partner ${partner.name}:`, error);
         return {
           id: partner.id,
           name: partner.name,
