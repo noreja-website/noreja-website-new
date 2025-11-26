@@ -69,10 +69,10 @@ const loadHubSpotFormScript = (): Promise<void> => {
     `script[src="${HUBSPOT_FORM_SCRIPT}"]`
   );
   if (existingScript) {
-    // Script exists, wait a bit for it to be ready, then resolve
+    // Script exists, wait a bit longer to ensure it's fully initialized
     return new Promise<void>((resolve) => {
-      // Give a small delay to ensure script is ready
-      setTimeout(() => resolve(), 100);
+      // Give more time for script to be ready
+      setTimeout(() => resolve(), 300);
     });
   }
 
@@ -81,11 +81,11 @@ const loadHubSpotFormScript = (): Promise<void> => {
     scriptLoadPromise = new Promise<void>((resolve, reject) => {
       const script = document.createElement("script");
       script.src = HUBSPOT_FORM_SCRIPT;
-      script.async = true;
-      script.defer = true;
+      script.async = false; // Load synchronously to ensure it's ready
+      script.defer = false;
       script.onload = () => {
-        // Give script time to initialize after load
-        setTimeout(() => resolve(), 100);
+        // Give script more time to initialize after load
+        setTimeout(() => resolve(), 500);
       };
       script.onerror = () => reject(new Error("Failed to load HubSpot form script"));
       document.head.appendChild(script);
@@ -140,55 +140,52 @@ export const DownloadGate: React.FC<DownloadGateProps> = ({
     // Clear any existing content
     container.innerHTML = "";
 
-    // Create form div with iframe embed attributes using innerHTML
-    // This ensures proper DOM structure for HubSpot to detect
-    container.innerHTML = `<div class="hs-form-frame" data-region="${HUBSPOT_FORM_REGION}" data-form-id="${formGuid || HUBSPOT_FORM_ID}" data-portal-id="${formPortalId || HUBSPOT_PORTAL_ID}"></div>`;
-
-    // Load script - it will scan DOM and find the form div we just created
+    // Load script FIRST, then create the form div
+    // This ensures the script is ready to detect the div when we create it
     loadHubSpotFormScript()
       .then(() => {
         setFormError(false);
 
-        // Check if script was already loaded - if so, we might need to trigger re-scan
-        const scriptAlreadyLoaded = document.querySelector(`script[src="${HUBSPOT_FORM_SCRIPT}"]`);
-        
-        // Give the script time to initialize the form
+        // Now create the form div - script should detect it automatically
+        container.innerHTML = `<div class="hs-form-frame" data-region="${HUBSPOT_FORM_REGION}" data-form-id="${formGuid || HUBSPOT_FORM_ID}" data-portal-id="${formPortalId || HUBSPOT_PORTAL_ID}"></div>`;
+
+        // Give the script time to detect and initialize the form
         // HubSpot creates an iframe inside the .hs-form-frame div
         setTimeout(() => {
           const hasIframe = container.querySelector('.hs-form-frame iframe');
           const hasFormContent = container.querySelector('.hs-form-frame')?.children.length > 0;
           
-          if (!hasIframe && !hasFormContent && scriptAlreadyLoaded) {
-            // Script was already loaded, try to trigger re-initialization
-            // by removing and re-adding the form div
-            const formDiv = container.querySelector('.hs-form-frame');
-            if (formDiv) {
-              const clone = formDiv.cloneNode(true);
-              formDiv.remove();
-              container.appendChild(clone);
-            }
-            
-            // Check again after re-adding
+          if (!hasIframe && !hasFormContent) {
+            // Form might still be loading, check again after a delay
             setTimeout(() => {
               const stillNoForm = !container.querySelector('.hs-form-frame iframe') && 
                                   !container.querySelector('.hs-form-frame')?.children.length;
               if (stillNoForm) {
-                console.warn("HubSpot form did not load after re-initialization attempt");
-                setFormError(true);
-              }
-            }, 1500);
-          } else if (!hasIframe && !hasFormContent) {
-            // Script just loaded, give it more time
-            setTimeout(() => {
-              const stillNoForm = !container.querySelector('.hs-form-frame iframe') && 
-                                  !container.querySelector('.hs-form-frame')?.children.length;
-              if (stillNoForm) {
-                console.warn("HubSpot form did not load");
-                setFormError(true);
+                console.warn("HubSpot form did not load - trying manual trigger");
+                
+                // Try manually triggering by removing and re-adding the form div
+                const formDiv = container.querySelector('.hs-form-frame');
+                if (formDiv) {
+                  const clone = formDiv.cloneNode(true) as HTMLElement;
+                  formDiv.remove();
+                  container.appendChild(clone);
+                  
+                  // Check one more time
+                  setTimeout(() => {
+                    const finalCheck = !container.querySelector('.hs-form-frame iframe') && 
+                                      !container.querySelector('.hs-form-frame')?.children.length;
+                    if (finalCheck) {
+                      console.error("HubSpot form failed to load after all attempts");
+                      setFormError(true);
+                    }
+                  }, 1500);
+                } else {
+                  setFormError(true);
+                }
               }
             }, 2000);
           }
-        }, 500);
+        }, 1000);
       })
       .catch((error) => {
         console.error("Error loading HubSpot form:", error);
@@ -402,55 +399,52 @@ export const DownloadGateInline: React.FC<DownloadGateInlineProps> = ({
     // Clear any existing content
     container.innerHTML = "";
 
-    // Create form div with iframe embed attributes using innerHTML
-    // This ensures proper DOM structure for HubSpot to detect
-    container.innerHTML = `<div class="hs-form-frame" data-region="${HUBSPOT_FORM_REGION}" data-form-id="${formGuid || HUBSPOT_FORM_ID}" data-portal-id="${formPortalId || HUBSPOT_PORTAL_ID}"></div>`;
-
-    // Load script - it will scan DOM and find the form div we just created
+    // Load script FIRST, then create the form div
+    // This ensures the script is ready to detect the div when we create it
     loadHubSpotFormScript()
       .then(() => {
         setFormError(false);
 
-        // Check if script was already loaded - if so, we might need to trigger re-scan
-        const scriptAlreadyLoaded = document.querySelector(`script[src="${HUBSPOT_FORM_SCRIPT}"]`);
-        
-        // Give the script time to initialize the form
+        // Now create the form div - script should detect it automatically
+        container.innerHTML = `<div class="hs-form-frame" data-region="${HUBSPOT_FORM_REGION}" data-form-id="${formGuid || HUBSPOT_FORM_ID}" data-portal-id="${formPortalId || HUBSPOT_PORTAL_ID}"></div>`;
+
+        // Give the script time to detect and initialize the form
         // HubSpot creates an iframe inside the .hs-form-frame div
         setTimeout(() => {
           const hasIframe = container.querySelector('.hs-form-frame iframe');
           const hasFormContent = container.querySelector('.hs-form-frame')?.children.length > 0;
           
-          if (!hasIframe && !hasFormContent && scriptAlreadyLoaded) {
-            // Script was already loaded, try to trigger re-initialization
-            // by removing and re-adding the form div
-            const formDiv = container.querySelector('.hs-form-frame');
-            if (formDiv) {
-              const clone = formDiv.cloneNode(true);
-              formDiv.remove();
-              container.appendChild(clone);
-            }
-            
-            // Check again after re-adding
+          if (!hasIframe && !hasFormContent) {
+            // Form might still be loading, check again after a delay
             setTimeout(() => {
               const stillNoForm = !container.querySelector('.hs-form-frame iframe') && 
                                   !container.querySelector('.hs-form-frame')?.children.length;
               if (stillNoForm) {
-                console.warn("HubSpot form did not load after re-initialization attempt");
-                setFormError(true);
-              }
-            }, 1500);
-          } else if (!hasIframe && !hasFormContent) {
-            // Script just loaded, give it more time
-            setTimeout(() => {
-              const stillNoForm = !container.querySelector('.hs-form-frame iframe') && 
-                                  !container.querySelector('.hs-form-frame')?.children.length;
-              if (stillNoForm) {
-                console.warn("HubSpot form did not load");
-                setFormError(true);
+                console.warn("HubSpot form did not load - trying manual trigger");
+                
+                // Try manually triggering by removing and re-adding the form div
+                const formDiv = container.querySelector('.hs-form-frame');
+                if (formDiv) {
+                  const clone = formDiv.cloneNode(true) as HTMLElement;
+                  formDiv.remove();
+                  container.appendChild(clone);
+                  
+                  // Check one more time
+                  setTimeout(() => {
+                    const finalCheck = !container.querySelector('.hs-form-frame iframe') && 
+                                      !container.querySelector('.hs-form-frame')?.children.length;
+                    if (finalCheck) {
+                      console.error("HubSpot form failed to load after all attempts");
+                      setFormError(true);
+                    }
+                  }, 1500);
+                } else {
+                  setFormError(true);
+                }
               }
             }, 2000);
           }
-        }, 500);
+        }, 1000);
       })
       .catch((error) => {
         console.error("Error loading HubSpot form:", error);
