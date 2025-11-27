@@ -16,10 +16,9 @@ export interface EventData {
     capacity?: number;
     spotsLeft?: number;
   };
-  type: 'webinar' | 'conference' | 'workshop' | 'announcement';
-  isFree: boolean;
+  type: 'webinar' | 'conference' | 'workshop' | 'announcement' | 'exhibition';
   featured?: boolean;
-  tags?: string[];
+  logo?: string;
   image?: string;
   cta?: {
     text: string;
@@ -32,85 +31,54 @@ export interface EventData {
 export const eventData: EventData[] = [
   {
     id: '1',
-    title: 'AI-Powered Business Intelligence Summit 2024',
-    description: 'Join industry leaders as we explore the future of AI in business intelligence. Discover cutting-edge strategies, real-world case studies, and networking opportunities.',
-    date: new Date('2025-03-15T14:00:00Z'),
-    endDate: new Date('2025-03-15T17:00:00Z'),
+    title: 'Workflow Analytica Berlin',
+    description: 'TODO',
+    date: new Date('2025-05-07'),
+    endDate: new Date('2025-05-08'),
     location: {
-      type: 'hybrid',
-      address: 'Berlin Convention Center, Germany',
-      platform: 'Zoom'
+      type: 'onsite',
+      address: 'Colloseum, Berlin, Germany',
     },
     registration: {
-      required: true,
-      url: '/contact',
-      deadline: new Date('2025-03-10T23:59:59Z'),
-      capacity: 500,
-      spotsLeft: 87
+      required: false,
     },
     type: 'conference',
-    isFree: false,
     featured: true,
-    tags: ['AI', 'Business Intelligence', 'Strategy'],
-    image: '/api/placeholder/400/250',
-    cta: {
-      text: 'Register Now',
-      url: '/contact',
-      type: 'register'
-    }
+    image: '/api/placeholder/400/250'
   },
   {
     id: '2',
-    title: 'Data Security Best Practices Webinar',
-    description: 'Learn essential data security practices and compliance requirements. This free webinar covers enterprise-grade security measures and implementation strategies.',
-    date: new Date('2025-12-22T10:00:00Z'),
-    endDate: new Date('2025-12-22T11:30:00Z'),
+    title: 'Wie GenAI und Process Intelligence das Prozessmanagement revolutionieren',
+    description: 'TODO',
+    date: new Date('2025-09-26'),
     location: {
-      type: 'online',
-      platform: 'Microsoft Teams'
+      type: 'onsite',
+      address: 'WU Wien, Vienna, Austria',
     },
     registration: {
       required: true,
-      url: '/contact',
-      capacity: 1000,
-      spotsLeft: 234
     },
-    type: 'webinar',
-    isFree: true,
-    tags: ['Security', 'Compliance', 'Best Practices'],
-    cta: {
-      text: 'Join Webinar',
-      url: '/contact',
-      type: 'register'
-    }
+    type: 'conference'
   },
   {
     id: '3',
-    title: 'Product Platform Update v3.2 Release',
-    description: 'Exciting new features and improvements are coming to our platform. Enhanced AI capabilities, improved user interface, and advanced analytics dashboard.',
-    date: new Date('2025-12-01T09:00:00Z'),
+    title: 'Österreich als KI-Standort – Innovationsbooster für Unternehmen?',
+    description: 'TODO',
+    date: new Date('2025-10-22'),
     location: {
       type: 'online'
     },
     registration: {
       required: false
     },
-    type: 'webinar',
-    isFree: true,
-    featured: true,
-    tags: ['Product Update', 'New Features', 'Platform'],
-    cta: {
-      text: 'Learn More',
-      url: '/functionalities',
-      type: 'learn-more'
-    }
+    type: 'conference',
+    featured: true
   },
   {
-    id: 'past-1',
-    title: 'Digital Transformation Workshop 2023',
-    description: 'A comprehensive workshop on digital transformation strategies for modern enterprises.',
-    date: new Date('2023-11-15T13:00:00Z'),
-    endDate: new Date('2023-11-15T18:00:00Z'),
+    id: '4',
+    title: 'Born Global Launchpad Event Vienna',
+    description: 'TODO',
+    date: new Date('2025-10-28'),
     location: {
       type: 'onsite',
       address: 'Munich Business Center, Germany'
@@ -119,15 +87,14 @@ export const eventData: EventData[] = [
       required: true,
       url: '/contact'
     },
-    type: 'workshop',
-    isFree: false,
-    tags: ['Digital Transformation', 'Enterprise', 'Strategy']
+    type: 'conference'
   },
   {
-    id: 'past-2',
-    title: 'Q3 Product Roadmap Announcement',
-    description: 'Detailed overview of our Q3 product developments and upcoming features.',
-    date: new Date('2023-10-05T15:00:00Z'),
+    id: '5',
+    title: 'PZM Summit',
+    description: 'TODO',
+    date: new Date('2025-11-19'),
+    endDate: new Date('2025-11-20'),
     location: {
       type: 'online',
       platform: 'Zoom'
@@ -135,9 +102,63 @@ export const eventData: EventData[] = [
     registration: {
       required: false
     },
-    type: 'announcement',
-    isFree: true,
-    tags: ['Product Roadmap', 'Announcement']
+    type: 'conference'
+  },
+  {
+    id: '6',
+    title: 'SPS Smart Production Solution Nürnberg',
+    description: 'TODO',
+    date: new Date('2025-11-25'),
+    endDate: new Date('2025-11-27'),
+    location: {
+      type: 'onsite',
+      address: 'Nürberg, Germany'
+    },
+    registration: {
+      required: false
+    },
+    type: 'exhibition'
+  },
+  {
+    id: '7',
+    title: 'Deep Tech Night',
+    description: 'TODO',
+    date: new Date('2025-11-27'),
+    location: {
+      type: 'onsite',
+    },
+    registration: {
+      required: false
+    },
+    type: 'conference'
+  },
+  {
+    id: '8',
+    title: 'i2B Pitch Competition',
+    description: 'TODO',
+    date: new Date('2025-11-17'),
+    location: {
+      type: 'onsite',
+      address: 'WKO, Wien, Austria',
+    },
+    registration: {
+      required: false
+    },
+    type: 'conference'
+  },
+  {
+    id: '9',
+    title: 'i2B Pitch Competition - Award Ceremony',
+    description: 'TODO',
+    date: new Date('2025-12-04'),
+    location: {
+      type: 'onsite',
+      address: 'WKO, Wien, Austria',
+    },
+    registration: {
+      required: false
+    },
+    type: 'conference'
   }
 ];
 
