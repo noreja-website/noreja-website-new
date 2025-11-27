@@ -410,8 +410,8 @@ export const successStories: SuccessStory[] = [
     },
     externalUrl: "https://example.com/case-studies/global-retail",
     industry: {
-      en: "Manufacturing",
-      de: "Fertigung"
+      en: "Supply Chain",
+      de: "Supply-Chain"
     },
     company_size: {
       en: "500-1000 employees",
