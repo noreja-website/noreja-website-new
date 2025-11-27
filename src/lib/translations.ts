@@ -923,23 +923,23 @@ export const translations: Record<Language, Translations> = {
       features: {
         aiAnalytics: {
           title: "Minerva",
-          description: "Your AI-powered process analyst. Minerva combines process data with contextual knowledge to identify causes, explain relationships, and provide well-founded recommendations for action."
+          description: "Minerva is your context-sensitive AI assistant: It connects process data with additional knowledge such as SLAs, organizational rules, or external influences, delivering answers that go beyond classic Event Logs. Whether questions about the platform, anomalies in the Analyzer, or optimization ideas: Minerva analyzes directly on your Knowledge Graphs and explains why patterns emerge and how processes can be improved. You decide which models are used: Noreja-Hosted, your own On-Prem LLMs, or verified Cloud models. Everything is data protection compliant and fully controllable. In short: Minerva makes processes not only visible, but understandable."
         },
         dataIntegration: {
           title: "Analyzer",
-          description: "Dive deep into your processes, understand relationships, and quickly discover where and why problems arise, data-driven and traceable."
+          description: "The Analyzer is your interactive workspace to precisely examine every process step. On the central canvas, you visualize the real end-to-end flow, while variant lists, KPIs, and display levels help you quickly uncover patterns, bottlenecks, and deviations. Choose different perspectives like Process, Case, Pattern, or Timeline View and control which information comes into focus: cycle times, rework, violations, hypothetical paths, or detailed metrics at the activity and path level. With a few clicks, you go from the overall overview to the detailed analysis of individual cases or export your insights directly as a BPMN model or high-resolution visualization. The Analyzer combines exploratory analysis with clear structure: a single place to understand processes, make causes visible, and make better decisions."
         },
         security: {
           title: "Dashboard",
-          description: "Present your process insights clearly and concisely or use the dashboard to continuously monitor changes and improvements."
+          description: "Keep central process metrics, trends, and anomalies in view at all times. The Dashboard combines different widgets so you can quickly capture volume, times, variants, deviations, and developments. Assemble your view flexibly: from simple KPIs to distributions and trend indicators to configurable analyses. This creates a clear overview of your process performance, precisely tailored to your questions."
         },
         realTime: {
           title: "Builder",
-          description: "Import data directly, without event logs, supplement knowledge, hypotheses, or contextual data with just a few clicks. This way you maintain full control over your analysis."
+          description: "The Builder is your control center for every analytical foundation: Here you connect data sources, model events, and define dimension logics that later power Dashboards, Analyzer, and AI features. Whether it's ServiceNow, PostgreSQL, Oracle, or REST APIs. Every connector can be set up, tested, and kept current in just a few steps. In clearly structured overviews, you immediately see which sources are active, which Entity Graphs have been imported, and what state your dimension models are in. With drag-and-drop, you build event graphs, define timestamps, properties, and complex relationships, including validation and transparent SQL insight. You model dimensions directly based on your events: place activities, draw causal paths, define and import filters. This creates a consistent, semantically clean model that your teams can later analyze intuitively. The Builder combines technical precision with fast iteration, a single workspace to transform raw data into a reliable, reusable process model."
         },
         workbench: {
           title: "Workbench",
-          description: "Extend your analyses with custom scripts in the integrated Jupyter Notebook, without leaving the application. Your data always stays with you."
+          description: "The Workbench is your technical laboratory: a fully integrated Jupyter Notebook directly on the Noreja Knowledge Graph. Data Scientists, Engineers, and Analysts can work here with Python as if they were in their familiar notebook environment, only directly on the graph database. Write scripts, test hypotheses, build your own KPIs, models, or data pipelines, and save your notebooks for repeatable, highly customized analyses. This connects exploration code, production-ready evaluations, and documentation in one step. Each user receives their own Workbench instance, admins maintain oversight through a central management panel and can start, stop, or clean up instances as needed. In short: The Workbench brings real data science power to where your process data lives, without tool breaks and without detours."
         }
       }
     },
@@ -1584,23 +1584,23 @@ export const translations: Record<Language, Translations> = {
       features: {
         aiAnalytics: {
           title: "Minerva",
-          description: "Dein KI-gestützter Prozess-Analyst. Minerva kombiniert Prozessdaten mit Kontextwissen, um Ursachen zu erkennen, Zusammenhänge zu erklären und fundierte Handlungsempfehlungen zu geben."
+          description: "Minerva ist dein kontextsensitiver AI-Assistent: Er verbindet Prozessdaten mit zusätzlichem Wissen wie SLAs, organisationalen Regeln oder externen Einflüssen und liefert dadurch Antworten, die über klassische Event-Logs hinausgehen. Ob Fragen zur Plattform, Auffälligkeiten im Analyzer oder Optimierungsideen: Minerva analysiert direkt auf deinen Knowledge Graphs und erklärt, warum Muster entstehen und wie Prozesse verbessert werden können. Du entscheidest selbst, welche Modelle genutzt werden: Noreja-Hosted, eigene On-Prem-LLMs oder geprüfte Cloud-Modelle. Alles datenschutzkonform und vollständig kontrollierbar. Kurz: Minerva macht Prozesse nicht nur sichtbar, sondern verständlich."
         },
         dataIntegration: {
           title: "Analyzer",
-          description: "Tauche tief in deine Prozesse ein, verstehe Zusammenhänge und finde schnell heraus, wo und warum Probleme entstehen – datenbasiert und nachvollziehbar.",
+          description: "Der Analyzer ist dein interaktiver Workspace, um jeden Prozessschritt präzise zu untersuchen. Auf dem zentralen Canvas visualisierst du den echten End-to-End-Ablauf, während Variantenlisten, KPIs und Darstellungsebenen dir helfen, Muster, Engpässe und Abweichungen schnell aufzudecken. Wähle unterschiedliche Perspektiven wie Prozess-, Case-, Pattern- oder Timeline-View und steuere, welche Informationen in den Fokus rücken: Durchlaufzeiten, Rework, Verstöße, hypothetische Pfade oder Detailkennzahlen auf Aktivitäts- und Pfadebene. Mit wenigen Klicks gehst du von der Gesamtübersicht in die Feinanalyse einzelner Fälle oder exportierst deine Erkenntnisse direkt als BPMN-Modell oder hochauflösende Visualisierung. Der Analyzer verbindet explorative Analyse mit klarer Struktur: ein einziger Ort, um Prozesse zu verstehen, Ursachen sichtbar zu machen und bessere Entscheidungen zu treffen.",
         },
         security: {
           title: "Dashboard",
-          description: "Präsentiere deine Prozess-Insights klar und kompakt oder nutze das Dashboard, um Veränderungen und Verbesserungen kontinuierlich zu überwachen."
+          description: "Behalte zentrale Prozesskennzahlen, Trends und Auffälligkeiten jederzeit im Blick. Das Dashboard kombiniert unterschiedliche Widgets, damit du Volumen, Zeiten, Varianten, Abweichungen und Entwicklungen schnell erfassen kannst. Stelle dir deine Ansicht flexibel zusammen: von einfachen KPIs über Verteilungen und Trendindikatoren bis hin zu konfigurierbaren Analysen. So entsteht ein klarer Überblick über die Performance deines Prozesses, genau abgestimmt auf deine Fragestellungen."
         },
         realTime: {
           title: "Builder",
-          description: "Importiere Daten direkt, ohne Event-Logs – ergänze Wissen, Hypothesen oder Kontextdaten mit wenigen Klicks. So behältst du volle Kontrolle über deine Analyse."
+          description: "Der Builder ist deine Schaltzentrale für jede analytische Grundlage: Hier verbindest du Datenquellen, modellierst Ereignisse und definierst Dimensionslogiken, die später Dashboards, Analyzer und AI-Features antreiben. Egal ob ServiceNow, PostgreSQL, Oracle oder REST-APIs. Jeder Connector lässt sich in wenigen Schritten einrichten, testen und aktuell halten. In klar strukturierten Übersichten siehst du sofort, welche Quellen aktiv sind, welche Entity Graphs importiert wurden und in welchem Zustand deine Dimensionsmodelle stehen. Mit Drag-and-Drop baust du Ereignisgraphen, definierst Timestamps, Properties und komplexe Beziehungen, inklusive Validierung und transparentem SQL-Einblick. Dimensionen modellierst du direkt auf Basis deiner Events: Aktivitäten platzieren, kausale Pfade ziehen, Filter definieren und importieren. So entsteht ein konsistentes, semantisch sauberes Modell, das deine Teams später intuitiv analysieren können. Der Builder kombiniert technische Präzision mit schneller Iteration, ein einziger Arbeitsraum, um Rohdaten in ein verlässliches, wiederverwendbares Prozessmodell zu verwandeln."
         },
         workbench: {
           title: "Workbench",
-          description: "Erweitere deine Analysen mit individuellen Skripten im integrierten Jupyter Notebook – ohne die Anwendung zu verlassen. Deine Daten bleiben immer bei dir."
+          description: "Die Workbench ist dein technisches Labor: ein voll integriertes Jupyter Notebook direkt auf dem Noreja-Knowledge-Graph. Data Scientists, Engineers und Analyst:innen können hier mit Python arbeiten, als säßen sie in ihrer gewohnten Notebook-Umgebung, nur eben direkt an der Graph-Datenbank. Schreibe Skripte, teste Hypothesen, baue eigene KPIs, Modelle oder Data-Pipelines und speichere deine Notebooks für wiederholbare, hochgradig maßgeschneiderte Analysen. So lassen sich Explorationscode, produktionsnahe Auswertungen und Dokumentation in einem Schritt verbinden. Jede Nutzer:in erhält eine eigene Workbench-Instanz, Admins behalten über ein zentrales Management-Panel den Überblick und können Instanzen bei Bedarf starten, stoppen oder aufräumen. Kurz: Die Workbench bringt echte Data-Science-Power dorthin, wo deine Prozessdaten liegen, ohne Tool-Brüche und ohne Umwege."
         }
       }
     },
