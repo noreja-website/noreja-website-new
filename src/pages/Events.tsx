@@ -49,6 +49,26 @@ const Events = () => {
     return timeFormat.format(date);
   };
 
+  // Check if a date represents only a date (no specific time)
+  // When created with new Date('YYYY-MM-DD'), it defaults to midnight UTC
+  const isDateOnly = (date: Date): boolean => {
+    return date.getUTCHours() === 0 && 
+           date.getUTCMinutes() === 0 && 
+           date.getUTCSeconds() === 0 && 
+           date.getUTCMilliseconds() === 0;
+  };
+
+  // Check if event has a specific time (not just a date)
+  const hasSpecificTime = (event: EventData): boolean => {
+    if (!isDateOnly(event.date)) {
+      return true;
+    }
+    if (event.endDate && !isDateOnly(event.endDate)) {
+      return true;
+    }
+    return false;
+  };
+
   const getLocationText = (location: EventData['location']) => {
     switch (location.type) {
       case 'online':
@@ -102,11 +122,13 @@ const Events = () => {
               <span className="font-medium">{formatEventDate(event.date)}</span>
             </div>
 
-            {/* Time */}
-            <div className="flex items-center gap-3 text-sm">
-              <Clock className="h-4 w-4 text-primary shrink-0" />
-              <span>{formatEventTime(event.date, event.endDate)}</span>
-            </div>
+            {/* Time - only show if there's a specific time */}
+            {hasSpecificTime(event) && (
+              <div className="flex items-center gap-3 text-sm">
+                <Clock className="h-4 w-4 text-primary shrink-0" />
+                <span>{formatEventTime(event.date, event.endDate)}</span>
+              </div>
+            )}
 
             {/* Location */}
             <div className="flex items-center gap-3 text-sm">
