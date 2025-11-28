@@ -6,11 +6,11 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { getUpcomingEvents, getPastEvents, type EventData } from '@/lib/events';
+import { getUpcomingEvents, getPastEvents, getEventDescription, type EventData } from '@/lib/events';
 import { EventSchema } from '@/components/EventSchema';
 
 const Events = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [showPastEvents, setShowPastEvents] = useState(false);
   const upcomingEvents = getUpcomingEvents();
   const pastEvents = getPastEvents();
@@ -82,11 +82,6 @@ const Events = () => {
                 <Badge variant="secondary" className="text-xs capitalize">
                   {event.type.replace('-', ' ')}
                 </Badge>
-                {event.isFree && (
-                  <Badge variant="outline" className="text-xs">
-                    {t.events.free}
-                  </Badge>
-                )}
               </div>
               <CardTitle className="text-xl leading-tight group-hover:text-primary transition-colors">
                 {event.title}
@@ -97,7 +92,7 @@ const Events = () => {
 
         <CardContent className="pt-0">
           <p className="text-muted-foreground mb-6 leading-relaxed">
-            {event.description}
+            {getEventDescription(event, language)}
           </p>
 
           <div className="space-y-3 mb-6">
@@ -132,17 +127,6 @@ const Events = () => {
               </div>
             )}
           </div>
-
-          {/* Tags */}
-          {event.tags && event.tags.length > 0 && (
-            <div className="flex flex-wrap gap-2 mb-6">
-              {event.tags.map((tag, index) => (
-                <Badge key={index} variant="outline" className="text-xs">
-                  {tag}
-                </Badge>
-              ))}
-            </div>
-          )}
 
           {/* CTA Button */}
           {event.cta && !isPast && (

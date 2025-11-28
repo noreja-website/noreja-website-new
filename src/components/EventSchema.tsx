@@ -12,7 +12,7 @@ export function EventSchema({ events }: EventSchemaProps) {
       "@context": "https://schema.org",
       "@type": "Event",
       "name": event.title,
-      "description": event.description,
+      "description": event.description.en,
       "startDate": event.date.toISOString(),
       "endDate": event.endDate ? event.endDate.toISOString() : event.date.toISOString(),
       "eventStatus": "https://schema.org/EventScheduled",
@@ -39,7 +39,7 @@ export function EventSchema({ events }: EventSchemaProps) {
       "offers": event.registration.required ? {
         "@type": "Offer",
         "url": event.cta?.url || event.registration.url || window.location.origin,
-        "price": event.isFree ? "0" : "Contact for pricing",
+        "price": "Contact for pricing",
         "priceCurrency": "EUR",
         "availability": event.registration.spotsLeft 
           ? "https://schema.org/InStock"
