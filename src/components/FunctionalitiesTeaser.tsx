@@ -19,28 +19,28 @@ export function FunctionalitiesTeaser() {
   const features = [
     {
       icon: LayoutDashboard,
-      title: t.functionalities.features.security.title,
-      description: t.functionalities.features.security.description
+      title: t.functionalities.teaserFeatures.security.title,
+      description: t.functionalities.teaserFeatures.security.description
     },
     {
       icon: Search,
-      title: t.functionalities.features.dataIntegration.title,
-      description: t.functionalities.features.dataIntegration.description
+      title: t.functionalities.teaserFeatures.dataIntegration.title,
+      description: t.functionalities.teaserFeatures.dataIntegration.description
     },
     {
       icon: Brain,
-      title: t.functionalities.features.aiAnalytics.title,
-      description: t.functionalities.features.aiAnalytics.description
+      title: t.functionalities.teaserFeatures.aiAnalytics.title,
+      description: t.functionalities.teaserFeatures.aiAnalytics.description
     },
     {
       icon: Wrench,
-      title: t.functionalities.features.realTime.title,
-      description: t.functionalities.features.realTime.description
+      title: t.functionalities.teaserFeatures.realTime.title,
+      description: t.functionalities.teaserFeatures.realTime.description
     },
     {
       icon: Code,
-      title: t.functionalities.features.workbench.title,
-      description: t.functionalities.features.workbench.description
+      title: t.functionalities.teaserFeatures.workbench.title,
+      description: t.functionalities.teaserFeatures.workbench.description
     }
   ];
 

@@ -288,6 +288,28 @@ export interface Translations {
         description: string;
       };
     };
+    teaserFeatures: {
+      aiAnalytics: {
+        title: string;
+        description: string;
+      };
+      dataIntegration: {
+        title: string;
+        description: string;
+      };
+      security: {
+        title: string;
+        description: string;
+      };
+      realTime: {
+        title: string;
+        description: string;
+      };
+      workbench: {
+        title: string;
+        description: string;
+      };
+    };
   };
   usps: {
     title: string;
@@ -943,6 +965,28 @@ export const translations: Record<Language, Translations> = {
           title: "Workbench",
           description: "The Workbench is your technical laboratory: a fully integrated Jupyter Notebook directly on the Noreja Knowledge Graph. Data scientists, engineers, and analysts can work here with Python as if they were in their familiar notebook environment, only directly on the graph database. Write scripts, test hypotheses, build your own KPIs, models, or data pipelines, and save your notebooks for repeatable, highly customized analyses. This connects exploration code, production-ready evaluations, and documentation in one step. Each user receives their own Workbench instance, admins maintain oversight through a central management panel and can start, stop, or clean up instances as needed. In short: The Workbench brings real data science power to where your process data lives, without tool breaks and without detours."
         }
+      },
+      teaserFeatures: {
+        aiAnalytics: {
+          title: "Minerva",
+          description: "Your AI-powered process analyst. Minerva combines process data with contextual knowledge to identify causes, explain relationships, and provide well-founded recommendations for action."
+        },
+        dataIntegration: {
+          title: "Analyzer",
+          description: "Dive deep into your processes, understand relationships, and quickly discover where and why problems arise, data-driven and traceable."
+        },
+        security: {
+          title: "Dashboard",
+          description: "Present your process insights clearly and concisely or use the dashboard to continuously monitor changes and improvements."
+        },
+        realTime: {
+          title: "Builder",
+          description: "Import data directly, without event logs, supplement knowledge, hypotheses, or contextual data with just a few clicks. This way you maintain full control over your analysis."
+        },
+        workbench: {
+          title: "Workbench",
+          description: "Extend your analyses with custom scripts in the integrated Jupyter Notebook, without leaving the application. Your data always stays with you."
+        }
       }
     },
     usps: {
@@ -1591,7 +1635,7 @@ export const translations: Record<Language, Translations> = {
         },
         dataIntegration: {
           title: "Analyzer",
-          description: "Der Analyzer ist dein interaktiver Workspace, um jeden Prozessschritt präzise zu untersuchen. Auf dem zentralen Canvas visualisierst du den echten End-to-End-Ablauf, während Variantenlisten, KPIs und Darstellungsebenen dir helfen, Muster, Engpässe und Abweichungen schnell aufzudecken. Wähle unterschiedliche Perspektiven wie Prozess-, Case-, Pattern- oder Timeline-View und steuere, welche Informationen in den Fokus rücken: Durchlaufzeiten, Rework, Verstöße, hypothetische Pfade oder Detailkennzahlen auf Aktivitäts- und Pfadebene. Mit wenigen Klicks gehst du von der Gesamtübersicht in die Feinanalyse einzelner Fälle oder exportierst deine Erkenntnisse direkt als BPMN-Modell oder hochauflösende Visualisierung. Der Analyzer verbindet explorative Analyse mit klarer Struktur: ein einziger Ort, um Prozesse zu verstehen, Ursachen sichtbar zu machen und bessere Entscheidungen zu treffen.",
+          description: "Der Analyzer ist dein interaktiver Workspace, um jeden Prozessschritt präzise zu untersuchen. Auf dem zentralen Canvas visualisierst du den echten End-to-End-Ablauf, während Variantenlisten, KPIs und Darstellungsebenen dir helfen, Muster, Engpässe und Abweichungen schnell aufzudecken. Wähle unterschiedliche Perspektiven wie Prozess-, Case-, Pattern- oder Timeline-View und steuere, welche Informationen in den Fokus rücken: Durchlaufzeiten, Rework, Verstöße, hypothetische Pfade oder Detailkennzahlen auf Aktivitäts- und Pfadebene. Mit wenigen Klicks gehst du von der Gesamtübersicht in die Feinanalyse einzelner Fälle oder exportierst deine Erkenntnisse direkt als BPMN-Modell oder hochauflösende Visualisierung. Der Analyzer verbindet explorative Analyse mit klarer Struktur: ein einziger Ort, um Prozesse zu verstehen, Ursachen sichtbar zu machen und bessere Entscheidungen zu treffen."
         },
         security: {
           title: "Dashboard",
@@ -1604,6 +1648,28 @@ export const translations: Record<Language, Translations> = {
         workbench: {
           title: "Workbench",
           description: "Die Workbench ist dein technisches Labor: ein voll integriertes Jupyter Notebook direkt auf dem Noreja-Knowledge-Graph. Data Scientists, Engineers und Analyst:innen können hier mit Python arbeiten, als säßen sie in ihrer gewohnten Notebook-Umgebung, nur eben direkt an der Graph-Datenbank. Schreibe Skripte, teste Hypothesen, baue eigene KPIs, Modelle oder Data-Pipelines und speichere deine Notebooks für wiederholbare, hochgradig maßgeschneiderte Analysen. So lassen sich Explorationscode, produktionsnahe Auswertungen und Dokumentation in einem Schritt verbinden. Jede Nutzer:in erhält eine eigene Workbench-Instanz, Admins behalten über ein zentrales Management-Panel den Überblick und können Instanzen bei Bedarf starten, stoppen oder aufräumen. Kurz: Die Workbench bringt echte Data-Science-Power dorthin, wo deine Prozessdaten liegen, ohne Tool-Brüche und ohne Umwege."
+        }
+      },
+      teaserFeatures: {
+        aiAnalytics: {
+          title: "Minerva",
+          description: "Dein KI-gestützter Prozess-Analyst. Minerva kombiniert Prozessdaten mit Kontextwissen, um Ursachen zu erkennen, Zusammenhänge zu erklären und fundierte Handlungsempfehlungen zu geben."
+        },
+        dataIntegration: {
+          title: "Analyzer",
+          description: "Tauche tief in deine Prozesse ein, verstehe Zusammenhänge und finde schnell heraus, wo und warum Probleme entstehen – datenbasiert und nachvollziehbar."
+        },
+        security: {
+          title: "Dashboard",
+          description: "Präsentiere deine Prozess-Insights klar und kompakt oder nutze das Dashboard, um Veränderungen und Verbesserungen kontinuierlich zu überwachen."
+        },
+        realTime: {
+          title: "Builder",
+          description: "Importiere Daten direkt, ohne Event-Logs – ergänze Wissen, Hypothesen oder Kontextdaten mit wenigen Klicks. So behältst du volle Kontrolle über deine Analyse."
+        },
+        workbench: {
+          title: "Workbench",
+          description: "Erweitere deine Analysen mit individuellen Skripten im integrierten Jupyter Notebook – ohne die Anwendung zu verlassen. Deine Daten bleiben immer bei dir."
         }
       }
     },
