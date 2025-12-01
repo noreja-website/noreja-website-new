@@ -123,7 +123,7 @@ interface PartnerBase {
 const partnersBase: PartnerBase[] = [
   {
     id: "1",
-    name: "Aptean",
+    name: "Aptean Austria GmbH",
     isPartner: true,
     partnerType: 'businessWithQuote',
     logoFilename: "aptean_logo.svg",
@@ -139,7 +139,7 @@ const partnersBase: PartnerBase[] = [
   },
   {
     id: "2",
-    name: "Miragon",
+    name: "Miragon GmbH",
     isPartner: true,
     partnerType: 'businessWithQuote',
     logoFilename: "miragon_logo.svg",
@@ -171,7 +171,7 @@ const partnersBase: PartnerBase[] = [
   },
   {
     id: "4",
-    name: "Waits",
+    name: "Waits GmbH",
     isPartner: true,
     partnerType: 'businessWithQuote',
     logoFilename: "waits_logo.svg",
@@ -187,7 +187,7 @@ const partnersBase: PartnerBase[] = [
   },
   {
     id: "5",
-    name: "Nexigo",
+    name: "Nexigo GmbH",
     isPartner: true,
     partnerType: 'businessWithQuote',
     logoFilename: "nexigo_logo.png",
@@ -203,7 +203,7 @@ const partnersBase: PartnerBase[] = [
   },
   {
     id: "6",
-    name: "BOC",
+    name: "BOC Products & Services AG",
     isPartner: true,
     partnerType: 'businessWithQuote',
     logoFilename: "BOC-logo-white.png",
@@ -297,7 +297,7 @@ const partnersBase: PartnerBase[] = [
   },
   {
     id: "12",
-    name: "PwC",
+    name: "PwC Österreich GmbH",
     isPartner: true,
     partnerType: 'businessWithoutQuote',
     logoFilename: "pwc_logo-white.png",
@@ -339,7 +339,7 @@ const partnersBase: PartnerBase[] = [
   },
   {
     id: "15",
-    name: "Nährboden",
+    name: "BRANDL TALOS Rechtsanwält:innen GmbH",
     isPartner: true,
     partnerType: 'businessWithoutQuote',
     logoFilename: "naehrboden_logo.png",
@@ -368,7 +368,7 @@ const partnersBase: PartnerBase[] = [
   },
   {
     id: "17",
-    name: "Zalando",
+    name: "Zalando SE",
     isPartner: false,
     partnerType: 'advisorWithQuote',
     logoFilename: "zalando_wordmark_white_RGB.png",
@@ -383,7 +383,7 @@ const partnersBase: PartnerBase[] = [
   },
   {
     id: "17",
-    name: "Zalando",
+    name: "hector GmbH",
     isPartner: false,
     partnerType: 'advisorWithQuote',
     logoFilename: "hector_logo_white.png",
