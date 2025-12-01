@@ -9,6 +9,7 @@ import { partners, initializePartnersData, type PartnerCategory, type PartnerLog
 import { useEffect, useState } from "react";
 import { HubSpotContactForm } from "@/components/HubSpotContactForm";
 import { AnimatedHeading } from "@/components/AnimatedHeading";
+import { AnimatedGridBackground } from "@/components/AnimatedGridBackground";
 
 export default function Partners() {
   const { t, language } = useLanguage();
@@ -120,6 +121,7 @@ export default function Partners() {
 
   return (
     <div className="min-h-screen relative overflow-hidden" style={gradientStyle}>
+      <AnimatedGridBackground />
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-noreja-main/5 to-transparent pointer-events-none" />
 
       <div className="relative z-10">
@@ -159,12 +161,9 @@ export default function Partners() {
 
                 return (
                   <div key={category} className="space-y-10">
-                    <div className="flex items-center gap-4">
-                      <h2 className="text-2xl font-semibold text-foreground">
-                        {categoryLabel}
-                      </h2>
-                      <div className="flex-1 h-px bg-border/40" />
-                    </div>
+                    <h2 className="text-2xl font-semibold text-foreground">
+                      {categoryLabel}
+                    </h2>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                       {partnersInCategory.map((partner, index) => {
