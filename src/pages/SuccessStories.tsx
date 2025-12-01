@@ -158,11 +158,11 @@ const SuccessStories = () => {
                         <div className="absolute inset-0 bg-black/60" />
                         
                         {/* Company Logo - Top Right */}
-                        <div className="absolute top-4 right-4 z-20 h-16 w-auto">
+                        <div className="absolute top-4 right-4 z-20 w-20 h-auto">
                           <img
                             src={story.logoUrl}
                             alt={`${story.companyName} logo`}
-                            className="h-full w-auto object-contain"
+                            className="w-full h-auto object-contain"
                             loading="lazy"
                           />
                         </div>
