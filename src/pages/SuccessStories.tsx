@@ -143,47 +143,63 @@ const SuccessStories = () => {
                       transition={{ duration: 0.6, delay: index * 0.1 }}
                       className="h-full"
                     >
-                      <Card className="h-full group hover:shadow-md transition-all duration-300 cursor-pointer border-border/30 hover:border-noreja-main/20 max-w-4xl mx-auto">
-                        <CardHeader className="pb-4">
-                          {/* Company Logo */}
-                          <div className="w-full h-36 mb-4 overflow-hidden rounded-lg flex items-center justify-center">
-                            <img
-                              src={story.logoUrl}
-                              alt={`${story.companyName} logo`}
-                              className="max-w-full max-h-full object-contain transition-transform group-hover:scale-105"
-                              loading="lazy"
-                            />
-                          </div>
-                          
-                          {/* Company Info */}
-                          <div className="space-y-3">
-                            <h2 className="text-2xl font-bold group-hover:text-noreja-main transition-colors text-center">
-                              {story.companyName}
-                            </h2>
-                          </div>
-                        </CardHeader>
+                      <Card className="h-full group hover:shadow-md transition-all duration-300 cursor-pointer border-border/30 hover:border-noreja-main/20 max-w-4xl mx-auto overflow-hidden aspect-video relative">
+                        {/* Background Image */}
+                        <div 
+                          className="absolute inset-0 bg-cover bg-center"
+                          style={{
+                            backgroundImage: `url(${story.coverImageUrl})`,
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center'
+                          }}
+                        />
                         
-                        <CardContent className="pt-0 px-6">
-                          {/* Summary */}
-                          <CardDescription className="text-base leading-relaxed mb-6 text-center">
-                            {story.summary[language]}
-                          </CardDescription>
+                        {/* Dark Overlay */}
+                        <div className="absolute inset-0 bg-black/60" />
+                        
+                        {/* Company Logo - Top Right */}
+                        <div className="absolute top-4 right-4 z-20 h-16 w-auto">
+                          <img
+                            src={story.logoUrl}
+                            alt={`${story.companyName} logo`}
+                            className="h-full w-auto object-contain"
+                            loading="lazy"
+                          />
+                        </div>
+                        
+                        {/* Content */}
+                        <div className="relative z-10 h-full flex flex-col justify-center items-center p-8 text-white">
+                          <CardHeader className="pb-4">
+                            {/* Company Info */}
+                            <div className="space-y-3">
+                              <h2 className="text-4xl font-bold text-white text-center">
+                                {story.companyName}
+                              </h2>
+                            </div>
+                          </CardHeader>
                           
-                          {/* Read More Button */}
-                          <div className="flex justify-center">
-                            <Button
-                              variant="outline"
-                              size="lg"
-                              className="w-auto group group-hover:bg-noreja-main/10 group-hover:border-noreja-main/40 transition-all"
-                              asChild
-                            >
-                              <Link to={`/success-stories/${story.id}`}>
-                                {t.pages.successStories.readCaseStudy}
-                                <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-                              </Link>
-                            </Button>
-                          </div>
-                        </CardContent>
+                          <CardContent className="pt-0 px-6">
+                            {/* Summary */}
+                            <CardDescription className="text-base leading-relaxed mb-6 text-center text-white/90">
+                              {story.summary[language]}
+                            </CardDescription>
+                            
+                            {/* Read More Button */}
+                            <div className="flex justify-center">
+                              <Button
+                                variant="outline"
+                                size="lg"
+                                className="w-auto bg-white/10 border-white/30 text-white hover:bg-white/20 hover:border-white/50 transition-all"
+                                asChild
+                              >
+                                <Link to={`/success-stories/${story.id}`}>
+                                  {t.pages.successStories.readCaseStudy}
+                                  <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+                                </Link>
+                              </Button>
+                            </div>
+                          </CardContent>
+                        </div>
                       </Card>
                     </motion.div>
                   </CarouselItem>

@@ -431,12 +431,12 @@ const Pricing = () => {
                             <span>
                               {(() => {
                                 if (plan.name === t.pages.pricing.plans.core.name) {
-                                  return '20 lesende Nutzer';
+                                  return t.pages.pricing.readingUsers.replace('{count}', '20');
                                 }
                                 if (plan.name === t.pages.pricing.plans.pro.name) {
-                                  return '50 lesende Nutzer';
+                                  return t.pages.pricing.readingUsers.replace('{count}', '50');
                                 }
-                                return '100 lesende Nutzer';
+                                return t.pages.pricing.readingUsers.replace('{count}', '100');
                               })()}
                             </span>
                           </li>

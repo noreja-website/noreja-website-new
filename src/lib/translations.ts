@@ -136,6 +136,7 @@ export interface Translations {
       user: string;
       extraPowerUserPrice: string;
       additionalPowerUsersLabel: string;
+      readingUsers: string;
       mostPopular: string;
       month: string;
       perMonthAndUser: string;
@@ -693,6 +694,7 @@ export const translations: Record<Language, Translations> = {
         user: "user",
         extraPowerUserPrice: "Price for extra power user: {value}€ per month",
         additionalPowerUsersLabel: "Additional power users",
+        readingUsers: "{count} reading users",
         mostPopular: "Most Popular",
         month: "/ month",
         perMonthAndUser: "per month and user",
@@ -923,11 +925,11 @@ export const translations: Record<Language, Translations> = {
       features: {
         aiAnalytics: {
           title: "Minerva",
-          description: "Minerva is your context-sensitive AI assistant: It connects process data with additional knowledge such as SLAs, organizational rules, or external influences, delivering answers that go beyond classic Event Logs. Whether questions about the platform, anomalies in the Analyzer, or optimization ideas: Minerva analyzes directly on your Knowledge Graphs and explains why patterns emerge and how processes can be improved. You decide which models are used: Noreja-Hosted, your own On-Prem LLMs, or verified Cloud models. Everything is data protection compliant and fully controllable. In short: Minerva makes processes not only visible, but understandable."
+          description: "Minerva is your context-sensitive AI assistant: It connects process data with additional knowledge such as SLAs, organizational rules, or external influences, delivering answers that go beyond classic Event Logs. Whether questions about the platform, anomalies in the Analyzer, or optimization ideas: Minerva analyzes your knowledge graphs directly, explaining why patterns emerge and how processes can be improved. You decide which models are used: Noreja-Hosted, your own On-Prem LLMs, or verified Cloud models. Everything is data protection compliant and fully controllable. In short: Minerva makes processes not only visible, but understandable."
         },
         dataIntegration: {
           title: "Analyzer",
-          description: "The Analyzer is your interactive workspace to precisely examine every process step. On the central canvas, you visualize the real end-to-end flow, while variant lists, KPIs, and display levels help you quickly uncover patterns, bottlenecks, and deviations. Choose different perspectives like Process, Case, Pattern, or Timeline View and control which information comes into focus: cycle times, rework, violations, hypothetical paths, or detailed metrics at the activity and path level. With a few clicks, you go from the overall overview to the detailed analysis of individual cases or export your insights directly as a BPMN model or high-resolution visualization. The Analyzer combines exploratory analysis with clear structure: a single place to understand processes, make causes visible, and make better decisions."
+          description: "The Analyzer is your interactive workspace for detailed examination of every process step. On the central canvas, you visualize the real end-to-end flow, while variant lists, KPIs, and display levels help you quickly uncover patterns, bottlenecks, and deviations. Choose different perspectives like Process, Case, Pattern, or Timeline View and control which information comes into focus: cycle times, rework, violations, hypothetical paths, or detailed metrics at the activity and path level. With a few clicks, you go from the overall overview to the detailed analysis of individual cases or export your insights directly as a BPMN model or high-resolution visualization. The Analyzer combines exploratory analysis with clear structure: a single place to understand processes, make causes visible, and make better decisions."
         },
         security: {
           title: "Dashboard",
@@ -939,7 +941,7 @@ export const translations: Record<Language, Translations> = {
         },
         workbench: {
           title: "Workbench",
-          description: "The Workbench is your technical laboratory: a fully integrated Jupyter Notebook directly on the Noreja Knowledge Graph. Data Scientists, Engineers, and Analysts can work here with Python as if they were in their familiar notebook environment, only directly on the graph database. Write scripts, test hypotheses, build your own KPIs, models, or data pipelines, and save your notebooks for repeatable, highly customized analyses. This connects exploration code, production-ready evaluations, and documentation in one step. Each user receives their own Workbench instance, admins maintain oversight through a central management panel and can start, stop, or clean up instances as needed. In short: The Workbench brings real data science power to where your process data lives, without tool breaks and without detours."
+          description: "The Workbench is your technical laboratory: a fully integrated Jupyter Notebook directly on the Noreja Knowledge Graph. Data scientists, engineers, and analysts can work here with Python as if they were in their familiar notebook environment, only directly on the graph database. Write scripts, test hypotheses, build your own KPIs, models, or data pipelines, and save your notebooks for repeatable, highly customized analyses. This connects exploration code, production-ready evaluations, and documentation in one step. Each user receives their own Workbench instance, admins maintain oversight through a central management panel and can start, stop, or clean up instances as needed. In short: The Workbench brings real data science power to where your process data lives, without tool breaks and without detours."
         }
       }
     },
@@ -1346,6 +1348,7 @@ export const translations: Record<Language, Translations> = {
         user: "Nutzer",
         extraPowerUserPrice: "Extra User auf Anfrage zubuchbar",
         additionalPowerUsersLabel: "Zusätzliche Power-User",
+        readingUsers: "{count} lesende Nutzer",
         mostPopular: "Am beliebtesten",
         month: "/ Monat",
         perMonthAndUser: "pro Monat und Nutzer",

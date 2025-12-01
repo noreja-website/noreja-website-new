@@ -12,6 +12,12 @@ const successStoryImages = import.meta.glob<{ default: string }>(
   { eager: true }
 );
 
+// Dynamically import all cover images
+const coverImages = import.meta.glob<{ default: string }>(
+  '../assets/success_stories/cover_images/*.{png,jpg,jpeg,svg,webp}',
+  { eager: true }
+);
+
 // Helper function to get image path from imports
 const getImagePath = (
   images: Record<string, { default: string }>,
@@ -26,6 +32,20 @@ const getImagePath = (
 // Helper function to get success story image path
 const getSuccessStoryImagePath = (filename: string): string => {
   return getImagePath(successStoryImages, filename);
+};
+
+// Helper function to get cover image path based on industry
+const getCoverImagePath = (industryEn: string): string => {
+  // Map English industry names to cover image filenames
+  const industryToImageMap: Record<string, string> = {
+    'Insurance': 'Insurance.png',
+    'Supply Chain': 'Supply-Chain.png',
+    'Manufacturing': 'Manufacturing.png',
+    'Software Development': 'Software-Development.png',
+  };
+  
+  const imageFilename = industryToImageMap[industryEn] || '';
+  return imageFilename ? getImagePath(coverImages, imageFilename) : '';
 };
 
 export interface SuccessStoryFinding {
@@ -45,6 +65,7 @@ export interface SuccessStory {
   id: string;
   companyName: string;
   logoUrl: string;
+  coverImageUrl: string;
   summary: Record<Language, string>;
   subtitle: Record<Language, string>;
   whoIsSection: Record<Language, {
@@ -90,9 +111,10 @@ export const successStories: SuccessStory[] = [
     id: "hector",
     companyName: "Hector",
     logoUrl: getImagePath(customerLogoImages, "hector_logo_white.png"),
+    coverImageUrl: getCoverImagePath("Insurance"),
     summary: {
-      en: "Hector transformed their data pipeline and reduced processing time by 75% while increasing accuracy across all departments.",
-      de: "Hector transformierte seine Datenpipeline und reduzierte die Verarbeitungszeit um 75%, während gleichzeitig die Genauigkeit in allen Abteilungen erhöht wurde."
+      en: "Hector identified critical blind spots in their insurance claims processing, including high rates of reopened claims and bottlenecks from delayed repair invoices. Through Process Mining, they reduced processing time by 75% while improving accuracy across all departments.",
+      de: "Hector identifizierte kritische Blind-Spots in der Schadensabwicklung, darunter hohe Raten an wiedereröffneten Schadenfällen und Engpässe durch verzögerte Reparaturrechnungen. Durch Process Mining reduzierten sie die Verarbeitungszeit um 75% und verbesserten gleichzeitig die Genauigkeit in allen Abteilungen."
     },
     subtitle: {
       en: "How Process Mining transformed claims processing efficiency",
@@ -259,9 +281,10 @@ export const successStories: SuccessStory[] = [
     id: "megatron",
     companyName: "Megatron",
     logoUrl: getImagePath(customerLogoImages, "megatron_logo_white_xlarge.png"),
+    coverImageUrl: getCoverImagePath("Supply Chain"),
     summary: {
-      en: "Megatron leveraged Process Mining to uncover blind spots and identify optimization potential in production, resulting in significant improvements in process transparency and efficiency.",
-      de: "Megatron nutzte Process Mining, um blinde Flecken aufzudecken und Optimierungspotenziale in der Produktion zu identifizieren, was zu erheblichen Verbesserungen der Prozesstransparenz und Effizienz führte."
+      en: "Megatron uncovered critical blind spots in their supply chain and production processes, identifying optimization opportunities in order assignment and work step recording. The analysis revealed potential for $2.3M in annual cost savings through improved process transparency.",
+      de: "Megatron deckte kritische Blind-Spots in der Supply Chain und Produktion auf und identifizierte Optimierungspotenziale bei der Auftragszuordnung und Arbeitsschritterfassung. Die Analyse ergab ein Potenzial von 2,3 Mio. € jährlicher Kosteneinsparungen durch verbesserte Prozesstransparenz."
     },
     subtitle: {
       en: "How Process Mining uncovers blind spots and identifies optimization potential in production",
@@ -422,9 +445,10 @@ export const successStories: SuccessStory[] = [
     id: "idm",
     companyName: "IDM Wärmepumpen",
     logoUrl: getImagePath(customerLogoImages, "idm_logo_white.png"),
+    coverImageUrl: getCoverImagePath("Manufacturing"),
     summary: {
-      en: "IDM Wärmepumpen optimized their manufacturing processes through Process Mining, achieving 99.9% accuracy in process detection while significantly reducing manual workload.",
-      de: "Erfahre, wie Noreja IDM dabei geholfen hat, den Order-to-Cash-Prozess innerhalb von drei Wochen sichtbar zu machen."
+      en: "IDM gained complete visibility into their Order-to-Cash process within three weeks, identifying critical bottlenecks in manual data entry and invoice processing. The analysis achieved 99.9% accuracy in process detection while significantly reducing manual workload.",
+      de: "IDM gewann innerhalb von drei Wochen vollständige Transparenz über ihren Order-to-Cash-Prozess und identifizierte kritische Engpässe bei der manuellen Dateneingabe und Rechnungsstellung. Die Analyse erreichte 99,9% Genauigkeit bei der Prozesserfassung und reduzierte den manuellen Arbeitsaufwand erheblich."
     },
     subtitle: {
       en: "Optimizing manufacturing processes through Process Mining",
@@ -566,9 +590,10 @@ export const successStories: SuccessStory[] = [
     id: "CIB",
     companyName: "CIB",
     logoUrl: getImagePath(customerLogoImages, "cib_logo_white.png"),
+    coverImageUrl: getCoverImagePath("Software Development"),
     summary: {
-      en: "CIB transformed their software development processes through Process Mining, achieving 40% faster diagnosis of process issues and significantly improved development cycle efficiency.",
-      de: "Erfahre, wie Noreja der CIB Group half, ihren Hiring-Prozess in nur einem Monat vollständig abzubilden."
+      en: "CIB mapped their entire hiring process in just one month, identifying delays in initial applicant contact and bottlenecks in decision-making. The analysis revealed opportunities to reduce hiring time by up to one week and improve candidate experience, achieving 40% faster diagnosis of process issues.",
+      de: "CIB bildete ihren gesamten Einstellungsprozess in nur einem Monat ab und identifizierte Verzögerungen beim ersten Kontakt mit Bewerbern und Engpässe bei Entscheidungen. Die Analyse ergab Möglichkeiten, die Einstellungszeit um bis zu einer Woche zu verkürzen und die Kandidatenerfahrung zu verbessern, was zu 40% schnellerer Diagnose von Prozessproblemen führte."
     },
     subtitle: {
       en: "Transforming software development processes",
@@ -608,20 +633,20 @@ Keine **Nachverfolgung der Prozess-Conformance** für die Bewerber-Experience.
         highlight: "find?",
         findings: [
           {
-            title: "Initialer Antwort zuvorkommen",
-            content: "Eines der wichtigsten Probleme war die Verzögerung bei der ersten Kontaktaufnahme mit den Bewerbern. Wir haben festgestellt, dass eine Verkürzung der Zeit bis zum ersten Kontakt mit den Bewerbern deren Experience und Engagement im Einstellungsverfahren erheblich verbessern könnte."
+            title: "Get ahead of initial response",
+            content: "One of the most important problems was the delay in initial contact with applicants. We found that shortening the time until first contact with applicants could significantly improve their experience and engagement in the hiring process."
           },
           {
-            title: "Prozess-Redesign durchführen",
-            content: "Wir haben festgestellt, dass der häufigere Einsatz eines telefonischen Vorabgesprächs die anschließenden manuellen Bearbeitungsaktivitäten reduzieren und den zentralen Engpass im Prozess entlasten könnte. Dies könnte zu einer besseren Rationalisierung des Prozesses beitragen und den zuständigen Führungskräften mehr Zeit für strategische Aufgaben lassen."
+            title: "Conduct process redesign",
+            content: "We found that more frequent use of a preliminary telephone interview could reduce subsequent manual processing activities and relieve the central bottleneck in the process. This could contribute to better rationalization of the process and give responsible managers more time for strategic tasks."
           },
           {
-            title: "Flaschenhälse abbauen",
-            content: "Durch die Neugestaltung einiger Prozessschritte und die Verbesserung der Kommunikation mit den Bewerbern könnte CIB nach unserer Einschätzung die Zeit bis zur Einstellung um bis zu einer Woche verkürzen. Diese Verkürzung würde nicht nur den Einstellungsprozess beschleunigen, sondern auch die Einstellungskosten senken."
+            title: "Reduce bottlenecks",
+            content: "By redesigning some process steps and improving communication with applicants, CIB could, in our assessment, reduce the time until hiring by up to one week. This reduction would not only accelerate the hiring process but also lower hiring costs."
           },
           {
-            title: "Bewerber-Experience optimieren",
-            content: "Durch die Standardisierung des Prozesses und die Verbesserung der Kandidatenerfahrung prognostizierten wir, dass CIB eine Verbesserung ihres Net Promoter Scores (NPS) erreichen könnte. Dies würde eine deutliche Steigerung der Kandidatenzufriedenheit und der allgemeinen Wahrnehmung des Rekrutierungsprozesses des Unternehmens widerspiegeln."
+            title: "Optimize candidate experience",
+            content: "Through process standardization and improvement of candidate experience, we predicted that CIB could achieve an improvement in their Net Promoter Score (NPS). This would reflect a significant increase in candidate satisfaction and overall perception of the company's recruitment process."
           }
         ]
       },
