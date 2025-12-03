@@ -395,6 +395,22 @@ const partnersBase: PartnerBase[] = [
     quote: "Mit der Noreja haben wir die Analyse unseres Claim-Management-Prozesses durchgeführt. Wir konnten innerhalb kürzester Zeit die Struktur des Prozesses offenlegen und z.B. Re-Openings bei den Schadenfällen identifizieren, Engpässe aufgrund von verzögerten Rechnungen oder nachträgliche Korrekturen bei den Rückstellungen.",
     quoteAuthor: "Michael Grassée, Geschäftsführer",
     linkedin: "https://www.linkedin.com/in/michael-grass%C3%A9e-bbb7a911/"
+  },
+  {
+    id: "18",
+    name: "Fortlane Partners Consulting GmbH",
+    isPartner: true,
+    partnerType: 'businessWithQuote',
+    logoFilename: "fortlane_white.png",
+    logoSource: 'partners_white',
+    logoFilenameWhite: "fortlane_white.png",
+    logoSize: 'xlarge',
+    personPhotoFilename: "pirmin_mutter_fortlane.jpg",
+    website: "https://www.fortlane.com/de",
+    category: "consulting",
+    quote: "Companies overlook the importance of cash. We unlock cashflow potential, improving transparency and financial performance.",
+    quoteAuthor: "Pirmin Mutter, Principal",
+    linkedin: "https://www.linkedin.com/in/pirmin-mutter/"
   }
 ];
 
