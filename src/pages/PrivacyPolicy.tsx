@@ -6,7 +6,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 
 const privacyContent = `# Datenschutzerklärung
 
-**Letztes Update:** 17.04.2024
+**Letztes Update:** 04.12.2025
 
 Diese Datenschutzerklärung klärt Sie über die Art, den Umfang und Zweck der Verarbeitung von personenbezogenen Daten (nachfolgend kurz „Daten") innerhalb unseres Onlineangebotes und der mit ihm verbundenen Webseiten, Funktionen und Inhalte sowie externen Onlinepräsenzen, wie z.B. unser Social Media Profile auf (nachfolgend gemeinsam bezeichnet als „Onlineangebot"). Im Hinblick auf die verwendeten Begrifflichkeiten, wie z.B. „Verarbeitung" oder „Verantwortlicher" verweisen wir auf die Definitionen im Art. 4 der Datenschutzgrundverordnung (DSGVO).
 
@@ -132,29 +132,38 @@ Die Protokollierung des Anmeldeverfahrens erfolgt auf Grundlage unserer berechti
 
 **Kündigung/Widerruf** – Sie können den Empfang unseres Newsletters jederzeit kündigen, d.h. Ihre Einwilligungen widerrufen. Einen Link zur Kündigung des Newsletters finden Sie am Ende eines jeden Newsletters. Wir können die ausgetragenen E-Mailadressen bis zu drei Jahren auf Grundlage unserer berechtigten Interessen speichern bevor wir sie löschen, um eine ehemals gegebene Einwilligung nachweisen zu können. Die Verarbeitung dieser Daten wird auf den Zweck einer möglichen Abwehr von Ansprüchen beschränkt. Ein individueller Löschungsantrag ist jederzeit möglich, sofern zugleich das ehemalige Bestehen einer Einwilligung bestätigt wird.
 
-### Newsletter – Mailchimp
-
-Der Versand der Newsletter erfolgt mittels des Versanddienstleisters „MailChimp", einer Newsletterversandplattform des US-Anbieters Rocket Science Group, LLC, 675 Ponce De Leon Ave NE #5000, Atlanta, GA 30308, USA. Die Datenschutzbestimmungen des Versanddienstleisters können Sie hier einsehen: https://mailchimp.com/legal/privacy/. The Rocket Science Group LLC d/b/a MailChimp ist unter dem Privacy-Shield-Abkommen zertifiziert und bietet hierdurch eine Garantie, das europäisches Datenschutzniveau einzuhalten (https://www.privacyshield.gov/participant?id=a2zt0000000TO6hAAG&status=Active). Der Versanddienstleister wird auf Grundlage unserer berechtigten Interessen gem. Art. 6 Abs. 1 lit. f DSGVO und eines Auftragsverarbeitungsvertrages gem. Art. 28 Abs. 3 S. 1 DSGVO eingesetzt.
-
-Der Versanddienstleister kann die Daten der Empfänger in pseudonymer Form, d.h. ohne Zuordnung zu einem Nutzer, zur Optimierung oder Verbesserung der eigenen Services nutzen, z.B. zur technischen Optimierung des Versandes und der Darstellung der Newsletter oder für statistische Zwecke verwenden. Der Versanddienstleister nutzt die Daten unserer Newsletterempfänger jedoch nicht, um diese selbst anzuschreiben oder um die Daten an Dritte weiterzugeben.
-
 ### Newsletter – Erfolgsmessung
 
 Die Newsletter enthalten einen sog. „web-beacon", d.h. eine pixelgroße Datei, die beim Öffnen des Newsletters von unserem Server, bzw. sofern wir einen Versanddienstleister einsetzen, von dessen Server abgerufen wird. Im Rahmen dieses Abrufs werden zunächst technische Informationen, wie Informationen zum Browser und Ihrem System, als auch Ihre IP-Adresse und Zeitpunkt des Abrufs erhoben.
 
 Diese Informationen werden zur technischen Verbesserung der Services anhand der technischen Daten oder der Zielgruppen und ihres Leseverhaltens anhand derer Abruforte (die mit Hilfe der IP-Adresse bestimmbar sind) oder der Zugriffszeiten genutzt. Zu den statistischen Erhebungen gehört ebenfalls die Feststellung, ob die Newsletter geöffnet werden, wann sie geöffnet werden und welche Links geklickt werden. Diese Informationen können aus technischen Gründen zwar den einzelnen Newsletterempfängern zugeordnet werden. Es ist jedoch weder unser Bestreben, noch, sofern eingesetzt, das des Versanddienstleisters, einzelne Nutzer zu beobachten. Die Auswertungen dienen uns viel mehr dazu, die Lesegewohnheiten unserer Nutzer zu erkennen und unsere Inhalte auf sie anzupassen oder unterschiedliche Inhalte entsprechend den Interessen unserer Nutzer zu versenden.
 
-## Hosting
+## Hosting (Netlify)
 
-Die von uns in Anspruch genommenen Hosting-Leistungen dienen der Zurverfügungstellung der folgenden Leistungen: Infrastruktur- und Plattformdienstleistungen, Rechenkapazität, Speicherplatz und Datenbankdienste, Sicherheitsleistungen sowie technische Wartungsleistungen, die wir zum Zwecke des Betriebs dieses Onlineangebotes einsetzen.
+Unsere Website wird bei **Netlify, Inc., 101 2nd Street, Suite 575, San Francisco, CA 94105, USA** gehostet.
 
-Hierbei verarbeiten wir, bzw. unser Hostinganbieter Bestandsdaten, Kontaktdaten, Inhaltsdaten, Vertragsdaten, Nutzungsdaten, Meta- und Kommunikationsdaten von Kunden, Interessenten und Besuchern dieses Onlineangebotes auf Grundlage unserer berechtigten Interessen an einer effizienten und sicheren Zurverfügungstellung dieses Onlineangebotes gem. Art. 6 Abs. 1 lit. f DSGVO i.V.m. Art. 28 DSGVO (Abschluss Auftragsverarbeitungsvertrag).
+Netlify stellt die technische Infrastruktur und Hosting-Dienstleistungen bereit, die für den Betrieb dieser Website erforderlich sind. Dazu gehören unter anderem Rechenkapazität, Speicherplatz, Sicherheitsfunktionen sowie die Auslieferung der Website über ein globales Content Delivery Network (CDN).
 
-### Erhebung von Zugriffsdaten und Logfiles
+Im Rahmen der Bereitstellung dieser Dienste verarbeitet Netlify insbesondere folgende Daten:
 
-Wir, bzw. unser Hostinganbieter, erhebt auf Grundlage unserer berechtigten Interessen im Sinne des Art. 6 Abs. 1 lit. f. DSGVO Daten über jeden Zugriff auf den Server, auf dem sich dieser Dienst befindet (sogenannte Serverlogfiles). Zu den Zugriffsdaten gehören Name der abgerufenen Webseite, Datei, Datum und Uhrzeit des Abrufs, übertragene Datenmenge, Meldung über erfolgreichen Abruf, Browsertyp nebst Version, das Betriebssystem des Nutzers, Referrer URL (die zuvor besuchte Seite), IP-Adresse und der anfragende Provider.
+- IP-Adresse des aufrufenden Endgeräts  
+- Datum und Uhrzeit des Zugriffs  
+- aufgerufene URLs und Dateien  
+- Referrer-URL  
+- Browsertyp, Version und Betriebssystem  
+- Server- und Diagnosedaten (Logfiles), ggf. anonymisiert
 
-Logfile-Informationen werden aus Sicherheitsgründen (z.B. zur Aufklärung von Missbrauchs- oder Betrugshandlungen) für die Dauer von maximal 7 Tagen gespeichert und danach gelöscht. Daten, deren weitere Aufbewahrung zu Beweiszwecken erforderlich ist, sind bis zur endgültigen Klärung des jeweiligen Vorfalls von der Löschung ausgenommen.
+Die Verarbeitung dieser Daten erfolgt zum Zweck der technischen Auslieferung der Website, zur Sicherstellung eines stabilen und sicheren Betriebs sowie zur Fehleranalyse.
+
+**Rechtsgrundlage:**  
+Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer sicheren, performanten und störungsfreien Bereitstellung unseres Onlineangebots).  
+Sofern im Rahmen einzelner Funktionen zusätzliche Tools eingesetzt werden, die Cookies oder Tracking-Technologien verwenden, erfolgt dies ausschließlich auf Grundlage Ihrer Einwilligung nach Art. 6 Abs. 1 lit. a DSGVO.
+
+**Datenübermittlung in die USA:**  
+Netlify verarbeitet Daten auch in den USA. Die Übermittlung erfolgt auf Grundlage von Art. 46 DSGVO (insbesondere EU-Standardvertragsklauseln) sowie zusätzlicher technischer und organisatorischer Schutzmaßnahmen, um ein angemessenes Datenschutzniveau zu gewährleisten.
+
+Weitere Informationen finden Sie in der Datenschutzrichtlinie von Netlify:  
+https://www.netlify.com/privacy/
 
 ## Google Tag Manager
 
@@ -185,18 +194,6 @@ Dabei wird ein Opt-Out-Cookie auf Ihrem Gerät abgelegt. Löschen Sie Ihre Cooki
 ## Clarity
 
 Diese Website nutzt Clarity. Anbieter ist die Microsoft Ireland Operations Limited, One Microsoft Place, South County Business Park, Leopardstown, Dublin 18, Irland, https://docs.microsoft.com/en-us/clarity/ (im Folgenden „Clarity"). Clarity ist ein Werkzeug zur Analyse des Nutzerverhaltens auf dieser Website. Hierbei erfasst Clarity insbesondere Mausbewegungen und erstellt eine grafische Darstellung darüber, auf welchen Teil der Website Nutzer besonders häufig scrollen (Heatmaps). Clarity kann ferner Sitzungen aufzeichnen, sodass wir die Seitennutzung in Form von Videos ansehen können. Ferner erhalten wir Angaben über das allgemeine Nutzerverhalten innerhalb unserer Website. Clarity verwendet Technologien, die die Wiedererkennung des Nutzers zum Zwecke der Analyse des Nutzerverhaltens ermöglichen (z. B. Cookies oder Einsatz von Device-Fingerprinting). Ihre personenbezogenen Daten werden auf den Servern von Microsoft (Microsoft Azure Cloud Service) in den USA gespeichert. Soweit eine Einwilligung (Consent) eingeholt wurde, erfolgt der Einsatz des o. g. Dienstes ausschließlich auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO und § 25 TTDSG. Die Einwilligung ist jederzeit widerrufbar. Soweit keine Einwilligung eingeholt wurde, erfolgt die Verwendung dieses Dienstes auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO; der Websitebetreiber hat ein berechtigtes Interesse an einer effektiven Nutzeranalyse. Weitere Details zum Datenschutz von Clarity finden Sie hier: https://docs.microsoft.com/en-us/clarity/faq. Das Unternehmen verfügt über eine Zertifizierung nach dem „EU-US Data Privacy Framework" (DPF). Der DPF ist ein Übereinkommen zwischen der Europäischen Union und den USA, der die Einhaltung europäischer Datenschutzstandards bei Datenverarbeitungen in den USA gewährleisten soll. Jedes nach dem DPF zertifizierte Unternehmen verpflichtet sich, diese Datenschutzstandards einzuhalten. Weitere Informationen hierzu erhalten Sie vom Anbieter unter folgendem Link: https://www.dataprivacyframework.gov/s/participant-search/participant-detail?contact=true&id=a2zt0000000KzNaAAK&status=Active
-
-## Abruf von Profilbildern bei Gravatar
-
-Wir setzen innerhalb unseres Onlineangebotes und insbesondere im Blog den Dienst Gravatar der Automattic Inc., 60 29th Street #343, San Francisco, CA 94110, USA, ein.
-
-Gravatar ist ein Dienst, bei dem sich Nutzer anmelden und Profilbilder und ihre E-Mailadressen hinterlegen können. Wenn Nutzer mit der jeweiligen E-Mailadresse auf anderen Onlinepräsenzen (vor allem in Blogs) Beiträge oder Kommentare hinterlassen, können so deren Profilbilder neben den Beiträgen oder Kommentaren dargestellt werden. Hierzu wird die von den Nutzern mitgeteilte E-Mailadresse an Gravatar zwecks Prüfung, ob zu ihr ein Profil gespeichert ist, verschlüsselt übermittelt. Dies ist der einzige Zweck der Übermittlung der E-Mailadresse und sie wird nicht für andere Zwecke verwendet, sondern danach gelöscht.
-
-Die Nutzung von Gravatar erfolgt auf Grundlage unserer berechtigten Interessen im Sinne des Art. 6 Abs. 1 lit. f) DSGVO, da wir mit Hilfe von Gravatar den Beitrags- und Kommentarverfassern die Möglichkeit bieten ihre Beiträge mit einem Profilbild zu personalisieren.
-
-Durch die Anzeige der Bilder bringt Gravatar die IP-Adresse der Nutzer in Erfahrung, da dies für eine Kommunikation zwischen einem Browser und einem Onlineservice notwendig ist. Nähere Informationen zur Erhebung und Nutzung der Daten durch Gravatar finden sich in den Datenschutzhinweisen von Automattic: https://automattic.com/privacy/.
-
-Wenn Nutzer nicht möchten, dass ein mit Ihrer E-Mail-Adresse bei Gravatar verknüpftes Benutzerbild in den Kommentaren erscheint, sollten Sie zum Kommentieren eine E-Mail-Adresse nutzen, welche nicht bei Gravatar hinterlegt ist. Wir weisen ferner darauf hin, dass es auch möglich ist eine anonyme oder gar keine E-Mailadresse zu verwenden, falls die Nutzer nicht wünschen, dass die eigene E-Mailadresse an Gravatar übersendet wird. Nutzer können die Übertragung der Daten komplett verhindern, indem Sie unser Kommentarsystem nicht nutzen.
 
 ## Onlinepräsenzen in sozialen Medien
 
