@@ -382,7 +382,7 @@ const partnersBase: PartnerBase[] = [
     linkedin: "https://www.linkedin.com/in/steven-knoblich-72bb53173/"
   },
   {
-    id: "17",
+    id: "18",
     name: "hector GmbH",
     isPartner: false,
     partnerType: 'advisorWithQuote',
@@ -397,7 +397,7 @@ const partnersBase: PartnerBase[] = [
     linkedin: "https://www.linkedin.com/in/michael-grass%C3%A9e-bbb7a911/"
   },
   {
-    id: "18",
+    id: "19",
     name: "Fortlane Partners Consulting GmbH",
     isPartner: true,
     partnerType: 'businessWithQuote',
