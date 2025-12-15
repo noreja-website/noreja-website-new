@@ -399,8 +399,8 @@ const partnersBase: PartnerBase[] = [
   {
     id: "19",
     name: "Fortlane Partners Consulting GmbH",
-    isPartner: true,
-    partnerType: 'businessWithQuote',
+    isPartner: false,
+    partnerType: 'advisorWithQuote',
     logoFilename: "fortlane_white.png",
     logoSource: 'partners_white',
     logoFilenameWhite: "fortlane_white.png",

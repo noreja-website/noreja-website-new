@@ -548,6 +548,10 @@ export interface Translations {
       contactForm: string;
       bookAppointment: string;
     };
+    certifications: {
+      iso: string;
+      gdpr: string;
+    };
   };
   buttons: {
     contactUs: string;
@@ -1225,6 +1229,10 @@ export const translations: Record<Language, Translations> = {
       contact: {
         contactForm: "Contact Form",
         bookAppointment: "Book Appointment"
+      },
+      certifications: {
+        iso: "ISO Certified",
+        gdpr: "GDPR Compliant"
       }
     },
     buttons: {
@@ -1909,6 +1917,10 @@ export const translations: Record<Language, Translations> = {
       contact: {
         contactForm: "Kontaktformular",
         bookAppointment: "Termin buchen"
+      },
+      certifications: {
+        iso: "ISO Zertifiziert",
+        gdpr: "DSGVO Zertifiziert"
       }
     },
     buttons: {

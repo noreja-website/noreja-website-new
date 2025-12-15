@@ -4,6 +4,8 @@ import { Linkedin, Twitter, Youtube } from "lucide-react";
 import { siteConfig } from "@/lib/config";
 import { useLanguage } from "@/contexts/LanguageContext";
 import logo from "@/assets/noreja_logo_white.png";
+import isoBadge from "@/assets/privacy/iso_white.png";
+import gdprBadge from "@/assets/privacy/gdpr_white.png";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -53,7 +55,7 @@ export function Footer() {
             <p className="text-muted-foreground text-sm mb-4">
               {t.footer.description}
             </p>
-            <div className="flex space-x-4">
+            <div className="flex space-x-4 mb-4">
               <motion.a
                 href={siteConfig.links.linkedin}
                 className="text-muted-foreground hover:text-primary transition-fast"
@@ -182,10 +184,34 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-border/40 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+        <div className="border-t border-border/40 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-muted-foreground text-sm">
             © {currentYear} {siteConfig.name}. {t.footer.copyright}
           </p>
+          <div className="flex items-center gap-6">
+            <div className="flex flex-col items-center">
+              <img
+                src={isoBadge}
+                alt="ISO 27001 Certified"
+                className="w-20 h-12 object-contain mb-2"
+                loading="lazy"
+              />
+              <p className="text-muted-foreground text-xs text-center whitespace-nowrap">
+                {t.footer.certifications.iso}
+              </p>
+            </div>
+            <div className="flex flex-col items-center">
+              <img
+                src={gdprBadge}
+                alt="GDPR Compliant"
+                className="w-20 h-12 object-contain mb-2"
+                loading="lazy"
+              />
+              <p className="text-muted-foreground text-xs text-center whitespace-nowrap">
+                {t.footer.certifications.gdpr}
+              </p>
+            </div>
+          </div>
           <p className="text-muted-foreground text-sm mt-2 md:mt-0">
             {t.footer.builtWith}
           </p>
