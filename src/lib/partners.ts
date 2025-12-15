@@ -339,7 +339,7 @@ const partnersBase: PartnerBase[] = [
   },
   {
     id: "15",
-    name: "BRANDL TALOS Rechtsanwält:innen GmbH",
+    name: "BRANDL TALOS",
     isPartner: true,
     partnerType: 'businessWithoutQuote',
     logoFilename: "naehrboden_logo.png",

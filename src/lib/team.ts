@@ -113,19 +113,6 @@ const teamMembersBase: TeamMemberBase[] = [
   },
   {
     id: "4",
-    name: "Schulaxshan Arulampalam",
-    role: "Head of Sales",
-    oneLiner: "Crafting user experiences that solve real business challenges.",
-    linkedInUrl: "https://www.linkedin.com/in/schulaxshan-arulampalam-b29b08195/",
-    imageFilename: "Schulax.png",
-    isFounder: false,
-    personalIntro: {
-      en: "As Head of Sales at Noreja, Schulaxshan is responsible for the company’s sales strategy as well as the development and expansion of long-term customer relationships – from the initial contact to successful partnerships. With over three years of experience in the B2B SaaS tech sector – from pre-seed to Series B – he brings deep expertise in dynamic growth phases, complex sales cycles, and team leadership. \n\n Before joining Noreja, Schulaxshan held various sales roles at fast-growing tech companies. He knows what it takes not only to sell technology but also to ensure it is understood and successfully implemented – especially within the industrial midmarket segment. \n\n In his personal life, he is a passionate traveler and tech enthusiast. He is particularly fascinated by solutions like Noreja that generate real impact for companies – not as a buzzword, but as tangible change. ",
-      de: "Schulaxshan verantwortet als Head of Sales bei Noreja die Vertriebsstrategie sowie den Auf- und Ausbau langfristiger Kundenbeziehungen – von der ersten Kontaktaufnahme bis zur erfolgreichen Partnerschaft. Mit mehr als drei Jahren Erfahrung im B2B-SaaS-Tech-Umfeld – von Pre-Seed bis Series B – bringt er tiefes Verständnis für dynamische Wachstumsphasen, komplexe Vertriebszyklen und Teamführung mit. \n\n Vor seinem Einstieg bei Noreja war Schulaxshan in verschiedenen Vertriebsrollen bei schnell wachsenden Tech-Unternehmen tätig. Er weiß, worauf es ankommt, wenn Technologie nicht nur verkauft, sondern auch verstanden und umgesetzt werden soll – besonders im industriellen Mittelstand. \n\n Privat ist er begeisterter Reisender und technikaffin. Besonders faszinieren ihn Lösungen wie Noreja, die echten Impact bei Unternehmen erzeugen – nicht als Buzzword, sondern als greifbare Veränderung."
-    }
-  },
-  {
-    id: "5",
     name: "Julian Weiß",
     role: "Senior Product Manager",
     oneLiner: "Building scalable platforms that power enterprise growth.",
@@ -138,7 +125,7 @@ const teamMembersBase: TeamMemberBase[] = [
     }
   },
   {
-    id: "6",
+    id: "5",
     name: "Florian Eichin",
     role: "Head of Frontend",
     oneLiner: "Ensuring our clients achieve transformational outcomes.",
@@ -151,7 +138,7 @@ const teamMembersBase: TeamMemberBase[] = [
     }
   },
   {
-    id: "7",
+    id: "6",
     name: "Daniel Bauer",
     role: "Head of Backend",
     oneLiner: "Connecting innovative solutions with forward-thinking organizations.",
@@ -164,7 +151,7 @@ const teamMembersBase: TeamMemberBase[] = [
     }
   },
   {
-    id: "8",
+    id: "7",
     name: "Violeta Petkova",
     role: "Senior Software Developer",
     oneLiner: "Telling stories that inspire digital transformation journeys.",
@@ -177,7 +164,7 @@ const teamMembersBase: TeamMemberBase[] = [
     }
   },
   {
-    id: "9",
+    id: "8",
     name: "Temuçin Damdinjamts-Kintaert",
     role: "Software Developer",
     oneLiner: "Optimizing processes that scale with our growing global impact.",

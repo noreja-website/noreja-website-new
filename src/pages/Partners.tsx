@@ -66,10 +66,20 @@ export default function Partners() {
       partner.partnerType === 'businessWithQuote' ||
       partner.partnerType === 'businessWithoutQuote'
   );
+
+  // Ensure each company is shown only once (e.g., multiple testimonials per company)
+  const uniquePartnerList = (() => {
+    const seen = new Set<string>();
+    return partnerList.filter((partner) => {
+      if (seen.has(partner.name)) return false;
+      seen.add(partner.name);
+      return true;
+    });
+  })();
   const partnerDescriptions = t.pages.partners.partnerDescriptions;
   const categoryLabels = t.pages.partners.partnerCategories;
 
-  const partnersByCategory = partnerList.reduce<Record<string, typeof partnerList>>(
+  const partnersByCategory = uniquePartnerList.reduce<Record<string, Partner[]>>(
     (acc, partner) => {
       const categoryKey = partner.category ?? 'uncategorized';
       (acc[categoryKey] ??= []).push(partner);
