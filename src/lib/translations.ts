@@ -749,28 +749,36 @@ export const translations: Record<Language, Translations> = {
           subtitle: "Find answers to common questions about our pricing and plans",
           items: [
             {
-              question: "What's included in the free trial?",
-              answer: "The 14-day free trial includes full access to all features of your chosen plan. No credit card required to start."
+              question: "Does Noreja offer a Proof-Of-Value to get to know the technology?",
+              answer: "Yes, 85% of customers start with an initial Proof-Of-Value, which Noreja offers at a very affordable fixed price. This typically focuses on a sub-process that Noreja connects, imports, analyzes, and reveals initial optimization potential within 3 to 4 weeks. After the Proof-Of-Value, 60% of the data integration is already completed, so operationalization can take place within a few days."
             },
             {
-              question: "Can I change my plan later?",
-              answer: "Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately and billing is prorated."
+              question: "Do I need dedicated Process Mining experts to use Noreja?",
+              answer: "No. No explicit Process Mining experts are needed to use Noreja. A special feature here is that Noreja does not use event logs, so no complex data transformations are necessary, which often take up 80% of the time with conventional solutions."
             },
             {
-              question: "What is private LLM hosting?",
-              answer: "Private LLM hosting means we host and manage your own dedicated language model instance, ensuring complete data privacy and customization for your specific needs."
+              question: "How does upgrading or downgrading to other license packages work?",
+              answer: "In principle, annual licenses are concluded in certain price package combinations. A downgrade to smaller price categories is possible after the license year. If there is a need to move up to higher price categories - e.g., because more data should be imported - this can happen at any time. However, prices are never automatically increased without consultation. This always happens in dialogue with the customer."
             },
             {
-              question: "Do you offer custom enterprise solutions?",
-              answer: "Yes, our Excellence plan includes custom integrations and we can create tailored solutions for large organizations with specific requirements."
+              question: "What happens if I exceed the limit in a package?",
+              answer: "If the capacity of the data volume or the required dimensions is not sufficient, either Noreja can be contacted proactively, or Noreja will contact you after exceeding the limits and seek a conversation."
             },
             {
-              question: "What support do you provide?",
-              answer: "Support varies by plan: Core includes email support, Pro includes priority support, and Excellence includes dedicated support with weekly sessions."
+              question: "How does license renewal work?",
+              answer: "The license contract is concluded on an annual basis. According to the signed contract, the license is automatically renewed if it is not canceled in time; However, a silent renewal is never carried out without first speaking with the customer about the renewal."
             },
             {
-              question: "Is there a setup fee?",
-              answer: "No, there are no setup fees for any of our plans. You only pay the monthly subscription fee."
+              question: "How can I cancel the license contract?",
+              answer: "The license contract can be canceled at any time with a notice period of one month before the end of the contract."
+            },
+            {
+              question: "What exactly is included in the base package and how do the included workshops work?",
+              answer: "The base package includes features, service offerings, and AI components. Features refer to concrete software components that a user can use on the platform. The service offerings include several workshops (day workshop of 8h), which are conducted on-site at the customer's location with one to two Noreja experts (travel costs included). In addition, (bi-)weekly online sessions are scheduled, in which customers receive support in using the platform as well as in identifying new use cases."
+            },
+            {
+              question: "Can I also book Noreja for additional or accompanying consulting?",
+              answer: "Yes, each package contains a daily rate that can be used to book additional consulting that goes beyond the included workshops and regular sessions. The rate differs between the base packages."
             },
             {
               question: "Where is my data hosted?",
@@ -795,18 +803,6 @@ export const translations: Record<Language, Translations> = {
             {
               question: "How do I know which package (e.g., regarding data volume) I should choose?",
               answer: "We are happy to determine the exact requirements together in a conversation. Our Proof-Of-Value provides an optimal basis for decision-making, the results of which enable a good assessment of the required data volume and service needs."
-            },
-            {
-              question: "Is there an initial setup fee?",
-              answer: "Generally, there is no general setup fee. Data connectivity can also be done independently or as part of the included Data-Onboarding Workshops. However, it often makes sense to get support during initial setup to efficiently and error-free connect source systems. This can be done by Noreja itself or one of our partners."
-            },
-            {
-              question: "Can additional costs arise for used LLM tokens?",
-              answer: "Generally, LLM tokens are included for all Power-Users. If there is a need for an increased number of \"reading\" or \"consuming\" users, we must pass on the costs. In this case, we will explicitly contact you."
-            },
-            {
-              question: "What are Power-Users and how do they differ from regular users?",
-              answer: "We define Power-Users as users who have rights to Builder, Manager, Analyzer, and other admin functions on the Noreja platform. Excluded here are read-only users of the Dashboard or Minerva-AI."
             }
           ]
         },
@@ -1920,7 +1916,7 @@ export const translations: Record<Language, Translations> = {
       },
       certifications: {
         iso: "ISO Zertifiziert",
-        gdpr: "DSGVO Zertifiziert"
+        gdpr: "DSGVO Konform"
       }
     },
     buttons: {

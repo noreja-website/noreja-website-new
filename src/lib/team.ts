@@ -91,7 +91,7 @@ const teamMembersBase: TeamMemberBase[] = [
     role: "Chief Technology Officer",
     oneLiner: "Engineering excellence through innovative cloud-native solutions.",
     linkedInUrl: "https://www.linkedin.com/in/philipp-w-a09018100/",
-    imageFilename: "Waibel.png",
+    imageFilename: "Waibel.jpg",
     isFounder: true,
     personalIntro: {
       en: "As CTO, Philipp is mainly responsible for software development and its architecture. Philipp has a long track record in academic project execution for the Vienna University of Economics and Business as well as the Vienna University of Technology. He studied Software Engineering at the Vienna University of Technology and is an expert at cloud-based business processes execution. He developed our process mining algorithm based on conflict-free prime event structures.",
@@ -104,7 +104,7 @@ const teamMembersBase: TeamMemberBase[] = [
     role: "Head of Partnerships & Knowledge",
     oneLiner: "Engineering excellence through innovative cloud-native solutions.",
     linkedInUrl: "https://www.linkedin.com/in/janmendling/",
-    imageFilename: "Mendling.png",
+    imageFilename: "Mendling.jpg",
     isFounder: true,
     personalIntro: {
       en: "Jan is a Einstein professor at the Humboldt University Berlin. Previously, he worked as a full professor and department head at Vienna University of Economics and Business. Also, he is a co-author of seminal textbooks on the Fundamentals of Business Process Management and on Business Information Systems are used in more than 250 universities in 70 countries. He is one of the founders of the Berliner BPM-Offensive, a board member of the Austrian Society for Process Management, a member of the IEEE Task Force on Process Mining, and one of the initiators of the international Business Process Management Association.",
