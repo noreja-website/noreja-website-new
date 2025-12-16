@@ -143,7 +143,7 @@ const teamMembersBase: TeamMemberBase[] = [
     role: "Head of Backend",
     oneLiner: "Connecting innovative solutions with forward-thinking organizations.",
     linkedInUrl: "https://www.linkedin.com/in/daniel-bauer-485954199/",
-    imageFilename: "Daniel-Bauer.png",
+    imageFilename: "Daniel-Bauer.jpg",
     isFounder: false,
     personalIntro: {
       en: "Daniel is an experienced developer with over 10 years of experience specialising in backend development and leading software teams in early-stage start ups. He has a strong background in JAVA and various backend technologies, which he has applied in multiple roles, including his previous position as Head of Development. Now, as the Head of Backend at Noreja, Daniel oversees the architecture, scalability, and integration of backend systems, ensuring robust and efficient data flow across all platforms. His leadership and technical expertise are pivotal in driving the backend team’s success and aligning it with the company’s strategic objectives.",
@@ -169,7 +169,7 @@ const teamMembersBase: TeamMemberBase[] = [
     role: "Software Developer",
     oneLiner: "Optimizing processes that scale with our growing global impact.",
     linkedInUrl: "https://www.linkedin.com/in/temucin-damdinjamts-kintaert/",
-    imageFilename: "Temu.jpg",
+    imageFilename: "Temu-new.jpg",
     isFounder: false,
     personalIntro: {
       en: "Temucin is a full-stack developer with a diverse professional background. He began his career as a musician and chef before gaining extensive experience in B2B sales and project management. His keen interest in technology eventually led him to software development. At Noreja, Temucin focuses on front-end development, where he optimizes user interfaces and improves the user experience.",
