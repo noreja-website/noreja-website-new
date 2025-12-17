@@ -427,6 +427,22 @@ const partnersBase: PartnerBase[] = [
     quote: "Die Zusammenarbeit mit noreja war von Anfang an unkompliziert und auf Augenhöhe. Wir teilen die gleiche Haltung: pragmatisch vorgehen und den Kundennutzen in den Mittelpunkt stellen. Die Process Mining Suite ist intuitiv zu bedienen und ermöglicht es uns, schnell relevante Potenziale zu identifizieren, um dann die passenden Verbesserungsmaßnahmen zu implementieren.",
     quoteAuthor: "Philipp Berger, Manager | Lead Analytics, BI, AI",
     linkedin: "https://www.linkedin.com/in/philipp-berger-a37707186/"
+  },
+  {
+    id: "21",
+    name: "Nord LB",
+    isPartner: false,
+    partnerType: 'advisorWithQuote',
+    logoFilename: "nordlb_logo_white.png",
+    logoSource: 'customers',
+    logoFilenameWhite: "nordlb_logo_white.png",
+    logoSize: 'xlarge',
+    personPhotoFilename: "tatjana_meyer_nordlb.jpeg",
+    website: "https://www.nordlb.com/",
+    category: "consulting",
+    quote: "Noreja ermöglicht uns, Process Mining strukturiert und systematisch einzusetzen, um die Ausführung unserer IT-Prozesse in den Zielsystemen – wie ServiceNow – nachhaltig auf ein hohes Qualitätsniveau zu heben.",
+    quoteAuthor: "Tatjana Meyer, IT Strategie / Prozesse",
+    linkedin: "https://www.linkedin.com/in/tatjana-meyer-992930260/"
   }
 ];
 

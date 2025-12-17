@@ -6,7 +6,7 @@ export function PlaceholderImageSection() {
   const { t } = useLanguage();
 
   return (
-    <section className="h-[500px] lg:h-[600px] overflow-hidden">
+    <section className="h-[650px] lg:h-[750px] overflow-hidden">
       <div className="container mx-auto px-4 lg:px-8 h-full">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
