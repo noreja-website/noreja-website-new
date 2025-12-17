@@ -411,6 +411,22 @@ const partnersBase: PartnerBase[] = [
     quote: "Companies overlook the importance of cash. We unlock cashflow potential, improving transparency and financial performance.",
     quoteAuthor: "Pirmin Mutter, Principal",
     linkedin: "https://www.linkedin.com/in/pirmin-mutter/"
+  },
+  {
+    id: "20",
+    name: "Kemény Boehme Consultants SE",
+    isPartner: true,
+    partnerType: 'businessWithQuote',
+    logoFilename: "kbc_white.png",
+    logoSource: 'partners_white',
+    logoFilenameWhite: "kbc_white.png",
+    logoSize: 'xlarge',
+    personPhotoFilename: "philipp_berger_kbc.jpg",
+    website: "www.kbc-consultants.com",
+    category: "consulting",
+    quote: "Die Zusammenarbeit mit noreja war von Anfang an unkompliziert und auf Augenhöhe. Wir teilen die gleiche Haltung: pragmatisch vorgehen und den Kundennutzen in den Mittelpunkt stellen. Die Process Mining Suite ist intuitiv zu bedienen und ermöglicht es uns, schnell relevante Potenziale zu identifizieren, um dann die passenden Verbesserungsmaßnahmen zu implementieren.",
+    quoteAuthor: "Philipp Berger, Manager | Lead Analytics, BI, AI",
+    linkedin: "https://www.linkedin.com/in/philipp-berger-a37707186/"
   }
 ];
 
