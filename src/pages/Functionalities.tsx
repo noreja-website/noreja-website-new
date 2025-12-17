@@ -6,6 +6,11 @@ import { LayoutDashboard, Search, Brain, Wrench, Code, ArrowRight, LucideIcon } 
 import { AnimatedHeading } from "@/components/AnimatedHeading";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import dashboardImg from "@/assets/platform/dashboard.png";
+import analyzerImg from "@/assets/platform/analyzer.png";
+import minervaImg from "@/assets/platform/minerva.png";
+import builderImg from "@/assets/platform/builder.png";
+import workbenchImg from "@/assets/platform/workbench.png";
 
 // Feature Section Component with advanced scroll animations
 interface FeatureSectionProps {
@@ -266,35 +271,35 @@ const Functionalities = () => {
       icon: LayoutDashboard,
       title: t.functionalities.features.security.title,
       description: t.functionalities.features.security.description,
-      imagePath: null // Placeholder for image path
+      imagePath: dashboardImg
     },
     {
       id: "data-integration",
       icon: Search,
       title: t.functionalities.features.dataIntegration.title,
       description: t.functionalities.features.dataIntegration.description,
-      imagePath: null // Placeholder for image path
+      imagePath: analyzerImg
     },
     {
       id: "ai-analytics",
       icon: Brain,
       title: t.functionalities.features.aiAnalytics.title,
       description: t.functionalities.features.aiAnalytics.description,
-      imagePath: null // Placeholder for image path
+      imagePath: minervaImg
     },
     {
       id: "real-time",
       icon: Wrench,
       title: t.functionalities.features.realTime.title,
       description: t.functionalities.features.realTime.description,
-      imagePath: null // Placeholder for image path
+      imagePath: builderImg
     },
     {
       id: "workbench",
       icon: Code,
       title: t.functionalities.features.workbench.title,
       description: t.functionalities.features.workbench.description,
-      imagePath: null // Placeholder for image path
+      imagePath: workbenchImg
     }
   ];
 
