@@ -415,8 +415,8 @@ const partnersBase: PartnerBase[] = [
   {
     id: "20",
     name: "Kemény Boehme Consultants SE",
-    isPartner: true,
-    partnerType: 'businessWithQuote',
+    isPartner: false,
+    partnerType: 'advisorWithQuote',
     logoFilename: "kbc_white.png",
     logoSource: 'partners_white',
     logoFilenameWhite: "kbc_white.png",
