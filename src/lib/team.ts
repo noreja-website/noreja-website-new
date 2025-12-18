@@ -159,8 +159,8 @@ const teamMembersBase: TeamMemberBase[] = [
     imageFilename: "Violeta-Petkova.jpg",
     isFounder: false,
     personalIntro: {
-      en: "Violeta is a software developer with experience in web development. At Noreja she focuses specifically on our ‘Process Science Workbench’ feature as well as the user management APIs. In parallel to her work at Noreja, Violeta is studying Computer Science at the Vienna University of Technology. In her bachelor thesis ‘Interactive Process Visualization of Correlation Based Customer Journey Processes in the Tourism Domain’ she already dealt with the application of complex process mining and data science algorithms.",
-      de: "Violeta ist Software-Entwicklerin mit Erfahrung im Bereich der Web-Entwicklung & -Design. Bei Noreja fokussiert sie sich speziell auf unser Feature ‘Process Science Workbench’ sowie auf die APIs des User-Managements. Parallel zu ihrer Tätigkeit bei Noreja studiert Violeta Computer Science im Master an der TU Wien. In ihrer Bachelor-Abschlussarbeit ‘Interactive Process Visualization of Correlation Based Customer Journey Processes in the Tourism Domain‘ beschäftigte sie sich bereits mit der Anwendung komplexer Process Mining und Data Science Algorithmen."
+      en: "Violeta is a software developer with experience in web development. In her bachelor thesis ‘Interactive Process Visualization of Correlation Based Customer Journey Processes in the Tourism Domain’ she already dealt with the application of complex process mining and data science algorithms.",
+      de: "Violeta ist Software-Entwicklerin mit Erfahrung im Bereich der Web-Entwicklung & -Design. Bei Noreja fokussiert sie sich speziell auf unser Feature ‘Process Science Workbench’ sowie auf die APIs des User-Managements. In ihrer Bachelor-Abschlussarbeit ‘Interactive Process Visualization of Correlation Based Customer Journey Processes in the Tourism Domain‘ beschäftigte sie sich bereits mit der Anwendung komplexer Process Mining und Data Science Algorithmen."
     }
   },
   {

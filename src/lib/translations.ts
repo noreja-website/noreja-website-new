@@ -723,7 +723,7 @@ export const translations: Record<Language, Translations> = {
         readingUsers: "{count} reading users",
         mostPopular: "Most Popular",
         month: "/ month",
-        perMonthAndUser: "per month and user",
+        perMonthAndUser: "per month and power user",
         annualCostTooltip: "Calculated total costs per year",
         year: " /year",
         onRequest: "let's talk",
@@ -790,7 +790,7 @@ export const translations: Record<Language, Translations> = {
             },
             {
               question: "What does private LLM hosting look like?",
-              answer: "Private LLM hosting is implemented by operating your own fully isolated environment at any cloud provider (e.g., Amazon AWS). Noreja sets up any LLM (e.g., Mistral, Deepseek, Gemma, Quen3, etc.) that only the customer can access."
+              answer: "Private LLM hosting is implemented by operating your own fully isolated environment at any cloud provider (e.g., Amazon AWS). Noreja sets up any LLM (e.g., Mistral, Deepseek, Gemma, Qwen3, etc.) that only the customer can access."
             },
             {
               question: "Are there partner companies that can support me in using Noreja?",
@@ -1399,7 +1399,7 @@ export const translations: Record<Language, Translations> = {
         readingUsers: "{count} lesende Nutzer",
         mostPopular: "Am beliebtesten",
         month: "/ Monat",
-        perMonthAndUser: "pro Monat und Nutzer",
+        perMonthAndUser: "pro Monat und Power-User",
         annualCostTooltip: "Berechnete Gesamtkosten pro Jahr",
         year: " /Jahr",
         onRequest: "Auf Anfrage",
@@ -1466,7 +1466,7 @@ export const translations: Record<Language, Translations> = {
             },
             {
               question: "Wie kann ich mir das private LLM-Hosting vorstellen?",
-              answer: "Das private LLM-Hosting erfolgt durch den Betrieb einer eigenen und vollständig isolierten Umgebung bei einem beliebigen Cloud-Anbieter (z.B. Amazon AWS). Die Noreja setzt dabei ein beliebiges LLM (z.B. Mistral, Deepseek, Gemma, Quen3, etc.) auf, auf welches ausschließlich der Kunde Zugriff erhält."
+              answer: "Das private LLM-Hosting erfolgt durch den Betrieb einer eigenen und vollständig isolierten Umgebung bei einem beliebigen Cloud-Anbieter (z.B. Amazon AWS). Die Noreja setzt dabei ein beliebiges LLM (z.B. Mistral, Deepseek, Gemma, Qwen3, etc.) auf, auf welches ausschließlich der Kunde Zugriff erhält."
             },
             {
               question: "Gibt es auch Partnerunternehmen, die mich bei der Nutzung von Noreja begleiten können?",
@@ -1588,7 +1588,7 @@ export const translations: Record<Language, Translations> = {
       badge: "Generative Process Intelligence",
       title: "Die Zukunft der",
       titleHighlight: "Innovation",
-      subtitle: "Elevating Process Knowledge with the Power of GenAI – faster data connection without event-log, more realistic outcomes, open architecture for easy integration.\nEnterprise technology, built for efficiency in medium-sized businesses",
+      subtitle: "Elevating Process Knowledge with the Power of GenAI – faster data connection without event-log, more realistic outcomes, open architecture for easy integration.\nEnterprise technology, built for efficiency in medium-sized businesses.",
       ctaPrimary: "Loslegen",
       ctaSecondary: "Mehr erfahren",
       getStarted: "Demo buchen",
@@ -1915,8 +1915,8 @@ export const translations: Record<Language, Translations> = {
         bookAppointment: "Termin buchen"
       },
       certifications: {
-        iso: "ISO Zertifiziert",
-        gdpr: "DSGVO Konform"
+        iso: "ISO zertifiziert",
+        gdpr: "DSGVO konform"
       }
     },
     buttons: {
