@@ -223,15 +223,17 @@ const FeatureSection = ({ feature, Icon, layout, index, animationStyle }: Featur
                 {feature.title}
               </motion.h2>
             </motion.div>
-            <motion.p
-              className="text-lg lg:text-xl text-muted-foreground leading-relaxed"
+            <motion.div
+              className="text-lg lg:text-xl text-muted-foreground leading-relaxed space-y-4"
               variants={descVariants}
               initial="initial"
               animate="animate"
               transition={descTransition}
             >
-              {feature.description}
-            </motion.p>
+              {feature.description.split('\n\n').map((paragraph, index) => (
+                <p key={index}>{paragraph.trim()}</p>
+              ))}
+            </motion.div>
           </div>
         </motion.div>
       </div>
