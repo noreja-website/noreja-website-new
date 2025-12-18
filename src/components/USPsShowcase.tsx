@@ -148,7 +148,7 @@ export function USPsShowcase() {
           </Link>
         </motion.div>
 
-        <div className="relative max-w-6xl mx-auto overflow-hidden">
+        <div className="relative max-w-6xl mx-auto overflow-visible">
           {/* Background overlay when a card is selected */}
           {selectedCard !== null && (
             <motion.div 
@@ -231,7 +231,7 @@ export function USPsShowcase() {
           
           <div 
             data-cards-container
-            className="grid grid-cols-1 md:grid-cols-2 gap-6 overflow-hidden py-4 transition-all duration-300 ease-in-out"
+            className="grid grid-cols-1 md:grid-cols-2 gap-6 overflow-visible py-4 px-2 transition-all duration-300 ease-in-out"
           >
             {usps.map((usp, index) => {
               const isSelected = selectedCard === index;
