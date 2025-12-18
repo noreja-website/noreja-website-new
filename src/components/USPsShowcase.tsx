@@ -4,6 +4,10 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import fastIcon from "@/assets/icons/fast.png";
+import realityIcon from "@/assets/icons/reality.png";
+import multidimensionalIcon from "@/assets/icons/multidimensional.png";
+import contextIcon from "@/assets/icons/context.png";
 
 export function USPsShowcase() {
   const ref = useRef(null);
@@ -52,19 +56,23 @@ export function USPsShowcase() {
   const usps = [
     {
       title: t.usps.features.connectionSpeed.title,
-      description: t.usps.features.connectionSpeed.description
+      description: t.usps.features.connectionSpeed.description,
+      icon: fastIcon
     },
     {
       title: t.usps.features.realisticResults.title,
-      description: t.usps.features.realisticResults.description
+      description: t.usps.features.realisticResults.description,
+      icon: realityIcon
     },
     {
       title: t.usps.features.multidimensionalPerspectives.title,
-      description: t.usps.features.multidimensionalPerspectives.description
+      description: t.usps.features.multidimensionalPerspectives.description,
+      icon: multidimensionalIcon
     },
     {
       title: t.usps.features.contextDomainKnowledge.title,
-      description: t.usps.features.contextDomainKnowledge.description
+      description: t.usps.features.contextDomainKnowledge.description,
+      icon: contextIcon
     }
   ];
 
@@ -175,9 +183,24 @@ export function USPsShowcase() {
                       damping: 25,
                       duration: 0.8
                     }}
-                    className="relative h-80 w-full max-w-2xl mx-auto shadow-2xl rounded-2xl overflow-hidden bg-gradient-to-br from-primary/10 to-primary/20"
+                    className="relative h-80 w-full max-w-2xl mx-auto shadow-2xl rounded-2xl overflow-visible bg-gradient-to-br from-primary/10 to-primary/20"
                     onClick={(e) => e.stopPropagation()}
                   >
+                    {/* Icon positioned above card - half on card, half above */}
+                    <motion.img
+                      src={usps[selectedCard].icon}
+                      alt=""
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ delay: 0.1, duration: 0.5 }}
+                      className="absolute w-32 h-32 z-20"
+                      style={{ 
+                        top: 0,
+                        left: '50%',
+                        transform: 'translateX(-50%) translateY(-50%)'
+                      }}
+                    />
                     
                     {/* Content */}
                     <div className="relative z-10 h-full flex flex-col justify-center items-center p-8">
@@ -265,7 +288,19 @@ export function USPsShowcase() {
                         <div className={`absolute inset-0 w-full h-full backface-hidden rotate-y-180 ${
                           isFlipped ? 'opacity-100' : 'opacity-0'
                         }`}>
-                          <div className="relative h-full border border-primary/50 rounded-2xl overflow-hidden bg-gradient-to-br from-background/90 via-primary/20 to-secondary/40">
+                          <div className="relative h-full border border-primary/50 rounded-2xl overflow-visible bg-gradient-to-br from-background/90 via-primary/20 to-secondary/40">
+                            {/* Icon positioned above card - half on card, half above */}
+                            <img 
+                              src={usp.icon} 
+                              alt="" 
+                              className="absolute w-24 h-24 z-20"
+                              style={{ 
+                                top: 0,
+                                left: '50%',
+                                transform: 'translateX(-50%) translateY(-50%)'
+                              }}
+                            />
+                            
                             {/* Content */}
                             <div className="relative z-10 h-full flex flex-col justify-center items-center p-6">
                               <h3 className="text-2xl font-bold text-foreground text-center mb-4">
