@@ -141,7 +141,7 @@ const FeatureSection = ({ feature, Icon, layout, index, animationStyle }: Featur
           style={{ y: imageY, opacity: imageOpacity, scale: imageScale }}
         >
           <motion.div
-            className={`relative w-full ${layout.imageSize} rounded-2xl overflow-hidden border border-border/50 shadow-lg group`}
+            className={`relative w-full ${layout.imageSize} overflow-visible group`}
             variants={imageVariants}
             initial="initial"
             animate="animate"
@@ -149,22 +149,18 @@ const FeatureSection = ({ feature, Icon, layout, index, animationStyle }: Featur
             style={{
               transformStyle: "preserve-3d",
               perspective: "1000px",
+              transform: "scale(2.5)",
             }}
           >
             {/* Placeholder for image - replace with actual image when available */}
             {feature.imagePath ? (
               <>
-                {/* Gradient background - only visible with images */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-primary/10 to-secondary/30" />
                 <motion.img
                   src={feature.imagePath}
                   alt={feature.title}
-                  className="relative z-10 w-full h-full object-cover opacity-80 group-hover:opacity-90 transition-all duration-500"
+                  className="relative z-10 w-full h-auto object-contain transition-all duration-500"
                   whileHover={{ scale: 1.05 }}
                 />
-                {/* Gradient overlay that blends with image */}
-                <div className="absolute inset-0 z-20 bg-gradient-to-br from-primary/30 via-transparent to-secondary/40 pointer-events-none" />
-                <div className="absolute inset-0 z-20 bg-gradient-to-t from-background/30 via-transparent to-transparent pointer-events-none" />
               </>
             ) : (
               <div className="relative z-10 w-full h-full flex items-center justify-center bg-background">
@@ -350,31 +346,31 @@ const Functionalities = () => {
               const layouts = [
                 { 
                   imageOrder: 1, 
-                  imageSize: "h-[450px] lg:h-[550px]", 
+                  imageSize: "h-auto", 
                   gridCols: "lg:grid-cols-[1.2fr_1fr]",
                   imageOffset: ""
                 },
                 { 
                   imageOrder: 2, 
-                  imageSize: "h-[400px] lg:h-[600px]", 
+                  imageSize: "h-auto", 
                   gridCols: "lg:grid-cols-[1fr_1.2fr]",
                   imageOffset: "lg:mt-8"
                 },
                 { 
                   imageOrder: 1, 
-                  imageSize: "h-[500px] lg:h-[500px]", 
+                  imageSize: "h-auto", 
                   gridCols: "lg:grid-cols-2",
                   imageOffset: ""
                 },
                 { 
                   imageOrder: 2, 
-                  imageSize: "h-[450px] lg:h-[550px]", 
+                  imageSize: "h-auto", 
                   gridCols: "lg:grid-cols-[1.1fr_0.9fr]",
                   imageOffset: "lg:-mt-8"
                 },
                 { 
                   imageOrder: 1, 
-                  imageSize: "h-[400px] lg:h-[580px]", 
+                  imageSize: "h-auto", 
                   gridCols: "lg:grid-cols-[0.9fr_1.1fr]",
                   imageOffset: "lg:mt-12"
                 }

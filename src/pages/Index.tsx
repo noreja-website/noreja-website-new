@@ -1,6 +1,6 @@
 import SimpleRectangleAnimation from "@/components/SimpleRectangleAnimation";
 import { IntegratedHeroSection } from "@/components/IntegratedHeroSection";
-import { PlaceholderImageSection } from "@/components/PlaceholderImageSection";
+import { AnimationSection } from "@/components/AnimationSection";
 import LogoBanner from "@/components/LogoBanner";
 import { USPsShowcase } from "@/components/USPsShowcase";
 import { FunctionalitiesTeaser } from "@/components/FunctionalitiesTeaser";
@@ -21,13 +21,15 @@ const Index = () => {
     <>
       {/* Sections with animated grid background */}
       <div className="relative overflow-hidden">
-        <AnimatedGridBackground key="animated-grid-v2" />
+        <div className="hidden md:block">
+          <AnimatedGridBackground key="animated-grid-v2" />
+        </div>
         <IntegratedHeroSection />
         <LogoBanner />
         {/* <SimpleRectangleAnimation /> 
         TODO: kunden auch in banner anzeigen
         */}
-        <PlaceholderImageSection />
+        <AnimationSection />
         {/* Gradient fade to next section */}
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-background pointer-events-none z-0" />
       </div>
@@ -50,7 +52,9 @@ const Index = () => {
       
       {/* PartnerPhotosGrid with animated grid background */}
       <div className="relative overflow-hidden">
-        <AnimatedGridBackground key="animated-grid-partners" />
+        <div className="hidden md:block">
+          <AnimatedGridBackground key="animated-grid-partners" />
+        </div>
         {/* Gradient fade from previous section */}
         <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background to-transparent pointer-events-none z-0" />
         {/* Gradient fade to next section */}
@@ -79,7 +83,9 @@ const Index = () => {
       
       {/* IntegrationsShowcase with animated grid background */}
       <div className="relative overflow-hidden">
-        <AnimatedGridBackground key="animated-grid-integrations" />
+        <div className="hidden md:block">
+          <AnimatedGridBackground key="animated-grid-integrations" />
+        </div>
         {/* Gradient fade from previous section */}
         <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-background to-transparent pointer-events-none z-0" />
         {/* Gradient fade to next section */}
