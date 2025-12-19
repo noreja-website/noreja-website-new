@@ -338,41 +338,41 @@ const Functionalities = () => {
         {/* Gradient fade to next section */}
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-background pointer-events-none z-0" />
         
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 py-20">
+        <div className="relative z-10 w-full max-w-[90rem] mx-auto px-6 lg:px-12 py-20">
           <div className="space-y-32 lg:space-y-40">
             {features.map((feature, index) => {
               const Icon = feature.icon;
               
-              // Varied layout patterns for more organic feel
+              // Varied layout patterns with consistent 30% text / 70% image split
               const layouts = [
                 { 
                   imageOrder: 1, 
                   imageSize: "h-full", 
-                  gridCols: "lg:grid-cols-[1.2fr_1fr]",
+                  gridCols: "lg:grid-cols-[0.7fr_0.3fr]",
                   imageOffset: ""
                 },
                 { 
                   imageOrder: 2, 
                   imageSize: "h-full", 
-                  gridCols: "lg:grid-cols-[1fr_1.2fr]",
+                  gridCols: "lg:grid-cols-[0.3fr_0.7fr]",
                   imageOffset: "lg:mt-8"
                 },
                 { 
                   imageOrder: 1, 
                   imageSize: "h-full", 
-                  gridCols: "lg:grid-cols-2",
+                  gridCols: "lg:grid-cols-[0.7fr_0.3fr]",
                   imageOffset: ""
                 },
                 { 
                   imageOrder: 2, 
                   imageSize: "h-full", 
-                  gridCols: "lg:grid-cols-[1.1fr_0.9fr]",
+                  gridCols: "lg:grid-cols-[0.3fr_0.7fr]",
                   imageOffset: "lg:-mt-8"
                 },
                 { 
                   imageOrder: 1, 
                   imageSize: "h-full", 
-                  gridCols: "lg:grid-cols-[0.9fr_1.1fr]",
+                  gridCols: "lg:grid-cols-[0.7fr_0.3fr]",
                   imageOffset: "lg:mt-12"
                 }
               ];
