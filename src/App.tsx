@@ -3,7 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Layout } from "@/components/Layout";
+import { ConditionalLayout } from "@/components/ConditionalLayout";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import Index from "./pages/Index";
 import Functionalities from "./pages/Functionalities";
@@ -23,6 +23,7 @@ import Imprint from "./pages/Imprint";
 import TermsOfService from "./pages/TermsOfService";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import NotFound from "./pages/NotFound";
+import Maintenance from "./pages/Maintenance";
 
 const queryClient = new QueryClient();
 
@@ -33,30 +34,31 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
-        <Layout>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/functionalities" element={<Functionalities />} />
-            <Route path="/success-stories" element={<SuccessStories />} />
-            <Route path="/success-stories/:companyName" element={<SuccessStoryDetail />} />
-            <Route path="/use-cases/:useCaseName" element={<UseCase />} />
-            <Route path="/team" element={<Team />} />
-            <Route path="/partners" element={<Partners />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:category" element={<BlogCategory />} />
-            <Route path="/downloads" element={<Downloads />} />
-            <Route path="/download-thank-you" element={<DownloadThankYou />} />
-            <Route path="/events" element={<Events />} />
-            <Route path="/pricing" element={<Pricing />} />
-            <Route path="/contact" element={<ContactUs />} />
-            <Route path="/imprint" element={<Imprint />} />
-            <Route path="/terms" element={<TermsOfService />} />
-            <Route path="/privacy" element={<PrivacyPolicy />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Layout>
-      </BrowserRouter>
+          <ConditionalLayout>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/functionalities" element={<Functionalities />} />
+              <Route path="/success-stories" element={<SuccessStories />} />
+              <Route path="/success-stories/:companyName" element={<SuccessStoryDetail />} />
+              <Route path="/use-cases/:useCaseName" element={<UseCase />} />
+              <Route path="/team" element={<Team />} />
+              <Route path="/partners" element={<Partners />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:category" element={<BlogCategory />} />
+              <Route path="/downloads" element={<Downloads />} />
+              <Route path="/download-thank-you" element={<DownloadThankYou />} />
+              <Route path="/events" element={<Events />} />
+              <Route path="/pricing" element={<Pricing />} />
+              <Route path="/contact" element={<ContactUs />} />
+              <Route path="/imprint" element={<Imprint />} />
+              <Route path="/terms" element={<TermsOfService />} />
+              <Route path="/privacy" element={<PrivacyPolicy />} />
+              <Route path="/maintenance" element={<Maintenance />} />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </ConditionalLayout>
+        </BrowserRouter>
       </LanguageProvider>
     </TooltipProvider>
   </QueryClientProvider>
