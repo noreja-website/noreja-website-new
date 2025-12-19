@@ -133,15 +133,15 @@ const FeatureSection = ({ feature, Icon, layout, index, animationStyle }: Featur
       animate={isInView ? { opacity: 1 } : { opacity: 0 }}
       transition={{ duration: 0.3 }}
     >
-      <div className={`grid ${layout.gridCols} gap-8 lg:gap-12 items-start overflow-hidden`}>
+      <div className={`grid ${layout.gridCols} gap-8 lg:gap-12 items-stretch overflow-hidden`}>
         {/* Image Section with Parallax */}
         <motion.div
           ref={imageRef}
-          className={`${layout.imageOrder === 1 ? "lg:order-1" : "lg:order-2"} ${layout.imageOffset}`}
+          className={`${layout.imageOrder === 1 ? "lg:order-1" : "lg:order-2"} ${layout.imageOffset} h-full`}
           style={{ y: imageY, opacity: imageOpacity, scale: imageScale }}
         >
           <motion.div
-            className={`relative w-full ${layout.imageSize} overflow-visible group`}
+            className="relative w-full h-full overflow-visible group"
             variants={imageVariants}
             initial="initial"
             animate="animate"
@@ -149,7 +149,6 @@ const FeatureSection = ({ feature, Icon, layout, index, animationStyle }: Featur
             style={{
               transformStyle: "preserve-3d",
               perspective: "1000px",
-              transform: "scale(2.5)",
             }}
           >
             {/* Placeholder for image - replace with actual image when available */}
@@ -158,7 +157,7 @@ const FeatureSection = ({ feature, Icon, layout, index, animationStyle }: Featur
                 <motion.img
                   src={feature.imagePath}
                   alt={feature.title}
-                  className="relative z-10 w-full h-auto object-contain transition-all duration-500"
+                  className="relative z-10 w-full h-full object-contain transition-all duration-500"
                   whileHover={{ scale: 1.05 }}
                 />
               </>
@@ -348,31 +347,31 @@ const Functionalities = () => {
               const layouts = [
                 { 
                   imageOrder: 1, 
-                  imageSize: "h-auto", 
+                  imageSize: "h-full", 
                   gridCols: "lg:grid-cols-[1.2fr_1fr]",
                   imageOffset: ""
                 },
                 { 
                   imageOrder: 2, 
-                  imageSize: "h-auto", 
+                  imageSize: "h-full", 
                   gridCols: "lg:grid-cols-[1fr_1.2fr]",
                   imageOffset: "lg:mt-8"
                 },
                 { 
                   imageOrder: 1, 
-                  imageSize: "h-auto", 
+                  imageSize: "h-full", 
                   gridCols: "lg:grid-cols-2",
                   imageOffset: ""
                 },
                 { 
                   imageOrder: 2, 
-                  imageSize: "h-auto", 
+                  imageSize: "h-full", 
                   gridCols: "lg:grid-cols-[1.1fr_0.9fr]",
                   imageOffset: "lg:-mt-8"
                 },
                 { 
                   imageOrder: 1, 
-                  imageSize: "h-auto", 
+                  imageSize: "h-full", 
                   gridCols: "lg:grid-cols-[0.9fr_1.1fr]",
                   imageOffset: "lg:mt-12"
                 }
