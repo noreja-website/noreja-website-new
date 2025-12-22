@@ -556,7 +556,7 @@ export interface Translations {
   buttons: {
     contactUs: string;
   };
-  maintenance: {
+  maintenance?: {
     title: string;
     subtitle: string;
     message: string;
@@ -1931,11 +1931,6 @@ export const translations: Record<Language, Translations> = {
     },
     buttons: {
       contactUs: "Kontakt"
-    },
-    maintenance: {
-      title: "Wartungsarbeiten",
-      subtitle: "Wir führen derzeit geplante Wartungsarbeiten durch",
-      message: "Unsere Plattform ist vorübergehend nicht verfügbar, während wir Updates und Verbesserungen bereitstellen. Wir sind in Kürze wieder online. Vielen Dank für Ihr Verständnis."
     }
   }
 };
