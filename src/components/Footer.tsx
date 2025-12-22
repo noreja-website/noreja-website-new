@@ -22,10 +22,15 @@ export function Footer() {
   const legalLinks = [
     { name: t.footer.legal.imprint, routeKey: 'imprint' as const, external: false },
     { name: t.footer.legal.privacy, routeKey: 'privacy' as const, external: false },
-    { name: t.footer.legal.trustCenter, href: "https://app.kertos.io/trust-center/norejaintelligencegmbh", external: true }
+    { name: t.footer.legal.trustCenter, href: "https://trust.noreja.com/", external: true }
   ];
 
-  const contactFormLink = {
+  const contactFormLink: {
+    name: string;
+    routeKey?: 'contact';
+    href?: string;
+    external: boolean;
+  } = {
     name: t.footer.contact.contactForm,
     routeKey: 'contact' as const,
     external: false
@@ -150,7 +155,7 @@ export function Footer() {
           <div className="md:col-span-1">
             <h3 className="font-semibold mb-4">{t.footer.sections.contact}</h3>
             <div className="flex flex-col space-y-2">
-              {contactFormLink.external ? (
+              {contactFormLink.external && contactFormLink.href ? (
                 <a
                   href={contactFormLink.href}
                   target="_blank"
@@ -159,14 +164,14 @@ export function Footer() {
                 >
                   {contactFormLink.name}
                 </a>
-              ) : (
+              ) : contactFormLink.routeKey ? (
                 <Link
                   to={getRoutePath(contactFormLink.routeKey, language)}
                   className="text-muted-foreground hover:text-primary transition-fast text-sm"
                 >
                   {contactFormLink.name}
                 </Link>
-              )}
+              ) : null}
               <a
                 href={bookAppointmentLink.href}
                 target="_blank"
