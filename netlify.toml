@@ -52,7 +52,22 @@
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
 
+# Headers for sitemap.xml
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+    Content-Type = "application/xml"
+
 # --- FIX FOR SPA ROUTING ---
+# Allow sitemap.xml to be served directly (must be before catch-all)
+[[redirects]]
+  from = "/sitemap.xml"
+  to = "/sitemap.xml"
+  status = 200
+  force = false
+
+# Catch-all redirect for SPA (must be last)
 [[redirects]]
   from = "/*"
   to = "/index.html"
