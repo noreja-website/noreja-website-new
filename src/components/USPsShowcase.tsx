@@ -8,11 +8,12 @@ import fastIcon from "@/assets/icons/fast.png";
 import realityIcon from "@/assets/icons/reality.png";
 import multidimensionalIcon from "@/assets/icons/multidimensional.png";
 import contextIcon from "@/assets/icons/context.png";
+import { getRoutePath } from "@/lib/routes";
 
 export function USPsShowcase() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const isMobile = useIsMobile();
   const [selectedCard, setSelectedCard] = useState<number | null>(null);
   const [flippedCards, setFlippedCards] = useState<Set<number>>(new Set());
@@ -141,7 +142,7 @@ export function USPsShowcase() {
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
             {t.usps.subtitle}
           </p>
-          <Link to="/contact">
+          <Link to={getRoutePath('contact', language)}>
             <Button size="lg" className="gradient-primary glow-primary">
               {t.hero.ctaSecondary}
             </Button>

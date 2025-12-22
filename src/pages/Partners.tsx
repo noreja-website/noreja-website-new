@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { HubSpotContactForm } from "@/components/HubSpotContactForm";
 import { AnimatedHeading } from "@/components/AnimatedHeading";
 import { AnimatedGridBackground } from "@/components/AnimatedGridBackground";
+import { getRoutePath } from "@/lib/routes";
 
 export default function Partners() {
   const { t, language } = useLanguage();
@@ -354,7 +355,7 @@ export default function Partners() {
                     className="group"
                     asChild
                   >
-                    <Link to="/success-stories">
+                    <Link to={getRoutePath('successStories', language)}>
                       {t.pages.partners.successStoriesCta.buttonLabel}
                       <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                     </Link>

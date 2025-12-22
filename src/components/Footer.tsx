@@ -3,30 +3,31 @@ import { motion } from "framer-motion";
 import { Linkedin, Twitter, Youtube } from "lucide-react";
 import { siteConfig } from "@/lib/config";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { getRoutePath } from "@/lib/routes";
 import logo from "@/assets/noreja_logo_white.png";
 import isoBadge from "@/assets/privacy/iso_white.png";
 import gdprBadge from "@/assets/privacy/gdpr_white.png";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const resourcesLinks = [
-    { name: t.navigation.team, href: "/team", external: false },
-    { name: t.navigation.downloads, href: "/downloads", external: false },
-    { name: t.navigation.events, href: "/events", external: false },
+    { name: t.navigation.team, routeKey: 'team' as const, external: false },
+    { name: t.navigation.downloads, routeKey: 'downloads' as const, external: false },
+    { name: t.navigation.events, routeKey: 'events' as const, external: false },
     { name: t.footer.sections.referralProgram, href: siteConfig.links.referralProgram, external: true }
   ];
 
   const legalLinks = [
-    { name: t.footer.legal.imprint, href: "/imprint", external: false },
-    { name: t.footer.legal.privacy, href: "/privacy", external: false },
+    { name: t.footer.legal.imprint, routeKey: 'imprint' as const, external: false },
+    { name: t.footer.legal.privacy, routeKey: 'privacy' as const, external: false },
     { name: t.footer.legal.trustCenter, href: "https://app.kertos.io/trust-center/norejaintelligencegmbh", external: true }
   ];
 
   const contactFormLink = {
     name: t.footer.contact.contactForm,
-    href: "/contact",
+    routeKey: 'contact' as const,
     external: false
   };
   
@@ -42,7 +43,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
           {/* Brand */}
           <div className="md:col-span-1">
-            <Link to="/" className="flex items-center mb-4">
+            <Link to={getRoutePath('home', language)} className="flex items-center mb-4">
               <motion.img
                 src={logo}
                 alt="Noreja Logo"
@@ -106,8 +107,8 @@ export function Footer() {
                   </a>
                 ) : (
                   <Link
-                    key={item.href}
-                    to={item.href}
+                    key={item.routeKey}
+                    to={getRoutePath(item.routeKey, language)}
                     className="text-muted-foreground hover:text-primary transition-fast text-sm"
                   >
                     {item.name}
@@ -134,8 +135,8 @@ export function Footer() {
                   </a>
                 ) : (
                   <Link
-                    key={item.href}
-                    to={item.href}
+                    key={item.routeKey}
+                    to={getRoutePath(item.routeKey, language)}
                     className="text-muted-foreground hover:text-primary transition-fast text-sm"
                   >
                     {item.name}
@@ -160,7 +161,7 @@ export function Footer() {
                 </a>
               ) : (
                 <Link
-                  to={contactFormLink.href}
+                  to={getRoutePath(contactFormLink.routeKey, language)}
                   className="text-muted-foreground hover:text-primary transition-fast text-sm"
                 >
                   {contactFormLink.name}

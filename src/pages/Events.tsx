@@ -8,6 +8,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { getUpcomingEvents, getPastEvents, getEventDescription, type EventData } from '@/lib/events';
 import { EventSchema } from '@/components/EventSchema';
+import { Link } from 'react-router-dom';
+import { getRoutePath } from '@/lib/routes';
 
 const Events = () => {
   const { t, language } = useLanguage();
@@ -184,10 +186,10 @@ const Events = () => {
           {t.events.noUpcomingDescription}
         </p>
         <Button asChild>
-          <a href="/contact" className="flex items-center gap-2">
+          <Link to={getRoutePath('contact', language)} className="flex items-center gap-2">
             {t.events.subscribeNewsletter}
             <ExternalLink className="h-4 w-4" />
-          </a>
+          </Link>
         </Button>
       </div>
     </motion.div>

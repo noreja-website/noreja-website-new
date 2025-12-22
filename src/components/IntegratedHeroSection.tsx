@@ -6,9 +6,10 @@ import { siteConfig } from "@/lib/config";
 import { Link } from "react-router-dom";
 import graphThreeNodes from "@/assets/graph_three_nodes.png";
 import { AnimatedHeading } from "@/components/AnimatedHeading";
+import { getRoutePath } from "@/lib/routes";
 
 export function IntegratedHeroSection() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   
   // Typing animation for words
   const rotatingWords = ["Transparent", "Understandable", "Efficient", "Compliant"];
@@ -86,7 +87,7 @@ export function IntegratedHeroSection() {
               className="border-primary/30 hover:bg-primary/10"
               asChild
             >
-              <Link to="/functionalities">
+              <Link to={getRoutePath('functionalities', language)}>
                 {t.hero.learnMore}
               </Link>
             </Button>

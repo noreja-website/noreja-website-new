@@ -10,11 +10,13 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { Link } from "react-router-dom";
+import { getRoutePath } from "@/lib/routes";
 
 export function FunctionalitiesTeaser() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const features = [
     {
@@ -63,10 +65,10 @@ export function FunctionalitiesTeaser() {
             {t.functionalities.subtitle}
           </p>
           <Button asChild size="lg" className="gradient-primary glow-primary group">
-            <a href="/functionalities">
+            <Link to={getRoutePath('functionalities', language)}>
               {t.functionalities.exploreFeatures}
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </a>
+            </Link>
           </Button>
         </motion.div>
 

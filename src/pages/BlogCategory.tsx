@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Link, useParams } from "react-router-dom";
+import { getRoutePath } from "@/lib/routes";
 
 interface BlogPost {
   id: number;
@@ -18,7 +19,7 @@ interface BlogPost {
 }
 
 export default function BlogCategory() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { category } = useParams<{ category: string }>();
 
   // Map category parameter to category key
@@ -153,7 +154,7 @@ export default function BlogCategory() {
             transition={{ duration: 0.8 }}
             className="mb-8"
           >
-            <Link to="/blog">
+            <Link to={getRoutePath('blog', language)}>
               <Button variant="ghost" className="mb-6 text-noreja-main hover:bg-noreja-main/10">
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back to Blog

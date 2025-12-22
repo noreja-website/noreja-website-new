@@ -4,11 +4,13 @@ import { ArrowRight, ChevronLeft, ChevronRight, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { partners, initializePartnersData, type Partner } from "@/lib/partners";
+import { Link } from "react-router-dom";
+import { getRoutePath } from "@/lib/routes";
 
 export function PartnersTeaser() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [loadedPartners, setLoadedPartners] = useState<Partner[]>([]);
   
   // Initialize partners data on mount
@@ -246,10 +248,10 @@ export function PartnersTeaser() {
           className="text-center"
         >
           <Button asChild size="lg" variant="outline" className="border-primary/30 hover:bg-primary/10">
-            <a href="/partners">
+            <Link to={getRoutePath('partners', language)}>
               {t.partners.viewAllPartners}
               <ArrowRight className="ml-2 h-4 w-4" />
-            </a>
+            </Link>
           </Button>
         </motion.div>
       </div>

@@ -9,6 +9,7 @@ import { useCases } from "@/lib/useCases";
 import { Card, CardContent } from "@/components/ui/card";
 import { DownloadGateInline } from "@/components/DownloadGate";
 import { getWhitepaperForUseCase } from "@/lib/downloads";
+import { getRoutePath } from "@/lib/routes";
 
 const UseCase = () => {
   const { useCaseName } = useParams<{ useCaseName: string }>();
@@ -37,7 +38,7 @@ const UseCase = () => {
           <p className="text-muted-foreground">
             {useCaseName ? `Use case "${useCaseName}" not found.` : "No use case name provided."}
           </p>
-          <Link to="/success-stories">
+          <Link to={getRoutePath('successStories', language)}>
             <Button>Back to Success Stories</Button>
           </Link>
         </div>
@@ -66,7 +67,7 @@ const UseCase = () => {
               transition={{ duration: 0.8 }}
               className="mb-8"
             >
-              <Link to="/success-stories">
+              <Link to={getRoutePath('successStories', language)}>
                 <Button variant="ghost" className="mb-6">
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Back to Success Stories
@@ -269,7 +270,7 @@ const UseCase = () => {
                       variant="default"
                       asChild
                     >
-                      <Link to="/contact">
+                      <Link to={getRoutePath('contact', language)}>
                         {t.pages.useCases?.cta?.buttonLabel || "Get Started"}
                       </Link>
                     </Button>
@@ -278,7 +279,7 @@ const UseCase = () => {
                       variant="outline"
                       asChild
                     >
-                      <Link to="/success-stories">
+                      <Link to={getRoutePath('successStories', language)}>
                         {t.pages.useCases?.cta?.secondaryButtonLabel || "View More Success Stories"}
                       </Link>
                     </Button>

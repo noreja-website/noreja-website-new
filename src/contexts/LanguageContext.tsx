@@ -1,5 +1,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Language, translations, Translations } from '@/lib/translations';
+import { getLanguageFromPath, translateRoute } from '@/lib/routes';
 
 interface LanguageContextType {
   language: Language;
@@ -13,16 +15,33 @@ interface LanguageProviderProps {
   children: ReactNode;
 }
 
-export function LanguageProvider({ children }: LanguageProviderProps) {
-  const [language, setLanguageState] = useState<Language>(() => {
-    // Get saved language from localStorage or default to English
-    const saved = localStorage.getItem('language') as Language;
-    return saved && (saved === 'en' || saved === 'de') ? saved : 'en';
-  });
+// Inner component that uses router hooks
+function LanguageProviderInner({ children }: LanguageProviderProps) {
+  const location = useLocation();
+  const navigate = useNavigate();
+  
+  // Detect language from URL path
+  const urlLanguage = getLanguageFromPath(location.pathname);
+  
+  const [language, setLanguageState] = useState<Language>(urlLanguage);
+
+  // Sync language state with URL changes
+  useEffect(() => {
+    const newLanguage = getLanguageFromPath(location.pathname);
+    if (newLanguage !== language) {
+      setLanguageState(newLanguage);
+    }
+  }, [location.pathname, language]);
 
   const setLanguage = (lang: Language) => {
+    if (lang === language) return;
+    
     setLanguageState(lang);
     localStorage.setItem('language', lang);
+    
+    // Navigate to the same page in the new language
+    const newPath = translateRoute(location.pathname, lang);
+    navigate(newPath, { replace: true });
   };
 
   useEffect(() => {
@@ -41,6 +60,11 @@ export function LanguageProvider({ children }: LanguageProviderProps) {
       {children}
     </LanguageContext.Provider>
   );
+}
+
+// Outer provider that doesn't use router hooks
+export function LanguageProvider({ children }: LanguageProviderProps) {
+  return <LanguageProviderInner>{children}</LanguageProviderInner>;
 }
 
 export function useLanguage() {

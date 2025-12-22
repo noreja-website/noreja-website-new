@@ -10,6 +10,7 @@ import { useCases } from "@/lib/useCases";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from "@/components/ui/carousel";
 import { useEffect, useState } from "react";
 import { AnimatedHeading } from "@/components/AnimatedHeading";
+import { getRoutePath } from "@/lib/routes";
 
 const SuccessStories = () => {
   const { t, language } = useLanguage();
@@ -192,7 +193,7 @@ const SuccessStories = () => {
                                 className="w-auto bg-white/10 border-white/30 text-white hover:bg-white/20 hover:border-white/50 transition-all"
                                 asChild
                               >
-                                <Link to={`/success-stories/${story.id}`}>
+                                <Link to={getRoutePath('successStoryDetail', language, { companyName: story.id })}>
                                   {t.pages.successStories.readCaseStudy}
                                   <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
                                 </Link>
@@ -265,7 +266,7 @@ const SuccessStories = () => {
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   viewport={{ once: true }}
                 >
-                  <Link to={`/use-cases/${useCase.id}`}>
+                  <Link to={getRoutePath('useCases', language, { useCaseName: useCase.id })}>
                     <Card className="h-full group hover:shadow-lg transition-all duration-300 cursor-pointer border-border/30 hover:border-noreja-main/40 hover:scale-105">
                       <CardContent className="p-6 text-center">
                         <div className="flex justify-center mb-4">
@@ -324,7 +325,7 @@ const SuccessStories = () => {
                   className="group"
                   asChild
                 >
-                  <Link to="/partners">
+                  <Link to={getRoutePath('partners', language)}>
                     {t.pages.successStories.partnerSection.buttonLabel}
                     <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                   </Link>

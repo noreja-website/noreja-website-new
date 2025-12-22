@@ -9,6 +9,7 @@ import { successStories, type SuccessStoryDetailItem } from "@/lib/successStorie
 import { downloadAssets, type DownloadAsset } from "@/lib/downloads";
 import { DownloadGate } from "@/components/DownloadGate";
 import { ArrowRight } from "lucide-react";
+import { getRoutePath } from "@/lib/routes";
 
 // Helper function to format text with markdown and HTML support
 const formatContent = (text: string): string => {
@@ -162,7 +163,7 @@ const SuccessStoryDetail = () => {
           <p className="text-muted-foreground">
             {companyName ? `Success story for "${companyName}" not found.` : "No company name provided."}
           </p>
-          <Link to="/success-stories">
+          <Link to={getRoutePath('successStories', language)}>
             <Button>Back to Success Stories</Button>
           </Link>
         </div>
@@ -191,7 +192,7 @@ const SuccessStoryDetail = () => {
               transition={{ duration: 0.8 }}
               className="mb-8"
             >
-              <Link to="/success-stories">
+              <Link to={getRoutePath('successStories', language)}>
                 <Button variant="ghost" className="mb-6">
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   {t.pages.successStories?.backButton || "Back to Success Stories"}
@@ -491,7 +492,7 @@ const SuccessStoryDetail = () => {
                     className="group"
                     asChild
                   >
-                    <Link to="/pricing">
+                    <Link to={getRoutePath('pricing', language)}>
                       {t.pages.successStories?.pricingCta?.buttonLabel || "Zu den Preisen"}
                       <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                     </Link>

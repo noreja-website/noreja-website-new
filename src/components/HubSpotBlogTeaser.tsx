@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
 import { ExternalLink } from 'lucide-react';
+import { getRoutePath } from '@/lib/routes';
 
 interface BlogPost {
   title: string;
@@ -276,7 +277,7 @@ export function HubSpotBlogTeaser({ maxItems = 3 }: HubSpotBlogTeaserProps) {
                 className="min-h-[44px] w-full sm:w-auto"
                 asChild
               >
-                <Link to="/blog" className="inline-flex items-center gap-2">
+                <Link to={getRoutePath('blog', language)} className="inline-flex items-center gap-2">
                   {t.blog.openBlog}
                 </Link>
               </Button>

@@ -7,6 +7,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { AnimatedHeading } from "@/components/AnimatedHeading";
+import { getRoutePath } from "@/lib/routes";
 
 interface BlogPost {
   title: string;
@@ -50,7 +51,7 @@ export default function Blog() {
       title: t.blog.features.innovation.title,
       description: t.blog.features.innovation.description,
       color: 'bg-gradient-to-br from-noreja-main to-noreja-secondary',
-      href: '/blog/innovation'
+      category: 'innovation'
     },
     {
       key: 'technical',
@@ -58,7 +59,7 @@ export default function Blog() {
       title: t.blog.features.technical.title,
       description: t.blog.features.technical.description,
       color: 'bg-gradient-to-br from-noreja-secondary to-noreja-tertiary',
-      href: '/blog/technical'
+      category: 'technical'
     },
     {
       key: 'analysis',
@@ -66,7 +67,7 @@ export default function Blog() {
       title: t.blog.features.analysis.title,
       description: t.blog.features.analysis.description,
       color: 'bg-gradient-to-br from-noreja-main to-noreja-tertiary',
-      href: '/blog/analysis'
+      category: 'analysis'
     },
     {
       key: 'caseStudies',
@@ -74,7 +75,7 @@ export default function Blog() {
       title: t.blog.features.caseStudies.title,
       description: t.blog.features.caseStudies.description,
       color: 'bg-gradient-to-br from-noreja-tertiary to-noreja-secondary',
-      href: '/blog/case-studies'
+      category: 'case-studies'
     }
   ];
 
@@ -277,7 +278,7 @@ export default function Blog() {
                         {category.description}
                       </p>
                       <div className="mt-auto">
-                        <Link to={category.href}>
+                        <Link to={getRoutePath('blogCategory', language, { category: category.category })}>
                           <Button 
                             variant="outline" 
                             className="w-full border-noreja-main/30 hover:bg-noreja-main/10 group-hover:border-noreja-main/50"

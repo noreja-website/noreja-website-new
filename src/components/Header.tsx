@@ -5,6 +5,7 @@ import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { getRoutePath } from "@/lib/routes";
 import logo from "@/assets/noreja_logo_white.png";
 
 // Compact mobile language switcher
@@ -57,18 +58,19 @@ function MobileLanguageSwitcher() {
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
-  const isActive = (href: string) => location.pathname === href;
+  const isActive = (routeKey: keyof typeof import('@/lib/routes').routes) => {
+    const routePath = getRoutePath(routeKey, language);
+    return location.pathname === routePath || location.pathname.startsWith(routePath + '/');
+  };
 
   const navigationItems = [
-    {/* name: "Startseite 2", href: "/startseite-2" },
-    { name: "Startseite 3", href: "/startseite-3" */},
-    { name: t.navigation.functionalities, href: "/functionalities" },
-    { name: t.navigation.pricing, href: "/pricing" },
-    { name: t.navigation.successStories, href: "/success-stories" },
-    { name: t.navigation.partners, href: "/partners" },
-    { name: t.navigation.blog, href: "/blog" }
+    { name: t.navigation.functionalities, routeKey: 'functionalities' as const },
+    { name: t.navigation.pricing, routeKey: 'pricing' as const },
+    { name: t.navigation.successStories, routeKey: 'successStories' as const },
+    { name: t.navigation.partners, routeKey: 'partners' as const },
+    { name: t.navigation.blog, routeKey: 'blog' as const }
   ];
 
   return (
@@ -76,7 +78,7 @@ export function Header() {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center">
+          <Link to={getRoutePath('home', language)} className="flex items-center">
             <motion.img
               src={logo}
               alt="Noreja Logo"
@@ -88,25 +90,28 @@ export function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            {navigationItems.map((item) => (
-              <Link
-                key={item.href}
-                to={item.href}
-                className={`text-sm font-medium transition-fast ${
-                  isActive(item.href)
-                    ? "text-[hsl(256,77%,72%)]"
-                    : "text-muted-foreground hover:text-[hsl(256,77%,72%)]"
-                }`}
-              >
-                {item.name}
-              </Link>
-            ))}
+            {navigationItems.map((item) => {
+              const href = getRoutePath(item.routeKey, language);
+              return (
+                <Link
+                  key={item.routeKey}
+                  to={href}
+                  className={`text-sm font-medium transition-fast ${
+                    isActive(item.routeKey)
+                      ? "text-[hsl(256,77%,72%)]"
+                      : "text-muted-foreground hover:text-[hsl(256,77%,72%)]"
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Language Switcher and CTA */}
           <div className="hidden md:flex items-center space-x-4">
             <LanguageSwitcher />
-            <Link to="/contact">
+            <Link to={getRoutePath('contact', language)}>
               <Button size="sm" className="gradient-primary glow-primary">
                 {t.buttons.contactUs}
               </Button>
@@ -133,22 +138,25 @@ export function Header() {
             className="md:hidden py-4 border-t border-border/40"
           >
             <nav className="flex flex-col space-y-4">
-              {navigationItems.map((item) => (
-                <Link
-                  key={item.href}
-                  to={item.href}
-                  className={`text-sm font-medium transition-fast ${
-                    isActive(item.href)
-                      ? "text-[hsl(256,77%,72%)]"
-                      : "text-muted-foreground hover:text-[hsl(256,77%,72%)]"
-                  }`}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              ))}
+              {navigationItems.map((item) => {
+                const href = getRoutePath(item.routeKey, language);
+                return (
+                  <Link
+                    key={item.routeKey}
+                    to={href}
+                    className={`text-sm font-medium transition-fast ${
+                      isActive(item.routeKey)
+                        ? "text-[hsl(256,77%,72%)]"
+                        : "text-muted-foreground hover:text-[hsl(256,77%,72%)]"
+                    }`}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                );
+              })}
               <div className="flex items-center justify-between pt-4">
-                <Link to="/contact">
+                <Link to={getRoutePath('contact', language)}>
                   <Button size="sm" className="gradient-primary">
                     {t.buttons.contactUs}
                   </Button>

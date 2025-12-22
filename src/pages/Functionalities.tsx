@@ -6,6 +6,7 @@ import { LayoutDashboard, Search, Brain, Wrench, Code, ArrowRight, LucideIcon } 
 import { AnimatedHeading } from "@/components/AnimatedHeading";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { getRoutePath } from "@/lib/routes";
 import dashboardImg from "@/assets/platform/dashboard.png";
 import analyzerImg from "@/assets/platform/analyzer.png";
 import minervaImg from "@/assets/platform/minerva.png";
@@ -501,7 +502,7 @@ const Functionalities = () => {
                     className="group"
                     asChild
                   >
-                    <Link to="/pricing">
+                    <Link to={getRoutePath('pricing', language)}>
                       {t.pages.functionalities.learnMoreCta}
                       <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                     </Link>
