@@ -1,3 +1,88 @@
-# from - to - status 
-# example:
-# /home / 301
+# ----------------------------
+# Canonical host (choose ONE)
+# If you want non-www canonical:
+# ----------------------------
+https://www.noreja.com/* https://noreja.com/:splat 301!
+
+
+# ----------------------------
+# Force HTTPS
+# ----------------------------
+http://noreja.com/* https://noreja.com/:splat 301!
+http://www.noreja.com/* https://noreja.com/:splat 301!
+
+
+# ----------------------------
+# Trailing-slash cleanup (claimed explicit from old sitemap)
+# NOTE: Keep only if the target without trailing slash exists (new sitemap).
+# ----------------------------
+/de/ https://noreja.com/de 301
+/en/ https://noreja.com/en 301
+/de/impressum/ https://noreja.com/de/impressum 301
+/en/imprint/ https://noreja.com/en/imprint 301
+/de/datenschutz/ https://noreja.com/de/datenschutz 301
+/en/privacy/ https://noreja.com/en/privacy 301
+/en/privacy-policy/ https://noreja.com/en/privacy 301
+/de/nutzungsbedingungen/ https://noreja.com/de/nutzungsbedingungen 301
+/en/terms/ https://noreja.com/en/terms 301
+/de/kontakt/ https://noreja.com/de/kontakt 301
+/en/contact/ https://noreja.com/en/contact 301
+/de/beratung/ https://noreja.com/de/kontakt 301
+/en/consulting/ https://noreja.com/en/contact 301
+/de/downloads/ https://noreja.com/de/downloads 301
+/en/downloads/ https://noreja.com/en/downloads 301
+/de/partner/ https://noreja.com/de/partner 301
+/en/partners/ https://noreja.com/en/partners 301
+/de/team/ https://noreja.com/de/team 301
+/de/team_de/ https://noreja.com/de/team 301
+/en/team/ https://noreja.com/en/team 301
+/de/success-stories/ https://noreja.com/de/success-stories 301
+/en/success-stories/ https://noreja.com/en/success-stories 301
+/de/preise/ https://noreja.com/de/preise 301
+/en/pricing/ https://noreja.com/en/pricing 301
+/de/plattform/ https://noreja.com/de/plattform 301
+/en/platform/ https://noreja.com/en/platform 301
+/de/noreja-funktionen/ https://noreja.com/de/plattform 301
+/en/noreja-features/ https://noreja.com/en/platform 301
+/de/veranstaltungen/ https://noreja.com/de/veranstaltungen 301
+/en/events/ https://noreja.com/en/events 301
+/de/neuigkeiten/ https://noreja.com/de/blog 301
+/en/news/ https://noreja.com/en/blog 301
+
+
+# ----------------------------
+# Old success stories / references -> new success story routes
+# ----------------------------
+/en/idm-optimizing-order-to-cash/ https://noreja.com/en/success-story/idm 301
+/de/idm-optimierung-des-o2c-prozesses/ https://noreja.com/de/success-story/idm 301
+
+/de/hector-claiming-success/ https://noreja.com/de/success-story/hector 301
+/en/hector-success-story/ https://noreja.com/en/success-story/hector 301
+
+/en/megatron-scm-scoping/ https://noreja.com/en/success-story/megatron 301
+/de/megatron-scm-scoping-2/ https://noreja.com/de/success-story/megatron 301
+
+/en/cib-transparency-in-hiring/ https://noreja.com/en/success-story/CIB 301
+/de/cib-transparenz-im-hiring/ https://noreja.com/de/success-story/CIB 301
+
+# ----------------------------
+# Old industry-focus pages -> new use-cases routes
+# ----------------------------
+/de/branchenfokus-versicherung/ https://noreja.com/de/use-cases/insurance 301
+/en/industry-focus-reshaping-insurance/ https://noreja.com/en/use-cases/insurance 301
+
+/de/branchenfokus-supply-chain/ https://noreja.com/de/use-cases/supply-chain 301
+/en/industry-focus-redefining-supply-chain/ https://noreja.com/en/use-cases/supply-chain 301
+
+/de/branchenfokus-manufacturing/ https://noreja.com/de/use-cases/manufacturing 301
+/en/industry-focus-transforming-manufacturing/ https://noreja.com/en/use-cases/manufacturing 301
+
+/de/branchenfokus-banking/ https://noreja.com/de/use-cases/banking 301
+/en/industry-focus-streamlining-banking/ https://noreja.com/en/use-cases/banking 301
+
+
+# ----------------------------
+# SPA fallback (ONLY if your Vite site is a SPA with client-side routing)
+# Keep last.
+# ----------------------------
+/* /index.html 200
