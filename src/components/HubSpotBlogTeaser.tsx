@@ -26,18 +26,101 @@ export function HubSpotBlogTeaser({ maxItems = 3 }: HubSpotBlogTeaserProps) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Detect if we're on localhost or production
-  const isLocalhost = window.location.hostname === 'localhost' || 
-                      window.location.hostname === '127.0.0.1' ||
-                      window.location.hostname === '::1';
-  
-  // Use http:// for localhost, https:// for production (Netlify)
-  const protocol = isLocalhost ? 'http' : 'https';
-  
   // HubSpot RSS Feed URLs - adjust based on language
   const RSS_FEED_URL = language === 'de' 
-    ? 'https://144242473.hs-sites-eu1.com/de-de/noreja-intelligence-gmbh-blog/rss.xml'
-    : `${protocol}://144242473.hs-sites-eu1.com/en/noreja-intelligence-blog/rss.xml`;
+    ? 'https://blog.noreja.com/de-de/rss.xml'
+    : 'https://blog.noreja.com/en/rss.xml';
+
+  // Helper function for resilient fetching with retry logic
+  const fetchWithRetry = async (
+    url: string,
+    options: RequestInit = {},
+    maxRetries = 3,
+    retryDelay = 1000,
+    timeout = 10000,
+    abortSignal?: AbortSignal
+  ): Promise<Response> => {
+    let lastError: Error | null = null;
+    
+    for (let attempt = 0; attempt < maxRetries; attempt++) {
+      try {
+        // Create AbortController for timeout
+        const timeoutController = new AbortController();
+        const timeoutId = setTimeout(() => timeoutController.abort(), timeout);
+        
+        // Combine timeout signal with component abort signal if provided
+        let combinedSignal: AbortSignal | undefined;
+        if (abortSignal) {
+          const combinedController = new AbortController();
+          const abortHandler = () => combinedController.abort();
+          const timeoutHandler = () => combinedController.abort();
+          
+          abortSignal.addEventListener('abort', abortHandler);
+          timeoutController.signal.addEventListener('abort', timeoutHandler);
+          
+          // Cleanup listeners after fetch completes or fails
+          const cleanup = () => {
+            abortSignal?.removeEventListener('abort', abortHandler);
+            timeoutController.signal.removeEventListener('abort', timeoutHandler);
+          };
+          
+          combinedSignal = combinedController.signal;
+          // Store cleanup function for later use
+          (combinedSignal as any)._cleanup = cleanup;
+        } else {
+          combinedSignal = timeoutController.signal;
+        }
+        
+        try {
+          const response = await fetch(url, {
+            ...options,
+            signal: combinedSignal,
+            mode: 'cors',
+            credentials: 'omit',
+          });
+          
+          clearTimeout(timeoutId);
+          // Cleanup signal listeners
+          if ((combinedSignal as any)?._cleanup) {
+            (combinedSignal as any)._cleanup();
+          }
+          
+          // Only retry on network errors or 5xx errors
+          if (!response.ok && response.status >= 500 && attempt < maxRetries - 1) {
+            await new Promise(resolve => setTimeout(resolve, retryDelay * (attempt + 1)));
+            continue;
+          }
+          
+          return response;
+        } catch (fetchError) {
+          clearTimeout(timeoutId);
+          // Cleanup signal listeners
+          if ((combinedSignal as any)?._cleanup) {
+            (combinedSignal as any)._cleanup();
+          }
+          throw fetchError;
+        }
+      } catch (error) {
+        lastError = error instanceof Error ? error : new Error('Unknown fetch error');
+        
+        // Don't retry on abort (timeout or component unmount) or client errors (4xx)
+        if (error instanceof Error && error.name === 'AbortError') {
+          if (abortSignal?.aborted) {
+            throw new Error('Request cancelled');
+          }
+          throw new Error('Request timeout');
+        }
+        
+        // Retry on network errors
+        if (attempt < maxRetries - 1) {
+          await new Promise(resolve => setTimeout(resolve, retryDelay * (attempt + 1)));
+          continue;
+        }
+      }
+    }
+    
+    throw lastError || new Error('Failed to fetch after retries');
+  };
 
   // Helper function to extract author name without email
   const extractAuthorName = (authorString: string | null | undefined): string | undefined => {
@@ -66,17 +149,26 @@ export function HubSpotBlogTeaser({ maxItems = 3 }: HubSpotBlogTeaserProps) {
   };
 
   useEffect(() => {
+    const abortController = new AbortController();
+    
     const fetchBlogPosts = async () => {
       try {
         setLoading(true);
         setError(null);
         
-        // Fetch RSS feed via CORS proxy or direct fetch
-        const response = await fetch(RSS_FEED_URL, {
-          headers: {
-            'Accept': 'application/rss+xml, application/xml, text/xml',
+        // Fetch RSS feed with retry logic
+        const response = await fetchWithRetry(
+          RSS_FEED_URL,
+          {
+            headers: {
+              'Accept': 'application/rss+xml, application/xml, text/xml',
+            },
           },
-        });
+          3, // maxRetries
+          1000, // retryDelay
+          10000, // timeout
+          abortController.signal // abortSignal
+        );
         
         if (!response.ok) {
           throw new Error(`Failed to fetch blog posts: ${response.status}`);
@@ -140,17 +232,29 @@ export function HubSpotBlogTeaser({ maxItems = 3 }: HubSpotBlogTeaserProps) {
           };
         });
         
-        setPosts(blogPosts);
+        if (!abortController.signal.aborted) {
+          setPosts(blogPosts);
+        }
       } catch (err) {
-        console.error('Error fetching blog posts:', err);
-        setError(err instanceof Error ? err.message : 'Failed to load blog posts');
+        if (!abortController.signal.aborted) {
+          console.error('Error fetching blog posts:', err);
+          const errorMessage = err instanceof Error ? err.message : 'Failed to load blog posts';
+          setError(errorMessage);
+        }
       } finally {
-        setLoading(false);
+        if (!abortController.signal.aborted) {
+          setLoading(false);
+        }
       }
     };
 
     fetchBlogPosts();
-  }, [maxItems, language]);
+    
+    // Cleanup: abort fetch if component unmounts
+    return () => {
+      abortController.abort();
+    };
+  }, [maxItems, language, RSS_FEED_URL]);
 
   const formatDate = (dateString: string) => {
     try {
