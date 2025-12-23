@@ -74,8 +74,8 @@
   status = 200
 
 [[redirects]]
-  from = "https://blog.noreja.com/*"
-  to = "https://noreja.com/de/blog/:splat"
+  from = "https://blog.noreja.com/"
+  to = "https://noreja.com/de/blog/"
   status = 301
   force = true
 
