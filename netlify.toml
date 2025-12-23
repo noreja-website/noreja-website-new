@@ -79,3 +79,9 @@
   status = 301
   force = true
 
+[[redirects]]
+  from = "https://blog.noreja.com"
+  to   = "https://noreja.com/de/blog"
+  status = 301
+  force = true
+
